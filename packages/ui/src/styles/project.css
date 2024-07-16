@@ -1,0 +1,73 @@
+.card-has-glow {
+  background: #1c1f24;
+  border-radius: 40px 40px 0 0;
+  border-top: 2px solid #f3ba2f;
+  box-shadow: 0 -4px 64px #fab82299;
+}
+
+.max-h-webApp {
+  max-height: min(100%, 43.5rem);
+}
+
+.user-tap-button-inner {
+  background: linear-gradient(180deg, #5a60ff, #3b40934f 49.53%, #1c1f24);
+  border-radius: 50%;
+  height: 300px;
+  padding: 15px;
+  position: relative;
+  width: 300px;
+}
+
+.user-tap-button-inner:before {
+  border: 1px solid rgba(90, 96, 255, 0.15);
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.user-tap-button-circle {
+  align-items: center;
+  background: #272a2f;
+  border: 1px solid rgba(39, 39, 39, 0);
+  border-radius: 50%;
+  box-shadow: 0 0 15px #304669;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 3;
+}
+
+.user-tap-button-circle:before {
+  background-color: #3763ff;
+  background: radial-gradient(circle, #3763ff 0, #3763ff00 80%);
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 100%;
+  left: right 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.flash {
+  animation: flash 1s infinite;
+}
