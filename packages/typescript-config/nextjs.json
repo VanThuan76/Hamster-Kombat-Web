@@ -5,7 +5,7 @@
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
     "module": "NodeNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "NodeNext",
     "allowJs": true,
     "jsx": "preserve",
     "noEmit": true,
