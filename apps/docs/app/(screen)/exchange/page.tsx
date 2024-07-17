@@ -13,10 +13,13 @@ import PlusSign from "@ui/components/motion/plus-sign"
 
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
+import { useRouter } from "next/navigation"
 
 
 export default function Page(): JSX.Element {
+    const router = useRouter()
     const [progress, setProgress] = useState(25)
+    const [translate, setTranslate] = useState({ x: 0, y: 0 });
     const [plusSigns, setPlusSigns] = useState<{ x: number; y: number }[]>([]);
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -26,13 +29,16 @@ export default function Page(): JSX.Element {
 
         setPlusSigns([...plusSigns, { x, y }]);
 
+        setTranslate({ x: 5, y: 5 });
+
         setTimeout(() => {
             setPlusSigns(current => current.slice(1));
+            setTranslate({ x: 0, y: 0 });
         }, 500);
     };
 
     return (
-        <div className="w-full max-h-webApp h-full relative overflow-y-auto overflow-hidden">
+        <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
                 <DialogTitle className="flex justify-start items-center gap-2">
                     <Avatar className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
@@ -79,23 +85,26 @@ export default function Page(): JSX.Element {
                     </div>
                 </DialogDescription>
             </DialogHeader>
-            <Card className="card-has-glow w-full min-h-[70%] h-full border-none">
+            <Card className="card-has-glow w-full min-h-full border-none">
                 <CardHeader>
                     <MotionContainer className="w-full flex flex-row justify-between items-center gap-2">
-                        <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl">
+                        <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer" onClick={() => router.push('/earn')}>
                             <Image src="/project/icon_daily_reward.png" alt="@card" width={56} height={56} />
                             <TypographySmall text="Danh sách nhiệm vụ" className="text-[10px] text-white" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
+                            <span className="text-[#8b8e93] text-[10px] my-2">07:03</span>
                         </div>
-                        <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl">
+                        <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer">
                             <Image src="/project/icon_daily_cipher.png" alt="@card" width={56} height={56} />
                             <TypographySmall text="Mật mã hàng ngày" className="text-[10px] text-white" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
+                            <span className="text-[#8b8e93] text-[10px] my-2">02:13</span>
                         </div>
-                        <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl">
+                        <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer" onClick={() => router.push('/mine')}>
                             <Image src="/project/icon_daily_combo.png" alt="@card" width={56} height={56} />
                             <TypographySmall text="Thẻ kết hợp hàng ngày" className="text-[10px] text-white" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
+                            <span className="text-[#8b8e93] text-[10px] my-2">19:03</span>
                         </div>
                     </MotionContainer>
                 </CardHeader>

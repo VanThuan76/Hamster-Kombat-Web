@@ -29,14 +29,14 @@ Turborepo starter **NextJS** with **Shadcn/UI** & **Tailwind CSS** pre-configure
 Clone the repository:
 
 ```sh
-git clone https://github.com/henriqpohl/turborepo-shadcn-ui-tailwindcss.git
+git clone https://github.com/VanThuan76/Hamster-Kombat-Web
 ```
 
 Install dependencies:
 
 ```sh
-cd turborepo-shadcn-ui-tailwindcss
-pnpm install
+cd `project`
+pnpm install (If you dontt have a package manager please install package pnpm)
 ```
 
 ## 📦 What's inside?
@@ -65,7 +65,7 @@ This Turborepo has some additional tools already setup for you:
 To build all apps and packages, run the following command:
 
 ```sh
-cd turborepo-shadcn-ui-tailwindcss
+cd `project`
 pnpm build
 ```
 
@@ -74,7 +74,7 @@ pnpm build
 To develop all apps and packages, run the following command:
 
 ```sh
-cd turborepo-shadcn-ui-tailwindcss
+cd `project`
 pnpm dev
 ```
 

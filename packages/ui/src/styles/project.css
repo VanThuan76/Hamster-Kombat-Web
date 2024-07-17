@@ -5,10 +5,6 @@
   box-shadow: 0 -4px 64px #fab82299;
 }
 
-.max-h-webApp {
-  max-height: min(100%, 43.5rem);
-}
-
 .user-tap-button-inner {
   background: linear-gradient(180deg, #5a60ff, #3b40934f 49.53%, #1c1f24);
   border-radius: 50%;
@@ -58,6 +54,43 @@
   top: 0;
   width: 100%;
 }
+.daily-combo-card {
+  cursor: pointer;
+  flex: 1 1;
+  height: 112px;
+  margin: 0 6px;
+  position: relative;
+}
+
+.daily-combo-card:before {
+  background: linear-gradient(180deg, #4146ff, #272a2f);
+  border-radius: 16px;
+  content: "";
+  display: block;
+  height: calc(100% + 2px);
+  left: -1px;
+  position: absolute;
+  top: -1px;
+  width: calc(100% + 2px);
+  z-index: 1;
+}
+
+.daily-combo-card-inner {
+  align-items: center;
+  background: #272a2f;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
 
 @keyframes flash {
   0%,
@@ -70,4 +103,66 @@
 }
 .flash {
   animation: flash 1s infinite;
+}
+.loading-launch-bottom {
+  align-items: center;
+  background: linear-gradient(180deg, transparent, #000 59.59%, #000);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 50vh;
+  padding: 80px 20px 40px;
+  text-align: center;
+  width: 100%;
+  z-index: 5;
+}
+
+.bg-button-mine {
+  background: linear-gradient(96deg, #5a60ff, #b65aff 99.09%);
+}
+
+.icon_earn {
+  height: 275px;
+  left: 50%;
+  position: absolute;
+  top: 100%;
+  transform: translate(-50%, 0%);
+  width: 275px;
+  z-index: 1;
+}
+
+.icon_earn_image {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, 80%);
+  z-index: 2;
+}
+
+.earn-item-icon > svg {
+  color: #4e4f50;
+  height: 24px;
+  width: 24px;
+}
+.mine-item-icon > svg {
+  height: 24px;
+  width: 24px;
+}
+.airdrop-item-icon > svg {
+  color: #ffffff80;
+  height: 24px;
+  width: 24px;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(0.98);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(0.98);
+  }
 }
