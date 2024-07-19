@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const MotionPlusSign = ({ x, y }: { x: number; y: number }) => {
+const MotionPlusSign = ({ x, y, type = 'plus' }: { x: number; y: number, type?: 'plus' | 'dot' }) => {
     return (
         <motion.div
             style={{ position: 'absolute', left: x, top: y, zIndex: 99 }}
@@ -12,7 +12,11 @@ const MotionPlusSign = ({ x, y }: { x: number; y: number }) => {
             exit={{ scale: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <span className="text-5xl text-white">+1</span>
+            {type === 'plus' ? (
+                <span className="text-5xl text-white">+1</span>
+            ) : (
+                <div className="w-[20px] h-[20px] bg-white rounded-full"></div>
+            )}
         </motion.div>
     );
 };
