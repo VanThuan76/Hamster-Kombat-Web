@@ -14,9 +14,11 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  root,
   children,
   navigator
 }: {
+  root: any;
   children: React.ReactNode;
   navigator: any;
 }): JSX.Element {
