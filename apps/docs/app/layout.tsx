@@ -25,8 +25,8 @@ export default function RootLayout({
       <link rel="icon" href="/project/icon_hamster-coin.png" sizes="any" />
       <body className={cn('flex flex-col items-center justify-between min-h-screen p-24 bg-indigo-500', robotoFlex.className)}>
         <Dialog open={true}>
-          <DialogContent className="!rounded-3xl !max-w-md h-[90%] md:h-[85%] bg-black !text-white border-none m-0 p-0 overflow-hidden">
-              {children}
+          <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
+            {children}
           </DialogContent>
         </Dialog>
       </body>

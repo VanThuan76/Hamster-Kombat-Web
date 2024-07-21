@@ -15,7 +15,7 @@ export default function Page(): JSX.Element {
     const [isOpenBonus, setIsOpenBonus] = useState(false)
 
     return (
-        <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center bg-black">
+        <div className="w-full h-screen relative space-y-2 overflow-y-auto p-5 text-center bg-black">
             <MotionContainer direction="right">
                 <TypographyLarge text="Mời bạn bè!" className="text-white text-[32px]" />
             </MotionContainer>

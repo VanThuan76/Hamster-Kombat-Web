@@ -85,7 +85,7 @@ export default function Page(): JSX.Element {
                     </div>
                 </DialogDescription>
             </DialogHeader>
-            <Card className="card-has-glow w-full min-h-[140vh] border-none">
+            <Card className="card-has-glow w-full min-h-[170%] border-none">
                 <CardHeader>
                     <MotionContainer className="w-full flex flex-col justify-end items-center gap-3">
                         <div className="w-full flex justify-end items-center gap-2">

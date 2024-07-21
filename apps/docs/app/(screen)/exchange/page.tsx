@@ -23,22 +23,30 @@ export default function Page(): JSX.Element {
     const router = useRouter()
     const [isSecretFeature, setSecretFeature] = useState(false)
     const [progress, setProgress] = useState(80)
-    const [translate, setTranslate] = useState({ x: 0, y: 0 });
     const [plusSigns, setPlusSigns] = useState<{ x: number; y: number }[]>([]);
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        card.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
 
-        setPlusSigns([...plusSigns, { x, y }]);
+        const xPlus = e.clientX - rect.left;
+        const yPlus = e.clientY - rect.top;
 
-        setTranslate({ x: 5, y: 5 });
+        requestAnimationFrame(() => {
+            setPlusSigns(current => [...current, { x: xPlus, y: yPlus }]);
 
-        setTimeout(() => {
-            setPlusSigns(current => current.slice(1));
-            setTranslate({ x: 0, y: 0 });
-        }, 500);
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 100);
+                setTimeout(() => {
+                    setPlusSigns(current => current.slice(1));
+                }, 300);
+            });
+        });
     };
 
     return (
@@ -88,7 +96,7 @@ export default function Page(): JSX.Element {
                     </div>
                 </DialogDescription>
             </DialogHeader>
-            <Card className="card-has-glow w-full min-h-full border-none">
+            <Card className="card-has-glow w-full min-h-[110vh] border-none">
                 <CardHeader>
                     <MotionContainer className="w-full flex flex-row justify-between items-center gap-2">
                         <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer" onClick={() => router.push('/earn')}>
@@ -141,7 +149,7 @@ export default function Page(): JSX.Element {
                             <TypographySmall text="+1.000.000" className="text-white text-[14px]" />
                         </Button>
                     </div>}
-                    <MotionContainer className={cn("relative user-tap-button-inner cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onClick={handleClick}>
+                    <MotionContainer className={cn("relative user-tap-button-inner cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onClick={handleCardClick}>
                         <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret')}>
                             <Image src="/project/ava_bronze.png" alt="avatar" width={268} height={268} className="z-30" />
                         </div>
@@ -150,7 +158,7 @@ export default function Page(): JSX.Element {
                         ))}
                     </MotionContainer>
                 </CardContent>
-                <CardFooter className="w-full flex justify-between items-center pb-0">
+                <CardFooter className="w-full flex justify-between items-center">
                     <div className="w-full flex justify-start items-center gap-1">
                         <Image src="/project/icon_flash.svg" alt="@flash" width={26} height={26} />
                         <TypographyLarge text="1000 / 1000" className="text-white text-base" />

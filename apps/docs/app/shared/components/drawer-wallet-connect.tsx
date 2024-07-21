@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react"
+import { TonConnectButton } from '@tonconnect/ui-react';
 
-import TonButton from "@ui/components/ton/button"
 import Drawer from "@ui/components/drawer"
 import MotionContainer from "@ui/components/motion/container"
 import TypographyLarge from "@ui/components/typography/large";
@@ -44,7 +44,7 @@ export default function DrawerWalletConnect(): JSX.Element {
                         <TypographyLarge text="Kết nối ví TON của bạn" className="text-white text-[32px] font-bold" />
                         <TypographySmall text="Kết nối ví tiền điện tử của bạn.  Nếu bạn chưa có, hãy tạo một cái trong tài khoản Telegram của bạn" className="text-white text-[14px] max-w-[280px] font-normal" />
                     </div>
-                    <TonButton />
+                    <TonConnectButton />
                 </div>
             </Drawer>
         </>
