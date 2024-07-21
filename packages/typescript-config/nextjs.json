@@ -11,6 +11,7 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./*"],
+      "@shared/*": ["../../apps/docs/app/shared/*"],
       "@ui/*": ["../../packages/ui/src/*"],
       "@ui/components/*": ["../../packages/ui/src/components/ui/*"],
       "@ui/components/ui/*": ["../../packages/ui/src/components/ui/*"]

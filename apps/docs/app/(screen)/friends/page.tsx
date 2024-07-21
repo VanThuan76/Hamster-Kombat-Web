@@ -1,13 +1,19 @@
 'use client'
 
 import Image from "next/image"
+import { useState } from "react"
 import { Button } from "@ui/components/button"
+import { cn } from "@ui/lib/utils"
 
 import MotionContainer from "@ui/components/motion/container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import listBonus from "@shared/constant/listBonus"
+
 export default function Page(): JSX.Element {
+    const [isOpenBonus, setIsOpenBonus] = useState(false)
+
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center bg-black">
             <MotionContainer direction="right">
@@ -36,16 +42,46 @@ export default function Page(): JSX.Element {
                     </div>
                 )
             })}
-            <div className="pt-2">
-                <TypographySmall text="Nhiều phần thưởng hơn" className="text-xl text-[#5a60ff] font-bold" />
-            </div>
+            {!isOpenBonus ?
+                <div className="pt-2" onClick={() => setIsOpenBonus(true)}>
+                    <TypographySmall text="Nhiều phần thưởng hơn" className="text-xl text-[#5a60ff] font-bold cursor-pointer" />
+                </div>
+                :
+                <div className="pt-2 flex flex-col justify-start items-start gap-2 cursor-pointer" onClick={() => setIsOpenBonus(false)} >
+                    <TypographySmall text="Bonus cho việc lên cấp" className="text-2xl text-white font-bold" />
+                    <div className="w-full flex justify-start items-start px-4 py-2">
+                        <TypographySmall text="Level" className="text-[14px] text-[#8b8e93] w-full text-left" />
+                        <TypographySmall text="For friend" className="text-[14px] text-[#8b8e93] w-full" />
+                        <TypographySmall text="Premium" className="text-[14px] text-[#8b8e93] w-full" />
+                    </div>
+                    {listBonus.map((item, i) => {
+                        return (
+                            <div className="w-full flex justify-between items-center px-4 py-2 bg-[#272a2f] rounded-2xl">
+                                <div className="flex justify-start items-center gap-2">
+                                    <div className={cn("w-[40px] h-[40px] bg-cover bg-no-repeat bg-center rounded-lg", `bg-[url(/project/bonus/bonus-${item.name.toLowerCase()}.jpg)]`)}>
+                                    </div>
+                                    <TypographySmall text={item.name} className="text-[12px] font-light" />
+                                </div>
+                                <div className="flex justify-center items-center gap-1">
+                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} />
+                                    <TypographySmall text={`+${item.for_friend}`} className="text-[14px] text-[#ffd337] ml-1" />
+                                </div>
+                                <div className="flex justify-center items-center gap-1">
+                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} />
+                                    <TypographySmall text={`+${item.premium}`} className="text-[14px] text-[#ffd337] ml-1" />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            }
             <div className="pt-2 w-full flex justify-between items-center">
                 <TypographySmall text="Danh sách bạn bè của bạn " className="text-base text-white" />
                 <div className="mine-item-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 800 800"><path d="M400 733.3c-82.1 0-161.1-30.1-222.2-84.9l-.1-.1-44.3-40V700c0 18.4-14.9 33.3-33.3 33.3S66.7 718.4 66.7 700V533.5c0-1.3.1-2.5.2-3.8.3-2.6.8-5.1 1.7-7.4v-.1c1.2-3.4 3-6.7 5.4-9.7l.1-.1.1-.1c.4-.5.9-1 1.3-1.5 3.2-3.5 7-6.1 11.1-7.9 3.8-1.7 7.9-2.7 12.3-2.8h167.9c18.4 0 33.3 14.9 33.3 33.3s-14.9 33.3-33.3 33.3h-80l35.6 32.1c48.9 43.8 112 67.9 177.7 67.9 147 0 266.7-119.6 266.7-266.7 0-18.4 14.9-33.3 33.3-33.3s33.3 14.9 33.3 33.3c0 45-8.8 88.6-26.2 129.8-16.8 39.7-40.8 75.3-71.4 105.9-30.6 30.6-66.2 54.6-105.9 71.4-41.3 17.4-84.9 26.2-129.9 26.2zm-300-300c-18.4 0-33.3-14.9-33.3-33.3 0-45 8.8-88.6 26.2-129.8 16.8-39.7 40.8-75.3 71.4-105.9 30.6-30.6 66.2-54.6 105.9-71.4C311.4 75.5 355 66.7 400 66.7c82.1 0 161.1 30.1 222.2 84.9l.1.1 44.3 40V100c0-18.4 14.9-33.3 33.3-33.3s33.3 14.9 33.3 33.3v166.5c0 1.2-.1 2.5-.2 3.7-.3 2.7-.9 5.2-1.7 7.6v.2c-1.2 3.4-3 6.6-5.3 9.5v.1l-.1.1c-.4.5-.9 1-1.3 1.5-3.2 3.5-6.9 6.1-11 7.9-4 1.8-8.5 2.8-13.1 2.9H533.3c-18.4 0-33.3-14.9-33.3-33.3s14.9-33.3 33.3-33.3h80l-35.6-32.1c-48.9-43.8-112-67.9-177.7-67.9C253 133.3 133.3 253 133.3 400c0 18.4-14.9 33.3-33.3 33.3z" fill="currentColor"></path></svg>
                 </div>
             </div>
-            <div className="pt-2 bg-[#272a2f] h-[80px] p-4 rounded-2xl text-center">
+            <div className="flex justify-center items-center pt-2 bg-[#272a2f] h-[80px] p-4 rounded-2xl text-center">
                 <TypographySmall text="Bạn chưa mời ai" className="font-bold text-[#4e4f50] text-base" />
             </div>
             <div className="w-[90%] fixed bottom-20 inset-x-0 mx-auto border border-transparent flex justify-between items-start gap-2">

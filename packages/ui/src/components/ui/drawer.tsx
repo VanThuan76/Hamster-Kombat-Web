@@ -1,117 +1,53 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { Drawer as DrawerPrimitive } from "vaul"
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import { cn } from "@ui/lib/utils"
+type DrawerProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
+    className?: string;
+};
 
-const Drawer = ({
-    shouldScaleBackground = true,
-    ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-    <DrawerPrimitive.Root
-        shouldScaleBackground={shouldScaleBackground}
-        {...props}
-    />
-)
-Drawer.displayName = "Drawer"
+const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, children, className }) => {
+    return (
+        <>
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: '100%' }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: '100%' }}
+                        transition={{ duration: 0.3 }}
+                        className={`fixed bottom-0 left-0 z-[10000] bg-[#1c1f24] border rounded-t-lg ${className}`}
+                    >
+                        <div className="p-4 z-[10001]">
+                            <button
+                                onClick={onClose}
+                                className="absolute top-4 right-4 text-[#4e4f50] hover:text-gray-700"
+                            >
+                                <svg className='w-[32px] h-[32px]' xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-7.2 2.2C6.6 6.6 5 8.6 4 11s-1.2 5-.7 7.5 1.7 4.8 3.6 6.7c1.8 1.8 4.1 3.1 6.7 3.6 2.4.5 5 .2 7.4-.8a13 13 0 0 0 5.8-4.8c1.4-2.1 2.2-4.7 2.2-7.2 0-3.4-1.4-6.8-3.8-9.2C22.8 4.4 19.4 3 16 3zm4.7 16.3c.1.1.2.2.2.3.1.1.1.3.1.4s0 .3-.1.4c-.1.1-.1.2-.2.3-.1.1-.2.2-.3.2-.1.1-.3.1-.4.1s-.3 0-.4-.1c-.1-.1-.2-.1-.3-.2L16 17.4l-3.3 3.3c-.1.1-.2.2-.3.2s-.3.1-.4.1-.3 0-.4-.1-.2-.1-.3-.2c-.1-.1-.2-.2-.2-.3-.1-.1-.1-.3-.1-.4s0-.3.1-.4c.1-.1.1-.2.2-.3l3.3-3.3-3.3-3.3c-.2-.2-.3-.4-.3-.7s.1-.5.3-.7c.2-.2.4-.3.7-.3s.5.1.7.3l3.3 3.3 3.3-3.3c.1-.1.2-.2.3-.2.1-.1.3-.1.4-.1s.3 0 .4.1c.1.1.2.1.3.2.1.1.2.2.2.3s.1.3.1.4 0 .3-.1.4-.1.2-.2.3L17.4 16l3.3 3.3z" fill="currentColor"></path></svg>
+                            </button>
+                            {children}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.5 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed inset-0 bg-black/50 z-40"
+                        onClick={onClose}
+                    />
+                )}
+            </AnimatePresence>
+        </>
+    );
+};
 
-const DrawerTrigger = DrawerPrimitive.Trigger
-
-const DrawerPortal = DrawerPrimitive.Portal
-
-const DrawerClose = DrawerPrimitive.Close
-
-const DrawerOverlay = React.forwardRef<
-    React.ElementRef<typeof DrawerPrimitive.Overlay>,
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-    <DrawerPrimitive.Overlay
-        ref={ref}
-        className={cn("fixed inset-0 z-50 bg-black/80", className)}
-        {...props}
-    />
-))
-DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
-
-const DrawerContent = React.forwardRef<
-    React.ElementRef<typeof DrawerPrimitive.Content>,
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-    <DrawerPortal>
-        <DrawerOverlay />
-        <DrawerPrimitive.Content
-            ref={ref}
-            className={cn(
-                "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
-                className
-            )}
-            {...props}
-        >
-            {children}
-        </DrawerPrimitive.Content>
-    </DrawerPortal>
-))
-DrawerContent.displayName = "DrawerContent"
-
-const DrawerHeader = ({
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-    <div
-        className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
-        {...props}
-    />
-)
-DrawerHeader.displayName = "DrawerHeader"
-
-const DrawerFooter = ({
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-    <div
-        className={cn("mt-auto flex flex-col gap-2 p-4", className)}
-        {...props}
-    />
-)
-DrawerFooter.displayName = "DrawerFooter"
-
-const DrawerTitle = React.forwardRef<
-    React.ElementRef<typeof DrawerPrimitive.Title>,
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
->(({ className, ...props }, ref) => (
-    <DrawerPrimitive.Title
-        ref={ref}
-        className={cn(
-            "text-lg font-semibold leading-none tracking-tight",
-            className
-        )}
-        {...props}
-    />
-))
-DrawerTitle.displayName = DrawerPrimitive.Title.displayName
-
-const DrawerDescription = React.forwardRef<
-    React.ElementRef<typeof DrawerPrimitive.Description>,
-    React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
->(({ className, ...props }, ref) => (
-    <DrawerPrimitive.Description
-        ref={ref}
-        className={cn("text-sm text-muted-foreground", className)}
-        {...props}
-    />
-))
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName
-
-export {
-    Drawer,
-    DrawerPortal,
-    DrawerOverlay,
-    DrawerTrigger,
-    DrawerClose,
-    DrawerContent,
-    DrawerHeader,
-    DrawerFooter,
-    DrawerTitle,
-    DrawerDescription,
-}
+export default Drawer;
