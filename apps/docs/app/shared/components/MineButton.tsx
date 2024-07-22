@@ -8,7 +8,11 @@ import PlusSign from "@ui/components/motion/PlusSign"
 import MotionContainer from "@ui/components/motion/container"
 import AnimatePresenceWrapper from "@ui/components/motion/AnimatePresenceWrapper"
 
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
+
 const MineButton = ({ isSecretFeature, handleIncreaseCoin }: { isSecretFeature?: boolean, handleIncreaseCoin: any }) => {
+    const haptic = initHapticFeedback();
+
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
 
     const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -18,9 +22,7 @@ const MineButton = ({ isSecretFeature, handleIncreaseCoin }: { isSecretFeature?:
         const y = e.clientY - rect.top - rect.height / 2;
         card.style.transform = `perspective(1500px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
 
-        if (navigator.vibrate) {
-            navigator.vibrate(50);
-        }
+        haptic.impactOccurred('medium');
 
         const xPlus = e.clientX - rect.left;
         const yPlus = e.clientY - rect.top;

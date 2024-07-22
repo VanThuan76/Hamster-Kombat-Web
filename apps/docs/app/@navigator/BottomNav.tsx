@@ -9,7 +9,11 @@ import TypographySmall from "@ui/components/typography/small"
 
 import navItems from "@shared/constant/navItems";
 
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
+
 export const BottomNav = () => {
+    const haptic = initHapticFeedback();
+
     const path = usePathname();
     const checkPath = path.split("/")[1]; // Fixed
 
@@ -18,9 +22,7 @@ export const BottomNav = () => {
     }
 
     const handleLinkClick = () => {
-        if (navigator.vibrate) {
-            navigator.vibrate(50);
-        }
+        haptic.impactOccurred('medium');
     };
 
     return (
