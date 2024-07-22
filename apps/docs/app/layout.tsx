@@ -1,10 +1,10 @@
 import "@ui/styles/globals.css";
 import "@ui/styles/project.css";
+
 import type { Metadata } from "next";
 import { Roboto_Flex } from "next/font/google";
 import { Dialog, DialogContent } from "@ui/components/dialog"
 import { cn } from "@ui/lib/utils";
-
 
 const robotoFlex = Roboto_Flex({ subsets: ["latin"] });
 

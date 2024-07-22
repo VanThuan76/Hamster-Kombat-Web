@@ -1,12 +1,13 @@
 'use client'
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 import React from 'react';
+
 const { Swiper, SwiperSlide } = require('swiper/react');
 const { Navigation } = require('swiper/modules');
 import { cn } from "@ui/lib/utils"
-
-import 'swiper/css';
-import 'swiper/css/navigation';
 
 type DynamicNavigationSwiperProps = {
   items: React.ReactNode[];
@@ -16,11 +17,11 @@ type DynamicNavigationSwiperProps = {
 
 const DynamicNavigationSwiper: React.FC<DynamicNavigationSwiperProps> = ({ items, className, onSlideChange }) => {
   return (
-    <Swiper 
-        navigation={true} 
-        modules={[Navigation]} 
-        className={cn("swiper", className)}
-        onSlideChange={(swiper: any) => onSlideChange && onSlideChange(swiper.activeIndex)}
+    <Swiper
+      navigation={true}
+      modules={[Navigation]}
+      className={cn("swiper", className)}
+      onSlideChange={(swiper: any) => onSlideChange && onSlideChange(swiper.activeIndex)}
     >
       {items.map((item, index) => (
         <SwiperSlide key={index}>{item}</SwiperSlide>

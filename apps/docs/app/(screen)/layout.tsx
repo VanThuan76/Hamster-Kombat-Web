@@ -4,11 +4,14 @@ import '@telegram-apps/telegram-ui/dist/styles.css';
 
 import type { Metadata } from "next";
 import { Roboto_Flex } from "next/font/google";
+import ReduxProvider from "@shared/redux/Provider";
+
 import { Dialog, DialogContent, DialogFooter } from "@ui/components/dialog"
 import { cn } from "@ui/lib/utils";
 
-import { BottomNav } from "../@navigator/bottom-nav";
+import { BottomNav } from "../@navigator/BottomNav";
 import { RootContainer } from "../@root/RootContainer";
+import InitApp from "../@root/InitApp";
 
 const robotoFlex = Roboto_Flex({ subsets: ["latin"] });
 
@@ -31,7 +34,11 @@ export default function RootLayout({
                 <Dialog open={true}>
                     <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
                         <RootContainer>
-                            {children}
+                            <ReduxProvider>
+                                <InitApp>
+                                    {children}
+                                </InitApp>
+                            </ReduxProvider>
                         </RootContainer>
                         <DialogFooter className="relative w-full z-[5000]">
                             <BottomNav />

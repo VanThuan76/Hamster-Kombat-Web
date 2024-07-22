@@ -5,7 +5,7 @@ import MotionContainer from "@ui/components/motion/container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
-import DrawerWalletConnect from "@shared/components/drawer-wallet-connect"
+import DrawerWalletConnect from "@shared/components/DrawerWalletConnect"
 
 export default function Page(): JSX.Element {
     return (

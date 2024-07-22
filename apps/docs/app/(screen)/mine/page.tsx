@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Separator } from "@ui/components/separator"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@ui/components/card"
@@ -11,42 +11,38 @@ import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 import { DialogDescription, DialogHeader } from "@ui/components/dialog"
 import { Popover, PopoverContent, PopoverTrigger } from "@ui/components/popover"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/components/tabs"
+
 import Drawer from "@ui/components/drawer"
-
-
 import MotionContainer from "@ui/components/motion/container"
-import PlusSign from "@ui/components/motion/plus-sign"
-
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
-import DrawerInfoProfit from "@shared/components/drawer-info-profit"
 
+import DrawerInfoProfit from "@shared/components/DrawerInfoProfit"
 import tabListMine from "@shared/constant/tabListMine"
 import taskListMine from "@shared/constant/taskListMine"
+import MineButton from "@shared/components/MineButton"
+import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 
 export default function Page(): JSX.Element {
     const router = useRouter()
     const [progress, setProgress] = useState(25)
-    const [plusSigns, setPlusSigns] = useState<{ x: number; y: number }[]>([]);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [points, setPoints] = useState(770);
+    const [energy, setEnergy] = useState(1000);
+
+    function handleIncludedCoin() {
+        setPoints(points + 1);
+        setEnergy(energy - 1);
+    }
+
+    const formattedPoints = useMemo(() => points.toLocaleString(), [points]);
+    const formattedEnergy = useMemo(() => energy.toLocaleString(), [energy]);
 
     const handleOpenDrawer = () => setIsDrawerOpen(true);
     const handleCloseDrawer = () => setIsDrawerOpen(false);
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        setPlusSigns([...plusSigns, { x, y }]);
-
-        setTimeout(() => {
-            setPlusSigns(current => current.slice(1));
-        }, 500);
-    };
-
     return (
-        <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
+        <div className="w-screen h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
                 <DialogDescription className="w-full flex justify-between items-center">
                     <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
@@ -86,7 +82,7 @@ export default function Page(): JSX.Element {
                 </DialogDescription>
             </DialogHeader>
             <Card className="card-has-glow w-full min-h-[170%] border-none">
-                <CardHeader>
+                <CardHeader className="px-4">
                     <MotionContainer className="w-full flex flex-col justify-end items-center gap-3">
                         <div className="w-full flex justify-end items-center gap-2">
                             <TypographySmall text="22:22:00" className="text-[#8b8e93] text-xs font-extralight" />
@@ -135,26 +131,26 @@ export default function Page(): JSX.Element {
                 <CardDescription>
                     <MotionContainer className="w-full flex justify-center items-center gap-2" type="scale">
                         <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} />
-                        <TypographyLarge text="770" className="text-white text-3xl" />
+                        <MemoTypographyLarge text={formattedPoints} />
                     </MotionContainer>
                 </CardDescription>
-                <CardContent className="mt-5">
+                <CardContent className="w-full mt-5 p-4">
                     <Tabs defaultValue={tabListMine[0]?.toLowerCase()} className="w-full">
                         <MotionContainer className="w-full" direction="left">
                             <TabsList className="bg-[#272a2f]">
                                 {tabListMine.map((item, i) => {
                                     return (
-                                        <TabsTrigger key={i} value={item.toLowerCase()} className="w-full px-[15.5px] text-white">{item}</TabsTrigger>
+                                        <TabsTrigger key={i} value={item.toLowerCase()} className="w-full text-white text-[12px] px-3">{item}</TabsTrigger>
                                     )
                                 })}
                             </TabsList>
                         </MotionContainer>
-                        <TabsContent value={tabListMine[0]?.toLowerCase() as string} className="relative w-full grid grid-cols-2 justify-start items-start gap-3">
+                        <TabsContent value={tabListMine[0]?.toLowerCase() as string} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
                             {taskListMine.map((item, i) => {
                                 return (
                                     <>
-                                        <div key={i} onClick={handleOpenDrawer} className="bg-[#272a2f] text-white rounded-2xl select-none p-3">
-                                            <div className="flex justify-start items-start gap-3">
+                                        <div key={i} onClick={handleOpenDrawer} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
+                                            <div className="w-full flex justify-start items-start gap-3">
                                                 <div className="w-[60px] h-[60px]">
                                                     <Image src={item.image} alt="@imageTask" width={60} height={60} className="w-full h-full" />
                                                 </div>
@@ -190,18 +186,11 @@ export default function Page(): JSX.Element {
                     </Tabs>
                 </CardContent>
                 <CardFooter className="mt-5 w-full flex flex-col justify-center items-center">
-                    <MotionContainer className="relative user-tap-button-inner cursor-pointer" type="scale" onClick={handleClick}>
-                        <div className="user-tap-button-circle">
-                            <Image src="/project/ava_bronze.png" alt="avatar" width={268} height={268} className="z-30" />
-                        </div>
-                        {plusSigns.map((pos, index) => (
-                            <PlusSign key={index} x={pos.x} y={pos.y} />
-                        ))}
-                    </MotionContainer>
+                    <MineButton handleIncreaseCoin={handleIncludedCoin} />
                     <div className="w-full flex justify-between items-center pb-0">
                         <div className="w-full flex justify-start items-center gap-1">
                             <Image src="/project/icon_flash.svg" alt="@flash" width={26} height={26} />
-                            <TypographyLarge text="1000 / 1000" className="text-white text-base" />
+                            <MemoTypographyLarge text={`${formattedEnergy} / 1000`} className="text-white text-base" />
                         </div>
                         <div className="w-full flex justify-end items-center gap-1">
                             <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} />

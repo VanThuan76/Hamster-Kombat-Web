@@ -7,7 +7,7 @@ import TypographySmall from "@ui/components/typography/small"
 
 export default function Page(): JSX.Element {
     return (
-        <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center">
+        <div className="w-screen h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center">
             <MotionContainer className="relative w-full" direction="top">
                 <div className="icon_earn"><svg width="275" height="275" viewBox="0 0 275 275" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_f_1464_6497)">
