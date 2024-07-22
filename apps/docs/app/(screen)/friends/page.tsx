@@ -12,8 +12,11 @@ import TypographySmall from "@ui/components/typography/small"
 import listBonus from "@shared/constant/listBonus"
 import InviteFriends from "@shared/components/InviteFriends"
 
+const { initUtils } = require('@telegram-apps/sdk-react');
+
 export default function Page(): JSX.Element {
     const [isOpenBonus, setIsOpenBonus] = useState(false)
+    const utils = initUtils();
 
     return (
         <div className="w-screen h-screen relative space-y-2 overflow-y-auto p-5 text-center bg-black">
@@ -87,7 +90,14 @@ export default function Page(): JSX.Element {
             </div>
             <div className="w-[90%] fixed bottom-20 inset-x-0 mx-auto border border-transparent flex justify-between items-start gap-2">
                 <InviteFriends />
-                <Button className="w-[20%] h-[60px] bg-[#5a60ff]/85 hover:bg-[#5a60ff] rounded-2xl">
+                <Button
+                    className="w-[20%] h-[60px] bg-[#5a60ff]/85 hover:bg-[#5a60ff] rounded-2xl"
+                    onClick={() => {
+                        utils.readTextFromClipboard().then((data: any) => {
+                            console.log('Clipboard data:', data);
+                        });
+                    }}
+                >
                     <div className="icon w-[32px] h-[32px]">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M23 27.8H5c-.4 0-.8-.3-.8-.8V9c0-.4.3-.8.8-.8h18c.4 0 .8.3.8.8v18c0 .4-.4.8-.8.8zM5.8 26.3h16.5V9.8H5.8v16.5z" fill="currentColor"></path><path d="M27 23.8c-.4 0-.8-.3-.8-.8V5.8H9c-.4 0-.8-.4-.8-.8s.4-.7.8-.7h18c.4 0 .8.3.8.8v18c0 .3-.4.7-.8.7z" fill="currentColor"></path></svg>
                     </div>

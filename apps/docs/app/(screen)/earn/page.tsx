@@ -5,7 +5,10 @@ import MotionContainer from "@ui/components/motion/container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+const { initUtils } = require('@telegram-apps/sdk-react');
 export default function Page(): JSX.Element {
+    const utils = initUtils();
+
     return (
         <div className="w-screen h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center">
             <MotionContainer className="relative w-full" direction="top">
@@ -36,7 +39,7 @@ export default function Page(): JSX.Element {
                 <TypographySmall text="Hamster Youtube" className="text-base text-white mt-5" />
                 {Array.from({ length: 2 }).map((_, i) => {
                     return (
-                        <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]">
+                        <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
                             <div className="flex justify-start items-center gap-2">
                                 <MotionContainer type="scale">
                                     <Image src="/project/hamster_youtube_channel.png" alt="@hamster_youtube_channel" width={56} height={56} />

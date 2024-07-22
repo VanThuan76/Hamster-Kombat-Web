@@ -7,14 +7,18 @@ import { useAppDispatch } from '@shared/redux/store/index';
 
 const {
     useInitData,
-    initBackButton
+    initBackButton,
+    useLaunchParams,
+    initHapticFeedback
 } = require('@telegram-apps/sdk-react');
 
 const InitApp = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useAppDispatch()
 
-    const [backButton] = initBackButton();
+    const lp = useLaunchParams();
     const initData = useInitData();
+    const haptic = initHapticFeedback();
+    const [backButton] = initBackButton();
 
     function getUserRows(user: any) {
         return {
@@ -34,6 +38,9 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         dispatch(setInitUser(initData ? getUserRows(initData.user) : undefined))
         backButton.show();
+        haptic.impactOccurred('medium');
+        if (lp.platform === 'tdesktop' || lp.platform === 'web' || lp.platform === 'weba') {
+        }
     }, [])
 
     return (

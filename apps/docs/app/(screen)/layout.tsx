@@ -22,11 +22,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
-    navigator
 }: {
     children: React.ReactNode;
-    navigator: any;
-
 }): JSX.Element {
     return (
         <html lang="en">
