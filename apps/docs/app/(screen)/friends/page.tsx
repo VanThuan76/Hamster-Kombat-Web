@@ -19,7 +19,7 @@ export default function Page(): JSX.Element {
     const utils = initUtils();
 
     return (
-        <div className="w-screen h-screen relative space-y-2 overflow-y-auto p-5 text-center bg-black">
+        <div className="w-full h-screen relative space-y-2 overflow-y-auto p-5 text-center bg-black">
             <MotionContainer direction="right">
                 <TypographyLarge text="Mời bạn bè!" className="text-white text-[32px]" />
             </MotionContainer>

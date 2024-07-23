@@ -15,17 +15,17 @@ const MineButton = ({ isSecretFeature, handleIncreaseCoin }: { isSecretFeature?:
 
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
 
-    const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleCardTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
         const card = e.currentTarget;
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
+        const x = e.touches[0]!.clientX - rect.left - rect.width / 2;
+        const y = e.touches[0]!.clientY - rect.top - rect.height / 2;
         card.style.transform = `perspective(1500px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
 
         haptic.impactOccurred('medium');
 
-        const xPlus = e.clientX - rect.left;
-        const yPlus = e.clientY - rect.top;
+        const xPlus = e.touches[0]!.clientX - rect.left;
+        const yPlus = e.touches[0]!.clientY - rect.top;
         const newPlusSign = { id: Date.now(), x: xPlus, y: yPlus };
 
         requestAnimationFrame(() => {
@@ -34,7 +34,7 @@ const MineButton = ({ isSecretFeature, handleIncreaseCoin }: { isSecretFeature?:
             requestAnimationFrame(() => {
                 setTimeout(() => {
                     card.style.transform = '';
-                    handleIncreaseCoin()
+                    handleIncreaseCoin();
                 }, 100);
                 setTimeout(() => {
                     setPlusSigns(current => current.filter(pos => pos.id !== newPlusSign.id));
@@ -44,7 +44,7 @@ const MineButton = ({ isSecretFeature, handleIncreaseCoin }: { isSecretFeature?:
     };
 
     return (
-        <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onClick={handleCardClick}>
+        <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={handleCardTouchStart}>
             <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret')}>
                 <Image src="/project/ava_bronze.png" alt="avatar" width={268} height={268} className="z-30" />
             </div>
