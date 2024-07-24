@@ -11,6 +11,7 @@ import TypographySmall from "@ui/components/typography/small"
 
 import listBonus from "@shared/constant/listBonus"
 import InviteFriends from "@shared/components/InviteFriends"
+import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 
@@ -19,7 +20,7 @@ export default function Page(): JSX.Element {
     const utils = initUtils();
 
     return (
-        <div className="w-full h-screen relative space-y-2 overflow-y-auto p-5 text-center bg-black">
+        <div className="w-full h-screen relative space-y-2 overflow-y-auto p-5 text-center bg-black pb-40">
             <MotionContainer direction="right">
                 <TypographyLarge text="Mời bạn bè!" className="text-white text-[32px]" />
             </MotionContainer>
@@ -60,19 +61,20 @@ export default function Page(): JSX.Element {
                     </div>
                     {listBonus.map((item, i) => {
                         return (
-                            <div className="w-full flex justify-between items-center px-4 py-2 bg-[#272a2f] rounded-2xl">
+                            <div className="w-full flex justify-between items-center p-2 bg-[#272a2f] rounded-2xl">
                                 <div className="flex justify-start items-center gap-2">
-                                    <div className={cn("w-[40px] h-[40px] bg-cover bg-no-repeat bg-center rounded-lg", `bg-[url(/project/bonus/bonus-${item.name.toLowerCase()}.jpg)]`)}>
+                                    <div className="h-[40px] w-[40px]">
+                                        <Image src={item.image} alt={item.name} width={100} height={100} className="w-full h-full rounded-md object-cover" />
                                     </div>
                                     <TypographySmall text={item.name} className="text-[12px] font-light" />
                                 </div>
                                 <div className="flex justify-center items-center gap-1">
                                     <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} />
-                                    <TypographySmall text={`+${item.for_friend}`} className="text-[14px] text-[#ffd337] ml-1" />
+                                    <TypographySmall text={`+${formatCoinStyleDot(item.for_friend)}`} className="text-[12px] text-[#ffd337] ml-1" />
                                 </div>
                                 <div className="flex justify-center items-center gap-1">
                                     <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} />
-                                    <TypographySmall text={`+${item.premium}`} className="text-[14px] text-[#ffd337] ml-1" />
+                                    <TypographySmall text={`+${formatCoinStyleDot(item.premium)}`} className="text-[12px] text-[#ffd337] ml-1" />
                                 </div>
                             </div>
                         )

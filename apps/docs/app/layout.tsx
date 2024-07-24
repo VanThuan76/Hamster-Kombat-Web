@@ -3,7 +3,8 @@ import "@ui/styles/project.css";
 
 import type { Metadata } from "next";
 import { Roboto_Flex } from "next/font/google";
-import { Dialog, DialogContent } from "@ui/components/dialog"
+import { VisuallyHidden } from "@telegram-apps/telegram-ui";
+import { Dialog, DialogContent, DialogTitle } from "@ui/components/dialog"
 import { cn } from "@ui/lib/utils";
 
 import ReduxProvider from "@shared/redux/Provider";
@@ -33,6 +34,9 @@ export default function RootLayout({
       <body className={cn('flex flex-col items-center justify-between min-h-screen p-24 bg-indigo-500', robotoFlex.className)}>
         <Dialog open={true}>
           <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
+            <VisuallyHidden>
+              <DialogTitle></DialogTitle>
+            </VisuallyHidden>
             <RootContainer>
               <ReduxProvider>
                 <InitApp>

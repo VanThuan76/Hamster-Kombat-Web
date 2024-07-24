@@ -7,3 +7,7 @@ export function formatCoin(num: number) {
         return num.toString();
     }
 }
+export function formatCoinStyleDot(num: number) {
+    return num.toLocaleString('de-DE');
+}
+

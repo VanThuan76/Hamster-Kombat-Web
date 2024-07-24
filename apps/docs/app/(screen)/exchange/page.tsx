@@ -74,7 +74,7 @@ export default function Page(): JSX.Element {
                     <CardProfit />
                 </DialogDescription>
             </DialogHeader>
-            <Card className="card-has-glow w-full min-h-[110vh] border-none">
+            <Card className="card-has-glow w-full h-full border-none">
                 <CardHeader>
                     <MotionContainer className="w-full flex flex-row justify-between items-center gap-2">
                         <div

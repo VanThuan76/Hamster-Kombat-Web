@@ -8,6 +8,7 @@ import Drawer from "@ui/components/drawer"
 import MotionContainer from "@ui/components/motion/container"
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
+import InfoWalletTON from "./InfoWalletTON";
 
 export default function DrawerWalletConnect(): JSX.Element {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -15,6 +16,7 @@ export default function DrawerWalletConnect(): JSX.Element {
     const handleOpenDrawer = () => setIsDrawerOpen(true);
     const handleCloseDrawer = () => setIsDrawerOpen(false);
 
+    
     return (
         <>
             <div className="flex flex-col justify-start items-start gap-2 cursor-pointer" onClick={handleOpenDrawer}>
@@ -33,7 +35,7 @@ export default function DrawerWalletConnect(): JSX.Element {
                     </div>
                 </div>
             </div>
-            <Drawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} className="w-full card-has-glow h-[90%] border-none">
+            <Drawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} className="w-full card-has-glow h-[70%] border-none">
                 <div className="w-full flex flex-col justify-center items-center gap-8">
                     <div className="relative visible">
                         <div className="relative z-10">
@@ -44,7 +46,8 @@ export default function DrawerWalletConnect(): JSX.Element {
                         <TypographyLarge text="Kết nối ví TON của bạn" className="text-white text-[32px] font-bold" />
                         <TypographySmall text="Kết nối ví tiền điện tử của bạn.  Nếu bạn chưa có, hãy tạo một cái trong tài khoản Telegram của bạn" className="text-white text-[14px] max-w-[280px] font-normal" />
                     </div>
-                    <TonConnectButton />
+                    {/* <TonConnectButton className='ton-connect-page__button' /> */}
+                    <InfoWalletTON />
                 </div>
             </Drawer>
         </>

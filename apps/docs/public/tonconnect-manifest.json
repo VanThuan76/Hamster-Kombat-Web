@@ -1,7 +1,5 @@
 {
-  "url": "https://hamster-kombat-sigma.vercel.app/",
-  "name": "Demo Dapp with React UI",
-  "iconUrl": "https://hamster-kombat-sigma.vercel.app/apple-touch-icon.png",
-  "termsOfUseUrl": "https://hamster-kombat-sigma.vercel.app/terms-of-use.txt",
-  "privacyPolicyUrl": "https://hamster-kombat-sigma.vercel.app/privacy-policy.txt"
+  "url": "https://ton.vote",
+  "name": "TON Vote",
+  "iconUrl": "https://ton.vote/logo.png"
 }

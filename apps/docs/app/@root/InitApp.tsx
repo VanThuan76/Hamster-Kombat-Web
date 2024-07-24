@@ -44,9 +44,9 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
     }, [])
 
     return (
-        <>
+        <React.Fragment>
             {children}
-        </>
+        </React.Fragment>
     );
 }
 

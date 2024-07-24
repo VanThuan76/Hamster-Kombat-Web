@@ -120,13 +120,13 @@ export default function Page(): JSX.Element {
                 <CardDescription>
                     <MotionContainer className="w-full flex justify-center items-center gap-2" type="scale">
                         <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} />
-                        <MemoTypographyLarge text={formattedPoints} />
+                        <MemoTypographyLarge text={formattedPoints} className="text-white" />
                     </MotionContainer>
                 </CardDescription>
                 <CardContent className="w-full mt-5 p-4">
                     <Tabs defaultValue={tabListMine[0]?.toLowerCase()} className="w-full">
                         <MotionContainer className="w-full flex justify-center items-center" direction="left">
-                            <TabsList className="bg-[#272a2f]">
+                            <TabsList className="w-full bg-[#272a2f]">
                                 {tabListMine.map((item, i) => {
                                     return (
                                         <TabsTrigger key={i} value={item.toLowerCase()} className="w-full text-white text-[12px] px-3">{item}</TabsTrigger>
@@ -181,7 +181,11 @@ export default function Page(): JSX.Element {
                             <Image src="/project/icon_flash.svg" alt="@flash" width={26} height={26} />
                             <MemoTypographyLarge text={`${formattedEnergy} / 1000`} className="text-white text-base" />
                         </div>
-                        <div className="w-full flex justify-end items-center gap-1">
+                        <div className="w-full flex justify-end items-center gap-1"
+                            onClick={() => {
+                                router.push('/boost')
+                                haptic.impactOccurred('medium');
+                            }}>
                             <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} />
                             <TypographyLarge text="Boost" className="text-white text-base" />
                         </div>

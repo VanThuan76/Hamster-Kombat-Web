@@ -10,7 +10,6 @@ import { ErrorPage } from '@shared/components/ErrorPage';
 import { useTelegramMock } from '@shared/hooks/useTelegramMock';
 
 import { useDidMount } from '@shared/hooks/useDidMount';
-import { useVibration } from '@shared/hooks/useVibration';
 
 const {
     SDKProvider,
@@ -42,7 +41,10 @@ function App(props: PropsWithChildren) {
     }, [viewport]);
 
     return (
-        <AppRoot appearance={miniApp.isDark ? 'dark' : 'light'} platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'} style={{ background: 'none' }}>
+        <AppRoot
+            appearance={miniApp.isDark ? 'dark' : 'light'}
+            platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
+        >
             {props.children}
         </AppRoot>
     );
@@ -66,7 +68,6 @@ function RootInner({ children }: PropsWithChildren) {
             import('eruda').then((lib) => lib.default.init());
         }
     }, [debug]);
-
     return (
         <TonConnectUIProvider manifestUrl={manifestUrl}>
             <SDKProvider acceptCustomStyles debug={debug}>
@@ -82,7 +83,6 @@ export function RootContainer(props: PropsWithChildren) {
     // Unfortunately, Telegram Mini Apps does not allow us to use all features of the Server Side
     // Rendering. That's why we are showing loader on the server side.
     const didMount = useDidMount();
-    useVibration(50);
 
     return didMount ? (
         <ErrorBoundary fallback={ErrorPage}>

@@ -17,7 +17,7 @@ export default function Page(): JSX.Element {
     const { exchange } = useAppSelector(state => state.app)
 
     return (
-        <div className="w-full min-h-screen relative overflow-y-auto bg-black">
+        <div className="w-full h-screen relative overflow-y-auto bg-black pb-14">
             <div className="p-5 space-y-4 text-center text-white overflow-y-auto h-full">
                 <TypographyLarge text='Chọn sàn giao dịch' className="text-4xl" />
                 {listExchanges.map((item, i) => {

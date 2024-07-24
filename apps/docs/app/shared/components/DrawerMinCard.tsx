@@ -8,9 +8,10 @@ import Drawer from "@ui/components/drawer"
 interface DrawerMinCardProps {
     drawerTrigger: ReactElement;
     drawerContent: ReactNode;
+    textBtnFinish?: string
 }
 
-const DrawerMinCard = ({ drawerTrigger, drawerContent }: DrawerMinCardProps) => {
+const DrawerMinCard = ({ drawerTrigger, drawerContent, textBtnFinish }: DrawerMinCardProps) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const handleOpenDrawer = () => setIsDrawerOpen(true);
@@ -30,7 +31,7 @@ const DrawerMinCard = ({ drawerTrigger, drawerContent }: DrawerMinCardProps) => 
             >
                 {drawerContent}
                 <Button className="mt-5 w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleClickDone}>
-                    <TypographyLarge text="Nhận" className="text-white text-xl font-bold" />
+                    <TypographyLarge text={textBtnFinish ? textBtnFinish : "Nhận"} className="text-white text-xl font-bold" />
                 </Button>
             </Drawer>
         </>
