@@ -2,37 +2,13 @@
 
 import React, { useEffect } from 'react';
 import { Button } from '@ui/components/button';
-const { TelegramWebApps } = require('@telegram-apps/sdk-react');
+const { initUtils } = require('@telegram-apps/sdk-react');
 
 const InviteFriends = () => {
-    useEffect(() => {
-        if (TelegramWebApps) {
-            TelegramWebApps.WebApp.ready();
-        }
-    }, []);
+    const utils = initUtils();
 
     const handleInviteFriends = () => {
-        if (TelegramWebApps && TelegramWebApps.WebApp) {
-            TelegramWebApps.WebApp.showPopup({
-                title: 'Invite Friends',
-                message: 'Invite your friends to join this app.',
-                buttons: [
-                    {
-                        id: 'invite',
-                        type: 'link',
-                        text: 'Invite',
-                        link: 'tg://user?id=invite',
-                    },
-                    {
-                        id: 'cancel',
-                        type: 'close',
-                        text: 'Cancel',
-                    },
-                ],
-            });
-        } else {
-            console.error('TelegramWebApps SDK is not initialized');
-        }
+        utils.shareURL('https://t.me/mybot/myapp', 'Look! Some cool app here!');
     };
 
     return (
