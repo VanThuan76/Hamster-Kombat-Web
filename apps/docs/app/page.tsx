@@ -6,17 +6,27 @@ import { useRouter } from 'next/navigation';
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from '@ui/components/typography/small';
 
+const {
+  useLaunchParams,
+} = require('@telegram-apps/sdk-react');
+
 const OnBroadingPage = () => {
   const router = useRouter();
+  const lp = useLaunchParams();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/exchange');
-    }, 3000);
+    if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
+      router.push('/qr')
+    } else {
+      const timer = setTimeout(() => {
+        router.push('/exchange');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [lp, router]);
 
-    return () => clearTimeout(timer);
-  }, [router]);
-
+  if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') return <></>
+  
   return (
     <div className="w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_tg.png')] bg-cover bg-no-repeat bg-center">
       <div className='w-full h-[100px] flex flex-col gap-2 items-center justify-center'>

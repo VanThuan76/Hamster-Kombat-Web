@@ -8,7 +8,9 @@ const InviteFriends = () => {
     const utils = initUtils();
 
     const handleInviteFriends = () => {
-        utils.shareURL('https://t.me/mybot/myapp', 'Look! Some cool app here!');
+        utils.shareURL(
+            process.env.URL_TELEGRAM_BOT,
+            "Chơi với tôi, trở thành CEO của sàn giao dịch tiền mã hóa và nhận airdrop tokenj! 💸 +2k Xu như một món quà lần đầu 🔥 +25k Xu nếu bạn có Telegram Premium");
     };
 
     return (

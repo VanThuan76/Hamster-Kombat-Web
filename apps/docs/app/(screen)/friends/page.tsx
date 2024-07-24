@@ -3,7 +3,6 @@
 import Image from "next/image"
 import { useState } from "react"
 import { Button } from "@ui/components/button"
-import { cn } from "@ui/lib/utils"
 
 import MotionContainer from "@ui/components/motion/container"
 import TypographyLarge from "@ui/components/typography/large"

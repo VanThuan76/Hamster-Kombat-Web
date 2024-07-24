@@ -1,21 +1,18 @@
 'use client'
 
 import Image from "next/image"
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Progress } from "@ui/components/progress"
-import { Button } from "@ui/components/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@ui/components/card"
+import { Card, CardContent, CardHeader } from "@ui/components/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 import { DialogDescription, DialogHeader, DialogTitle } from "@ui/components/dialog"
 import { useAppSelector } from "@shared/redux/store/index"
 
 import MotionContainer from "@ui/components/motion/container"
 import TypographySmall from "@ui/components/typography/small"
-import TypographyLarge from "@ui/components/typography/large"
 
 import MineButton from "@shared/components/MineButton"
-import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import CardProfit from "@shared/components/CardProfit"
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
@@ -28,17 +25,6 @@ export default function Page(): JSX.Element {
 
     const [isSecretFeature, setSecretFeature] = useState(false)
     const [progress, setProgress] = useState(80)
-    const [points, setPoints] = useState(770);
-    const [energy, setEnergy] = useState(1000);
-
-    function handleIncludedCoin() {
-        setPoints(points + 1);
-        setEnergy(energy - 1);
-    }
-
-    const formattedPoints = useMemo(() => points.toLocaleString(), [points]);
-
-    const formattedEnergy = useMemo(() => energy.toLocaleString(), [energy]);
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
@@ -125,38 +111,7 @@ export default function Page(): JSX.Element {
                         </div>
                     </MotionContainer>
                 </CardHeader>
-                <CardDescription>
-                    <MotionContainer className="w-full flex justify-center items-center gap-2" type="scale">
-                        <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} />
-                        <MemoTypographyLarge text={formattedPoints} className="text-white text-3xl" />
-                    </MotionContainer>
-                </CardDescription>
-                <CardContent className="mt-5 w-full flex flex-col gap-5 justify-center items-center">
-                    {isSecretFeature && <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
-                        <TypographyLarge text="Mật mã hàng ngày" className="text-white text-[14px]" />
-                        <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
-                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
-                            <TypographySmall text='+1.000.000' className="text-white text-[14px]" />
-                        </Button>
-                    </div>}
-                    <MineButton handleIncreaseCoin={handleIncludedCoin} isSecretFeature={isSecretFeature} />
-                </CardContent>
-                <CardFooter className="w-full flex justify-between items-center">
-                    <div className="w-full flex justify-start items-center gap-1">
-                        <Image src="/project/icon_flash.svg" alt="@flash" width={26} height={26} />
-                        <MemoTypographyLarge text={`${formattedEnergy} / 1000`} className="text-white text-base" />
-                    </div>
-                    <div
-                        className="w-full flex justify-end items-center gap-1 cursor-pointer"
-                        onClick={ () => {
-                            router.push('/boost')
-                            haptic.impactOccurred('medium');
-                        }}
-                    >
-                        <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} />
-                        <TypographyLarge text="Boost" className="text-white text-base" />
-                    </div>
-                </CardFooter>
+                <MineButton isSecretFeature={isSecretFeature} />
             </Card>
         </div>
     )

@@ -8,7 +8,7 @@ import TypographySmall from "@ui/components/typography/small"
 import DrawerMinCard from "@shared/components/DrawerMinCard"
 import listEarn from "@shared/constant/listEarn"
 import { formatCoin } from "@shared/utils/formatNumber"
-import { cn } from "@/../ui/src/lib/utils"
+import { cn } from "@ui/lib/utils";
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 export default function Page(): JSX.Element {
@@ -87,14 +87,14 @@ export default function Page(): JSX.Element {
                         </div>
                     }
                     drawerContent={
-                        <div className="w-full flex flex-col justify-center items-center gap-8">
+                        <div className="w-full flex flex-col justify-center items-center">
                             <div className="relative visible">
                                 <div className="absolute left-1/2 top-1/2 w-[100px] h-[100px] bg-[#9b37ffe6] rounded-full blur-[20px] transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
                                 <div className="relative z-10">
                                     <Image src="/project/calendar.png" alt="@calendar" width={115} height={115} />
                                 </div>
                             </div>
-                            <div className="w-full flex flex-col justify-center items-center gap-5">
+                            <div className="w-full flex flex-col justify-center items-center gap-5 mb-5">
                                 <TypographyLarge text="Phần thưởng hàng ngày" className="text-white text-[32px] font-bold" />
                                 <TypographySmall text='Tích lũy xu khi đăng nhập vào trò chơi hàng ngày mà không cần bỏ qua. Nút "thu thập" phải được nhấn hàng ngày, nếu không việc đếm ngày sẽ bắt đầu lại' className="text-white text-[14px] max-w-[280px] font-normal" />
                             </div>
@@ -119,23 +119,45 @@ export default function Page(): JSX.Element {
                 <TypographySmall text="Danh sách công việc" className="text-base text-white mt-5" />
                 {listEarn.map((item, i) => {
                     return (
-                        <div key={i} className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
-                            <div className="flex justify-start items-center gap-2">
-                                <MotionContainer type="scale">
-                                    <Image src={item.image} alt={item.name.toLowerCase()} width={56} height={56} />
-                                </MotionContainer>
-                                <div className="flex flex-col justify-start items-start">
-                                    <TypographySmall text={item.name} className="text-[14px] text-white" />
-                                    <div className="flex justify-center items-center gap-1">
-                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} />
-                                        <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
+                        <DrawerMinCard
+                            key={i}
+                            drawerTrigger={
+                                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
+                                    <div className="flex justify-start items-center gap-2">
+                                        <MotionContainer type="scale">
+                                            <Image src={item.image} alt={item.name.toLowerCase()} width={56} height={56} />
+                                        </MotionContainer>
+                                        <div className="flex flex-col justify-start items-start">
+                                            <TypographySmall text={item.name} className="text-[14px] text-white" />
+                                            <div className="flex justify-center items-center gap-1">
+                                                <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} />
+                                                <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="earn-item-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="earn-item-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
-                            </div>
-                        </div>
+                            }
+                            drawerContent={
+                                <div className="w-full flex flex-col justify-center items-center gap-8">
+                                    <div className="relative visible">
+                                        <div className="relative z-10">
+                                            <Image src={item.image} alt={item.name} width={115} height={115} />
+                                        </div>
+                                    </div>
+                                    <div className="w-full flex flex-col justify-center items-center gap-5">
+                                        <TypographyLarge text={item.name} className="text-white text-[32px] font-bold" />
+                                        <div className="flex justify-center items-center gap-1">
+                                            <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} />
+                                            <TypographySmall text="+100.000" className="text-2xl text-white ml-1" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            textBtnFinish={i === 2 ? "Chọn" : i === 3 ? "Kiểm tra" : "Tham gia"}
+                        />
                     )
                 })}
             </div>

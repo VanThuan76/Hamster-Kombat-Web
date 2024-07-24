@@ -28,7 +28,7 @@ export default function RootLayout({
 }): JSX.Element {
     return (
         <html lang="en">
-            <body className={cn('flex flex-col items-center justify-between min-h-screen bg-indigo-500', robotoFlex.className)}>
+            <body className={cn('flex flex-col items-center justify-between min-h-screen bg-indigo-500 overflow-hidden', robotoFlex.className)}>
                 <RootContainer>
                     <ReduxProvider>
                         <InitApp>
