@@ -112,6 +112,7 @@ export default function Page(): JSX.Element {
                         </div>
                     }
                     textBtnFinish="Quay lại ngày mai"
+                    className="min-h-[85%] h-[87%]"
                 />
             </div>
             <div className="flex flex-col justify-start items-start gap-2">

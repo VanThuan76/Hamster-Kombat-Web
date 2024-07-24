@@ -8,14 +8,12 @@ import { useAppDispatch } from '@shared/redux/store/index';
 const {
     useInitData,
     initBackButton,
-    useLaunchParams,
     initHapticFeedback
 } = require('@telegram-apps/sdk-react');
 
 const InitApp = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useAppDispatch()
 
-    const lp = useLaunchParams();
     const initData = useInitData();
     const haptic = initHapticFeedback();
     const [backButton] = initBackButton();
@@ -30,17 +28,13 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
             is_bot: user.isBot,
             is_premium: user.isPremium,
             language_code: user.languageCode,
-
         }
-
     }
 
     useEffect(() => {
         dispatch(setInitUser(initData ? getUserRows(initData.user) : undefined))
         backButton.show();
         haptic.impactOccurred('medium');
-        if (lp.platform === 'tdesktop' || lp.platform === 'web' || lp.platform === 'weba') {
-        }
     }, [])
 
     return (
