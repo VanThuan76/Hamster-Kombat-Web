@@ -1,21 +1,28 @@
 'use client'
 
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { cn } from "@ui/lib/utils"
+
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
 import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
 import listRank from "@shared/constant/listRank"
+
 import { formatCoin } from "@shared/utils/formatNumber"
 
 export default function Page(): JSX.Element {
     const [currentTarget, setCurrentTarget] = useState(0)
+    const [swiperClass, setSwiperClass] = useState(`is-${listRank[0]?.name.toLowerCase()}`)
+
+    useEffect(() => {
+        setSwiperClass(`is-${listRank[currentTarget]?.name.toLowerCase()}`)
+    }, [currentTarget])
 
     return (
         <div className="w-screen h-screen relative overflow-y-auto overflow-hidden space-y-2 text-center">
             <DynamicNavigationSwiper
-                className={cn("rank-slider mt-10", `is-${listRank[currentTarget]?.name.toLowerCase()}`)}
+                className={cn("rank-slider mt-10", swiperClass)}
                 items={listRank.map((item, i) => {
                     return (
                         <div key={i} className="flex flex-col justify-center items-center">

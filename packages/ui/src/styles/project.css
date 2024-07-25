@@ -346,3 +346,32 @@
   line-height: 1 !important;
   text-transform: none !important;
 }
+
+.user-info-avatar-skin {
+    align-items: center;
+    background: linear-gradient(101deg, #ff5f3c 3.81%, #ffb546 104.28%);
+    border: 1px solid #ff8140;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: -24px;
+    margin-right: 8px;
+    padding-left: 13px;
+    position: relative;
+    z-index: 2;
+}
+
+.user-info-avatar {
+  border-radius: 8px;
+  flex: 0 0 32px;
+  height: 32px;
+  margin-right: 8px;
+  overflow: visible;
+  position: relative;
+  width: 32px;
+  z-index: 3;
+}
+
+.coin-is-grayscale {
+  filter: grayscale(1);
+}

@@ -11,16 +11,17 @@ import { cn } from "@ui/lib/utils"
 
 type DynamicNavigationSwiperProps = {
   items: React.ReactNode[];
+  isRank?: boolean;
   className?: string;
   onSlideChange?: (index: number) => void;
 };
 
-const DynamicNavigationSwiper: React.FC<DynamicNavigationSwiperProps> = ({ items, className, onSlideChange }) => {
+const DynamicNavigationSwiper: React.FC<DynamicNavigationSwiperProps> = ({ items, isRank = true, className, onSlideChange }) => {
   return (
     <Swiper
       navigation={true}
       modules={[Navigation]}
-      className={cn("swiper", className)}
+      className={cn(isRank && "swiper", className)}
       onSlideChange={(swiper: any) => onSlideChange && onSlideChange(swiper.activeIndex)}
     >
       {items.map((item, index) => (

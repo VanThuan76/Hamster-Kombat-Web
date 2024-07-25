@@ -68,7 +68,7 @@ export default function Page(): JSX.Element {
                 <TypographySmall text="Nhiệm vụ hàng ngày" className="text-base text-white mt-5" />
                 <DrawerMinCard
                     drawerTrigger={
-                        <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
+                        <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]">
                             <div className="flex justify-start items-center gap-2">
                                 <MotionContainer type="scale">
                                     <Image src='/project/calendar.png' alt='@calendar' width={56} height={56} />
@@ -112,7 +112,7 @@ export default function Page(): JSX.Element {
                         </div>
                     }
                     textBtnFinish="Quay lại ngày mai"
-                    className="min-h-[85%] h-[87%]"
+                    className="min-h-[85%] h-[90%] overflow-y-auto"
                 />
             </div>
             <div className="flex flex-col justify-start items-start gap-2">
@@ -157,6 +157,7 @@ export default function Page(): JSX.Element {
                                 </div>
                             }
                             textBtnFinish={i === 2 ? "Chọn" : i === 3 ? "Kiểm tra" : "Tham gia"}
+                            className="min-h-[50%] h-[55%]"
                         />
                     )
                 })}
