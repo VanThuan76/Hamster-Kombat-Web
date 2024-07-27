@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from '@shared/next-intl/navigation';
 import { Separator } from "@ui/components/separator"
 import { Card, CardContent, CardHeader } from "@ui/components/card"
 import { Progress } from "@ui/components/progress"

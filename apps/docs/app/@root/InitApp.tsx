@@ -2,8 +2,7 @@
 
 import React, { useEffect } from 'react';
 
-import { setInitUser } from '@shared/redux/store/appSlice';
-import { useAppDispatch } from '@shared/redux/store/index';
+import { userLoginAction } from '@server/_action/user-action';
 
 const {
     useInitData,
@@ -12,15 +11,15 @@ const {
 } = require('@telegram-apps/sdk-react');
 
 const InitApp = ({ children }: { children: React.ReactNode }) => {
-    const dispatch = useAppDispatch()
-
+    const useInit = userLoginAction()
     const initData = useInitData();
+
     const haptic = initHapticFeedback();
     const [backButton] = initBackButton();
 
     function getUserRows(user: any) {
         return {
-            id: user.id,
+            telegram_id: String(user.id),
             username: user.username,
             photo_url: user.photoUrl,
             first_name: user.firstName,
@@ -32,7 +31,8 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
     }
 
     useEffect(() => {
-        dispatch(setInitUser(initData ? getUserRows(initData.user) : undefined))
+        const body = getUserRows(initData.user)
+        useInit.mutateAsync(body)
         backButton.show();
         haptic.impactOccurred('medium');
     }, [])

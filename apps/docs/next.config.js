@@ -1,12 +1,33 @@
 const withImages = require('next-images');
+const createNextIntlPlugin = require('next-intl/plugin');
+const withNextIntl = createNextIntlPlugin();
+const withPlugins = require('next-compose-plugins');
 
-module.exports = withImages({
+module.exports = withPlugins([withImages, withNextIntl], {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
     serverComponentsExternalPackages: ["grammy"],
+    mdxRs: true,
   },
   transpilePackages: ["ui"],
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+      },
+    ],
+  },
   webpack(config, options) {
     if (options.isServer) {
       const originalEntry = config.entry;
@@ -27,4 +48,4 @@ module.exports = withImages({
     }
     return config;
   },
-});
+}); 

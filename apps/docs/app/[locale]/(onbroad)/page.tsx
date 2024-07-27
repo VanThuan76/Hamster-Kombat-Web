@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@shared/next-intl/navigation';
 
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from '@ui/components/typography/small';
@@ -15,20 +15,19 @@ const OnBroadingPage = () => {
   const lp = useLaunchParams();
 
   useEffect(() => {
-    // if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
-    //   router.push('/qr')
-    // } else {
-    //   const timer = setTimeout(() => {
-    //     router.push('/exchange');
-    //   }, 3000);
-    //   return () => clearTimeout(timer);
-    // }
-
-    router.push('/exchange');
+    if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
+      router.push('/qr')
+    } else {
+      const timer = setTimeout(() => {
+        router.push('/exchange');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+    // router.push('/exchange');
   }, [lp, router]);
 
   if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') return <></>
-  
+
   return (
     <div className="w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_tg.png')] bg-cover bg-no-repeat bg-center">
       <div className='w-full h-[100px] flex flex-col gap-2 items-center justify-center'>

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useRouter } from '@shared/next-intl/navigation';
 
 import { Separator } from "@ui/components/separator"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"

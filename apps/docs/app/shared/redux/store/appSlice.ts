@@ -12,6 +12,21 @@ export interface IDefaultState {
         is_premium: boolean;
         language_code: string
     } | undefined;
+    membership: {
+        id: number;
+        name: string;
+        image: string;
+        money: number;
+        level: number;
+        created_at: string;
+        updated_at: string;
+        short_money: string;
+        image_url: string;
+        current_level: number;
+        max_level: number;
+        required_money: number;
+        required_short_money: string;
+    } | undefined;
     exchange: {
         name: string;
         icon: string
@@ -22,6 +37,7 @@ export interface IDefaultState {
 
 const initialState: IDefaultState = {
     user: undefined,
+    membership: undefined,
     exchange: {
         name: '',
         icon: '/project/icon_ava_plus.png'
@@ -37,6 +53,9 @@ export const appSlice: any = createSlice({
         setInitUser: (state, action: PayloadAction<IDefaultState["user"]>) => {
             state.user = action.payload;
         },
+        setMembership: (state, action: PayloadAction<IDefaultState["membership"]>) => {
+            state.membership = action.payload;
+        },
         setCoin: (state, action: PayloadAction<number>) => {
             state.coin = action.payload;
         },
@@ -49,5 +68,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setCoin, setEnergy, setExchange } = appSlice.actions;
+export const { setInitUser, setCoin, setEnergy, setMembership, setExchange } = appSlice.actions;
 export default appSlice.reducer;

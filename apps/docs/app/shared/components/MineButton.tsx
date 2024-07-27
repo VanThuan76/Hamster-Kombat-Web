@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useMemo, useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from '@shared/next-intl/navigation';
 import { cn } from "@ui/lib/utils"
 
 import { Button } from "@ui/components/button"

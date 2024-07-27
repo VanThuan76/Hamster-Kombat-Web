@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from "next/navigation"
+import { useRouter } from '@shared/next-intl/navigation';
 
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"

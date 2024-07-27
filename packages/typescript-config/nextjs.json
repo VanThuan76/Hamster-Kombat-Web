@@ -12,6 +12,7 @@
     "paths": {
       "@/*": ["./*"],
       "@shared/*": ["../../apps/docs/app/shared/*"],
+      "@server/*": ["../../apps/docs/app/server/*"],
       "@ui/*": ["../../packages/ui/src/*"],
       "@ui/components/*": ["../../packages/ui/src/components/ui/*"],
       "@ui/components/ui/*": ["../../packages/ui/src/components/ui/*"]

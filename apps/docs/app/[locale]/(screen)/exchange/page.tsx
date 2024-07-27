@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from '@shared/next-intl/navigation';
 import { Progress } from "@ui/components/progress"
 import { Card, CardHeader } from "@ui/components/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
@@ -18,9 +18,10 @@ import CardProfit from "@shared/components/CardProfit"
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 function UserCardExist({ user }: { user: any }) {
+    const router = useRouter()
     return (
         <DialogTitle className="w-full flex justify-between items-center">
-            <div className="inline-flex justify-start items-center">
+            <div className="inline-flex justify-start items-center" onClick={() => router.push("/skin")}>
                 <div className="user-info-avatar">
                     <Avatar className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
                         <AvatarImage src="/project/icon_ava_user.png" alt="@user" sizes="sm" className="w-[32px] h-[32px]" />

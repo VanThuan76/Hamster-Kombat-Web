@@ -1,14 +1,15 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+
+import { Link } from '@shared/next-intl/navigation';
+import { useAppSelector } from "@shared/redux/store/index";
 
 import { cn } from "@ui/lib/utils";
 import TypographySmall from "@ui/components/typography/small"
 
-import { useAppSelector } from "@shared/redux/store/index";
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
