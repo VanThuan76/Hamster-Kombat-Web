@@ -10,7 +10,10 @@ export interface IDefaultState {
         first_name: string;
         is_bot: boolean;
         is_premium: boolean;
-        language_code: string
+        language_code: string;
+        revenue: number;
+        profit_per_hour: number;
+        exchange_id: number
     } | undefined;
     membership: {
         id: number;

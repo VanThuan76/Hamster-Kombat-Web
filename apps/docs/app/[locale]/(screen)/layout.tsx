@@ -8,6 +8,7 @@ import { Roboto_Flex } from "next/font/google";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { VisuallyHidden } from "@telegram-apps/telegram-ui";
+
 import Providers from "@shared/provider";
 
 import { Dialog, DialogContent, DialogFooter, DialogTitle } from "@ui/components/dialog";

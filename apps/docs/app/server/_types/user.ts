@@ -24,9 +24,19 @@ export interface IUser {
     skin_id: number;
     highest_score: number;
     is_first_login: number;
+    profitPerHour: {
+        id: number,
+        user_id: number,
+        profit_per_hour: number,
+        created_at: string,
+        updated_at: string,
+        exchange_id: number,
+        is_active: number
+    }
 }
 
-export interface IUpdateRevenue {
+export interface IUpdateRevenueByUser {
     user_id: number;
-    amount: number;
+    revenue: number
 }
+

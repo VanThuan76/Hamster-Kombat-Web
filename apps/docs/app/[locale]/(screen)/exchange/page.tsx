@@ -59,7 +59,7 @@ function UserCardDefault({ user }: { user: any }) {
 }
 
 export default function Page(): JSX.Element {
-    const { user } = useAppSelector(state => state.app)
+    const { user, membership } = useAppSelector(state => state.app)
 
     const haptic = initHapticFeedback();
     const router = useRouter()
@@ -78,14 +78,13 @@ export default function Page(): JSX.Element {
                             onClick={() => {
                                 router.push('/rank')
                                 haptic.impactOccurred('medium');
-
                             }}
                         >
                             <div className="flex justify-start items-center gap-[2px]">
-                                <TypographySmall text="Bronze" className="text-[10px] text-white" />
+                                <TypographySmall text={membership?.name as string} className="text-[10px] text-white" />
                                 <div className="w-[10px] h-[10px] text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg></div>
                             </div>
-                            <div className="text-[10px] text-white">1/11</div>
+                            <div className="text-[10px] text-white">{membership?.current_level}/{membership?.max_level}</div>
                         </div>
                         <Progress
                             value={progress}

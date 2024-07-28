@@ -17,7 +17,7 @@ const CardProfit = () => {
     const router = useRouter()
     const haptic = initHapticFeedback();
 
-    const { exchange } = useAppSelector(state => state.app);
+    const { user, exchange } = useAppSelector(state => state.app);
 
     return (
         <div className="flex justify-between items-center bg-[#ffffff26] border border-white/10 rounded-[20px] text-white flex-1 h-[40px] relative py-1 px-4">
@@ -30,7 +30,7 @@ const CardProfit = () => {
                 <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[8px] text-[#fff6]" />
                 <div className="w-full flex flex-1 justify-center items-center gap-[6px]">
                     <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
-                    <TypographySmall text="+10" className="text-xs" />
+                    <TypographySmall text={`+${user?.profit_per_hour}`} className="text-xs" />
                     <DrawerInfoProfit />
                 </div>
             </div>

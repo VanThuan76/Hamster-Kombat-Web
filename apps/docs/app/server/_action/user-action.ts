@@ -9,7 +9,7 @@ import { APP_SAVE_KEY } from "@shared/constant/app";
 import { queryClient } from "./config";
 
 import { IBaseResponse } from "../_types/base";
-import { IAuth, IUser } from "../_types/user";
+import { IUpdateRevenueByUser, IUser } from "../_types/user";
 
 import USER_PATHS from "../_path/user-path";
 
@@ -25,7 +25,7 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
             axiosInstance.post<IBaseResponse<IUser>>(USER_PATHS.LOGIN, body),
         onSuccess: async data => {
             if (!data.data) return;
-            queryClient.invalidateQueries({ queryKey: ['AUTH_USER'] });
+            queryClient.invalidateQueries({ queryKey: ['AUTH_USER', 'USER'] });
             setCookie(APP_SAVE_KEY.TELEGRAM_ID, data.data.telegram_id);
             haptic.notificationOccurred('success');
             dispatch(setInitUser(data.data));
@@ -33,6 +33,27 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
         onError(error, variables, context) {
             console.log(error);
             return haptic.notificationOccurred('error');
+        },
+    });
+};
+
+
+export const useUpdateRevenue: () => UseMutationResult<IBaseResponse<IUpdateRevenueByUser>, Error, { user_id: number, amount: number }> = () => {
+    const dispatch = useAppDispatch();
+    const haptic = initHapticFeedback();
+
+    return useMutation<IBaseResponse<IUpdateRevenueByUser>, Error, { user_id: number, amount: number }>({
+        mutationFn: (body: { user_id: number, amount: number }) =>
+            axiosInstance.post<IBaseResponse<IUpdateRevenueByUser>>(USER_PATHS.UPDATE_REVENUE_BY_USER, body),
+        onSuccess: async data => {
+            if (!data.data) return;
+            queryClient.invalidateQueries({ queryKey: ['UPDATE_REVENUE', 'USER'] });
+            haptic.notificationOccurred('success');
+            dispatch(setInitUser(data.data));
+        },
+        onError: (error, variables, context) => {
+            console.log(error);
+            haptic.notificationOccurred('error');
         },
     });
 };

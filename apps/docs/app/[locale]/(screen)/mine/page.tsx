@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
 import { Separator } from "@ui/components/separator"
 import { Card, CardContent, CardHeader } from "@ui/components/card"
@@ -11,31 +11,63 @@ import { DialogDescription, DialogHeader } from "@ui/components/dialog"
 import { Popover, PopoverContent, PopoverTrigger } from "@ui/components/popover"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/components/tabs"
 
-import Drawer from "@ui/components/drawer"
 import MotionContainer from "@ui/components/motion/container"
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
 
-import tabListMine from "@shared/constant/tabListMine"
-import taskListMine from "@shared/constant/taskListMine"
 import MineButton from "@shared/components/MineButton"
 import CardProfit from "@shared/components/CardProfit"
 import CountdownTimer from "@shared/components/CountdownTimer"
 import DrawerInfoCountdown from "@shared/components/DrawerInfoCountdown"
 
+import { useCategories } from "@server/_action/category-action";
+import { useCardByCategory } from "@server/_action/card-action";
+
+import { ICard } from "@server/_types/card";
+import DrawerMinCard from "../../../shared/components/DrawerMinCard";
+
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
+    const { data: categories, error, isLoading } = useCategories();
+    const getListCards = useCardByCategory();
+
     const router = useRouter()
     const haptic = initHapticFeedback();
 
+    const [cardData, setCardData] = useState<ICard[] | []>([]);
+    const [currentTab, setCurrentTab] = useState(categories && categories[0]?.name.toLowerCase());
     const [progress, setProgress] = useState(25)
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const targetDate = new Date();
     targetDate.setHours(24, 0, 0, 0);
 
-    const handleOpenDrawer = () => setIsDrawerOpen(true);
-    const handleCloseDrawer = () => setIsDrawerOpen(false);
+
+    const handleTabChange = (value: string) => {
+        setCurrentTab(value);
+    };
+
+    useEffect(() => {
+        if (categories && categories.length > 0 && !currentTab) {
+            setCurrentTab(categories[0]?.name.toLowerCase());
+        }
+    }, [categories]);
+
+    useEffect(() => {
+        if (currentTab && categories) {
+            const category = categories.find(category => category.name.toLowerCase() === currentTab);
+            if (category) {
+                getListCards.mutate({ category_id: category.id }, {
+                    onSuccess: data => {
+                        if (data.data) {
+                            setCardData(data.data);
+                        }
+                    }
+                });
+            }
+        }
+    }, [currentTab, categories]);
+
+    if (!categories || isLoading) return <></>;
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
@@ -110,51 +142,65 @@ export default function Page(): JSX.Element {
                     isScreenMine={true}
                     tabScreenMine={
                         <CardContent className="w-full mt-5 p-4">
-                            <Tabs defaultValue={tabListMine[0]?.toLowerCase()} className="w-full">
+                            <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
                                 <MotionContainer className="w-full flex justify-center items-center" direction="left">
                                     <TabsList className="w-full bg-[#272a2f]">
-                                        {tabListMine.map((item, i) => {
+                                        {categories?.map((item, i) => {
                                             return (
-                                                <TabsTrigger key={i} value={item.toLowerCase()} className="w-full text-white text-[12px] px-3">{item}</TabsTrigger>
+                                                <TabsTrigger key={i} value={item.name.toLowerCase()} className="w-full text-white text-[12px] px-3">{item.name}</TabsTrigger>
                                             )
                                         })}
                                     </TabsList>
                                 </MotionContainer>
-                                <TabsContent value={tabListMine[0]?.toLowerCase() as string} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
-                                    {taskListMine.map((item, i) => {
+                                <TabsContent value={currentTab ?? categories[0]!.name.toLowerCase()} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
+                                    {cardData.map((item, i) => {
                                         return (
-                                            <>
-                                                <div key={i} onClick={handleOpenDrawer} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
-                                                    <div className="w-full flex justify-start items-start gap-3">
-                                                        <div className="w-[60px] h-[60px]">
-                                                            <Image src={item.image} alt="@imageTask" width={60} height={60} className="w-full h-full" />
-                                                        </div>
-                                                        <div className="flex flex-col justify-between items-start gap-4">
-                                                            <TypographyLarge text="KYC" className="text-white text-xs font-extralight" />
-                                                            <div className="flex flex-col justify-start items-start">
-                                                                <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
-                                                                <div className="flex justify-center items-center gap-1">
-                                                                    <div className="w-[16px] h-[16px]">
-                                                                        <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
+                                            <DrawerMinCard
+                                                drawerTrigger={
+                                                    <div key={i} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
+                                                        <div className="w-full flex justify-start items-start gap-3">
+                                                            <div className="w-[60px] h-[60px]">
+                                                                <Image src={item.image ?? ''} alt="@imageTask" width={60} height={60} className="w-full h-full" />
+                                                            </div>
+                                                            <div className="flex flex-col justify-between items-start gap-4">
+                                                                <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
+                                                                <div className="flex flex-col justify-start items-start">
+                                                                    <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
+                                                                    <div className="flex justify-center items-center gap-1">
+                                                                        <div className="w-[16px] h-[16px]">
+                                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
+                                                                        </div>
+                                                                        <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
                                                                     </div>
-                                                                    <TypographySmall text={String(item.price_value_for_hour)} className="text-white text-[12px]" />
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <Separator className="my-2 bg-[#34383f]" />
+                                                        <div className="flex h-5 items-center space-x-4 text-sm">
+                                                            <TypographySmall text={`lv ${item.card_profits[0]?.level}`} className="text-white text-[12px]" />
+                                                            <Separator orientation="vertical" className="bg-[#34383f]" />
+                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
+                                                            <TypographySmall text={String(item.card_profits[0]?.required_money)} className="text-white text-[12px] !m-1" />
+                                                        </div>
                                                     </div>
-                                                    <Separator className="my-2 bg-[#34383f]" />
-                                                    <div className="flex h-5 items-center space-x-4 text-sm">
-                                                        <TypographySmall text={`lv ${item.upgrade_level}`} className="text-white text-[12px]" />
-                                                        <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                        <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
-                                                        <TypographySmall text={String(item.prive_value)} className="text-white text-[12px] !m-1" />
+                                                }
+                                                drawerContent={
+                                                    <div key={i} className="mt-5 w-full flex flex-col justify-center items-center gap-2">
+                                                        <Image src={item.image ?? ''} alt="@imageTask" width={115} height={115} />
+                                                        <TypographySmall text={item.name} className="text-white text-[28px] font-semibold" />
+                                                        <TypographySmall text={item.description} className="text-white text-[14px]" />
+                                                        <div className="flex flex-col justify-center items-center">
+                                                            <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
+                                                            <div className="flex justify-center items-center gap-1">
+                                                                <div className="w-[16px] h-[16px]">
+                                                                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
+                                                                </div>
+                                                                <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <Drawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} className="w-full card-has-glow h-[67%] md:h-[63%] border-none">
-                                                    <h2 className="text-lg font-bold">Drawer Content</h2>
-                                                    <p>Here is some content inside the drawer.</p>
-                                                </Drawer>
-                                            </>
+                                                }
+                                            />
                                         )
                                     })}
                                 </TabsContent>

@@ -15,15 +15,15 @@ const OnBroadingPage = () => {
   const lp = useLaunchParams();
 
   useEffect(() => {
-    if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
-      router.push('/qr')
-    } else {
-      const timer = setTimeout(() => {
-        router.push('/exchange');
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-    // router.push('/exchange');
+    // if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
+    //   router.push('/qr')
+    // } else {
+    //   const timer = setTimeout(() => {
+    //     router.push('/exchange');
+    //   }, 3000);
+    //   return () => clearTimeout(timer);
+    // }
+    router.push('/exchange');
   }, [lp, router]);
 
   if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') return <></>

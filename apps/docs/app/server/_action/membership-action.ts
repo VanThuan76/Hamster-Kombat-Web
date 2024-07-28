@@ -11,25 +11,27 @@ import { IMembership, IUserMembership } from "../_types/membership";
 
 import MEMBERSHIP_PATHS from "../_path/membership-path";
 
+export const useMemberships = () => {
+    const fetchMemberships = async (): Promise<IMembership[]> => {
+        const response = await axiosInstance.get<IBaseResponse<IMembership[]>>(MEMBERSHIP_PATHS.GET_ALL);
+        return response.data;
+    };
 
-export const membershipGetAllAction: () => UseQueryResult<IMembership[], Error> = () => {
-    return useQuery<IBaseResponse<IMembership[]>, Error, IMembership[]>({
-        queryKey: ['GET_LIST_CATEGORY'],
-        queryFn: () => axiosInstance.get<IBaseResponse<IMembership[]>>(MEMBERSHIP_PATHS.GET_ALL),
-        select(data) {
-            return data.data;
-        },
+    return useQuery<IMembership[], Error>({
+        queryKey: ['GET_LIST_MEMBERSHIP', 'MEMBERSHIP'],
+        queryFn: fetchMemberships,
     });
 };
 
-export const membershipByUserAction: () => UseMutationResult<IBaseResponse<IUserMembership>, Error, { user_id: number }> = () => {
+
+export const useMembershipByUser: () => UseMutationResult<IBaseResponse<IUserMembership>, Error, { user_id: number }> = () => {
     const dispatch = useAppDispatch();
     return useMutation<IBaseResponse<IUserMembership>, Error, { user_id: number }>({
         mutationFn: (user_id: { user_id: number }) =>
             axiosInstance.post<IBaseResponse<IUserMembership>>(MEMBERSHIP_PATHS.GET_BY_USER, user_id),
         onSuccess: async data => {
             if (!data.data) return;
-            queryClient.invalidateQueries({ queryKey: ['MEMBERSHIP_USER'] });
+            queryClient.invalidateQueries({ queryKey: ['GET_MEMBERSHIP_USER', 'MEMBERSHIP'] });
 
             const membershipData = {
                 current_level: data.data.current_level,

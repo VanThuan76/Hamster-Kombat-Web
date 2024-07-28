@@ -13,19 +13,22 @@ import TypographyLarge from "@ui/components/typography/large"
 import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import TypographySmall from "@ui/components/typography/small"
 
+import { useAppSelector } from "@shared/redux/store/index";
+
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
     const haptic = initHapticFeedback();
     const router = useRouter()
+    const { user } = useAppSelector(state => state.app);
 
     const maxEnergy = 1000
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
-    const [points, setPoints] = useState(770);
+    const [revenue, setRevenue] = useState(user?.revenue ?? 0);
     const [energy, setEnergy] = useState(1000);
 
     function handleIncludedCoin() {
-        setPoints(points + 1);
+        setRevenue(revenue + 1);
         setEnergy(energy - 1);
     }
 
@@ -65,14 +68,14 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
         return () => clearInterval(interval);
     }, []);
 
-    const formattedPoints = useMemo(() => points.toLocaleString(), [points]);
+    const formattedRevenue = useMemo(() => revenue.toLocaleString(), [revenue]);
     const formattedEnergy = useMemo(() => energy, [energy]);
 
     return (
         <>
             <MotionContainer className={cn("w-full flex justify-center items-center gap-2", !isScreenMine && "mb-3")} type="scale">
                 <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} />
-                <MemoTypographyLarge text={formattedPoints} className="text-white text-3xl" />
+                <MemoTypographyLarge text={formattedRevenue} className="text-white text-3xl" />
             </MotionContainer>
             {isSecretFeature && <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
                 <TypographyLarge text="Mật mã hàng ngày" className="text-white text-[14px]" />

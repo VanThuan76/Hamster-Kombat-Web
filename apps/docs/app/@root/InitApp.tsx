@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 
 import { userLoginAction } from '@server/_action/user-action';
+import { useMembershipByUser } from '@server/_action/membership-action';
 
 const {
     useInitData,
@@ -11,7 +12,9 @@ const {
 } = require('@telegram-apps/sdk-react');
 
 const InitApp = ({ children }: { children: React.ReactNode }) => {
-    const useInit = userLoginAction()
+    const userInitAction = userLoginAction()
+    const membershipAction = useMembershipByUser()
+
     const initData = useInitData();
 
     const haptic = initHapticFeedback();
@@ -31,11 +34,20 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
     }
 
     useEffect(() => {
-        const body = getUserRows(initData.user)
-        useInit.mutateAsync(body)
-        backButton.show();
-        haptic.impactOccurred('medium');
-    }, [])
+        const initializeApp = async () => {
+            try {
+                const body = getUserRows(initData.user);
+                const user = await userInitAction.mutateAsync(body);
+                await membershipAction.mutateAsync({ user_id: user.data.id });
+                backButton.show();
+                haptic.impactOccurred('medium');
+            } catch (error) {
+                console.error('Error initializing app:', error);
+            }
+        };
+
+        initializeApp();
+    }, []);
 
     return (
         <React.Fragment>
