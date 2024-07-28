@@ -3,7 +3,6 @@ import "@ui/styles/project.css";
 import '@telegram-apps/telegram-ui/dist/styles.css';
 
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Roboto_Flex } from "next/font/google";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -57,10 +56,6 @@ export default async function ScreenLayout({
                         </Providers>
                     </RootContainer>
                 </NextIntlClientProvider>
-                <Script
-                    type='text/javascript'
-                    src='../node_modules/tw-elements/dist/js/tw-elements.umd.min.js'
-                ></Script>
             </body>
         </html>
     );

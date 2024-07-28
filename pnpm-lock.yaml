@@ -80,9 +80,6 @@ importers:
       redux-persist:
         specifier: ^6.0.0
         version: 6.0.0(react@18.3.1)(redux@5.0.1)
-      tw-elements:
-        specifier: ^2.0.0
-        version: 2.0.0
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
@@ -6373,10 +6370,6 @@ packages:
       turbo-windows-64: 2.0.6
       turbo-windows-arm64: 2.0.6
     dev: true
-
-  /tw-elements@2.0.0:
-    resolution: {integrity: sha512-aiitkqzmCZIZ9zJr3V6ErVzU/CrKoAkptpv94t0pEKnVn2Ah4jOplXOO/v6Fo9jr3PoTA5dxvlyS4w8rnW/iag==}
-    dev: false
 
   /tweetnacl-util@0.15.1:
     resolution: {integrity: sha512-RKJBIj8lySrShN4w6i/BonWp2Z/uxwC3h4y7xsRrpP59ZboCd0GpEVsOnMDYLMmKBpYhb5TgHzZXy7wTfYFBRw==}
