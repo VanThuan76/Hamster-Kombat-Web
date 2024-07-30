@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { useMemo, useState, useEffect } from "react"
+import { useMemo, useState, useEffect, useRef } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
 import { cn } from "@ui/lib/utils"
 
@@ -15,21 +15,32 @@ import TypographySmall from "@ui/components/typography/small"
 
 import { useAppSelector } from "@shared/redux/store/index";
 
+import { useUpdateRevenue } from "@server/_action/user-action";
+
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
+    const { user } = useAppSelector(state => state.app);
     const haptic = initHapticFeedback();
     const router = useRouter()
-    const { user } = useAppSelector(state => state.app);
+    const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const maxEnergy = 1000
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
-    const [revenue, setRevenue] = useState(user?.revenue ?? 0);
+    const [revenue, setRevenue] = useState(user.revenue);
+    const [clickCount, setClickCount] = useState(0);
     const [energy, setEnergy] = useState(1000);
+
+    const updateRevenue = useUpdateRevenue()
 
     function handleIncludedCoin() {
         setRevenue(revenue + 1);
+        setClickCount(clickCount + 1);
         setEnergy(energy - 1);
+        if (saveTimeoutRef.current) {
+            clearTimeout(saveTimeoutRef.current);
+        }
+        saveTimeoutRef.current = setTimeout(() => updateRevenue.mutate({ user_id: user.id, amount: clickCount }), 3000);
     }
 
     const handleCardTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {

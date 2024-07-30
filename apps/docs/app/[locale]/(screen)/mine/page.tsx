@@ -19,17 +19,22 @@ import MineButton from "@shared/components/MineButton"
 import CardProfit from "@shared/components/CardProfit"
 import CountdownTimer from "@shared/components/CountdownTimer"
 import DrawerInfoCountdown from "@shared/components/DrawerInfoCountdown"
+import DrawerMinCard from "@shared/components/DrawerMinCard";
+import Loading from "@shared/components/Loading";
 
-import { useCategories } from "@server/_action/category-action";
+import { useAppSelector } from "@shared/redux/store/index";
 import { useCardByCategory } from "@server/_action/card-action";
+import { useCategories } from '@server/_action/category-action';
 
 import { ICard } from "@server/_types/card";
-import DrawerMinCard from "../../../shared/components/DrawerMinCard";
+
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
-    const { data: categories, error, isLoading } = useCategories();
+    const { membership } = useAppSelector(state => state.app)
+
+    const { data: categories } = useCategories();
     const getListCards = useCardByCategory();
 
     const router = useRouter()
@@ -37,10 +42,9 @@ export default function Page(): JSX.Element {
 
     const [cardData, setCardData] = useState<ICard[] | []>([]);
     const [currentTab, setCurrentTab] = useState(categories && categories[0]?.name.toLowerCase());
-    const [progress, setProgress] = useState(25)
+
     const targetDate = new Date();
     targetDate.setHours(24, 0, 0, 0);
-
 
     const handleTabChange = (value: string) => {
         setCurrentTab(value);
@@ -67,8 +71,6 @@ export default function Page(): JSX.Element {
         }
     }, [currentTab, categories]);
 
-    if (!categories || isLoading) return <></>;
-
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
@@ -88,7 +90,7 @@ export default function Page(): JSX.Element {
                             <div className="text-[10px] text-white">1/11</div>
                         </div>
                         <Progress
-                            value={progress}
+                            value={Math.round((membership.current_level / membership.max_level) * 100)}
                             className="w-full h-[8px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                         />
                     </div>
@@ -152,58 +154,67 @@ export default function Page(): JSX.Element {
                                         })}
                                     </TabsList>
                                 </MotionContainer>
-                                <TabsContent value={currentTab ?? categories[0]!.name.toLowerCase()} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
-                                    {cardData.map((item, i) => {
-                                        return (
-                                            <DrawerMinCard
-                                                drawerTrigger={
-                                                    <div key={i} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
-                                                        <div className="w-full flex justify-start items-start gap-3">
-                                                            <div className="w-[60px] h-[60px]">
-                                                                <Image src={item.image ?? ''} alt="@imageTask" width={60} height={60} className="w-full h-full" />
-                                                            </div>
-                                                            <div className="flex flex-col justify-between items-start gap-4">
-                                                                <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
-                                                                <div className="flex flex-col justify-start items-start">
-                                                                    <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
-                                                                    <div className="flex justify-center items-center gap-1">
-                                                                        <div className="w-[16px] h-[16px]">
-                                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
+                                {categories && cardData.length > 0 ?
+                                    <TabsContent value={currentTab ?? categories[0]!.name.toLowerCase()} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
+                                        {cardData.map((item, i) => {
+                                            return (
+                                                <DrawerMinCard
+                                                    drawerTrigger={
+                                                        <div key={i} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
+                                                            <div className="w-full flex justify-start items-start gap-3">
+                                                                <div className="w-[60px] h-[60px]">
+                                                                    <Image src={item.image ?? ''} alt="@imageTask" width={60} height={60} className="w-full h-full" />
+                                                                </div>
+                                                                <div className="flex flex-col justify-between items-start gap-4">
+                                                                    <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
+                                                                    <div className="flex flex-col justify-start items-start">
+                                                                        <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
+                                                                        <div className="flex justify-center items-center gap-1">
+                                                                            <div className="w-[16px] h-[16px]">
+                                                                                <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
+                                                                            </div>
+                                                                            <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
                                                                         </div>
-                                                                        <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <Separator className="my-2 bg-[#34383f]" />
-                                                        <div className="flex h-5 items-center space-x-4 text-sm">
-                                                            <TypographySmall text={`lv ${item.card_profits[0]?.level}`} className="text-white text-[12px]" />
-                                                            <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
-                                                            <TypographySmall text={String(item.card_profits[0]?.required_money)} className="text-white text-[12px] !m-1" />
-                                                        </div>
-                                                    </div>
-                                                }
-                                                drawerContent={
-                                                    <div key={i} className="mt-5 w-full flex flex-col justify-center items-center gap-2">
-                                                        <Image src={item.image ?? ''} alt="@imageTask" width={115} height={115} />
-                                                        <TypographySmall text={item.name} className="text-white text-[28px] font-semibold" />
-                                                        <TypographySmall text={item.description} className="text-white text-[14px]" />
-                                                        <div className="flex flex-col justify-center items-center">
-                                                            <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
-                                                            <div className="flex justify-center items-center gap-1">
-                                                                <div className="w-[16px] h-[16px]">
-                                                                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
-                                                                </div>
-                                                                <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
+                                                            <Separator className="my-2 bg-[#34383f]" />
+                                                            <div className="flex h-5 items-center space-x-4 text-sm">
+                                                                <TypographySmall text={`lv ${item.card_profits[0]?.level}`} className="text-white text-[12px]" />
+                                                                <Separator orientation="vertical" className="bg-[#34383f]" />
+                                                                <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
+                                                                <TypographySmall text={String(item.card_profits[0]?.required_money)} className="text-white text-[12px] !m-1" />
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                }
-                                            />
-                                        )
-                                    })}
-                                </TabsContent>
+                                                    }
+                                                    drawerContent={
+                                                        <div key={i} className="mt-2 w-full flex flex-col justify-center items-center gap-2">
+                                                            <Image src={item.image ?? ''} alt="@imageTask" width={115} height={115} />
+                                                            <TypographySmall text={item.name} className="text-white text-[28px] font-semibold" />
+                                                            <TypographySmall text={item.description} className="text-white text-[14px] text-center" />
+                                                            <div className="flex flex-col justify-center items-center gap-1">
+                                                                <TypographySmall text="Lợi nhuận mỗi giờ" className="text-white text-[10px] font-extralight" />
+                                                                <div className="flex justify-center items-center gap-1">
+                                                                    <div className="w-[16px] h-[16px]">
+                                                                        <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
+                                                                    </div>
+                                                                    <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex justify-center items-center gap-1">
+                                                                    <div className="w-[32px] h-[32px]">
+                                                                        <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" />
+                                                                    </div>
+                                                                    <TypographySmall text={`${String(item.card_profits[0]?.required_money)}`} className="text-white text-[12px]" />
+                                                                </div>
+                                                        </div>
+                                                    }
+                                                />
+                                            )
+                                        })}
+                                    </TabsContent>
+                                    : <Loading className="relative mt-3 w-full h-full bg-transparent" />
+                                }
                             </Tabs>
                         </CardContent>
                     }

@@ -30,7 +30,7 @@ const CardProfit = () => {
                 <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[8px] text-[#fff6]" />
                 <div className="w-full flex flex-1 justify-center items-center gap-[6px]">
                     <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
-                    <TypographySmall text={`+${user?.profit_per_hour}`} className="text-xs" />
+                    <TypographySmall text={`+${user.profit_per_hour}`} className="text-xs" />
                     <DrawerInfoProfit />
                 </div>
             </div>

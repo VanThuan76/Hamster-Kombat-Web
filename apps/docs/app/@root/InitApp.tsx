@@ -1,9 +1,12 @@
 'use client'
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { userLoginAction } from '@server/_action/user-action';
 import { useMembershipByUser } from '@server/_action/membership-action';
+import { useExchangesByUser } from '@server/_action/exchanges-action';
+
+import Loading from '@shared/components/Loading';
 
 const {
     useInitData,
@@ -12,13 +15,15 @@ const {
 } = require('@telegram-apps/sdk-react');
 
 const InitApp = ({ children }: { children: React.ReactNode }) => {
+    const [initialized, setInitialized] = useState(false);
+
     const userInitAction = userLoginAction()
     const membershipAction = useMembershipByUser()
+    const exchangesAction = useExchangesByUser()
 
-    const initData = useInitData();
-
-    const haptic = initHapticFeedback();
     const [backButton] = initBackButton();
+    const initData = useInitData();
+    const haptic = initHapticFeedback();
 
     function getUserRows(user: any) {
         return {
@@ -32,22 +37,28 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
             language_code: user.languageCode,
         }
     }
-
     useEffect(() => {
         const initializeApp = async () => {
             try {
                 const body = getUserRows(initData.user);
                 const user = await userInitAction.mutateAsync(body);
                 await membershipAction.mutateAsync({ user_id: user.data.id });
+                await exchangesAction.mutateAsync({ user_id: user.data.id });
                 backButton.show();
                 haptic.impactOccurred('medium');
+                setInitialized(true);
             } catch (error) {
                 console.error('Error initializing app:', error);
+                setInitialized(true);
             }
         };
 
         initializeApp();
     }, []);
+
+    if (!initialized) {
+        return <Loading />
+    }
 
     return (
         <React.Fragment>

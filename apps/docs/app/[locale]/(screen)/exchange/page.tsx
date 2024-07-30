@@ -19,6 +19,7 @@ const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 function UserCardExist({ user }: { user: any }) {
     const router = useRouter()
+
     return (
         <DialogTitle className="w-full flex justify-between items-center">
             <div className="inline-flex justify-start items-center" onClick={() => router.push("/skin")}>
@@ -65,7 +66,6 @@ export default function Page(): JSX.Element {
     const router = useRouter()
 
     const [isSecretFeature, setSecretFeature] = useState(false)
-    const [progress, setProgress] = useState(80)
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
@@ -87,7 +87,7 @@ export default function Page(): JSX.Element {
                             <div className="text-[10px] text-white">{membership?.current_level}/{membership?.max_level}</div>
                         </div>
                         <Progress
-                            value={progress}
+                            value={Math.round((membership.current_level / membership.max_level) * 100)}
                             className="w-full h-[8px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                         />
                     </div>

@@ -28,7 +28,12 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
             queryClient.invalidateQueries({ queryKey: ['AUTH_USER', 'USER'] });
             setCookie(APP_SAVE_KEY.TELEGRAM_ID, data.data.telegram_id);
             haptic.notificationOccurred('success');
-            dispatch(setInitUser(data.data));
+            const dataCurrentInitUser = {
+                ...data.data,
+                profit_per_hour: data.data.profitPerHour?.profit_per_hour || 0,
+                exchange_id: data.data.profitPerHour?.exchange_id || 0
+            }
+            dispatch(setInitUser(dataCurrentInitUser));
         },
         onError(error, variables, context) {
             console.log(error);
@@ -49,7 +54,6 @@ export const useUpdateRevenue: () => UseMutationResult<IBaseResponse<IUpdateReve
             if (!data.data) return;
             queryClient.invalidateQueries({ queryKey: ['UPDATE_REVENUE', 'USER'] });
             haptic.notificationOccurred('success');
-            dispatch(setInitUser(data.data));
         },
         onError: (error, variables, context) => {
             console.log(error);

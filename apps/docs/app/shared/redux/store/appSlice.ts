@@ -14,7 +14,7 @@ export interface IDefaultState {
         revenue: number;
         profit_per_hour: number;
         exchange_id: number
-    } | undefined;
+    };
     membership: {
         id: number;
         name: string;
@@ -29,24 +29,46 @@ export interface IDefaultState {
         max_level: number;
         required_money: number;
         required_short_money: string;
-    } | undefined;
+    };
     exchange: {
         name: string;
         icon: string
     };
-    coin: number;
-    energy: number;
 }
 
 const initialState: IDefaultState = {
-    user: undefined,
-    membership: undefined,
+    user: {
+        id: 0,
+        username: "",
+        photo_url: "",
+        last_name: "",
+        first_name: "",
+        is_bot: false,
+        is_premium: false,
+        language_code: "",
+        revenue: 0,
+        profit_per_hour: 0,
+        exchange_id: 0
+    },
+    membership: {
+        id: 0,
+        name: "",
+        image: "",
+        money: 0,
+        level: 0,
+        created_at: "",
+        updated_at: "",
+        short_money: "",
+        image_url: "",
+        current_level: 0,
+        max_level: 0,
+        required_money: 0,
+        required_short_money: ""
+    },
     exchange: {
         name: '',
         icon: '/project/icon_ava_plus.png'
     },
-    coin: 0,
-    energy: 100
 };
 
 export const appSlice: any = createSlice({
@@ -59,17 +81,11 @@ export const appSlice: any = createSlice({
         setMembership: (state, action: PayloadAction<IDefaultState["membership"]>) => {
             state.membership = action.payload;
         },
-        setCoin: (state, action: PayloadAction<number>) => {
-            state.coin = action.payload;
-        },
-        setEnergy: (state, action: PayloadAction<number>) => {
-            state.energy = action.payload;
-        },
         setExchange: (state, action: PayloadAction<IDefaultState["exchange"]>) => {
             state.exchange = action.payload;
-        }
+        },
     },
 });
 
-export const { setInitUser, setCoin, setEnergy, setMembership, setExchange } = appSlice.actions;
+export const { setInitUser, setMembership, setExchange } = appSlice.actions;
 export default appSlice.reducer;

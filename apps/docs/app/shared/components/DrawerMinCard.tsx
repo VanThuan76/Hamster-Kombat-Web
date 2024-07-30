@@ -4,7 +4,8 @@ import React, { useState, ReactNode, ReactElement, cloneElement } from "react";
 import { Button } from "@ui/components/button"
 import TypographyLarge from "@ui/components/typography/large"
 import Drawer from "@ui/components/drawer"
-import { cn } from "@/../ui/src/lib/utils";
+
+import { cn } from "@ui/lib/utils"
 
 interface DrawerMinCardProps {
     drawerTrigger: ReactElement;
