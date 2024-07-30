@@ -10,11 +10,12 @@ import { cn } from "@ui/lib/utils"
 interface DrawerMinCardProps {
     drawerTrigger: ReactElement;
     drawerContent: ReactNode;
-    textBtnFinish?: string
-    className?: string
+    handleSuccess?: any;
+    textBtnFinish?: string;
+    className?: string;
 }
 
-const DrawerMinCard = ({ drawerTrigger, drawerContent, className, textBtnFinish }: DrawerMinCardProps) => {
+const DrawerMinCard = ({ drawerTrigger, drawerContent, className, handleSuccess, textBtnFinish }: DrawerMinCardProps) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const handleOpenDrawer = () => setIsDrawerOpen(true);
@@ -22,6 +23,7 @@ const DrawerMinCard = ({ drawerTrigger, drawerContent, className, textBtnFinish 
 
     function handleClickDone() {
         setIsDrawerOpen(false)
+        handleSuccess()
     }
 
     return (

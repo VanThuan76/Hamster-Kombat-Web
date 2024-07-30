@@ -10,7 +10,6 @@ import { ErrorPage } from '@shared/components/ErrorPage';
 import { useTelegramMock } from '@shared/hooks/useTelegramMock';
 
 import { useDidMount } from '@shared/hooks/useDidMount';
-import Loading from '@shared/components/Loading';
 
 const {
     SDKProvider,
@@ -89,5 +88,5 @@ export function RootContainer(props: PropsWithChildren) {
         <ErrorBoundary fallback={ErrorPage}>
             <RootInner {...props} />
         </ErrorBoundary>
-    ) : <Loading />
+    ) : <></>
 }

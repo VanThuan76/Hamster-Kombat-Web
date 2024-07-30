@@ -3,7 +3,7 @@ import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 import { useAppDispatch } from "@shared/redux/store/index";
 import { axiosInstance } from "@shared/axios.http";
-import { setInitUser } from "@shared/redux/store/appSlice";
+import { setInitUser, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import { APP_SAVE_KEY } from "@shared/constant/app";
 
 import { queryClient } from "./config";
@@ -45,7 +45,6 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
 
 export const useUpdateRevenue: () => UseMutationResult<IBaseResponse<IUpdateRevenueByUser>, Error, { user_id: number, amount: number }> = () => {
     const dispatch = useAppDispatch();
-    const haptic = initHapticFeedback();
 
     return useMutation<IBaseResponse<IUpdateRevenueByUser>, Error, { user_id: number, amount: number }>({
         mutationFn: (body: { user_id: number, amount: number }) =>
@@ -53,11 +52,10 @@ export const useUpdateRevenue: () => UseMutationResult<IBaseResponse<IUpdateReve
         onSuccess: async data => {
             if (!data.data) return;
             queryClient.invalidateQueries({ queryKey: ['UPDATE_REVENUE', 'USER'] });
-            haptic.notificationOccurred('success');
+            dispatch(setUpdateRevenue(data.data.revenue))
         },
         onError: (error, variables, context) => {
             console.log(error);
-            haptic.notificationOccurred('error');
         },
     });
 };

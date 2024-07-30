@@ -84,8 +84,11 @@ export const appSlice: any = createSlice({
         setExchange: (state, action: PayloadAction<IDefaultState["exchange"]>) => {
             state.exchange = action.payload;
         },
+        setUpdateRevenue: (state, action: PayloadAction<number>) => {
+            state.user.revenue = action.payload;
+        },
     },
 });
 
-export const { setInitUser, setMembership, setExchange } = appSlice.actions;
+export const { setInitUser, setMembership, setExchange, setUpdateRevenue } = appSlice.actions;
 export default appSlice.reducer;

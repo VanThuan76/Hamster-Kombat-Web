@@ -23,7 +23,7 @@ import DrawerMinCard from "@shared/components/DrawerMinCard";
 import Loading from "@shared/components/Loading";
 
 import { useAppSelector } from "@shared/redux/store/index";
-import { useCardByCategory } from "@server/_action/card-action";
+import { useBuyCard, useCardByCategory } from "@server/_action/card-action";
 import { useCategories } from '@server/_action/category-action';
 
 import { ICard } from "@server/_types/card";
@@ -32,10 +32,11 @@ import { ICard } from "@server/_types/card";
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
-    const { membership } = useAppSelector(state => state.app)
+    const { membership, user } = useAppSelector(state => state.app)
 
     const { data: categories } = useCategories();
     const getListCards = useCardByCategory();
+    const buyCard = useBuyCard()
 
     const router = useRouter()
     const haptic = initHapticFeedback();
@@ -202,13 +203,20 @@ export default function Page(): JSX.Element {
                                                                 </div>
                                                             </div>
                                                             <div className="flex justify-center items-center gap-1">
-                                                                    <div className="w-[32px] h-[32px]">
-                                                                        <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" />
-                                                                    </div>
-                                                                    <TypographySmall text={`${String(item.card_profits[0]?.required_money)}`} className="text-white text-[12px]" />
+                                                                <div className="w-[32px] h-[32px]">
+                                                                    <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" />
                                                                 </div>
+                                                                <TypographySmall text={`${String(item.card_profits[0]?.required_money)}`} className="text-white text-[12px]" />
+                                                            </div>
                                                         </div>
                                                     }
+                                                    handleSuccess={() => buyCard.mutate({
+                                                        card_id: item.id,
+                                                        card_profit_id: item.card_profits[0]!.id,
+                                                        level: item.card_profits[0]!.level,
+                                                        exchange_id: user.exchange_id,
+                                                        user_id: user.id
+                                                    })}
                                                 />
                                             )
                                         })}
