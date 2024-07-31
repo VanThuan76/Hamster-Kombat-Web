@@ -32,7 +32,7 @@ function UserCardExist({ user }: { user: any }) {
                 <div className="user-info-avatar-skin">
                     <TypographySmall text="Mua skin" className="text-[9px] font-semibold w-full" />
                     <div className="w-[110%]">
-                        <Image src="/project/_skin.png" alt="@skin" width={33} height={30} />
+                        <Image src="/project/_skin.png" alt="@skin" width={33} height={30} priority />
                     </div>
                 </div>
                 <TypographySmall text={`${user?.first_name} ${user?.last_name}`} className="text-xs" />
@@ -104,7 +104,7 @@ export default function Page(): JSX.Element {
                                 haptic.impactOccurred('medium');
                             }}
                         >
-                            <Image src="/project/icon_daily_reward.png" alt="@card" width={56} height={56} />
+                            <Image src="/project/icon_daily_reward.png" alt="@card" width={56} height={56} priority />
                             <TypographySmall text="Danh sách nhiệm vụ" className="text-[10px] text-white" />
                             <span className="text-[#8b8e93] text-[10px] my-2">07:03</span>
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
@@ -126,7 +126,7 @@ export default function Page(): JSX.Element {
                             </div> */}
                         </div>
                         <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer" onClick={() => setSecretFeature(!isSecretFeature)}>
-                            <Image src="/project/icon_daily_cipher.png" alt="@card" width={56} height={56} />
+                            <Image src="/project/icon_daily_cipher.png" alt="@card" width={56} height={56} priority />
                             <TypographySmall text="Mật mã hàng ngày" className="text-[10px] text-white" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             <span className="text-[#8b8e93] text-[10px] my-2">02:13</span>
@@ -138,7 +138,7 @@ export default function Page(): JSX.Element {
                                 haptic.impactOccurred('medium');
                             }}
                         >
-                            <Image src="/project/icon_daily_combo.png" alt="@card" width={56} height={56} />
+                            <Image src="/project/icon_daily_combo.png" alt="@card" width={56} height={56} priority />
                             <TypographySmall text="Thẻ kết hợp hàng ngày" className="text-[10px] text-white" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             <span className="text-[#8b8e93] text-[10px] my-2">19:03</span>

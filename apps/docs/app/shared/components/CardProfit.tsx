@@ -29,7 +29,7 @@ const CardProfit = () => {
             <div className="w-full flex flex-1 flex-col justify-start items-center pb-1">
                 <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[8px] text-[#fff6]" />
                 <div className="w-full flex flex-1 justify-center items-center gap-[6px]">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} />
+                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
                     <TypographySmall text={`+${user.profit_per_hour}`} className="text-xs" />
                     <DrawerInfoProfit />
                 </div>

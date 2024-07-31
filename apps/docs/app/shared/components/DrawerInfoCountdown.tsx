@@ -27,7 +27,7 @@ export default function DrawerInfoCountdown(): JSX.Element {
                     <div className="relative visible">
                         <div className="absolute left-1/2 top-1/2 w-[100px] h-[100px] bg-[#9b37ffe6] rounded-full blur-[20px] transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
                         <div className="relative z-10">
-                            <Image src="/project/daily-combo-info.png" alt="@daily-combo-info" width={115} height={115} />
+                            <Image src="/project/daily-combo-info.png" alt="@daily-combo-info" width={115} height={115} priority />
                         </div>
                     </div>
                     <div className="w-full flex flex-col justify-center items-center gap-5">

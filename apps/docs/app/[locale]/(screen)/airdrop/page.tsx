@@ -27,7 +27,7 @@ export default function Page(): JSX.Element {
                 </svg>
                 </div>
                 <div className="icon_earn_image w-[106px] h-[106px]">
-                    <Image src="/project/icon_hamster-coin.png" alt="@hamsterCoin" width={106} height={106} className="w-full h-full" />
+                    <Image src="/project/icon_hamster-coin.png" alt="@hamsterCoin" width={106} height={106} className="w-full h-full" priority />
                 </div>
             </MotionContainer>
             <div className="h-[220px]"></div>

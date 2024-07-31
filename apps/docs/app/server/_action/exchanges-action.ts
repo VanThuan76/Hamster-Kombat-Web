@@ -18,8 +18,8 @@ export const useExchangesByUser: () => UseMutationResult<IBaseResponse<IExchange
             axiosInstance.post<IBaseResponse<IExchanges>>(EXCHANGES_PATHS.GET_BY_USER, user_id),
         onSuccess: async data => {
             if (!data.data) return;
-            queryClient.invalidateQueries({ queryKey: ['GET_MEMBERSHIP_USER', 'MEMBERSHIP'] });
-            dispatch(setExchange(data.data));
+            queryClient.invalidateQueries({ queryKey: ['GET_EXCHANGES_USER', 'EXCHANGES'] });
+            dispatch(setExchange({name: data.data.name, icon: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + data.data.image}));
         },
         onError(error, variables, context) {
             console.log(error);

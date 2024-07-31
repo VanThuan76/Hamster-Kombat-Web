@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+import { ICategory } from "@server/_types/category";
 export interface IDefaultState {
     user: {
         id: number;
@@ -34,6 +35,7 @@ export interface IDefaultState {
         name: string;
         icon: string
     };
+    categories: ICategory[] | []
 }
 
 const initialState: IDefaultState = {
@@ -69,6 +71,7 @@ const initialState: IDefaultState = {
         name: '',
         icon: '/project/icon_ava_plus.png'
     },
+    categories: []
 };
 
 export const appSlice: any = createSlice({
@@ -87,8 +90,11 @@ export const appSlice: any = createSlice({
         setUpdateRevenue: (state, action: PayloadAction<number>) => {
             state.user.revenue = action.payload;
         },
+        setCategories: (state, action: PayloadAction<ICategory[]>) => {
+            state.categories = action.payload;
+        }
     },
 });
 
-export const { setInitUser, setMembership, setExchange, setUpdateRevenue } = appSlice.actions;
+export const { setInitUser, setMembership, setExchange, setUpdateRevenue, setCategories } = appSlice.actions;
 export default appSlice.reducer;

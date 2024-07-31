@@ -26,7 +26,7 @@ export default function DrawerWalletConnect(): JSX.Element {
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3" style={{ background: 'linear-gradient(98deg, #35a6eb 3.58%, #309adb 101.32%)' }}>
                     <div className="flex justify-start items-center gap-2">
                         <MotionContainer type="scale">
-                            <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={56} height={56} />
+                            <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={56} height={56} priority />
                         </MotionContainer>
                         <div className="flex flex-col justify-start items-start">
                             <TypographySmall text="Kết nối ví TON của bạn" className="text-[14px] text-white font-extralight" />
@@ -47,7 +47,7 @@ export default function DrawerWalletConnect(): JSX.Element {
                 <div className="w-full flex flex-col justify-center items-center gap-8">
                     <div className="relative visible">
                         <div className="relative z-10">
-                            <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={115} height={115} />
+                            <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={115} height={115} priority />
                         </div>
                     </div>
                     <div className="w-full flex flex-col justify-center items-center gap-5">

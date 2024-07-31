@@ -2,8 +2,11 @@ const withImages = require('next-images');
 const createNextIntlPlugin = require('next-intl/plugin');
 const withNextIntl = createNextIntlPlugin();
 const withPlugins = require('next-compose-plugins');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
-module.exports = withPlugins([withImages, withNextIntl], {
+module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
@@ -26,6 +29,10 @@ module.exports = withPlugins([withImages, withNextIntl], {
         protocol: 'https',
         hostname: 'github.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'hamster-admin.alphasius.com',
+      }
     ],
   },
   webpack(config, options) {
@@ -48,4 +55,4 @@ module.exports = withPlugins([withImages, withNextIntl], {
     }
     return config;
   },
-}); 
+});

@@ -15,6 +15,7 @@ const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export const BottomNav = () => {
     const { exchange } = useAppSelector(state => state.app);
+
     const [navItems, setNavItems] = useState([
         {
             name: "Sàn",
@@ -56,8 +57,8 @@ export const BottomNav = () => {
     const path = usePathname();
     const checkPath = path.split("/"); // Fixed
 
-    function isSvg(filePath: string) {
-        return filePath.endsWith('.svg');
+    function isSvg(filePath: string | undefined): boolean {
+        return filePath ? filePath.endsWith('.svg') : false;
     }
 
     const handleLinkClick = () => {
@@ -72,13 +73,14 @@ export const BottomNav = () => {
         >
             {navItems.map((navItem: any, index: number) => (
                 <Link
-                    key={`link=${index}`}
+                    key={`link-${index}`}
                     href={navItem.link}
                     onClick={handleLinkClick}
                     className={cn(
                         "relative w-full dark:text-neutral-50 flex flex-col justify-center items-center text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 cursor-pointer px-2 py-1",
                         checkPath?.includes(navItem.link.split("/")[1]) ? 'bg-[#1c1f24] rounded-xl' : 'bg-transparent'
                     )}
+                    prefetch={false}
                 >
                     <Image
                         src={navItem.icon}
@@ -86,6 +88,7 @@ export const BottomNav = () => {
                         width={28}
                         height={28}
                         className={cn(isSvg(navItem.icon) && index !== 0 && "hover:filter hover:brightness-0 hover:invert", checkPath?.includes(navItem.link.split("/")[1]) && index !== 0 && isSvg(navItem.icon) && 'filter brightness-0 invert')}
+                        priority
                     />
                     <TypographySmall text={navItem.name} className={cn('text-[10px]', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />
                 </Link>

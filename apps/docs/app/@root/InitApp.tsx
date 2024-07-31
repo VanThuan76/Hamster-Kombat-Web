@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { userLoginAction } from '@server/_action/user-action';
 import { useMembershipByUser } from '@server/_action/membership-action';
 import { useExchangesByUser } from '@server/_action/exchanges-action';
+import { useCategories } from '@server/_action/category-action';
 
 import Loading from '@shared/components/Loading';
 
@@ -17,6 +18,7 @@ const {
 const InitApp = ({ children }: { children: React.ReactNode }) => {
     const [initialized, setInitialized] = useState(false);
 
+    const categoryInitAction = useCategories();
     const userInitAction = userLoginAction()
     const membershipAction = useMembershipByUser()
     const exchangesAction = useExchangesByUser()
@@ -44,6 +46,7 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
                 const user = await userInitAction.mutateAsync(body);
                 await membershipAction.mutateAsync({ user_id: user.data.id });
                 await exchangesAction.mutateAsync({ user_id: user.data.id });
+                await categoryInitAction.mutateAsync({})
                 backButton.show();
                 haptic.impactOccurred('medium');
                 setInitialized(true);
