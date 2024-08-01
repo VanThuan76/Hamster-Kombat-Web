@@ -1,18 +1,44 @@
 'use client'
 
 import Image from "next/image"
-import MotionContainer from "@ui/components/motion/container"
+import { useTranslations } from "next-intl"
+import { cn } from "@ui/lib/utils";
+import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
 import DrawerMinCard from "@shared/components/DrawerMinCard"
-import listEarn from "@shared/constant/listEarn"
 import { formatCoin } from "@shared/utils/formatNumber"
-import { cn } from "@ui/lib/utils";
 
 const { initUtils } = require('@telegram-apps/sdk-react');
+
 export default function Page(): JSX.Element {
+    const t = useTranslations('screens.earn')
+
     const utils = initUtils();
+
+    const listEarn = [
+        {
+            name: t('join_telegram'),
+            image: '/project/telegram.png',
+            award: 5000
+        },
+        {
+            name: t('join_x'),
+            image: '/project/x.svg',
+            award: 5000
+        },
+        {
+            name: t('choose_exchange'),
+            image: '/project/icon_ava_plus.png',
+            award: 5000
+        },
+        {
+            name: t('invite_friends'),
+            image: '/project/friends.png',
+            award: 5000
+        }
+    ];
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center pb-24">
@@ -38,7 +64,7 @@ export default function Page(): JSX.Element {
             </MotionContainer>
             <div className="h-[220px]"></div>
             <MotionContainer className="relative w-full" direction="right">
-                <TypographyLarge text="Kiếm thêm tiền" className="text-white text-[32px]" />
+                <TypographyLarge text={t('earn_coin')} className="text-white text-[32px]" />
             </MotionContainer>
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text="Hamster Youtube" className="text-base text-white mt-5" />
@@ -50,7 +76,7 @@ export default function Page(): JSX.Element {
                                     <Image src="/project/hamster_youtube_channel.png" alt="@hamster_youtube_channel" width={56} height={56} priority />
                                 </MotionContainer>
                                 <div className="flex flex-col justify-start items-start">
-                                    <TypographySmall text="Xu hướng bạn không thể bỏ qua" className="text-[14px] text-white" />
+                                    <TypographySmall text="Xu hướng bạn không thể bỏ qua" className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
                                         <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
@@ -65,7 +91,7 @@ export default function Page(): JSX.Element {
                 })}
             </div>
             <div className="flex flex-col justify-start items-start gap-2">
-                <TypographySmall text="Nhiệm vụ hàng ngày" className="text-base text-white mt-5" />
+                <TypographySmall text={t('daily_tasks')} className="text-base text-white mt-5" />
                 <DrawerMinCard
                     drawerTrigger={
                         <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]">
@@ -74,7 +100,7 @@ export default function Page(): JSX.Element {
                                     <Image src='/project/calendar.png' alt='@calendar' width={56} height={56} priority />
                                 </MotionContainer>
                                 <div className="flex flex-col justify-start items-start">
-                                    <TypographySmall text='Danh sách nhiệm vụ' className="text-[14px] text-white" />
+                                    <TypographySmall text={t('daily_reward')} className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
                                         <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
@@ -95,14 +121,14 @@ export default function Page(): JSX.Element {
                                 </div>
                             </div>
                             <div className="w-full flex flex-col justify-center items-center gap-5 mb-5">
-                                <TypographyLarge text="Phần thưởng hàng ngày" className="text-white text-[32px] font-bold" />
-                                <TypographySmall text='Tích lũy xu khi đăng nhập vào trò chơi hàng ngày mà không cần bỏ qua. Nút "thu thập" phải được nhấn hàng ngày, nếu không việc đếm ngày sẽ bắt đầu lại' className="text-white text-[14px] max-w-[280px] font-normal" />
+                                <TypographyLarge text={t('daily_reward')} className="text-white text-[32px] font-bold" />
+                                <TypographySmall text={t('des_daily_reward')} className="text-white text-[14px] max-w-[280px] font-normal" />
                             </div>
                             <ul className="w-full h-full grid grid-cols-4 justify-center items-center gap-2">
                                 {Array.from({ length: 10 }).map((_, i) => {
                                     return (
                                         <li key={i} className={cn("flex flex-col justify-center items-center gap-1 rounded-2xl p-2", i < 5 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : 'bg-[#272a2f] opacity-40')}>
-                                            <TypographySmall text={`Ngày ${i + 1}`} className="text-white text-[14px] font-normal" />
+                                            <TypographySmall text={`${t('day_daily')} ${i + 1}`} className="text-white text-[14px] font-normal" />
                                             <Image src="/project/icon_coin.png" alt="@coin" width={24} height={24} priority />
                                             <TypographySmall text={`${formatCoin(500 * (i + 1))}`} className="text-white text-base font-medium" />
                                         </li>
@@ -116,7 +142,7 @@ export default function Page(): JSX.Element {
                 />
             </div>
             <div className="flex flex-col justify-start items-start gap-2">
-                <TypographySmall text="Danh sách công việc" className="text-base text-white mt-5" />
+                <TypographySmall text={t('task_list')} className="text-base text-white mt-5" />
                 {listEarn.map((item, i) => {
                     return (
                         <DrawerMinCard
@@ -128,7 +154,7 @@ export default function Page(): JSX.Element {
                                             <Image src={item.image} alt={item.name.toLowerCase()} width={56} height={56} priority />
                                         </MotionContainer>
                                         <div className="flex flex-col justify-start items-start">
-                                            <TypographySmall text={item.name} className="text-[14px] text-white" />
+                                            <TypographySmall text={item.name} className="text-[14px] text-white font-extralight" />
                                             <div className="flex justify-center items-center gap-1">
                                                 <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
                                                 <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />

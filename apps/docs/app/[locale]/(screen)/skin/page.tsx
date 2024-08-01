@@ -2,12 +2,14 @@
 
 import Image from "next/image"
 import { useState } from "react"
-import { Button } from "@ui/components/button"
-import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
-import { Separator } from "@ui/components/ui/separator"
-import { Card, CardContent, CardHeader } from "@ui/components/card"
+import { useTranslations } from "next-intl"
 
-import MotionContainer from "@ui/components/motion/container"
+import { cn } from "@ui/lib/utils"
+import { Button } from "@ui/components/button"
+import { Separator } from "@ui/components/ui/separator"
+import { Card, CardContent } from "@ui/components/card"
+import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
+
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
@@ -15,10 +17,11 @@ import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
 import listSkin from "@shared/constant/listSkin"
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 import { useAppSelector } from "@shared/redux/store/index"
-import { cn } from "@/../ui/src/lib/utils"
 
 
 export default function Page(): JSX.Element {
+    const t = useTranslations('screens.skin')
+
     const { user } = useAppSelector(state => state.app)
 
     const [currentTarget, setCurrentTarget] = useState(0)
@@ -26,7 +29,7 @@ export default function Page(): JSX.Element {
     return (
         <div className="w-full h-screen relative space-y-2 overflow-y-auto text-center bg-black">
             <div className="w-full flex justify-between items-center px-5 py-2">
-                <TypographyLarge text="Hồ sơ" className="text-white text-base" />
+                <TypographyLarge text={t('profile')} className="text-white text-base" />
             </div>
             <div className="flex justify-start items-center gap-2 px-5 py-2">
                 <Avatar className="bg-[#1c1f24] rounded-lg w-[40px] h-[40px]">
@@ -37,7 +40,7 @@ export default function Page(): JSX.Element {
             </div>
             <Separator className="w-full" />
             <Card className="w-full min-h-screen !mt-10  border-none bg-[#1c1f24] p-4 !pb-24" style={{ borderRadius: '40px 40px 0 0' }}>
-                <TypographySmall text='Trang phục' className="text-base text-white text-center" />
+                <TypographySmall text={t('skin')} className="text-base text-white text-center" />
                 <DynamicNavigationSwiper
                     items={listSkin.map((item, i) => {
                         return (
@@ -54,7 +57,7 @@ export default function Page(): JSX.Element {
                                     <TypographySmall text={item.title} className="text-base font-bold text-white" />
                                     <TypographySmall text={item.description} className="text-[12px] font-normal text-white" />
                                     {i === 0 ?
-                                        <TypographySmall text='Đã mua' className="text-[14px] font-normal text-[#82f88e] mt-5" />
+                                        <TypographySmall text={t('purchased')} className="text-[14px] font-normal text-[#82f88e] mt-5" />
                                         : <div className="flex justify-center items-center gap-2">
                                             <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} className="coin-is-grayscale" />
                                             <TypographySmall text={`${formatCoinStyleDot(item.price)}`} className="text-[20px] font-bold text-[#fff6]" />

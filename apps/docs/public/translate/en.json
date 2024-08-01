@@ -1,3 +1,73 @@
 {
-  "home": "Trang chu"
+  "menu": {
+    "exchange": "Exchange",
+    "mine": "Mine",
+    "friends": "Friends",
+    "earn": "Earn"
+  },
+  "screens": {
+    "exchange": {
+      "buy_skin": "Buy skin",
+      "daily_reward": "Daily reward",
+      "daily_cipher": "Daily cipher",
+      "daily_combo": "Daily Combo"
+    },
+    "mine": {
+      "daily_combo": "Daily Combo"
+    },
+    "friends": {
+      "invite_friends": "Invite friends!",
+      "des_invite_friends": "You and your friend will receive bonuses",
+      "invite_friends_card": "Invite a friend",
+      "des_invite_friends_card": "for you and your friend",
+      "more_bonuses": "More Bonuses",
+      "more_bonuses_two": "Bonus for leveling up",
+      "level": "Level",
+      "for_friend": "For Friend",
+      "premium": "Premium",
+      "list_friend": "List of your friends",
+      "invite_friends_no": "You haven't invited anyone yet"
+    },
+    "earn": {
+      "earn_coin": "Earn more coins",
+      "daily_tasks": "Daily tasks",
+      "task_list": "Tasks list",
+      "daily_reward": "Daily reward",
+      "day_daily": "Day",
+      "des_daily_reward": "Accrue coins for logging into the game daily without skipping",
+      "join_telegram": "Join our TG channel",
+      "join_x": "Follow our X account",
+      "choose_exchange": "Choose your exchange",
+      "invite_friends": "Invite 3 friends"
+    },
+    "airdrop": {
+      "des_airdrop": "Listing is on its way. Tasks will appear below. Complete them to participate in the AirDrop"
+    },
+    "setting": {
+      "title": "Settings",
+      "language": "Select language",
+      "exchange": "Choose exchange",
+      "delete_account": "Delete account"
+    },
+    "skin": {
+      "profile": "Profile",
+      "skin": "Skin",
+      "purchased": "Purchased"
+    }
+  },
+  "components": {
+    "mine_button": {
+      "daily_cipher": "Daily cipher",
+      "boost": "Boost"
+    },
+    "card_profit": {
+      "profit_by_hour": "Profit per hour"
+    },
+    "drawer_info_profit": {
+      "title": "Boost your profit",
+      "description_1": "Tap the Mining menu to buy upgrades for your exchange",
+      "description_2": "Earn even when offline up to 3 hours",
+      "start_button": "Start mining"
+    }
+  }
 }

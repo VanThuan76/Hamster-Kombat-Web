@@ -1,14 +1,15 @@
 'use client'
 
 import Image from "next/image"
+import dynamic from 'next/dynamic'
+import { useTranslations } from "next-intl";
 import { useMemo, useState, useEffect, useRef } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
 import { cn } from "@ui/lib/utils"
 
 import { Button } from "@ui/components/button"
 import PlusSign from "@ui/components/motion/PlusSign"
-import MotionContainer from "@ui/components/motion/container"
-import AnimatePresenceWrapper from "@ui/components/motion/AnimatePresenceWrapper"
+import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import TypographySmall from "@ui/components/typography/small"
@@ -17,9 +18,13 @@ import { useAppSelector } from "@shared/redux/store/index";
 
 import { useUpdateRevenue } from "@server/_action/user-action";
 
+const AnimatePresenceWrapper = dynamic(() => import('@ui/components/motion/AnimatePresenceWrapper').then((mod) => mod.default), { ssr: false })
+
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
+    const t = useTranslations('components.mine_button')
+
     const { user } = useAppSelector(state => state.app);
     const haptic = initHapticFeedback();
     const router = useRouter()
@@ -89,7 +94,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                 <MemoTypographyLarge text={formattedRevenue} className="text-white text-3xl" />
             </MotionContainer>
             {isSecretFeature && <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
-                <TypographyLarge text="Mật mã hàng ngày" className="text-white text-[14px]" />
+                <TypographyLarge text={t('daily_cipher')} className="text-white text-[14px]" />
                 <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
                     <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
                     <TypographySmall text='+1.000.000' className="text-white text-[14px]" />
@@ -120,7 +125,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                         }}
                     >
                         <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} priority />
-                        <TypographyLarge text="Tăng cường" className="text-white text-base" />
+                        <TypographyLarge text={t('boost')} className="text-white text-base" />
                     </div>
                 </div>
             </div>

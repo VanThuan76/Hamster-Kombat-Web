@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { memo } from 'react';
+import { m } from "framer-motion";
 
 interface MotionContainerProps {
     children: React.ReactNode;
@@ -12,48 +12,48 @@ interface MotionContainerProps {
     onTouchStart?: React.TouchEventHandler<HTMLDivElement>;
 }
 
-const MotionContainer = ({ children, className, onClick, onTouchStart, direction = 'right', type = 'slide' }: MotionContainerProps) => {
+const MotionContainer = memo(({ children, className, onClick, onTouchStart, direction = 'right', type = 'slide' }: MotionContainerProps) => {
     let initial, animate;
 
     if (type === 'slide') {
         switch (direction) {
             case 'left':
-                initial = { x: '-100%' };
-                animate = { x: ['-100%', '0%', '20%', '0%'] };
+                initial = { x: '-100%', opacity: 0 };
+                animate = { x: '0%', opacity: 1 };
                 break;
             case 'right':
-                initial = { x: '200%' };
-                animate = { x: ['200%', '0%', '20%', '0%'] };
+                initial = { x: '100%', opacity: 0 };
+                animate = { x: '0%', opacity: 1 };
                 break;
             case 'top':
-                initial = { y: '-100%' };
-                animate = { y: ['-100%', '0%', '20%', '0%'] };
+                initial = { y: '-100%', opacity: 0 };
+                animate = { y: '0%', opacity: 1 };
                 break;
             case 'bottom':
-                initial = { y: '200%' };
-                animate = { y: ['200%', '0%', '20%', '0%'] };
+                initial = { y: '100%', opacity: 0 };
+                animate = { y: '0%', opacity: 1 };
                 break;
             default:
-                initial = { x: '200%' };
-                animate = { x: ['200%', '0%', '20%', '0%'] };
+                initial = { x: '100%', opacity: 0 };
+                animate = { x: '0%', opacity: 1 };
         }
     } else if (type === 'scale') {
-        initial = { scale: 0 };
-        animate = { scale: [0, 1.1, 1, 1] };
+        initial = { scale: 0, opacity: 0 };
+        animate = { scale: 1, opacity: 1 };
     }
 
     return (
-        <motion.div
+        <m.div
             initial={initial}
             animate={animate}
-            transition={{ duration: 0.5, times: [0, 0.5, 0.75, 1] }}
+            transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
             className={className}
             onClick={onClick}
             onTouchStart={onTouchStart}
         >
             {children}
-        </motion.div>
+        </m.div>
     );
-};
+});
 
 export default MotionContainer;

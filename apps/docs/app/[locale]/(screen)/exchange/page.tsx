@@ -1,25 +1,27 @@
 'use client'
 
 import Image from "next/image"
+import dynamic from 'next/dynamic'
 import { useState } from "react"
+import { useTranslations } from "next-intl";
 import { useRouter } from '@shared/next-intl/navigation';
 import { Progress } from "@ui/components/progress"
 import { Card, CardHeader } from "@ui/components/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 import { DialogDescription, DialogHeader, DialogTitle } from "@ui/components/dialog"
 import { useAppSelector } from "@shared/redux/store/index"
+import { RANKS } from "@shared/constant/app";
 
-import MotionContainer from "@ui/components/motion/container"
+import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
 
-import MineButton from "@shared/components/MineButton"
-import CardProfit from "@shared/components/CardProfit"
+const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
+const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
 
-const { initHapticFeedback } = require('@telegram-apps/sdk-react');
+const { initBackButton, initHapticFeedback } = require('@telegram-apps/sdk-react');
 
-function UserCardExist({ user }: { user: any }) {
+function UserCardExist({ textBuySkin, user }: { textBuySkin:string, user: any }) {
     const router = useRouter()
-
     return (
         <DialogTitle className="w-full flex justify-between items-center">
             <div className="inline-flex justify-start items-center" onClick={() => router.push("/skin")}>
@@ -30,7 +32,7 @@ function UserCardExist({ user }: { user: any }) {
                     </Avatar>
                 </div>
                 <div className="user-info-avatar-skin">
-                    <TypographySmall text="Mua skin" className="text-[9px] font-semibold w-full" />
+                    <TypographySmall text={textBuySkin} className="text-[9px] font-semibold w-full" />
                     <div className="w-[110%]">
                         <Image src="/project/_skin.png" alt="@skin" width={33} height={30} priority />
                     </div>
@@ -60,17 +62,21 @@ function UserCardDefault({ user }: { user: any }) {
 }
 
 export default function Page(): JSX.Element {
+    const t = useTranslations('screens.exchange')
+
     const { user, membership } = useAppSelector(state => state.app)
+
+    const [backButton] = initBackButton();
+    backButton.hide();
 
     const haptic = initHapticFeedback();
     const router = useRouter()
 
     const [isSecretFeature, setSecretFeature] = useState(false)
-
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
-                {user !== undefined ? <UserCardExist user={user} /> : <UserCardDefault user={user} />}
+                {user !== undefined ? <UserCardExist user={user} textBuySkin={t('buy_skin')} /> : <UserCardDefault user={user} />}
                 <DialogDescription className="w-full flex justify-between items-center">
                     <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
                         <div
@@ -87,7 +93,7 @@ export default function Page(): JSX.Element {
                             <div className="text-[10px] text-white">{membership?.current_level}/{membership?.max_level}</div>
                         </div>
                         <Progress
-                            value={Math.round((membership.current_level / membership.max_level) * 100)}
+                            value={Math.round((RANKS.find(item => item.name.toLowerCase() === membership.name.toLowerCase())?.to ?? 0) / user.highest_score)}
                             className="w-full h-[8px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                         />
                     </div>
@@ -105,7 +111,7 @@ export default function Page(): JSX.Element {
                             }}
                         >
                             <Image src="/project/icon_daily_reward.png" alt="@card" width={56} height={56} priority />
-                            <TypographySmall text="Danh sách nhiệm vụ" className="text-[10px] text-white" />
+                            <TypographySmall text={t('daily_reward')} className="text-[10px] text-white" />
                             <span className="text-[#8b8e93] text-[10px] my-2">07:03</span>
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             {/* TODO: active task */}
@@ -127,7 +133,7 @@ export default function Page(): JSX.Element {
                         </div>
                         <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer" onClick={() => setSecretFeature(!isSecretFeature)}>
                             <Image src="/project/icon_daily_cipher.png" alt="@card" width={56} height={56} priority />
-                            <TypographySmall text="Mật mã hàng ngày" className="text-[10px] text-white" />
+                            <TypographySmall text={t('daily_cipher')} className="text-[10px] text-white" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             <span className="text-[#8b8e93] text-[10px] my-2">02:13</span>
                         </div>
@@ -139,7 +145,7 @@ export default function Page(): JSX.Element {
                             }}
                         >
                             <Image src="/project/icon_daily_combo.png" alt="@card" width={56} height={56} priority />
-                            <TypographySmall text="Thẻ kết hợp hàng ngày" className="text-[10px] text-white" />
+                            <TypographySmall text={t('daily_combo')} className="text-[10px] text-white" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             <span className="text-[#8b8e93] text-[10px] my-2">19:03</span>
                         </div>

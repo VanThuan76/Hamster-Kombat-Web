@@ -8,3 +8,13 @@ export interface IExchanges {
     description: string;
     image: string;
 }
+
+export interface IExchangesOrigin {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    created_at: string;
+    updated_at: string;
+    image_url: string;
+}

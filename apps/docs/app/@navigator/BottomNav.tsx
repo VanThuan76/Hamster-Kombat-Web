@@ -1,39 +1,41 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
+
 import { usePathname } from "next/navigation";
-
-import { Link } from '@shared/next-intl/navigation';
+import { useRouter } from "@shared/next-intl/navigation";
 import { useAppSelector } from "@shared/redux/store/index";
-
 import { cn } from "@ui/lib/utils";
-import TypographySmall from "@ui/components/typography/small"
 
+import TypographySmall from "@ui/components/typography/small";
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export const BottomNav = () => {
-    const { exchange } = useAppSelector(state => state.app);
+    const t = useTranslations('menu')
+
+    const { user } = useAppSelector(state => state.app);
 
     const [navItems, setNavItems] = useState([
         {
-            name: "Sàn",
+            name: t('exchange'),
             link: "/exchange",
             icon: '/project/icon_ava_plus.png'
         },
         {
-            name: "Đào",
+            name: t('mine'),
             link: "/mine",
             icon: '/project/icon_mine.svg'
         },
         {
-            name: "Bạn bè",
+            name: t('friends'),
             link: "/friends",
             icon: '/project/icon_friends.svg'
         },
         {
-            name: "Nhiệm vụ",
+            name: t('earn'),
             link: "/earn",
             icon: '/project/icon_earn.svg'
         },
@@ -47,23 +49,24 @@ export const BottomNav = () => {
     useEffect(() => {
         setNavItems(currentItems =>
             currentItems.map(item =>
-                item.link === "/exchange" ? { ...item, icon: exchange.icon } : item
+                item.link === "/exchange" ? { ...item, icon: user.exchange.icon } : item
             )
         );
-    }, [exchange.icon]);
+    }, [user.exchange.icon]);
 
     const haptic = initHapticFeedback();
-
+    const router = useRouter();
     const path = usePathname();
-    const checkPath = path.split("/"); // Fixed
+    const checkPath = path.split("/");
 
-    function isSvg(filePath: string | undefined): boolean {
+    const isSvg = useCallback((filePath: string | undefined): boolean => {
         return filePath ? filePath.endsWith('.svg') : false;
-    }
+    }, []);
 
-    const handleLinkClick = () => {
+    const handleLinkClick = useCallback((link: string) => {
         haptic.impactOccurred('medium');
-    };
+        router.push(link);
+    }, [haptic, router]);
 
     return (
         <div
@@ -72,15 +75,13 @@ export const BottomNav = () => {
             )}
         >
             {navItems.map((navItem: any, index: number) => (
-                <Link
+                <div
                     key={`link-${index}`}
-                    href={navItem.link}
-                    onClick={handleLinkClick}
+                    onClick={() => handleLinkClick(navItem.link)}
                     className={cn(
                         "relative w-full dark:text-neutral-50 flex flex-col justify-center items-center text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 cursor-pointer px-2 py-1",
                         checkPath?.includes(navItem.link.split("/")[1]) ? 'bg-[#1c1f24] rounded-xl' : 'bg-transparent'
                     )}
-                    prefetch={false}
                 >
                     <Image
                         src={navItem.icon}
@@ -91,7 +92,7 @@ export const BottomNav = () => {
                         priority
                     />
                     <TypographySmall text={navItem.name} className={cn('text-[10px]', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />
-                </Link>
+                </div>
             ))}
         </div>
     );

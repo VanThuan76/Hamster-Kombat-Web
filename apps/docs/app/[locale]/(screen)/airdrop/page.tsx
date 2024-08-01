@@ -1,13 +1,17 @@
 'use client'
 
 import Image from "next/image"
-import MotionContainer from "@ui/components/motion/container"
+import dynamic from 'next/dynamic'
+import { useTranslations } from "next-intl"
+import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
-import DrawerWalletConnect from "@shared/components/DrawerWalletConnect"
+const DrawerWalletConnect = dynamic(() => import('@shared/components/DrawerWalletConnect').then((mod) => mod.default), { ssr: false })
 
 export default function Page(): JSX.Element {
+    const t = useTranslations('screens.airdrop')
+
     return (
         <div className="w-full min-h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center">
             <MotionContainer className="relative w-full" direction="top">
@@ -35,7 +39,7 @@ export default function Page(): JSX.Element {
                 <TypographyLarge text="Airdrop tasks" className="text-white text-[32px]" />
             </MotionContainer>
             <MotionContainer className="relative w-full" direction="left">
-                <TypographySmall text="Ngày listing đang đến. Nhiệm vụ sẽ xuất hiện bên dưới. Hoàn thành chúng để tham gia Airdrop" className="text-white text-base" />
+                <TypographySmall text={t('des_airdrop')} className="text-white text-base" />
             </MotionContainer>
             <DrawerWalletConnect />
         </div >

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { ICategory } from "@server/_types/category";
+import { IExchangesOrigin } from "@server/_types/exchanges";
 export interface IDefaultState {
     user: {
         id: number;
@@ -13,8 +14,13 @@ export interface IDefaultState {
         is_premium: boolean;
         language_code: string;
         revenue: number;
+        highest_score: number;
         profit_per_hour: number;
-        exchange_id: number
+        exchange: {
+            id: number;
+            name: string;
+            icon: string
+        }
     };
     membership: {
         id: number;
@@ -31,10 +37,7 @@ export interface IDefaultState {
         required_money: number;
         required_short_money: string;
     };
-    exchange: {
-        name: string;
-        icon: string
-    };
+    exchanges: IExchangesOrigin[] | []
     categories: ICategory[] | []
 }
 
@@ -49,8 +52,13 @@ const initialState: IDefaultState = {
         is_premium: false,
         language_code: "",
         revenue: 0,
+        highest_score: 0,
         profit_per_hour: 0,
-        exchange_id: 0
+        exchange: {
+            id: 0,
+            name: '',
+            icon: '/project/icon_ava_plus.png'
+        }
     },
     membership: {
         id: 0,
@@ -67,10 +75,7 @@ const initialState: IDefaultState = {
         required_money: 0,
         required_short_money: ""
     },
-    exchange: {
-        name: '',
-        icon: '/project/icon_ava_plus.png'
-    },
+    exchanges: [],
     categories: []
 };
 
@@ -84,17 +89,20 @@ export const appSlice: any = createSlice({
         setMembership: (state, action: PayloadAction<IDefaultState["membership"]>) => {
             state.membership = action.payload;
         },
-        setExchange: (state, action: PayloadAction<IDefaultState["exchange"]>) => {
-            state.exchange = action.payload;
+        setUserExchange: (state, action: PayloadAction<any>) => {
+            state.user.exchange = action.payload;
         },
         setUpdateRevenue: (state, action: PayloadAction<number>) => {
             state.user.revenue = action.payload;
         },
         setCategories: (state, action: PayloadAction<ICategory[]>) => {
             state.categories = action.payload;
+        },
+        setExchanges: (state, action: PayloadAction<IExchangesOrigin[]>) => {
+            state.exchanges = action.payload;
         }
     },
 });
 
-export const { setInitUser, setMembership, setExchange, setUpdateRevenue, setCategories } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setCategories, setExchanges } = appSlice.actions;
 export default appSlice.reducer;

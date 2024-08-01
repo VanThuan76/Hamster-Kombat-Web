@@ -31,7 +31,6 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
             const dataCurrentInitUser = {
                 ...data.data,
                 profit_per_hour: data.data.profitPerHour?.profit_per_hour || 0,
-                exchange_id: data.data.profitPerHour?.exchange_id || 0
             }
             dispatch(setInitUser(dataCurrentInitUser));
         },

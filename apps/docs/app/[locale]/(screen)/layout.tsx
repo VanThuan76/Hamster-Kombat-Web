@@ -1,9 +1,11 @@
 import { VisuallyHidden } from "@telegram-apps/telegram-ui";
 
 import { Dialog, DialogContent, DialogFooter, DialogTitle } from "@ui/components/dialog";
+import LazyWrapper from "@ui/components/motion/LazyWrapper"
 
 import { BottomNav } from "../../@navigator/BottomNav";
 import LocaleLayout from "../layout";
+
 
 export default function ScreenLayout({
     children,
@@ -19,7 +21,9 @@ export default function ScreenLayout({
                     <VisuallyHidden>
                         <DialogTitle></DialogTitle>
                     </VisuallyHidden>
-                    {children}
+                    <LazyWrapper>
+                        {children}
+                    </LazyWrapper>
                     <DialogFooter className="fixed bottom-0 w-full z-[5000]">
                         <BottomNav />
                     </DialogFooter>

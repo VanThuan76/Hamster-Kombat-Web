@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useState } from "react"
 import { Button } from "@ui/components/button"
 
@@ -10,6 +11,8 @@ import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
 
 export default function DrawerInfoProfit(): JSX.Element {
+    const t = useTranslations('components.drawer_info_profit')
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const handleOpenDrawer = () => setIsDrawerOpen(true);
@@ -31,12 +34,12 @@ export default function DrawerInfoProfit(): JSX.Element {
                         </div>
                     </div>
                     <div className="w-full flex flex-col justify-center items-center gap-5">
-                        <TypographyLarge text="Tăng lợi nhuận của bạn" className="text-white text-[32px] font-bold" />
-                        <TypographySmall text="Truy cập menu khai thác và mua nâng cấp cho sàn giao dịch của bạn để tăng cường" className="text-white text-[14px] max-w-[280px] font-normal" />
-                        <TypographySmall text="kiếm tiền ngay cả khi ngoại tuyến trong 3 giờ" className="text-white text-[16px] font-normal mt-3" />
+                        <TypographyLarge text={t('title')} className="text-white text-[32px] font-bold" />
+                        <TypographySmall text={t('description_1')} className="text-white text-[14px] max-w-[280px] font-normal" />
+                        <TypographySmall text={t('description_2')} className="text-white text-[16px] font-normal mt-3" />
                     </div>
                     <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleOpenDrawer}>
-                        <TypographyLarge text="Bắt đầu khai thác" className="text-white text-xl font-bold" />
+                        <TypographyLarge text={t('start_button')} className="text-white text-xl font-bold" />
                         <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority />
                     </Button>
                 </div>

@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useRouter } from '@shared/next-intl/navigation';
+import { useTranslations } from "next-intl";
 
 import { Separator } from "@ui/components/separator"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
@@ -10,27 +11,30 @@ import TypographySmall from "@ui/components/typography/small"
 
 import DrawerInfoProfit from "@shared/components/DrawerInfoProfit"
 import { useAppSelector } from "@shared/redux/store/index";
+import { formatCoin } from "@shared/utils/formatNumber";
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const CardProfit = () => {
+    const t = useTranslations('components.card_profit')
+
+    const { user } = useAppSelector(state => state.app);
+
     const router = useRouter()
     const haptic = initHapticFeedback();
-
-    const { user, exchange } = useAppSelector(state => state.app);
 
     return (
         <div className="flex justify-between items-center bg-[#ffffff26] border border-white/10 rounded-[20px] text-white flex-1 h-[40px] relative py-1 px-4">
             <Avatar className="flex justify-start items-center">
-                <AvatarImage src={exchange.icon} alt="@userPlus" sizes="sm" className="w-[26px] h-[26px]" />
-                <AvatarFallback>{exchange.name}</AvatarFallback>
+                <AvatarImage src={user.exchange.icon} alt="@userPlus" sizes="sm" className="w-[26px] h-[26px]" />
+                <AvatarFallback>{user.exchange.name}</AvatarFallback>
             </Avatar>
             <Separator orientation="vertical" className="bg-[#ffffff1a] w-[1px]" />
             <div className="w-full flex flex-1 flex-col justify-start items-center pb-1">
-                <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[8px] text-[#fff6]" />
+                <TypographySmall text={t('profit_by_hour')} className="text-[8px] text-[#fff6]" />
                 <div className="w-full flex flex-1 justify-center items-center gap-[6px]">
                     <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
-                    <TypographySmall text={`+${user.profit_per_hour}`} className="text-xs" />
+                    <TypographySmall text={`+${formatCoin(user.profit_per_hour)}`} className="text-xs" />
                     <DrawerInfoProfit />
                 </div>
             </div>

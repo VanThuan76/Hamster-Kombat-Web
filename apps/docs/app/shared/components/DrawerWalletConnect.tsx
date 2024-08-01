@@ -5,12 +5,12 @@ import { useState } from "react"
 import { useTonWallet } from '@tonconnect/ui-react';
 
 import Drawer from "@ui/components/drawer"
-import MotionContainer from "@ui/components/motion/container"
+import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
 import InfoWalletTON from "./InfoWalletTON";
 
-export default function DrawerWalletConnect(): JSX.Element {
+const DrawerWalletConnect = () => {
     const wallet = useTonWallet();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -60,3 +60,4 @@ export default function DrawerWalletConnect(): JSX.Element {
         </>
     )
 }
+export default DrawerWalletConnect;

@@ -1,25 +1,24 @@
 import "@ui/styles/globals.css";
 import "@ui/styles/project.css";
-// import '@telegram-apps/telegram-ui/dist/styles.css';
 
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Roboto_Flex } from "next/font/google";
-
-import { Dialog, DialogContent } from "@ui/components/dialog";
 import { cn } from "@ui/lib/utils";
 
-import Providers from "@shared/provider";
-import InitApp from "../@root/InitApp";
+import { Dialog, DialogContent } from "@ui/components/dialog";
 
+import Providers from "@shared/provider";
+
+import InitApp from "../@root/InitApp";
 import { RootContainer } from "../@root/RootContainer";
 
-const robotoFlex = Roboto_Flex({ subsets: ["latin"] });
+const robotoFlex = Roboto_Flex({ subsets: ["latin"], display: 'swap' });
 
 export const metadata: Metadata = {
   title: "Hamster Kombat",
-  description: "Hamster Kombat Web",
+  description: "Hamster Kombat",
 };
 
 export default async function LocaleLayout({
@@ -32,9 +31,9 @@ export default async function LocaleLayout({
   const translate = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={robotoFlex.className}>
       <link rel="icon" href="/project/icon_hamster-coin.png" sizes="any" />
-      <body className={cn('flex flex-col items-center justify-between min-h-screen p-24 bg-indigo-500', robotoFlex.className)}>
+      <body className={cn('flex flex-col items-center justify-between min-h-screen p-24 bg-indigo-500')}>
         <NextIntlClientProvider messages={translate}>
           <RootContainer>
             <Providers>

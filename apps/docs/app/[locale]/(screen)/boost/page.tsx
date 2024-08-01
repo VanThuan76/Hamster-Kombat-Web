@@ -1,12 +1,13 @@
 'use client'
 
 import Image from "next/image"
+import dynamic from 'next/dynamic'
 
-import MotionContainer from "@ui/components/motion/container"
+import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
-import DrawerMinCard from "@shared/components/DrawerMinCard"
+const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
 export default function Page(): JSX.Element {
 

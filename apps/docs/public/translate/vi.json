@@ -1,3 +1,73 @@
 {
-  "home": "Trang chu"
+  "menu": {
+    "exchange": "Sàn",
+    "mine": "Đào",
+    "friends": "Bạn bè",
+    "earn": "Nhiệm vụ"
+  },
+  "screens": {
+    "exchange": {
+      "buy_skin": "Mua skin",
+      "daily_reward": "Danh sách nhiệm vụ",
+      "daily_cipher": "Mật mã hàng ngày",
+      "daily_combo": "Thẻ kết hợp hàng ngày"
+    },
+    "mine": {
+      "daily_combo": "Thẻ kết hợp hàng ngày"
+    },
+    "friends": {
+      "invite_friends": "Mời bạn bè!",
+      "des_invite_friends": "Bạn và bạn bè sẽ nhận được phần thưởng",
+      "invite_friends_card": "Mời bạn bè",
+      "des_invite_friends_card": "cho bạn và bạn của bạn",
+      "more_bonuses": "Nhiều phần thưởng hơn",
+      "more_bonuses_two": "Bonus cho việc lên cấp",
+      "level": "Cấp",
+      "for_friend": "Cho bạn",
+      "premium": "Phần thưởng",
+      "list_friend": "Danh sách bạn bè của bạn",
+      "invite_friends_no": "Bạn chưa mời ai"
+    },
+    "earn": {
+      "earn_coin": "Kiếm thêm tiền",
+      "daily_tasks": "Nhiệm vụ hàng ngày",
+      "task_list": "Danh sách công việc",
+      "daily_reward": "Danh sách nhiệm vụ",
+      "day_daily": "Ngày",
+      "des_daily_reward": "Tích lũy xu khi đăng nhập vào trò chơi hàng ngày mà không cần bỏ qua. Nút 'thu thập' phải được nhấn hàng ngày, nếu không việc đếm ngày sẽ bắt đầu lại",
+      "join_telegram": "Tham gia kênh TG của chúng tôi",
+      "join_x": "Theo dõi tài khoản X của chúng tôi",
+      "choose_exchange": "Chọn sàn giao dịch của bạn",
+      "invite_friends": "Mời 3 người bạn"
+    },
+    "airdrop": {
+      "des_airdrop": "Ngày listing đang đến. Nhiệm vụ sẽ xuất hiện bên dưới. Hoàn thành chúng để tham gia Airdrop"
+    },
+    "setting": {
+      "title": "Cài đặt",
+      "language": "Chọn ngôn ngữ",
+      "exchange": "Chọn sàn giao dịch",
+      "delete_account": "Xoá tài khoản"
+    },
+    "skin": {
+      "profile": "Hồ sơ",
+      "skin": "Trang phục",
+      "purchased": "Đã mua"
+    }
+  },
+  "components": {
+    "mine_button": {
+      "daily_cipher": "Mật mã hàng ngày",
+      "boost": "Tăng cường"
+    },
+    "card_profit": {
+      "profit_by_hour": "Lợi nhuận mỗi giờ"
+    },
+    "drawer_info_profit": {
+      "title": "Tăng lợi nhuận của bạn",
+      "description_1": "Truy cập menu khai thác và mua nâng cấp cho sàn giao dịch của bạn để tăng cường",
+      "description_2": "kiếm tiền ngay cả khi ngoại tuyến trong 3 giờ",
+      "start_button": "Bắt đầu khai thác"
+    }
+  }
 }

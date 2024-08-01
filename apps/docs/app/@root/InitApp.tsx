@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { userLoginAction } from '@server/_action/user-action';
 import { useMembershipByUser } from '@server/_action/membership-action';
-import { useExchangesByUser } from '@server/_action/exchanges-action';
+import { useExchanges, useExchangesByUser } from '@server/_action/exchanges-action';
 import { useCategories } from '@server/_action/category-action';
 
 import Loading from '@shared/components/Loading';
@@ -12,20 +12,21 @@ import Loading from '@shared/components/Loading';
 const {
     useInitData,
     initBackButton,
-    initHapticFeedback
+    initMiniApp,
 } = require('@telegram-apps/sdk-react');
 
 const InitApp = ({ children }: { children: React.ReactNode }) => {
     const [initialized, setInitialized] = useState(false);
 
     const categoryInitAction = useCategories();
+    const exchangesInitAction = useExchanges();
     const userInitAction = userLoginAction()
     const membershipAction = useMembershipByUser()
-    const exchangesAction = useExchangesByUser()
+    const exchangeByUserAction = useExchangesByUser()
 
+    const [miniApp] = initMiniApp();
     const [backButton] = initBackButton();
     const initData = useInitData();
-    const haptic = initHapticFeedback();
 
     function getUserRows(user: any) {
         return {
@@ -44,11 +45,15 @@ const InitApp = ({ children }: { children: React.ReactNode }) => {
             try {
                 const body = getUserRows(initData.user);
                 const user = await userInitAction.mutateAsync(body);
+                await exchangeByUserAction.mutateAsync({ user_id: user.data.id });
                 await membershipAction.mutateAsync({ user_id: user.data.id });
-                await exchangesAction.mutateAsync({ user_id: user.data.id });
                 await categoryInitAction.mutateAsync({})
+                await exchangesInitAction.mutateAsync({})
+
+                //Telegram SDK
+                miniApp.setHeaderColor('#000');
                 backButton.show();
-                haptic.impactOccurred('medium');
+
                 setInitialized(true);
             } catch (error) {
                 console.error('Error initializing app:', error);

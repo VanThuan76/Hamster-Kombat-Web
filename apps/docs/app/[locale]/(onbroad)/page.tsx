@@ -10,14 +10,6 @@ const OnBroadingPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
-    //   router.push('/qr')
-    // } else {
-    //   const timer = setTimeout(() => {
-    //     router.push('/exchange');
-    //   }, 3000);
-    //   return () => clearTimeout(timer);
-    // }
     router.push('/exchange');
   }, [router]);
 

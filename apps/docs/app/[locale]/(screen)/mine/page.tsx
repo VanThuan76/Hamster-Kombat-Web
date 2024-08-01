@@ -1,6 +1,8 @@
 'use client'
 
 import Image from "next/image"
+import dynamic from 'next/dynamic'
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
 import { Separator } from "@ui/components/separator"
@@ -11,26 +13,29 @@ import { DialogDescription, DialogHeader } from "@ui/components/dialog"
 import { Popover, PopoverContent, PopoverTrigger } from "@ui/components/popover"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/components/tabs"
 
-import MotionContainer from "@ui/components/motion/container"
+import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
-
-import MineButton from "@shared/components/MineButton"
-import CardProfit from "@shared/components/CardProfit"
-import CountdownTimer from "@shared/components/CountdownTimer"
-import DrawerInfoCountdown from "@shared/components/DrawerInfoCountdown"
-import DrawerMinCard from "@shared/components/DrawerMinCard";
-import Loading from "@shared/components/Loading";
 
 import { useAppSelector } from "@shared/redux/store/index";
 import { useBuyCard, useCardByCategory } from "@server/_action/card-action";
 
 import { ICard } from "@server/_types/card";
+import { RANKS } from "@shared/constant/app";
 
+import Loading from "@shared/components/Loading";
+
+const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
+const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
+const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer').then((mod) => mod.default), { ssr: false })
+const DrawerInfoCountdown = dynamic(() => import('@shared/components/DrawerInfoCountdown').then((mod) => mod.default), { ssr: false })
+const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
+    const t = useTranslations('screens.mine')
+
     const { membership, user, categories } = useAppSelector(state => state.app)
 
     const getListCards = useCardByCategory();
@@ -89,7 +94,7 @@ export default function Page(): JSX.Element {
                             <div className="text-[10px] text-white">1/11</div>
                         </div>
                         <Progress
-                            value={Math.round((membership.current_level / membership.max_level) * 100)}
+                            value={Math.round((RANKS.find(item => item.name.toLowerCase() === membership.name.toLowerCase())?.to ?? 0) / user.highest_score)}
                             className="w-full h-[8px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                         />
                     </div>
@@ -104,7 +109,7 @@ export default function Page(): JSX.Element {
                             <DrawerInfoCountdown />
                         </div>
                         <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
-                            <TypographyLarge text="Thẻ kết hợp hàng ngày" className="text-white text-[14px] w-[30%]" />
+                            <TypographyLarge text={t('daily_combo')} className="text-white text-[14px] w-[30%]" />
                             <div className="flex justify-center items-center gap-1">
                                 {Array.from({ length: 3 }).map((_, i) => {
                                     return (
@@ -212,7 +217,7 @@ export default function Page(): JSX.Element {
                                                         card_id: item.id,
                                                         card_profit_id: item.card_profits[0]!.id,
                                                         level: item.card_profits[0]!.level,
-                                                        exchange_id: user.exchange_id,
+                                                        exchange_id: user.exchange.id,
                                                         user_id: user.id
                                                     })}
                                                 />
