@@ -11,7 +11,6 @@ import { Dialog, DialogContent } from "@ui/components/dialog";
 
 import Providers from "@shared/provider";
 
-import InitApp from "../@root/InitApp";
 import { RootContainer } from "../@root/RootContainer";
 
 const robotoFlex = Roboto_Flex({ subsets: ["latin"], display: 'swap' });
@@ -37,13 +36,11 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={translate}>
           <RootContainer>
             <Providers>
-              <InitApp>
-                <Dialog open={true}>
-                  <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
-                    {children}
-                  </DialogContent>
-                </Dialog>
-              </InitApp>
+              <Dialog open={true}>
+                <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
+                  {children}
+                </DialogContent>
+              </Dialog>
             </Providers>
           </RootContainer>
         </NextIntlClientProvider>

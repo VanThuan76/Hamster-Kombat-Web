@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { ICategory } from "@server/_types/category";
 import { IExchangesOrigin } from "@server/_types/exchanges";
+import { ICategoryOfCard } from "@server/_types/card";
 export interface IDefaultState {
     user: {
         id: number;
@@ -38,7 +38,7 @@ export interface IDefaultState {
         required_short_money: string;
     };
     exchanges: IExchangesOrigin[] | []
-    categories: ICategory[] | []
+    categoryOfCards: ICategoryOfCard[] | []
 }
 
 const initialState: IDefaultState = {
@@ -76,7 +76,7 @@ const initialState: IDefaultState = {
         required_short_money: ""
     },
     exchanges: [],
-    categories: []
+    categoryOfCards: []
 };
 
 export const appSlice: any = createSlice({
@@ -95,14 +95,14 @@ export const appSlice: any = createSlice({
         setUpdateRevenue: (state, action: PayloadAction<number>) => {
             state.user.revenue = action.payload;
         },
-        setCategories: (state, action: PayloadAction<ICategory[]>) => {
-            state.categories = action.payload;
-        },
         setExchanges: (state, action: PayloadAction<IExchangesOrigin[]>) => {
             state.exchanges = action.payload;
-        }
+        },
+        setCategoryOfCards: (state, action: PayloadAction<ICategoryOfCard[]>) => {
+            state.categoryOfCards = action.payload;
+        },
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setCategories, setExchanges } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setExchanges, setCategoryOfCards } = appSlice.actions;
 export default appSlice.reducer;

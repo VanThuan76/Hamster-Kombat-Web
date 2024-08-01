@@ -3,8 +3,9 @@
 import Image from "next/image"
 import dynamic from 'next/dynamic'
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
+
 import { Separator } from "@ui/components/separator"
 import { Card, CardContent, CardHeader } from "@ui/components/card"
 import { Progress } from "@ui/components/progress"
@@ -18,12 +19,10 @@ import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
 
 import { useAppSelector } from "@shared/redux/store/index";
-import { useBuyCard, useCardByCategory } from "@server/_action/card-action";
-
-import { ICard } from "@server/_types/card";
+import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
 import { RANKS } from "@shared/constant/app";
 
-import Loading from "@shared/components/Loading";
+import { useBuyCard } from "@server/_action/card-action";
 
 const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
 const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
@@ -31,21 +30,22 @@ const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer')
 const DrawerInfoCountdown = dynamic(() => import('@shared/components/DrawerInfoCountdown').then((mod) => mod.default), { ssr: false })
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
-const { initHapticFeedback } = require('@telegram-apps/sdk-react');
+const { initHapticFeedback, initBackButton } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.mine')
 
-    const { membership, user, categories } = useAppSelector(state => state.app)
+    const router = useRouter()
 
-    const getListCards = useCardByCategory();
+    const { membership, user, categoryOfCards } = useAppSelector(state => state.app)
+
+    const [currentTab, setCurrentTab] = useState(categoryOfCards && categoryOfCards[0]!.name.toLowerCase());
+
     const buyCard = useBuyCard()
 
-    const router = useRouter()
     const haptic = initHapticFeedback();
-
-    const [cardData, setCardData] = useState<ICard[] | []>([]);
-    const [currentTab, setCurrentTab] = useState(categories && categories[0]?.name.toLowerCase());
+    const [backButton] = initBackButton();
+    backButton.show();
 
     const targetDate = new Date();
     targetDate.setHours(24, 0, 0, 0);
@@ -53,27 +53,6 @@ export default function Page(): JSX.Element {
     const handleTabChange = (value: string) => {
         setCurrentTab(value);
     };
-
-    useEffect(() => {
-        if (categories && categories.length > 0 && !currentTab) {
-            setCurrentTab(categories[0]?.name.toLowerCase());
-        }
-    }, [categories]);
-
-    useEffect(() => {
-        if (currentTab && categories) {
-            const category = categories.find(category => category.name.toLowerCase() === currentTab);
-            if (category) {
-                getListCards.mutate({ category_id: category.id }, {
-                    onSuccess: data => {
-                        if (data.data) {
-                            setCardData(data.data);
-                        }
-                    }
-                });
-            }
-        }
-    }, [currentTab, categories]);
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
@@ -151,81 +130,78 @@ export default function Page(): JSX.Element {
                             <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
                                 <MotionContainer className="w-full flex justify-center items-center" direction="left">
                                     <TabsList className="w-full bg-[#272a2f]">
-                                        {categories?.map((item, i) => {
+                                        {categoryOfCards?.map((item, i) => {
                                             return (
                                                 <TabsTrigger key={i} value={item.name.toLowerCase()} className="w-full text-white text-[12px] px-3">{item.name}</TabsTrigger>
                                             )
                                         })}
                                     </TabsList>
                                 </MotionContainer>
-                                {categories && cardData.length > 0 ?
-                                    <TabsContent value={currentTab ?? categories[0]!.name.toLowerCase()} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
-                                        {cardData.map((item, i) => {
-                                            return (
-                                                <DrawerMinCard
-                                                    drawerTrigger={
-                                                        <div key={i} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
-                                                            <div className="w-full flex justify-start items-start gap-3">
-                                                                <div className="w-[60px] h-[60px]">
-                                                                    <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" priority />
-                                                                </div>
-                                                                <div className="flex flex-col justify-between items-start gap-4">
-                                                                    <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
-                                                                    <div className="flex flex-col justify-start items-start">
-                                                                        <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
-                                                                        <div className="flex justify-center items-center gap-1">
-                                                                            <div className="w-[16px] h-[16px]">
-                                                                                <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" priority />
-                                                                            </div>
-                                                                            <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
+                                <TabsContent value={currentTab} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
+                                    {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.map((item, i) => {
+                                        return (
+                                            <DrawerMinCard
+                                                drawerTrigger={
+                                                    <div key={i} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
+                                                        <div className="w-full flex justify-start items-start gap-3">
+                                                            <div className="w-[60px] h-[60px]">
+                                                                <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" priority />
+                                                            </div>
+                                                            <div className="flex flex-col justify-between items-start gap-4">
+                                                                <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
+                                                                <div className="flex flex-col justify-start items-start">
+                                                                    <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
+                                                                    <div className="flex justify-center items-center gap-1">
+                                                                        <div className="w-[16px] h-[16px]">
+                                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" priority />
                                                                         </div>
+                                                                        <TypographySmall text={`+${String(formatCoin(item.card_profits.find(child => child.is_purchased)?.profit as number))}`} className="text-white text-[12px]" />
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <Separator className="my-2 bg-[#34383f]" />
-                                                            <div className="flex h-5 items-center space-x-4 text-sm">
-                                                                <TypographySmall text={`lv ${item.card_profits[0]?.level}`} className="text-white text-[12px]" />
-                                                                <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                                <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
-                                                                <TypographySmall text={String(item.card_profits[0]?.required_money)} className="text-white text-[12px] !m-1" />
                                                             </div>
                                                         </div>
-                                                    }
-                                                    drawerContent={
-                                                        <div key={i} className="mt-2 w-full flex flex-col justify-center items-center gap-2">
-                                                            <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={115} height={115} priority />
-                                                            <TypographySmall text={item.name} className="text-white text-[28px] font-semibold" />
-                                                            <TypographySmall text={item.description} className="text-white text-[14px] text-center" />
-                                                            <div className="flex flex-col justify-center items-center gap-1">
-                                                                <TypographySmall text="Lợi nhuận mỗi giờ" className="text-white text-[10px] font-extralight" />
-                                                                <div className="flex justify-center items-center gap-1">
-                                                                    <div className="w-[16px] h-[16px]">
-                                                                        <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
-                                                                    </div>
-                                                                    <TypographySmall text={`+${String(item.card_profits[0]?.profit)}`} className="text-white text-[12px]" />
-                                                                </div>
-                                                            </div>
+                                                        <Separator className="my-2 bg-[#34383f]" />
+                                                        <div className="flex h-5 items-center space-x-4 text-sm">
+                                                            <TypographySmall text={`lv ${item.card_profits.find(child => child.is_purchased)?.level}`} className="text-white text-[12px]" />
+                                                            <Separator orientation="vertical" className="bg-[#34383f]" />
+                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
+                                                            <TypographySmall text={String(formatCoin(item.card_profits.find(child => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                drawerContent={
+                                                    <div key={i} className="mt-2 w-full flex flex-col justify-center items-center gap-2">
+                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={115} height={115} priority />
+                                                        <TypographySmall text={item.name} className="text-white text-[28px] font-semibold" />
+                                                        <TypographySmall text={item.description} className="text-white text-[14px] text-center" />
+                                                        <div className="flex flex-col justify-center items-center gap-1">
+                                                            <TypographySmall text="Lợi nhuận mỗi giờ" className="text-white text-[10px] font-extralight" />
                                                             <div className="flex justify-center items-center gap-1">
-                                                                <div className="w-[32px] h-[32px]">
-                                                                    <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" priority />
+                                                                <div className="w-[16px] h-[16px]">
+                                                                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
                                                                 </div>
-                                                                <TypographySmall text={`${String(item.card_profits[0]?.required_money)}`} className="text-white text-[12px]" />
+                                                                <TypographySmall text={`+${String(formatCoinStyleDot(item.card_profits.find(child => child.is_purchased)?.profit as number))}`} className="text-white text-[12px]" />
                                                             </div>
                                                         </div>
-                                                    }
-                                                    handleSuccess={() => buyCard.mutate({
-                                                        card_id: item.id,
-                                                        card_profit_id: item.card_profits[0]!.id,
-                                                        level: item.card_profits[0]!.level,
-                                                        exchange_id: user.exchange.id,
-                                                        user_id: user.id
-                                                    })}
-                                                />
-                                            )
-                                        })}
-                                    </TabsContent>
-                                    : <Loading className="relative mt-3 w-full h-full bg-transparent" />
-                                }
+                                                        <div className="flex justify-center items-center gap-1">
+                                                            <div className="w-[32px] h-[32px]">
+                                                                <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" priority />
+                                                            </div>
+                                                            <TypographySmall text={String(formatCoinStyleDot(item.card_profits.find(child => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
+                                                        </div>
+                                                    </div>
+                                                }
+                                                handleSuccess={() => buyCard.mutate({
+                                                    card_id: item.card_profits[1]!.card_id,
+                                                    card_profit_id: item.card_profits[1]!.id,
+                                                    level: item.card_profits[1]!.level,
+                                                    exchange_id: user.exchange.id,
+                                                    user_id: user.id
+                                                })}
+                                            />
+                                        )
+                                    })}
+                                </TabsContent>
                             </Tabs>
                         </CardContent>
                     }

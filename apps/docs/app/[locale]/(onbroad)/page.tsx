@@ -1,17 +1,78 @@
 'use client'
 
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from '@shared/next-intl/navigation';
+
+import { userLoginAction } from '@server/_action/user-action';
+import { useMembershipByUser } from '@server/_action/membership-action';
+import { useExchanges, useExchangesByUser } from '@server/_action/exchanges-action';
+import { useCategoryOfCardByUser } from '@server/_action/card-action';
 
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from '@ui/components/typography/small';
 
+const {
+  useInitData,
+  initBackButton,
+  initMiniApp,
+} = require('@telegram-apps/sdk-react');
+
 const OnBroadingPage = () => {
   const router = useRouter();
 
+  const [initialized, setInitialized] = useState(false);
+
+  const categoryOfCardsAction = useCategoryOfCardByUser()
+  const exchangesInitAction = useExchanges();
+  const userInitAction = userLoginAction()
+  const membershipAction = useMembershipByUser()
+  const exchangeByUserAction = useExchangesByUser()
+
+  const [miniApp] = initMiniApp();
+  const [backButton] = initBackButton();
+  const initData = useInitData();
+
+  function getUserRows(user: any) {
+    return {
+      telegram_id: String(user.id),
+      username: user.username,
+      photo_url: user.photoUrl,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      is_bot: user.isBot,
+      is_premium: user.isPremium,
+      language_code: user.languageCode,
+    }
+  }
   useEffect(() => {
-    router.push('/exchange');
-  }, [router]);
+    const initializeApp = async () => {
+      try {
+        const body = getUserRows(initData.user);
+        const user = await userInitAction.mutateAsync(body);
+        await exchangeByUserAction.mutateAsync({ user_id: user.data.id });
+        await membershipAction.mutateAsync({ user_id: user.data.id });
+        await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour.exchange_id })
+        await exchangesInitAction.mutateAsync({})
+
+        //Telegram SDK
+        miniApp.setHeaderColor('#000');
+        backButton.show();
+
+        setInitialized(true);
+      } catch (error) {
+        console.error('Error initializing app:', error);
+        setInitialized(true);
+      }
+    };
+
+    initializeApp();
+  }, []);
+
+  useEffect(() => {
+    if (initialized) {
+      router.push('/exchange');
+    }
+  }, [initialized, router]);
 
   return (
     <div className="w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_tg.png')] bg-cover bg-no-repeat bg-center">
