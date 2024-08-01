@@ -12,8 +12,7 @@ const useBackButton = () => {
 
     useEffect(() => {
         const [bb] = initBackButton();
-
-        if (pathName !== '/exchange') {
+        if (!pathName.includes('/exchange')) {
             bb.show();
             const handleClick = () => {
                 router.push('/exchange');

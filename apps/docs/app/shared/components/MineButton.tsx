@@ -45,7 +45,9 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
         if (saveTimeoutRef.current) {
             clearTimeout(saveTimeoutRef.current);
         }
-        saveTimeoutRef.current = setTimeout(() => updateRevenue.mutate({ user_id: user.id, amount: clickCount }), 1000);
+        saveTimeoutRef.current = setTimeout(() => {
+            updateRevenue.mutate({ user_id: user.id, amount: clickCount + 1 })
+        }, 1000);
     }
 
     const handleCardTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
