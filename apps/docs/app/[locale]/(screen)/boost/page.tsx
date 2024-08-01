@@ -7,9 +7,12 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import useBackButton from "@shared/hooks/useBackButton"
+
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
 export default function Page(): JSX.Element {
+    useBackButton()
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-4 text-center bg-black">

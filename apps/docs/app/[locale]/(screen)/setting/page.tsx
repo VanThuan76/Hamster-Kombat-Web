@@ -6,6 +6,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import useBackButton from "@shared/hooks/useBackButton"
 import { useAppSelector } from "@shared/redux/store/index";
 import { LANGUAGES } from "@shared/constant/app"
 
@@ -19,6 +20,7 @@ export default function Page(): JSX.Element {
     const locale = useLocale()
     const router = useRouter()
     const haptic = initHapticFeedback();
+    useBackButton()
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-4 text-center bg-black">

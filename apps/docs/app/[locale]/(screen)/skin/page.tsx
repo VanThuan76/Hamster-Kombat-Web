@@ -15,6 +15,7 @@ import TypographySmall from "@ui/components/typography/small"
 import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
 
 import listSkin from "@shared/constant/listSkin"
+import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 import { useAppSelector } from "@shared/redux/store/index"
 
@@ -25,6 +26,7 @@ export default function Page(): JSX.Element {
     const { user } = useAppSelector(state => state.app)
 
     const [currentTarget, setCurrentTarget] = useState(0)
+    useBackButton()
 
     return (
         <div className="w-full h-screen relative space-y-2 overflow-y-auto text-center bg-black">

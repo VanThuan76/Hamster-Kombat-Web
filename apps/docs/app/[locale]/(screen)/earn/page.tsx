@@ -8,6 +8,7 @@ import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
 import DrawerMinCard from "@shared/components/DrawerMinCard"
+import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoin } from "@shared/utils/formatNumber"
 
 const { initUtils } = require('@telegram-apps/sdk-react');
@@ -16,6 +17,7 @@ export default function Page(): JSX.Element {
     const t = useTranslations('screens.earn')
 
     const utils = initUtils();
+    useBackButton()
 
     const listEarn = [
         {

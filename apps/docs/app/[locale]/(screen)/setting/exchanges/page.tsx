@@ -7,6 +7,7 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import useBackButton from "@shared/hooks/useBackButton"
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index"
 import { setUserExchange } from "@shared/redux/store/appSlice"
 
@@ -20,6 +21,7 @@ export default function Page(): JSX.Element {
     const router = useRouter()
 
     const updateExchange = useUpdateExchange()
+    useBackButton()
 
     function handleUpdateExchange(item: IExchangesOrigin) {
         dispatch(setUserExchange({ id: item.id, name: item.name, icon: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image }));

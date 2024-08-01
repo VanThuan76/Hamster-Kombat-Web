@@ -7,10 +7,13 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import useBackButton from "@shared/hooks/useBackButton"
+
 const DrawerWalletConnect = dynamic(() => import('@shared/components/DrawerWalletConnect').then((mod) => mod.default), { ssr: false })
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.airdrop')
+    useBackButton()
 
     return (
         <div className="w-full min-h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center">

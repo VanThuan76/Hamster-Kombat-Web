@@ -5,12 +5,15 @@ import dynamic from 'next/dynamic'
 import { useState } from "react"
 import { useTranslations } from "next-intl";
 import { useRouter } from '@shared/next-intl/navigation';
+
 import { Progress } from "@ui/components/progress"
 import { Card, CardHeader } from "@ui/components/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 import { DialogDescription, DialogHeader, DialogTitle } from "@ui/components/dialog"
+
 import { useAppSelector } from "@shared/redux/store/index"
 import { RANKS } from "@shared/constant/app";
+import useBackButton from "@shared/hooks/useBackButton";
 
 import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
@@ -64,16 +67,15 @@ function UserCardDefault({ user }: { user: any }) {
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.exchange')
 
-    const { user, membership } = useAppSelector(state => state.app)
-
-    const [backButton] = initBackButton();
-    backButton.hide();
-
-    const haptic = initHapticFeedback();
     const router = useRouter()
 
+    const { user, membership } = useAppSelector(state => state.app)
+
     const [isSecretFeature, setSecretFeature] = useState(false)
-    
+
+    const haptic = initHapticFeedback();
+    useBackButton()
+
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">

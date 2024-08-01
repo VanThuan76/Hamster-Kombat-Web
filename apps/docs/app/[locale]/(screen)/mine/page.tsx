@@ -18,6 +18,7 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
 
+import useBackButton from "@shared/hooks/useBackButton";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
 import { RANKS } from "@shared/constant/app";
@@ -30,7 +31,7 @@ const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer')
 const DrawerInfoCountdown = dynamic(() => import('@shared/components/DrawerInfoCountdown').then((mod) => mod.default), { ssr: false })
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
-const { initHapticFeedback, initBackButton } = require('@telegram-apps/sdk-react');
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.mine')
@@ -44,8 +45,7 @@ export default function Page(): JSX.Element {
     const buyCard = useBuyCard()
 
     const haptic = initHapticFeedback();
-    const [backButton] = initBackButton();
-    backButton.show();
+    useBackButton()
 
     const targetDate = new Date();
     targetDate.setHours(24, 0, 0, 0);

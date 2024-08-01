@@ -11,6 +11,7 @@ import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
 import listBonus from "@shared/constant/listBonus"
+import useBackButton from "@shared/hooks/useBackButton"
 
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 
@@ -23,6 +24,7 @@ export default function Page(): JSX.Element {
 
     const [isOpenBonus, setIsOpenBonus] = useState(false)
     const utils = initUtils();
+    useBackButton()
 
     return (
         <div className="w-full h-screen relative space-y-2 overflow-y-auto p-5 text-center bg-black pb-40">

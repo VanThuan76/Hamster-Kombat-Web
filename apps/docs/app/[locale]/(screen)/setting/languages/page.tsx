@@ -1,21 +1,21 @@
 'use client'
 
-import { useLocale } from 'next-intl'
 import { usePathname, useRouter } from '@shared/next-intl/navigation';
 
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import useBackButton from "@shared/hooks/useBackButton"
 import { LANGUAGES } from "@shared/constant/app"
 
 export default function Page(): JSX.Element {
-    const locale = useLocale()
     const router = useRouter()
     const pathname = usePathname()
 
     const handleLanguageChange = (code: string) => {
         router.push(pathname, { locale: code })
     }
+    useBackButton()
 
     return (
         <div className="w-full min-h-screen relative overflow-y-auto bg-black">
