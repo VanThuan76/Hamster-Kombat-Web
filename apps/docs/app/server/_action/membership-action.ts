@@ -1,7 +1,7 @@
-import { useMutation, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useMutation, UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch } from "@shared/redux/store/index";
-import { setMembership } from "@shared/redux/store/appSlice";
+import { setMembership, setMemberships } from "@shared/redux/store/appSlice";
 
 import { queryClient } from "./config";
 
@@ -11,15 +11,20 @@ import { IMembership, IUserMembership } from "../_types/membership";
 
 import MEMBERSHIP_PATHS from "../_path/membership-path";
 
-export const useMemberships = () => {
-    const fetchMemberships = async (): Promise<IMembership[]> => {
-        const response = await axiosInstance.get<IBaseResponse<IMembership[]>>(MEMBERSHIP_PATHS.GET_ALL);
-        return response.data;
-    };
+export const useMemberships: () => UseMutationResult<IBaseResponse<IMembership[]>, Error, any> = () => {
+    const dispatch = useAppDispatch();
 
-    return useQuery<IMembership[], Error>({
-        queryKey: ['GET_LIST_MEMBERSHIP', 'MEMBERSHIP'],
-        queryFn: fetchMemberships,
+    return useMutation<IBaseResponse<IMembership[]>, Error>({
+        mutationFn: () =>
+            axiosInstance.get<IBaseResponse<IMembership[]>>(MEMBERSHIP_PATHS.GET_ALL),
+        onSuccess: async data => {
+            if (!data.data) return;
+            queryClient.invalidateQueries({ queryKey: ['GET_LIST_MEMBERSHIP', 'MEMBERSHIP'] });
+            dispatch(setMemberships(data.data.map(item => ({ ...item, image: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image }))));
+        },
+        onError(error, variables, context) {
+            console.log(error);
+        },
     });
 };
 

@@ -54,6 +54,8 @@ export default function Page(): JSX.Element {
         setCurrentTab(value);
     };
 
+    const currentBrandMembership = RANKS.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.to
+    
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
@@ -73,7 +75,7 @@ export default function Page(): JSX.Element {
                             <div className="text-[10px] text-white">1/11</div>
                         </div>
                         <Progress
-                            value={Math.round((RANKS.find(item => item.name.toLowerCase() === membership.name.toLowerCase())?.to ?? 0) / user.highest_score)}
+                            value={(user.highest_score / currentBrandMembership) * 100}
                             className="w-full h-[8px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                         />
                     </div>

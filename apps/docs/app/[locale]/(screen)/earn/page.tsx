@@ -129,10 +129,10 @@ export default function Page(): JSX.Element {
                             <ul className="w-full h-full grid grid-cols-4 justify-center items-center gap-2">
                                 {Array.from({ length: 10 }).map((_, i) => {
                                     return (
-                                        <li key={i} className={cn("flex flex-col justify-center items-center gap-1 rounded-2xl p-2", i < 5 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : 'bg-[#272a2f] opacity-40')}>
+                                        <li key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2", i < 5 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : 'bg-[#272a2f] opacity-40')}>
                                             <TypographySmall text={`${t('day_daily')} ${i + 1}`} className="text-white text-[14px] font-normal" />
                                             <Image src="/project/icon_coin.png" alt="@coin" width={24} height={24} priority />
-                                            <TypographySmall text={`${formatCoin(500 * (i + 1))}`} className="text-white text-base font-medium" />
+                                            <TypographySmall text={`${formatCoin(500 * (i + 1))}`} className="text-white text-[14px] font-medium" />
                                         </li>
                                     )
                                 })}

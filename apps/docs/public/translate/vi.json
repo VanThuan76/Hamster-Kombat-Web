@@ -53,6 +53,9 @@
       "profile": "Hồ sơ",
       "skin": "Trang phục",
       "purchased": "Đã mua"
+    },
+    "rank": {
+      "from": "từ"
     }
   },
   "components": {

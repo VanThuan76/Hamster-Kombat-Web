@@ -1,5 +1,5 @@
 export function formatCoin(num: number) {
-    if (!num) return
+    if (!num) return num
     if (num >= 1000000) {
         return (num / 1000000).toFixed(1) + 'M';
     } else if (num >= 1000) {
@@ -9,7 +9,7 @@ export function formatCoin(num: number) {
     }
 }
 export function formatCoinStyleDot(num: number) {
-    if (!num) return
+    if (!num) return num
     return num.toLocaleString('de-DE');
 }
 

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from '@shared/next-intl/navigation';
 
 import { userLoginAction } from '@server/_action/user-action';
-import { useMembershipByUser } from '@server/_action/membership-action';
+import { useMembershipByUser, useMemberships } from '@server/_action/membership-action';
 import { useExchanges, useExchangesByUser } from '@server/_action/exchanges-action';
 import { useCategoryOfCardByUser } from '@server/_action/card-action';
 
@@ -24,6 +24,7 @@ const OnBroadingPage = () => {
 
   const categoryOfCardsAction = useCategoryOfCardByUser()
   const exchangesInitAction = useExchanges();
+  const membershipsInitAction = useMemberships();
   const userInitAction = userLoginAction()
   const membershipAction = useMembershipByUser()
   const exchangeByUserAction = useExchangesByUser()
@@ -53,6 +54,7 @@ const OnBroadingPage = () => {
         await membershipAction.mutateAsync({ user_id: user.data.id });
         await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour.exchange_id })
         await exchangesInitAction.mutateAsync({})
+        await membershipsInitAction.mutateAsync({})
 
         //Telegram SDK
         miniApp.setHeaderColor('#000');

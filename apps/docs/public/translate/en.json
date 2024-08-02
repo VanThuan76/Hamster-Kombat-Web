@@ -53,6 +53,9 @@
       "profile": "Profile",
       "skin": "Skin",
       "purchased": "Purchased"
+    },
+    "rank": {
+      "from": "from"
     }
   },
   "components": {
