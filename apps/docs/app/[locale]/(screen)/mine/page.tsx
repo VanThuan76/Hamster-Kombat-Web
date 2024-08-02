@@ -25,8 +25,8 @@ import { RANKS } from "@shared/constant/app";
 
 import { useBuyCard } from "@server/_action/card-action";
 
-const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
-const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
+const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: true })
+const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: true })
 const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer').then((mod) => mod.default), { ssr: false })
 const DrawerInfoCountdown = dynamic(() => import('@shared/components/DrawerInfoCountdown').then((mod) => mod.default), { ssr: false })
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
@@ -55,7 +55,7 @@ export default function Page(): JSX.Element {
     };
 
     const currentBrandMembership = RANKS.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.to
-    
+
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
@@ -106,9 +106,9 @@ export default function Page(): JSX.Element {
                         <div className="w-full flex justify-center items-center gap-2">
                             {Array.from({ length: 3 }).map((_, i) => {
                                 return (
-                                    <Popover>
+                                    <Popover key={i}>
                                         <PopoverTrigger asChild>
-                                            <div key={i} className="daily-combo-card">
+                                            <div className="daily-combo-card">
                                                 <div className="daily-combo-card-inner">
                                                     <div className="bg-[#ffffff0d] rounded-md m-4 h-[75%]">
                                                         <Image src="/project/img_daily-combo.png" alt="@dailyCombo" width={91} height={104} priority />
@@ -143,8 +143,9 @@ export default function Page(): JSX.Element {
                                     {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.map((item, i) => {
                                         return (
                                             <DrawerMinCard
+                                                key={i}
                                                 drawerTrigger={
-                                                    <div key={i} className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
+                                                    <div className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
                                                         <div className="w-full flex justify-start items-start gap-3">
                                                             <div className="w-[60px] h-[60px]">
                                                                 <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" priority />
@@ -193,13 +194,15 @@ export default function Page(): JSX.Element {
                                                         </div>
                                                     </div>
                                                 }
-                                                handleSuccess={() => buyCard.mutate({
-                                                    card_id: item.card_profits[1]!.card_id,
-                                                    card_profit_id: item.card_profits[1]!.id,
-                                                    level: item.card_profits[1]!.level,
-                                                    exchange_id: user.exchange.id,
-                                                    user_id: user.id
-                                                })}
+                                                handleSuccess={() => {
+                                                    buyCard.mutate({
+                                                        card_id: item.card_profits[1]!.card_id,
+                                                        card_profit_id: item.card_profits[1]!.id,
+                                                        level: item.card_profits[1]!.level,
+                                                        exchange_id: user.exchange.id,
+                                                        user_id: user.id
+                                                    })
+                                                }}
                                             />
                                         )
                                     })}

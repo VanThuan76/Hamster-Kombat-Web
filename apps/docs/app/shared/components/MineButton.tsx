@@ -86,6 +86,9 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        setRevenue(user.revenue)
+    }, [user.revenue])
     const formattedRevenue = useMemo(() => revenue.toLocaleString(), [revenue]);
     const formattedEnergy = useMemo(() => energy, [energy]);
 

@@ -10,20 +10,20 @@
 </g>
 <defs>
 <linearGradient id="paint0_linear_1_17" x1="52" y1="-8" x2="52" y2="112" gradientUnits="userSpaceOnUse">
-<stop stop-color="#3286F1"/>
-<stop offset="1" stop-color="#C43AC4"/>
+<stop stopColor="#3286F1"/>
+<stop offset="1" stopColor="#C43AC4"/>
 </linearGradient>
 <radialGradient id="paint1_radial_1_17" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(52 -7.99999) rotate(90) scale(154.286 154.286)">
-<stop stop-color="white"/>
-<stop offset="1" stop-color="white"/>
+<stop stopColor="white"/>
+<stop offset="1" stopColor="white"/>
 </radialGradient>
 <linearGradient id="paint2_linear_1_17" x1="-8" y1="-8" x2="18.25" y2="40.75" gradientUnits="userSpaceOnUse">
-<stop stop-color="white"/>
-<stop offset="1" stop-color="white" stop-opacity="0"/>
+<stop stopColor="white"/>
+<stop offset="1" stopColor="white" stop-opacity="0"/>
 </linearGradient>
 <linearGradient id="paint3_linear_1_17" x1="53.9007" y1="33.4389" x2="32.7679" y2="54.5717" gradientUnits="userSpaceOnUse">
-<stop stop-color="#0096FF"/>
-<stop offset="1" stop-color="#FF1E56"/>
+<stop stopColor="#0096FF"/>
+<stop offset="1" stopColor="#FF1E56"/>
 </linearGradient>
 <clipPath id="clip0_1_17">
 <rect width="104" height="104" fill="white"/>

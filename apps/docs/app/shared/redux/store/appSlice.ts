@@ -4,6 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { IExchangesOrigin } from "@server/_types/exchanges";
 import { ICategoryOfCard } from "@server/_types/card";
 import { IMembership } from "@server/_types/membership";
+import { ISkin } from "@server/_types/skin";
 export interface IDefaultState {
     user: {
         id: number;
@@ -39,7 +40,8 @@ export interface IDefaultState {
         required_short_money: string;
     };
     memberships: IMembership[] | []
-    exchanges: IExchangesOrigin[] | []
+    exchanges: IExchangesOrigin[] | [],
+    skins: ISkin[] | [],
     categoryOfCards: ICategoryOfCard[] | []
 }
 
@@ -79,6 +81,7 @@ const initialState: IDefaultState = {
     },
     memberships: [],
     exchanges: [],
+    skins: [],
     categoryOfCards: []
 };
 
@@ -95,11 +98,17 @@ export const appSlice: any = createSlice({
         setUserExchange: (state, action: PayloadAction<any>) => {
             state.user.exchange = action.payload;
         },
+        setUpdateProfitPerHour: (state, action: PayloadAction<number>) => {
+            state.user.profit_per_hour = action.payload;
+        },
         setUpdateRevenue: (state, action: PayloadAction<number>) => {
             state.user.revenue = action.payload;
         },
         setExchanges: (state, action: PayloadAction<IExchangesOrigin[]>) => {
             state.exchanges = action.payload;
+        },
+        setSkins: (state, action: PayloadAction<ISkin[]>) => {
+            state.skins = action.payload;
         },
         setMemberships: (state, action: PayloadAction<IMembership[]>) => {
             state.memberships = action.payload;
@@ -110,5 +119,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setExchanges, setMemberships, setCategoryOfCards } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setMemberships, setSkins, setCategoryOfCards } = appSlice.actions;
 export default appSlice.reducer;

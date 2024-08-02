@@ -1,3 +1,5 @@
+import { ISkin } from "./skin";
+
 export interface IAuth {
     telegram_id: string;
     first_name: string;
@@ -40,3 +42,7 @@ export interface IUpdateRevenueByUser {
     revenue: number
 }
 
+export interface IUpdateSkinByUser {
+    user: IUser;
+    skin: ISkin;
+}

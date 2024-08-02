@@ -9,7 +9,7 @@ import { APP_SAVE_KEY } from "@shared/constant/app";
 import { queryClient } from "./config";
 
 import { IBaseResponse } from "../_types/base";
-import { IUpdateRevenueByUser, IUser } from "../_types/user";
+import { IUpdateRevenueByUser, IUpdateSkinByUser, IUser } from "../_types/user";
 
 import USER_PATHS from "../_path/user-path";
 
@@ -52,6 +52,22 @@ export const useUpdateRevenue: () => UseMutationResult<IBaseResponse<IUpdateReve
             if (!data.data) return;
             queryClient.invalidateQueries({ queryKey: ['UPDATE_REVENUE', 'USER'] });
             dispatch(setUpdateRevenue(data.data.revenue))
+        },
+        onError: (error, variables, context) => {
+            console.log(error);
+        },
+    });
+};
+
+export const useUpdateSkin: () => UseMutationResult<IBaseResponse<IUpdateSkinByUser>, Error, { user_id: number, skin_id: number }> = () => {
+    const dispatch = useAppDispatch();
+
+    return useMutation<IBaseResponse<IUpdateSkinByUser>, Error, { user_id: number, skin_id: number }>({
+        mutationFn: (body: { user_id: number, skin_id: number }) =>
+            axiosInstance.post<IBaseResponse<IUpdateSkinByUser>>(USER_PATHS.UPDATE_SKIN_BY_USER, body),
+        onSuccess: async data => {
+            if (!data.data) return;
+            queryClient.invalidateQueries({ queryKey: ['UPDATE_SKIN', 'USER'] });
         },
         onError: (error, variables, context) => {
             console.log(error);
