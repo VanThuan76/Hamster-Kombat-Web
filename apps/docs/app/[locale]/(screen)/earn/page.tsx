@@ -1,15 +1,18 @@
 'use client'
 
 import Image from "next/image"
+import dynamic from 'next/dynamic'
 import { useTranslations } from "next-intl"
+
 import { cn } from "@ui/lib/utils";
 import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
-import DrawerMinCard from "@shared/components/DrawerMinCard"
 import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoin } from "@shared/utils/formatNumber"
+
+const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 

@@ -18,8 +18,8 @@ import useBackButton from "@shared/hooks/useBackButton";
 import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
 
-const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: true })
-const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: true })
+const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
+const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 

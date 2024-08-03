@@ -25,8 +25,8 @@ import { RANKS } from "@shared/constant/app";
 
 import { useBuyCard } from "@server/_action/card-action";
 
-const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: true })
-const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: true })
+const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
+const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
 const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer').then((mod) => mod.default), { ssr: false })
 const DrawerInfoCountdown = dynamic(() => import('@shared/components/DrawerInfoCountdown').then((mod) => mod.default), { ssr: false })
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
@@ -69,10 +69,10 @@ export default function Page(): JSX.Element {
                             }}
                         >
                             <div className="flex justify-start items-center gap-[2px] cursor-pointer">
-                                <TypographySmall text="Bronze" className="text-[10px] text-white" />
+                                <TypographySmall text={membership?.name as string} className="text-[10px] text-white" />
                                 <div className="w-[10px] h-[10px] text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg></div>
                             </div>
-                            <div className="text-[10px] text-white">1/11</div>
+                            <div className="text-[10px] text-white">{membership?.current_level}/{membership?.max_level}</div>
                         </div>
                         <Progress
                             value={(user.highest_score / currentBrandMembership) * 100}

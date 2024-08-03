@@ -7,11 +7,12 @@ import { getMessages } from "next-intl/server";
 import { Roboto_Flex } from "next/font/google";
 import { cn } from "@ui/lib/utils";
 
-import { Dialog, DialogContent } from "@ui/components/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@ui/components/dialog";
+import VisuallyHiddenCpn from "@ui/components/visually"
 
 import Providers from "@shared/provider";
 
-import { RootContainer } from "../@root/RootContainer";
+import RootContainer from "../@root/RootContainer";
 
 const robotoFlex = Roboto_Flex({ subsets: ["latin"], display: 'swap' });
 
@@ -37,6 +38,9 @@ export default async function LocaleLayout({
           <RootContainer>
             <Providers>
               <Dialog open={true}>
+                <VisuallyHiddenCpn>
+                  <DialogTitle></DialogTitle>
+                </VisuallyHiddenCpn>
                 <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
                   {children}
                 </DialogContent>

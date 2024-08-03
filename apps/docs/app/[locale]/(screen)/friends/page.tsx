@@ -2,8 +2,8 @@
 
 import Image from "next/image"
 import dynamic from 'next/dynamic'
-import { useTranslations } from "next-intl"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 import { Button } from "@ui/components/button"
 
 import MotionContainer from "@ui/components/motion/Container"
