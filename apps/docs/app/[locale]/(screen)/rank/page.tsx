@@ -42,7 +42,7 @@ export default function Page(): JSX.Element {
                                     width={162}
                                     height={162}
                                     className="z-30"
-                                    priority
+                                    priority={true}
                                 />
                             </div>
                             <div className="w-full flex flex-col justify-center items-center gap-3 px-4">

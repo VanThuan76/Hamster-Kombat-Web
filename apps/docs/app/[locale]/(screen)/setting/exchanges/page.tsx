@@ -26,7 +26,7 @@ export default function Page(): JSX.Element {
     function handleUpdateExchange(item: IExchangesOrigin) {
         dispatch(setUserExchange({ id: item.id, name: item.name, icon: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image }));
         updateExchange.mutate({ user_id: user.id, exchange_id: item.id })
-        router.push('/exchange')
+        router.push('/exchange', undefined, { shallow: true });
     }
     return (
         <div className="w-full h-screen relative overflow-y-auto bg-black pb-14">

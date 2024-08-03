@@ -38,14 +38,14 @@ export default function Page(): JSX.Element {
                 return (
                     <div key={i} className="flex justify-start items-start gap-3 rounded-2xl p-3 py-6 bg-[#272a2f]">
                         <MotionContainer type="scale">
-                            <Image src="/project/gift.png" alt="@gift" width={60} height={50} priority />
+                            <Image src="/project/gift.png" alt="@gift" width={60} height={50} priority={true} />
                         </MotionContainer>
                         <div className="flex flex-col justify-start items-start gap-2">
                             <TypographySmall text={t('invite_friends_card')} className="text-base text-white" />
                             <div className="flex justify-center items-start gap-1">
                                 <div className="w-[6px] h-[6px] rounded-full mr-1 mt-2 bg-[#ffd337]"></div>
                                 <div className="flex justify-center items-center gap-1">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
+                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
                                     <TypographySmall text="+5.000" className="text-[14px] text-[#ffd337] ml-1" />
                                 </div>
                                 <span className="text-[14px] font-extralight">{t('des_invite_friends_card')}</span>
@@ -71,16 +71,16 @@ export default function Page(): JSX.Element {
                             <div className="w-full flex justify-between items-center p-2 bg-[#272a2f] rounded-2xl">
                                 <div className="flex justify-start items-center gap-2">
                                     <div className="h-[40px] w-[40px]">
-                                        <Image src={item.image} alt={item.name} width={100} height={100} className="w-full h-full rounded-md object-cover" priority />
+                                        <Image src={item.image} alt={item.name} width={100} height={100} className="w-full h-full rounded-md object-cover" priority={true} />
                                     </div>
                                     <TypographySmall text={item.name} className="text-[12px] font-light" />
                                 </div>
                                 <div className="flex justify-center items-center gap-1">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
+                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
                                     <TypographySmall text={`+${formatCoinStyleDot(item.for_friend)}`} className="text-[12px] text-[#ffd337] ml-1" />
                                 </div>
                                 <div className="flex justify-center items-center gap-1">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
+                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
                                     <TypographySmall text={`+${formatCoinStyleDot(item.premium)}`} className="text-[12px] text-[#ffd337] ml-1" />
                                 </div>
                             </div>

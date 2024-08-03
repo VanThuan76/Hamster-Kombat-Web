@@ -15,7 +15,7 @@ const useBackButton = () => {
         if (!pathName.includes('/exchange')) {
             bb.show();
             const handleClick = () => {
-                router.push('/exchange');
+                router.push('/exchange', undefined, { shallow: true });
             };
             bb.on('click', handleClick);
 

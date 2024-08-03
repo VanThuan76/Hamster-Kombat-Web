@@ -95,13 +95,13 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     return (
         <>
             <MotionContainer className={cn("w-full flex justify-center items-center gap-2", !isScreenMine && "mb-3")} type="scale">
-                <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} priority />
+                <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} priority={true} />
                 <MemoTypographyLarge text={formattedRevenue} className="text-white text-3xl" />
             </MotionContainer>
             {isSecretFeature && <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
                 <TypographyLarge text={t('daily_cipher')} className="text-white text-[14px]" />
                 <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
+                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
                     <TypographySmall text='+1.000.000' className="text-white text-[14px]" />
                 </Button>
             </div>}
@@ -109,7 +109,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
             <div className="w-full flex flex-col justify-center items-center p-4">
                 <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={handleCardTouchStart}>
                     <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret')}>
-                        <Image src="/project/ava_bronze.png" alt="avatar" width={268} height={268} className="z-30" priority />
+                        <Image src="/project/ava_bronze.png" alt="avatar" width={268} height={268} className="z-30" priority={true} />
                     </div>
                     <AnimatePresenceWrapper>
                         {plusSigns.map((pos) => (
@@ -119,17 +119,17 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                 </MotionContainer>
                 <div className="w-full flex justify-between items-center">
                     <div className="w-full flex justify-start items-center gap-1">
-                        <Image src="/project/icon_flash.svg" alt="@flash" width={26} height={26} priority />
+                        <Image src="/project/icon_flash.svg" alt="@flash" width={26} height={26} priority={true} />
                         <MemoTypographyLarge text={`${formattedEnergy} / ${maxEnergy}`} className="text-white text-base" />
                     </div>
                     <div
                         className="w-full flex justify-end items-center gap-1 cursor-pointer"
                         onClick={() => {
-                            router.push('/boost')
+                            router.push('/boost', undefined, { shallow: true });
                             haptic.impactOccurred('medium');
                         }}
                     >
-                        <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} priority />
+                        <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} priority={true} />
                         <TypographyLarge text={t('boost')} className="text-white text-base" />
                     </div>
                 </div>

@@ -30,7 +30,7 @@ export default function DrawerInfoProfit(): JSX.Element {
                     <div className="relative visible">
                         <div className="absolute left-1/2 top-1/2 w-[100px] h-[100px] bg-[#9b37ffe6] rounded-full blur-[20px] transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
                         <div className="relative z-10">
-                            <Image src="/project/info_rocket.png" alt="@rocket" width={115} height={115} priority />
+                            <Image src="/project/info_rocket.png" alt="@rocket" width={115} height={115} priority={true} />
                         </div>
                     </div>
                     <div className="w-full flex flex-col justify-center items-center gap-5">
@@ -40,7 +40,7 @@ export default function DrawerInfoProfit(): JSX.Element {
                     </div>
                     <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleOpenDrawer}>
                         <TypographyLarge text={t('start_button')} className="text-white text-xl font-bold" />
-                        <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority />
+                        <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
                     </Button>
                 </div>
             </Drawer>

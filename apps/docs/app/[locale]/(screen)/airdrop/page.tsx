@@ -3,6 +3,7 @@
 import Image from "next/image"
 import dynamic from 'next/dynamic'
 import { useTranslations } from "next-intl"
+
 import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
@@ -34,7 +35,7 @@ export default function Page(): JSX.Element {
                 </svg>
                 </div>
                 <div className="icon_earn_image w-[106px] h-[106px]">
-                    <Image src="/project/icon_hamster-coin.png" alt="@hamsterCoin" width={106} height={106} className="w-full h-full" priority />
+                    <Image src="/project/icon_hamster-coin.png" alt="@hamsterCoin" width={106} height={106} className="w-full h-full" priority={true} />
                 </div>
             </MotionContainer>
             <div className="h-[220px]"></div>

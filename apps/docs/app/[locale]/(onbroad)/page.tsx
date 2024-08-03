@@ -75,7 +75,7 @@ const OnBroadingPage = () => {
 
   useEffect(() => {
     if (initialized) {
-      router.push('/exchange');
+      router.push('/exchange', undefined, { shallow: true });
     }
   }, [initialized, router]);
 

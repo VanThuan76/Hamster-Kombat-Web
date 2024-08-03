@@ -33,14 +33,14 @@ const CardProfit = () => {
             <div className="w-full flex flex-1 flex-col justify-start items-center pb-1">
                 <TypographySmall text={t('profit_by_hour')} className="text-[8px] text-[#fff6]" />
                 <div className="w-full flex flex-1 justify-center items-center gap-[6px]">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
+                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
                     <TypographySmall text={`+${formatCoin(user.profit_per_hour)}`} className="text-xs" />
                     <DrawerInfoProfit />
                 </div>
             </div>
             <Separator orientation="vertical" className="bg-[#ffffff1a] w-[1px]" />
             <div className="pl-4 items-end cursor-pointer" onClick={() => {
-                router.push('/setting')
+                router.push('/setting', undefined, { shallow: true });
                 haptic.impactOccurred('medium');
             }}>
                 <svg width="20" height="20" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">

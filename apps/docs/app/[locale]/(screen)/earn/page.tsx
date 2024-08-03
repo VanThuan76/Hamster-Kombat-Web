@@ -64,7 +64,7 @@ export default function Page(): JSX.Element {
                 </svg>
                 </div>
                 <div className="icon_earn_image w-[106px] h-[106px]">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={106} height={106} className="w-full h-full" priority />
+                    <Image src="/project/icon_coin.png" alt="@coin" width={106} height={106} className="w-full h-full" priority={true} />
                 </div>
             </MotionContainer>
             <div className="h-[220px]"></div>
@@ -78,12 +78,12 @@ export default function Page(): JSX.Element {
                         <div key={i} className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
                             <div className="flex justify-start items-center gap-2">
                                 <MotionContainer type="scale">
-                                    <Image src="/project/hamster_youtube_channel.png" alt="@hamster_youtube_channel" width={56} height={56} priority />
+                                    <Image src="/project/hamster_youtube_channel.png" alt="@hamster_youtube_channel" width={56} height={56} priority={true} />
                                 </MotionContainer>
                                 <div className="flex flex-col justify-start items-start">
                                     <TypographySmall text="Xu hướng bạn không thể bỏ qua" className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
-                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
+                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
                                         <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
@@ -102,12 +102,12 @@ export default function Page(): JSX.Element {
                         <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]">
                             <div className="flex justify-start items-center gap-2">
                                 <MotionContainer type="scale">
-                                    <Image src='/project/calendar.png' alt='@calendar' width={56} height={56} priority />
+                                    <Image src='/project/calendar.png' alt='@calendar' width={56} height={56} priority={true} />
                                 </MotionContainer>
                                 <div className="flex flex-col justify-start items-start">
                                     <TypographySmall text={t('daily_reward')} className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
-                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
+                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
                                         <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ export default function Page(): JSX.Element {
                             <div className="relative visible">
                                 <div className="absolute left-1/2 top-1/2 w-[100px] h-[100px] bg-[#9b37ffe6] rounded-full blur-[20px] transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
                                 <div className="relative z-10">
-                                    <Image src="/project/calendar.png" alt="@calendar" width={115} height={115} priority />
+                                    <Image src="/project/calendar.png" alt="@calendar" width={115} height={115} priority={true} />
                                 </div>
                             </div>
                             <div className="w-full flex flex-col justify-center items-center gap-5 mb-5">
@@ -134,7 +134,7 @@ export default function Page(): JSX.Element {
                                     return (
                                         <li key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2", i < 5 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : 'bg-[#272a2f] opacity-40')}>
                                             <TypographySmall text={`${t('day_daily')} ${i + 1}`} className="text-white text-[14px] font-normal" />
-                                            <Image src="/project/icon_coin.png" alt="@coin" width={24} height={24} priority />
+                                            <Image src="/project/icon_coin.png" alt="@coin" width={24} height={24} priority={true} />
                                             <TypographySmall text={`${formatCoin(500 * (i + 1))}`} className="text-white text-[14px] font-medium" />
                                         </li>
                                     )
@@ -156,12 +156,12 @@ export default function Page(): JSX.Element {
                                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
                                     <div className="flex justify-start items-center gap-2">
                                         <MotionContainer type="scale">
-                                            <Image src={item.image} alt={item.name.toLowerCase()} width={56} height={56} priority />
+                                            <Image src={item.image} alt={item.name.toLowerCase()} width={56} height={56} priority={true} />
                                         </MotionContainer>
                                         <div className="flex flex-col justify-start items-start">
                                             <TypographySmall text={item.name} className="text-[14px] text-white font-extralight" />
                                             <div className="flex justify-center items-center gap-1">
-                                                <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority />
+                                                <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
                                                 <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
                                             </div>
                                         </div>
@@ -175,13 +175,13 @@ export default function Page(): JSX.Element {
                                 <div className="w-full flex flex-col justify-center items-center gap-8">
                                     <div className="relative visible">
                                         <div className="relative z-10">
-                                            <Image src={item.image} alt={item.name} width={115} height={115} priority />
+                                            <Image src={item.image} alt={item.name} width={115} height={115} priority={true} />
                                         </div>
                                     </div>
                                     <div className="w-full flex flex-col justify-center items-center gap-5">
                                         <TypographyLarge text={item.name} className="text-white text-[32px] font-bold" />
                                         <div className="flex justify-center items-center gap-1">
-                                            <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority />
+                                            <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
                                             <TypographySmall text="+100.000" className="text-2xl text-white ml-1" />
                                         </div>
                                     </div>

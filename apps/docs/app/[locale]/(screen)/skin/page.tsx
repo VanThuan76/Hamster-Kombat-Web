@@ -53,7 +53,7 @@ export default function Page(): JSX.Element {
                                     width={270}
                                     height={270}
                                     className="z-30"
-                                    priority
+                                    priority={true}
                                 />
                                 <div className="w-full flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
                                     <TypographySmall text={item.name} className="text-base font-bold text-white" />

@@ -64,7 +64,7 @@ export default function Page(): JSX.Element {
                         <div
                             className="w-full flex justify-between items-start cursor-pointer"
                             onClick={() => {
-                                router.push('/rank')
+                                router.push('/rank', undefined, { shallow: true });
                                 haptic.impactOccurred('medium');
                             }}
                         >
@@ -99,7 +99,7 @@ export default function Page(): JSX.Element {
                                 })}
                             </div>
                             <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
-                                <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
+                                <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
                                 <TypographySmall text="+5.000.000" className="text-white text-[14px]" />
                             </Button>
                         </div>
@@ -111,7 +111,7 @@ export default function Page(): JSX.Element {
                                             <div className="daily-combo-card">
                                                 <div className="daily-combo-card-inner">
                                                     <div className="bg-[#ffffff0d] rounded-md m-4 h-[75%]">
-                                                        <Image src="/project/img_daily-combo.png" alt="@dailyCombo" width={91} height={104} priority />
+                                                        <Image src="/project/img_daily-combo.png" alt="@dailyCombo" width={91} height={104} priority={true} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,7 +148,7 @@ export default function Page(): JSX.Element {
                                                     <div className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
                                                         <div className="w-full flex justify-start items-start gap-3">
                                                             <div className="w-[60px] h-[60px]">
-                                                                <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" priority />
+                                                                <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" priority={true} />
                                                             </div>
                                                             <div className="flex flex-col justify-between items-start gap-4">
                                                                 <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
@@ -156,7 +156,7 @@ export default function Page(): JSX.Element {
                                                                     <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
                                                                     <div className="flex justify-center items-center gap-1">
                                                                         <div className="w-[16px] h-[16px]">
-                                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" priority />
+                                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" priority={true} />
                                                                         </div>
                                                                         <TypographySmall text={`+${String(formatCoin(item.card_profits.find(child => child.is_purchased)?.profit as number))}`} className="text-white text-[12px]" />
                                                                     </div>
@@ -167,14 +167,14 @@ export default function Page(): JSX.Element {
                                                         <div className="flex h-5 items-center space-x-4 text-sm">
                                                             <TypographySmall text={`lv ${item.card_profits.find(child => child.is_purchased)?.level}`} className="text-white text-[12px]" />
                                                             <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority />
+                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
                                                             <TypographySmall text={String(formatCoin(item.card_profits.find(child => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
                                                         </div>
                                                     </div>
                                                 }
                                                 drawerContent={
                                                     <div key={i} className="mt-2 w-full flex flex-col justify-center items-center gap-2">
-                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={115} height={115} priority />
+                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={115} height={115} priority={true} />
                                                         <TypographySmall text={item.name} className="text-white text-[28px] font-semibold" />
                                                         <TypographySmall text={item.description} className="text-white text-[14px] text-center" />
                                                         <div className="flex flex-col justify-center items-center gap-1">
@@ -188,7 +188,7 @@ export default function Page(): JSX.Element {
                                                         </div>
                                                         <div className="flex justify-center items-center gap-1">
                                                             <div className="w-[32px] h-[32px]">
-                                                                <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" priority />
+                                                                <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" priority={true} />
                                                             </div>
                                                             <TypographySmall text={String(formatCoinStyleDot(item.card_profits.find(child => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
                                                         </div>

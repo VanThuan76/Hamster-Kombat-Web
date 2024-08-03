@@ -1,16 +1,15 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from "react";
-import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
-
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
-import { useRouter } from "@shared/next-intl/navigation";
+
 import { useAppSelector } from "@shared/redux/store/index";
 import { cn } from "@ui/lib/utils";
 
 import TypographySmall from "@ui/components/typography/small";
-import Link from "next/link";
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
@@ -56,18 +55,12 @@ export const BottomNav = () => {
     }, [user.exchange.icon]);
 
     const haptic = initHapticFeedback();
-    const router = useRouter();
     const path = usePathname();
     const checkPath = path.split("/");
 
     const isSvg = useCallback((filePath: string | undefined): boolean => {
         return filePath ? filePath.endsWith('.svg') : false;
     }, []);
-
-    const handleLinkClick = useCallback((link: string) => {
-        haptic.impactOccurred('medium');
-        router.push(link);
-    }, [haptic, router]);
 
     return (
         <div
@@ -82,6 +75,7 @@ export const BottomNav = () => {
                     prefetch={true}
                     shallow
                     passHref
+                    onClick={() => haptic.impactOccurred('medium')}
                     className={cn(
                         "relative w-full dark:text-neutral-50 flex flex-col justify-center items-center text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 cursor-pointer px-2 py-1",
                         checkPath?.includes(navItem.link.split("/")[1]) ? 'bg-[#1c1f24] rounded-xl' : 'bg-transparent'
@@ -93,7 +87,7 @@ export const BottomNav = () => {
                         width={28}
                         height={28}
                         className={cn(isSvg(navItem.icon) && index !== 0 && "hover:filter hover:brightness-0 hover:invert", checkPath?.includes(navItem.link.split("/")[1]) && index !== 0 && isSvg(navItem.icon) && 'filter brightness-0 invert')}
-                        priority
+                        priority={true}
                     />
                     <TypographySmall text={navItem.name} className={cn('text-[10px]', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />
                 </Link>
