@@ -1,7 +1,6 @@
 'use client'
 
 import Image from "next/image"
-import dynamic from 'next/dynamic'
 import { useState } from "react"
 import { useTranslations } from "next-intl";
 import { useRouter } from '@shared/next-intl/navigation';
@@ -17,9 +16,8 @@ import useBackButton from "@shared/hooks/useBackButton";
 
 import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
-
-const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
-const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
+import MineButton from '@shared/components/MineButton'
+import CardProfit from '@shared/components/CardProfit'
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
@@ -87,7 +85,7 @@ export default function Page(): JSX.Element {
                         <div
                             className="w-full flex justify-between items-start cursor-pointer"
                             onClick={() => {
-                                router.push('/rank', undefined, { shallow: true });
+                                router.push('/rank', undefined);
                                 haptic.impactOccurred('medium');
                             }}
                         >
@@ -111,7 +109,7 @@ export default function Page(): JSX.Element {
                         <div
                             className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer"
                             onClick={() => {
-                                router.push('/earn', undefined, { shallow: true });
+                                router.push('/earn', undefined);
                                 haptic.impactOccurred('medium');
                             }}
                         >
@@ -145,7 +143,7 @@ export default function Page(): JSX.Element {
                         <div
                             className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer"
                             onClick={() => {
-                                router.push('/mine', undefined, { shallow: true });
+                                router.push('/mine', undefined);
                                 haptic.impactOccurred('medium');
                             }}
                         >

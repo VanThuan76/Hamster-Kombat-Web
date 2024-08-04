@@ -40,7 +40,7 @@ const CardProfit = () => {
             </div>
             <Separator orientation="vertical" className="bg-[#ffffff1a] w-[1px]" />
             <div className="pl-4 items-end cursor-pointer" onClick={() => {
-                router.push('/setting', undefined, { shallow: true });
+                router.push('/setting', undefined);
                 haptic.impactOccurred('medium');
             }}>
                 <svg width="20" height="20" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,19 +1,20 @@
 'use client'
 
 import Image from "next/image"
-import { useTranslations } from "next-intl"
+import dynamic from 'next/dynamic'
 import { useEffect, useState } from "react"
+import { useTranslations } from "next-intl"
 import { cn } from "@ui/lib/utils"
 
 import { Progress } from "@ui/components/progress"
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
-import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
 
 import useBackButton from "@shared/hooks/useBackButton"
-
 import { useAppSelector } from "@shared/redux/store"
 import { formatCoin } from "@shared/utils/formatNumber"
+
+const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.rank')

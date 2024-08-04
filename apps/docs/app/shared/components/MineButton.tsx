@@ -25,7 +25,7 @@ const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
     const t = useTranslations('components.mine_button')
 
-    const { user } = useAppSelector(state => state.app);
+    const { user, membership } = useAppSelector(state => state.app);
     const haptic = initHapticFeedback();
     const router = useRouter()
     const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -39,9 +39,9 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     const updateRevenue = useUpdateRevenue()
 
     function handleIncludedCoin() {
-        setRevenue(revenue + 1);
+        setRevenue(revenue + membership.current_level);
         setClickCount(clickCount + 1);
-        setEnergy(energy - 1);
+        setEnergy(energy - membership.current_level);
         if (saveTimeoutRef.current) {
             clearTimeout(saveTimeoutRef.current);
         }
@@ -109,11 +109,11 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
             <div className="w-full flex flex-col justify-center items-center p-4">
                 <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={handleCardTouchStart}>
                     <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret')}>
-                        <Image src="/project/ava_bronze.png" alt="avatar" width={268} height={268} className="z-30" priority={true} />
+                        <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="avatar" width={268} height={268} className="z-30" priority={true} />
                     </div>
                     <AnimatePresenceWrapper>
                         {plusSigns.map((pos) => (
-                            <PlusSign type={isSecretFeature ? "dot" : "plus"} key={pos.id} x={pos.x} y={pos.y} />
+                            <PlusSign numberPlus={membership.current_level} type={isSecretFeature ? "dot" : "plus"} key={pos.id} x={pos.x} y={pos.y} />
                         ))}
                     </AnimatePresenceWrapper>
                 </MotionContainer>
@@ -125,7 +125,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                     <div
                         className="w-full flex justify-end items-center gap-1 cursor-pointer"
                         onClick={() => {
-                            router.push('/boost', undefined, { shallow: true });
+                            router.push('/boost', undefined);
                             haptic.impactOccurred('medium');
                         }}
                     >

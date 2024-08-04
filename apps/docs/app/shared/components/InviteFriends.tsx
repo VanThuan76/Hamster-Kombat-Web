@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button } from '@ui/components/button';
+
 const { initUtils } = require('@telegram-apps/sdk-react');
 
 const InviteFriends = () => {

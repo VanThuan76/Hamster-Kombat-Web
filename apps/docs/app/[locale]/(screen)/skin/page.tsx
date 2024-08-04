@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image"
+import dynamic from 'next/dynamic'
 import { useState } from "react"
 import { useTranslations } from "next-intl"
 
@@ -12,13 +13,12 @@ import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
-import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
 
-import listSkin from "@shared/constant/listSkin"
 import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 import { useAppSelector } from "@shared/redux/store/index"
 
+const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.skin')

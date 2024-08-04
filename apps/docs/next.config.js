@@ -43,6 +43,7 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
 
         const preloadImages = require("fs")
           .readdirSync("./public/project")
+          .filter((file) => /\.(jpe?g|png|webp|avif)$/.test(file))
           .map((file) => `import './public/project/${file}';`)
           .join("\n");
 

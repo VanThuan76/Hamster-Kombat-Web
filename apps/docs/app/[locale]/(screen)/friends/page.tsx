@@ -1,7 +1,6 @@
 'use client'
 
 import Image from "next/image"
-import dynamic from 'next/dynamic'
 import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { Button } from "@ui/components/button"
@@ -10,12 +9,11 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import InviteFriends from '@shared/components/InviteFriends'
 import listBonus from "@shared/constant/listBonus"
 import useBackButton from "@shared/hooks/useBackButton"
 
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
-
-const InviteFriends = dynamic(() => import('@shared/components/InviteFriends').then((mod) => mod.default), { ssr: false })
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 

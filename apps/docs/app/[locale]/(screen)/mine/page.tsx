@@ -18,6 +18,9 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
 
+import MineButton from '@shared/components/MineButton'
+import CardProfit from '@shared/components/CardProfit'
+
 import useBackButton from "@shared/hooks/useBackButton";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
@@ -25,8 +28,6 @@ import { RANKS } from "@shared/constant/app";
 
 import { useBuyCard } from "@server/_action/card-action";
 
-const MineButton = dynamic(() => import('@shared/components/MineButton').then((mod) => mod.default), { ssr: false })
-const CardProfit = dynamic(() => import('@shared/components/CardProfit').then((mod) => mod.default), { ssr: false })
 const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer').then((mod) => mod.default), { ssr: false })
 const DrawerInfoCountdown = dynamic(() => import('@shared/components/DrawerInfoCountdown').then((mod) => mod.default), { ssr: false })
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
@@ -64,7 +65,7 @@ export default function Page(): JSX.Element {
                         <div
                             className="w-full flex justify-between items-start cursor-pointer"
                             onClick={() => {
-                                router.push('/rank', undefined, { shallow: true });
+                                router.push('/rank', undefined);
                                 haptic.impactOccurred('medium');
                             }}
                         >

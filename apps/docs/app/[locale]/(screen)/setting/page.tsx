@@ -26,7 +26,7 @@ export default function Page(): JSX.Element {
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-4 text-center bg-black">
             <TypographyLarge text={t('title')} className="text-white text-4xl" />
             <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => {
-                router.push('/setting/languages', undefined, { shallow: true });
+                router.push('/setting/languages', undefined);
                 haptic.impactOccurred('medium');
             }}>
                 <div className="flex flex-col justify-start items-start">
@@ -38,7 +38,7 @@ export default function Page(): JSX.Element {
                 </div>
             </div>
             <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => {
-                router.push('/setting/exchanges', undefined, { shallow: true });
+                router.push('/setting/exchanges', undefined);
                 haptic.impactOccurred('medium');
             }}>
                 <div className="flex flex-col justify-start items-start">

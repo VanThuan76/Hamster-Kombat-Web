@@ -56,6 +56,23 @@
     },
     "rank": {
       "from": "từ"
+    },
+    "boost": {
+      "your_balance": "Số dư của bạn",
+      "how_boost_work": "Tăng cường hoạt động như thế nào",
+      "free_daily_boost": "Bộ tăng cường hàng ngày miễn phí",
+      "full_energy": "Đầy năng lượng",
+      "des_full_energy": "Nạp lại năng lượng của bạn đến giới hạn và thực hiện một vòng khai thác nữa",
+      "free": "Miễn phí",
+      "available": "có sẵn",
+      "coming_soon": "Sắp ra mắt",
+      "boosters": "Bộ tăng cường",
+      "multitap": "Gõ nhiều lần",
+      "des_multitap_1": "Tăng số lượng tiền xu bạn có thể kiếm được mỗi lần chạm",
+      "des_multitap_2": "+1 tiền xu cho mỗi lần chạm cho cấp độ 2",
+      "energy_limit": "Giới hạn năng lượng",
+      "des_energy_limit_1": "Tăng lượng năng lượng",
+      "des_energy_limit_2": "+500 năng lượng cho cấp độ 3"
     }
   },
   "components": {

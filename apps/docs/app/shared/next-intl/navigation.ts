@@ -1,7 +1,9 @@
-const { createSharedPathnamesNavigation } = require('next-intl/navigation');
+import { createLocalizedPathnamesNavigation } from 'next-intl/navigation';
+import { locales, pathnames, localePrefix } from './config';
 
-export const locales = ['en', 'vi'] as const;
-export const localePrefix = 'always'; // Default
-
-export const { Link, redirect, usePathname, useRouter } =
-    createSharedPathnamesNavigation({ locales, localePrefix });
+export const { getPathname, redirect, usePathname, useRouter } =
+    createLocalizedPathnamesNavigation({
+        locales,
+        pathnames,
+        localePrefix
+    });

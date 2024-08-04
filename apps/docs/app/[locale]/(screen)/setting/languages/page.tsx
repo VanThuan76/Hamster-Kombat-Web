@@ -15,9 +15,10 @@ export default function Page(): JSX.Element {
     const router = useRouter()
     const pathname = usePathname()
 
-    const handleLanguageChange = (code: string) => {
+    const handleLanguageChange = (code: any) => {
         router.push(pathname, { locale: code });
     }
+
     useBackButton()
 
     return (
