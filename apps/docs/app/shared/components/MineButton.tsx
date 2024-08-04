@@ -14,38 +14,42 @@ import TypographyLarge from "@ui/components/typography/large"
 import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import TypographySmall from "@ui/components/typography/small"
 
-import { useAppSelector } from "@shared/redux/store/index";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 
 import { useUpdateRevenue } from "@server/_action/user-action";
+import { setUserEnergy } from "../redux/store/appSlice";
 
 const AnimatePresenceWrapper = dynamic(() => import('@ui/components/motion/AnimatePresenceWrapper').then((mod) => mod.default), { ssr: false })
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
+    const dispatch = useAppDispatch()
+
     const t = useTranslations('components.mine_button')
 
-    const { user, membership } = useAppSelector(state => state.app);
+    const maxEnergy = 1000
+    const { user, membership, userEnergy } = useAppSelector(state => state.app);
     const haptic = initHapticFeedback();
     const router = useRouter()
     const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const maxEnergy = 1000
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
     const [revenue, setRevenue] = useState(user.revenue);
     const [clickCount, setClickCount] = useState(0);
-    const [energy, setEnergy] = useState(1000);
+    const [energy, setEnergy] = useState(userEnergy);
 
     const updateRevenue = useUpdateRevenue()
 
     function handleIncludedCoin() {
+        setClickCount(clickCount + membership.current_level);
         setRevenue(revenue + membership.current_level);
-        setClickCount(clickCount + 1);
         setEnergy(energy - membership.current_level);
         if (saveTimeoutRef.current) {
             clearTimeout(saveTimeoutRef.current);
         }
         saveTimeoutRef.current = setTimeout(() => {
+            dispatch(setUserEnergy(energy))
             updateRevenue.mutate({ user_id: user.id, amount: clickCount + 1 })
         }, 1000);
     }
@@ -81,6 +85,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     useEffect(() => {
         const interval = setInterval(() => {
             setEnergy(prevEnergy => Math.min(prevEnergy + 3, maxEnergy));
+            dispatch(setUserEnergy(energy))
         }, 2000);
 
         return () => clearInterval(interval);

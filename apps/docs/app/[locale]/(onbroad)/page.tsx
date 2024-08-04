@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from '@shared/next-intl/navigation';
 
-import { userLoginAction } from '@server/_action/user-action';
-import { useMembershipByUser, useMemberships } from '@server/_action/membership-action';
+import { useRankUsers, userLoginAction } from '@server/_action/user-action';
+import { useMembershipByUser } from '@server/_action/membership-action';
 import { useExchanges, useExchangesByUser } from '@server/_action/exchanges-action';
 import { useCategoryOfCardByUser } from '@server/_action/card-action';
 import { useSkins } from '@server/_action/skin-action';
@@ -25,7 +25,7 @@ const OnBroadingPage = () => {
 
   const categoryOfCardsAction = useCategoryOfCardByUser()
   const exchangesInitAction = useExchanges();
-  const membershipsInitAction = useMemberships();
+  const ranksInitAction = useRankUsers()
   const userInitAction = userLoginAction()
   const membershipAction = useMembershipByUser()
   const skinAction = useSkins()
@@ -54,9 +54,9 @@ const OnBroadingPage = () => {
         const user = await userInitAction.mutateAsync(body);
         await exchangeByUserAction.mutateAsync({ user_id: user.data.id });
         await membershipAction.mutateAsync({ user_id: user.data.id });
+        await ranksInitAction.mutateAsync({ user_id: user.data.id });
         await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour.exchange_id })
         await exchangesInitAction.mutateAsync({})
-        await membershipsInitAction.mutateAsync({})
         await skinAction.mutateAsync({})
 
         //Telegram SDK

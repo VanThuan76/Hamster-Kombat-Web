@@ -88,6 +88,10 @@
       "description_1": "Truy cập menu khai thác và mua nâng cấp cho sàn giao dịch của bạn để tăng cường",
       "description_2": "kiếm tiền ngay cả khi ngoại tuyến trong 3 giờ",
       "start_button": "Bắt đầu khai thác"
+    },
+    "drawer_change_exchange": {
+      "title": "Bạn đã ký hợp đồng với",
+      "button": "Chúc may mắn!"
     }
   }
 }

@@ -25,7 +25,10 @@ const CardProfit = () => {
 
     return (
         <div className="flex justify-between items-center bg-[#ffffff26] border border-white/10 rounded-[20px] text-white flex-1 h-[40px] relative py-1 px-4">
-            <Avatar className="flex justify-start items-center">
+            <Avatar 
+                className="flex justify-start items-center"
+                onClick={() =>  router.push('/setting/exchanges', undefined)}
+            >
                 <AvatarImage src={user.exchange.icon} alt="@userPlus" sizes="sm" className="w-[26px] h-[26px]" />
                 <AvatarFallback>{user.exchange.name}</AvatarFallback>
             </Avatar>

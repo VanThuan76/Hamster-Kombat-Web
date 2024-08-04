@@ -71,6 +71,10 @@
       "description_1": "Tap the Mining menu to buy upgrades for your exchange",
       "description_2": "Earn even when offline up to 3 hours",
       "start_button": "Start mining"
+    },
+    "drawer_change_exchange": {
+      "title": "You've signed a contract with",
+      "button": "Good luck!"
     }
   }
 }

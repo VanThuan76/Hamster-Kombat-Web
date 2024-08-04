@@ -3,13 +3,13 @@ import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 import { useAppDispatch } from "@shared/redux/store/index";
 import { axiosInstance } from "@shared/axios.http";
-import { setInitUser, setUpdateRevenue } from "@shared/redux/store/appSlice";
+import { setInitUser, setRanks, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import { APP_SAVE_KEY } from "@shared/constant/app";
 
 import { queryClient } from "./config";
 
 import { IBaseResponse } from "../_types/base";
-import { IUpdateRevenueByUser, IUpdateSkinByUser, IUser } from "../_types/user";
+import { IRankUsers, IUpdateRevenueByUser, IUpdateSkinByUser, IUser } from "../_types/user";
 
 import USER_PATHS from "../_path/user-path";
 
@@ -41,6 +41,22 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
     });
 };
 
+export const useRankUsers: () => UseMutationResult<IBaseResponse<IRankUsers[]>, Error, { user_id: number }> = () => {
+    const dispatch = useAppDispatch();
+
+    return useMutation<IBaseResponse<IRankUsers[]>, Error, { user_id: number }>({
+        mutationFn: (user_id: { user_id: number }) =>
+            axiosInstance.post<IBaseResponse<IRankUsers[]>>(USER_PATHS.RANK, user_id),
+        onSuccess: async data => {
+            if (!data.data) return;
+            queryClient.invalidateQueries({ queryKey: ['GET_LIST_RANK_USERS', 'USERS'] });
+            dispatch(setRanks(data.data.map(item => ({ ...item, image: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image }))));
+        },
+        onError(error, variables, context) {
+            console.log(error);
+        },
+    });
+};
 
 export const useUpdateRevenue: () => UseMutationResult<IBaseResponse<IUpdateRevenueByUser>, Error, { user_id: number, amount: number }> = () => {
     const dispatch = useAppDispatch();

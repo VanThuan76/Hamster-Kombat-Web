@@ -46,3 +46,26 @@ export interface IUpdateSkinByUser {
     user: IUser;
     skin: ISkin;
 }
+
+export interface IRankUsers {
+    id: number;
+    name: string;
+    image: string;
+    money: number;
+    level: number;
+    created_at: string;
+    updated_at: string;
+    short_money: string;
+    rank: Rank[];
+    currentUser?: Rank[];
+}
+
+interface Rank {
+    id: number;
+    first_name: string;
+    last_name: string;
+    highest_score: number;
+    exchange_id: number;
+    name: string;
+    image: string;
+}

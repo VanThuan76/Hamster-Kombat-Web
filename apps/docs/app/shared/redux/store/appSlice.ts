@@ -3,8 +3,8 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { IExchangesOrigin } from "@server/_types/exchanges";
 import { ICategoryOfCard } from "@server/_types/card";
-import { IMembership } from "@server/_types/membership";
 import { ISkin } from "@server/_types/skin";
+import { IRankUsers } from "@server/_types/user";
 export interface IDefaultState {
     user: {
         id: number;
@@ -39,10 +39,12 @@ export interface IDefaultState {
         required_money: number;
         required_short_money: string;
     };
-    memberships: IMembership[] | []
+    ranks: IRankUsers[] | [],
     exchanges: IExchangesOrigin[] | [],
     skins: ISkin[] | [],
-    categoryOfCards: ICategoryOfCard[] | []
+    categoryOfCards: ICategoryOfCard[] | [],
+    userEnergy: number,
+    isEditExchange: boolean
 }
 
 const initialState: IDefaultState = {
@@ -79,10 +81,12 @@ const initialState: IDefaultState = {
         required_money: 0,
         required_short_money: ""
     },
-    memberships: [],
+    ranks: [],
     exchanges: [],
     skins: [],
-    categoryOfCards: []
+    categoryOfCards: [],
+    userEnergy: 1000,
+    isEditExchange: false
 };
 
 export const appSlice: any = createSlice({
@@ -97,6 +101,13 @@ export const appSlice: any = createSlice({
         },
         setUserExchange: (state, action: PayloadAction<any>) => {
             state.user.exchange = action.payload;
+            state.isEditExchange = true
+        },
+        setUserEnergy: (state, action: PayloadAction<number>) => {
+            state.userEnergy = action.payload
+        },
+        setIsEditUserExchange: (state, action: PayloadAction<boolean>) => {
+            state.isEditExchange = action.payload
         },
         setUpdateProfitPerHour: (state, action: PayloadAction<number>) => {
             state.user.profit_per_hour = action.payload;
@@ -110,8 +121,8 @@ export const appSlice: any = createSlice({
         setSkins: (state, action: PayloadAction<ISkin[]>) => {
             state.skins = action.payload;
         },
-        setMemberships: (state, action: PayloadAction<IMembership[]>) => {
-            state.memberships = action.payload;
+        setRanks: (state, action: PayloadAction<IRankUsers[]>) => {
+            state.ranks = action.payload;
         },
         setCategoryOfCards: (state, action: PayloadAction<ICategoryOfCard[]>) => {
             state.categoryOfCards = action.payload;
@@ -119,5 +130,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setMemberships, setSkins, setCategoryOfCards } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setCategoryOfCards, setIsEditUserExchange, setUserEnergy } = appSlice.actions;
 export default appSlice.reducer;

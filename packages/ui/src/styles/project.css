@@ -390,3 +390,34 @@
 .animate-bounce {
   animation: bounce 1s infinite;
 }
+
+.rank-ava.is-bronze {
+  background: linear-gradient(133deg, #ffae50 5.47%, #994330 97.66%);
+}
+.rank-ava.is-silver {
+  background: linear-gradient(133deg, #7995be 5.47%, #8c96a6 97.66%);
+}
+.rank-ava.is-gold {
+  background: linear-gradient(133deg, #ffac2f 5.47%, #ffc34f 97.66%);
+}
+.rank-ava.is-platinum {
+  background: linear-gradient(133deg, #79aabe 5.47%, #8f8ca6 97.66%);
+}
+.rank-ava.is-diamond {
+  background: linear-gradient(126deg, #2ef2ff 30.31%, #0d16ff 92.09%);
+}
+.rank-ava.is-epic {
+  background: linear-gradient(133deg, #5768ff 18.37%, #ff67f9 88.58%);
+}
+.rank-ava.is-legendary {
+  background: linear-gradient(133deg, #73eeff 18.37%, #00c092 88.58%);
+}
+.rank-ava.is-master {
+  background: linear-gradient(139deg, #0f44ff 26.58%, #29ffd9 75.09%);
+}
+.rank-ava.is-grandmaster {
+  background: linear-gradient(131deg, #6889ff 12.82%, #0c15ff 95.77%);
+}
+.rank-ava.is-lord {
+  background: linear-gradient(131deg, #fff 12.82%, #ffbb7c 53%, #b75800 95.77%);
+}

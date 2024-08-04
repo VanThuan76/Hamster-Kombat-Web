@@ -14,6 +14,7 @@ import { setUserExchange } from "@shared/redux/store/appSlice"
 import { useUpdateExchange } from "@server/_action/exchanges-action";
 import { IExchangesOrigin } from "@server/_types/exchanges";
 
+
 export default function Page(): JSX.Element {
     const { user, exchanges } = useAppSelector(state => state.app)
 
