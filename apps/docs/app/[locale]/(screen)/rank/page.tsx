@@ -1,7 +1,6 @@
 'use client'
 
 import Image from "next/image"
-import dynamic from 'next/dynamic'
 import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 import { cn } from "@ui/lib/utils"
@@ -10,12 +9,11 @@ import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 import { Progress } from "@ui/components/progress"
 import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
+import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
 
 import useBackButton from "@shared/hooks/useBackButton"
 import { useAppSelector } from "@shared/redux/store"
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber"
-
-const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
 const ItemCardRank = ({ item, order, backgroundAva, className }: { item: any, order: number, backgroundAva: string, className?: string }) => {
 

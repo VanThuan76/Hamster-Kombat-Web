@@ -66,7 +66,7 @@ export default function Page(): JSX.Element {
                     </div>
                     {listBonus.map((item, i) => {
                         return (
-                            <div className="w-full flex justify-between items-center p-2 bg-[#272a2f] rounded-2xl">
+                            <div key={i} className="w-full flex justify-between items-center p-2 bg-[#272a2f] rounded-2xl">
                                 <div className="flex justify-start items-center gap-2">
                                     <div className="h-[40px] w-[40px]">
                                         <Image src={item.image} alt={item.name} width={100} height={100} className="w-full h-full rounded-md object-cover" priority={true} />

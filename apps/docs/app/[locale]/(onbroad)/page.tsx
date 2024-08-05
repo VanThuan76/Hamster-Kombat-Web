@@ -35,6 +35,10 @@ const OnBroadingPage = () => {
   const [backButton] = initBackButton();
   const initData = useInitData();
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const startAppParam = urlParams.get('startapp') ?? '';
+  const startAppId = startAppParam ? startAppParam.match(/\d+/)[0] : null;
+
   function getUserRows(user: any) {
     return {
       telegram_id: String(user.id),
@@ -45,6 +49,7 @@ const OnBroadingPage = () => {
       is_bot: user.isBot,
       is_premium: user.isPremium,
       language_code: user.languageCode,
+      reference_telegram_id: startAppId
     }
   }
   useEffect(() => {
