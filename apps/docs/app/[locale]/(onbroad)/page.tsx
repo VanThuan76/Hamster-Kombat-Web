@@ -37,7 +37,8 @@ const OnBroadingPage = () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const startAppParam = urlParams.get('startapp') ?? '';
-  const startAppId = startAppParam ? startAppParam.match(/\d+/)[0] : null;
+  const matchResult = startAppParam.match(/\d+/);
+  const startAppId = matchResult ? matchResult[0] : null;
 
   function getUserRows(user: any) {
     return {
