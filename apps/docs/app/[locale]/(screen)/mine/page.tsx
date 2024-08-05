@@ -66,7 +66,7 @@ export default function Page(): JSX.Element {
                             className="w-full flex justify-between items-start cursor-pointer"
                             onClick={() => {
                                 router.push('/rank', undefined);
-                                haptic.impactOccurred('medium');
+                                haptic.impactOccurred('soft');
                             }}
                         >
                             <div className="flex justify-start items-center gap-[2px] cursor-pointer">

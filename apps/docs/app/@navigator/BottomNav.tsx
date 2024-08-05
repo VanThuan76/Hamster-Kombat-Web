@@ -75,7 +75,7 @@ export const BottomNav = () => {
                     prefetch={true}
                     shallow
                     passHref
-                    onClick={() => haptic.impactOccurred('medium')}
+                    onClick={() => haptic.impactOccurred('soft')}
                     className={cn(
                         "relative w-full dark:text-neutral-50 flex flex-col justify-center items-center text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 cursor-pointer px-2 py-1",
                         checkPath?.includes(navItem.link.split("/")[1]) ? 'bg-[#1c1f24] rounded-xl' : 'bg-transparent'

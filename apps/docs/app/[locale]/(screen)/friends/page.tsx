@@ -103,10 +103,7 @@ export default function Page(): JSX.Element {
                 <Button
                     className="w-[20%] h-[60px] bg-[#5a60ff]/85 hover:bg-[#5a60ff] rounded-2xl"
                     onClick={() => {
-                        utils.readTextFromClipboard().then((data: any) => {
-                            const url = `${process.env.URL_TELEGRAM_BOT}/?startapp=teleId${user.telegram_id}`
-                            return url
-                        });
+                        utils.readTextFromClipboard().then((text: any) => alert(text));
                     }}
                 >
                     <div className="icon w-[32px] h-[32px]">

@@ -27,7 +27,7 @@ export default function Page(): JSX.Element {
             <TypographyLarge text={t('title')} className="text-white text-4xl" />
             <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => {
                 router.push('/setting/languages', undefined);
-                haptic.impactOccurred('medium');
+                haptic.impactOccurred('soft');
             }}>
                 <div className="flex flex-col justify-start items-start">
                     <TypographySmall text={t('language')} className="text-[14px] text-white" />
@@ -39,7 +39,7 @@ export default function Page(): JSX.Element {
             </div>
             <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => {
                 router.push('/setting/exchanges', undefined);
-                haptic.impactOccurred('medium');
+                haptic.impactOccurred('soft');
             }}>
                 <div className="flex flex-col justify-start items-start">
                     <TypographySmall text={t('exchange')} className="text-[14px] text-white" />

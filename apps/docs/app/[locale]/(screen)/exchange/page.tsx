@@ -87,7 +87,7 @@ export default function Page(): JSX.Element {
                             className="w-full flex justify-between items-start cursor-pointer"
                             onClick={() => {
                                 router.push('/rank', undefined);
-                                haptic.impactOccurred('medium');
+                                haptic.impactOccurred('soft');
                             }}
                         >
                             <div className="flex justify-start items-center gap-[2px]">
@@ -111,7 +111,7 @@ export default function Page(): JSX.Element {
                             className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer"
                             onClick={() => {
                                 router.push('/earn', undefined);
-                                haptic.impactOccurred('medium');
+                                haptic.impactOccurred('soft');
                             }}
                         >
                             <Image src="/project/icon_daily_reward.png" alt="@card" width={56} height={56} priority={true} />
@@ -145,7 +145,7 @@ export default function Page(): JSX.Element {
                             className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer"
                             onClick={() => {
                                 router.push('/mine', undefined);
-                                haptic.impactOccurred('medium');
+                                haptic.impactOccurred('soft');
                             }}
                         >
                             <Image src="/project/icon_daily_combo.png" alt="@card" width={56} height={56} priority={true} />

@@ -61,7 +61,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
         const y = e.touches[0]!.clientY - rect.top - rect.height / 2;
         card.style.transform = `perspective(1500px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
 
-        haptic.impactOccurred('medium');
+        haptic.impactOccurred('soft');
 
         const xPlus = e.touches[0]!.clientX - rect.left;
         const yPlus = e.touches[0]!.clientY - rect.top;
@@ -131,7 +131,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                         className="w-full flex justify-end items-center gap-1 cursor-pointer"
                         onClick={() => {
                             router.push('/boost', undefined);
-                            haptic.impactOccurred('medium');
+                            haptic.impactOccurred('soft');
                         }}
                     >
                         <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} priority={true} />
