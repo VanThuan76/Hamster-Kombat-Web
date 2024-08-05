@@ -12,12 +12,15 @@ import TypographySmall from "@ui/components/typography/small"
 import InviteFriends from '@shared/components/InviteFriends'
 import listBonus from "@shared/constant/listBonus"
 import useBackButton from "@shared/hooks/useBackButton"
+import { useAppSelector } from "@shared/redux/store"
 
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
+    const { user } = useAppSelector(state => state.app)
+
     const t = useTranslations('screens.friends')
 
     const [isOpenBonus, setIsOpenBonus] = useState(false)
@@ -101,7 +104,8 @@ export default function Page(): JSX.Element {
                     className="w-[20%] h-[60px] bg-[#5a60ff]/85 hover:bg-[#5a60ff] rounded-2xl"
                     onClick={() => {
                         utils.readTextFromClipboard().then((data: any) => {
-                            console.log('Clipboard data:', data);
+                            const url = `${process.env.URL_TELEGRAM_BOT}/?startapp=teleId${user.telegram_id}`
+                            return url
                         });
                     }}
                 >

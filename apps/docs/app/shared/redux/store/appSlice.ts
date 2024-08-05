@@ -7,6 +7,7 @@ import { ISkin } from "@server/_types/skin";
 import { IRankUsers } from "@server/_types/user";
 export interface IDefaultState {
     user: {
+        telegram_id: number,
         id: number;
         username: string;
         photo_url: string;
@@ -49,6 +50,7 @@ export interface IDefaultState {
 
 const initialState: IDefaultState = {
     user: {
+        telegram_id: 0,
         id: 0,
         username: "",
         photo_url: "",

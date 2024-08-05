@@ -53,6 +53,7 @@ const OnBroadingPage = () => {
       reference_telegram_id: startAppId
     }
   }
+
   useEffect(() => {
     const initializeApp = async () => {
       try {
@@ -61,7 +62,7 @@ const OnBroadingPage = () => {
         await exchangeByUserAction.mutateAsync({ user_id: user.data.id });
         await membershipAction.mutateAsync({ user_id: user.data.id });
         await ranksInitAction.mutateAsync({ user_id: user.data.id });
-        await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour.exchange_id })
+        await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour?.exchange_id ? user.data.profitPerHour.exchange_id : 51})
         await exchangesInitAction.mutateAsync({})
         await skinAction.mutateAsync({})
 
@@ -72,7 +73,6 @@ const OnBroadingPage = () => {
         setInitialized(true);
       } catch (error) {
         console.error('Error initializing app:', error);
-        setInitialized(true);
       }
     };
 

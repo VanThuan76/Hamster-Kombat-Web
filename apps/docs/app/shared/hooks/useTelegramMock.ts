@@ -29,10 +29,10 @@ export function useTelegramMock(): void {
     if (shouldMock) {
       const initDataRaw = new URLSearchParams([
         ['user', JSON.stringify({
-          id: 99281932,
-          first_name: 'Andrew',
-          last_name: 'Rogue',
-          username: 'rogue',
+          id: 777777,
+          first_name: 'Austin',
+          last_name: 'Vu',
+          username: 'austin',
           language_code: 'en',
           is_premium: true,
           allows_write_to_pm: true,

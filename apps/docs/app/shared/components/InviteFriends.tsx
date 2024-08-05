@@ -13,8 +13,8 @@ const InviteFriends = () => {
 
     const handleInviteFriends = () => {
         utils.shareURL(
-            `${process.env.URL_TELEGRAM_BOT}/?startapp=teleId${user.id}`,
-            "Chơi với tôi, trở thành CEO của sàn giao dịch tiền mã hóa và nhận airdrop tokenj! 💸 +2k Xu như một món quà lần đầu 🔥 +25k Xu nếu bạn có Telegram Premium");
+            `${process.env.URL_TELEGRAM_BOT}/?startapp=teleId${user.telegram_id}`,
+            "Chơi với tôi, trở thành CEO của sàn giao dịch tiền mã hóa và nhận airdrop token! 💸 +2k Xu như một món quà lần đầu 🔥 +25k Xu nếu bạn có Telegram Premium");
     };
 
     return (

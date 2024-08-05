@@ -17,9 +17,13 @@ export const useExchangesByUser: () => UseMutationResult<IBaseResponse<IExchange
         mutationFn: (user_id: { user_id: number }) =>
             axiosInstance.post<IBaseResponse<IExchanges>>(EXCHANGES_PATHS.GET_BY_USER, user_id),
         onSuccess: async data => {
-            if (!data.data) return;
             queryClient.invalidateQueries({ queryKey: ['GET_EXCHANGES_USER', 'EXCHANGES'] });
-            dispatch(setUserExchange({ id: data.data.exchange_id, name: data.data.name, icon: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data.data.image }));
+            if (data.data === null) {
+                dispatch(setUserExchange({ id: 0, name: 'Default', icon: '/project/icon_ava_plus.png' }));
+            } else {
+                dispatch(setUserExchange({ id: data.data.exchange_id, name: data.data.name, icon: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data.data.image }));
+            }
+
         },
         onError(error, variables, context) {
             console.log(error);
@@ -28,7 +32,7 @@ export const useExchangesByUser: () => UseMutationResult<IBaseResponse<IExchange
 };
 
 export const useUpdateExchange: () => UseMutationResult<IBaseResponse<IExchanges>, Error, { user_id: number, exchange_id: number }> = () => {
-    
+
     return useMutation<IBaseResponse<IExchanges>, Error, { user_id: number, exchange_id: number }>({
         mutationFn: (body: { user_id: number, exchange_id: number }) =>
             axiosInstance.post<IBaseResponse<IExchanges>>(EXCHANGES_PATHS.UPDATE, body),
@@ -51,7 +55,7 @@ export const useExchanges: () => UseMutationResult<IBaseResponse<IExchangesOrigi
         onSuccess: async data => {
             if (!data.data) return;
             queryClient.invalidateQueries({ queryKey: ['GET_LIST_EXCHANGES', 'EXCHANGES'] });
-            dispatch(setExchanges(data.data.map(item => ({...item, image_url: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image}))));
+            dispatch(setExchanges(data.data.map(item => ({ ...item, image_url: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image }))));
         },
         onError(error, variables, context) {
             console.log(error);
