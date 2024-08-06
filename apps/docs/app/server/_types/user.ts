@@ -69,3 +69,31 @@ interface Rank {
     name: string;
     image: string;
 }
+
+export interface IFriendUser {
+    user: IFriend;
+    userFriends: IFriend[];
+}
+
+export interface IFriend {
+    id: number;
+    name: null;
+    email: null;
+    email_verified_at: null;
+    created_at: string;
+    updated_at: string;
+    telegram_id: string;
+    first_name: string;
+    last_name: string;
+    username: string;
+    language_code: string;
+    last_login: string;
+    membership_id: number;
+    revenue: number;
+    skin_id: number;
+    highest_score: number;
+    is_first_login: number;
+    wallet: null;
+    highScore: null;
+    plays: null;
+}

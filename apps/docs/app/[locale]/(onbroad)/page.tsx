@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from '@shared/next-intl/navigation';
 
-import { useRankUsers, userLoginAction } from '@server/_action/user-action';
+import { useFriends, useRankUsers, userLoginAction } from '@server/_action/user-action';
 import { useMembershipByUser } from '@server/_action/membership-action';
 import { useExchanges, useExchangesByUser } from '@server/_action/exchanges-action';
 import { useCategoryOfCardByUser } from '@server/_action/card-action';
@@ -25,6 +25,7 @@ const OnBroadingPage = () => {
 
   const categoryOfCardsAction = useCategoryOfCardByUser()
   const exchangesInitAction = useExchanges();
+  const friendsInitAction = useFriends();
   const ranksInitAction = useRankUsers()
   const userInitAction = userLoginAction()
   const membershipAction = useMembershipByUser()
@@ -62,7 +63,8 @@ const OnBroadingPage = () => {
         await exchangeByUserAction.mutateAsync({ user_id: user.data.id });
         await membershipAction.mutateAsync({ user_id: user.data.id });
         await ranksInitAction.mutateAsync({ user_id: user.data.id });
-        await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour?.exchange_id ? user.data.profitPerHour.exchange_id : 51})
+        await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour?.exchange_id ? user.data.profitPerHour.exchange_id : 51 })
+        await friendsInitAction.mutateAsync({ id: user.data.id })
         await exchangesInitAction.mutateAsync({})
         await skinAction.mutateAsync({})
 

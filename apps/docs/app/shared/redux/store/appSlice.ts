@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+import { ISkin } from "@server/_types/skin";
 import { IExchangesOrigin } from "@server/_types/exchanges";
 import { ICategoryOfCard } from "@server/_types/card";
-import { ISkin } from "@server/_types/skin";
-import { IRankUsers } from "@server/_types/user";
+import { IFriend, IRankUsers } from "@server/_types/user";
 export interface IDefaultState {
     user: {
         telegram_id: number,
@@ -40,6 +40,7 @@ export interface IDefaultState {
         required_money: number;
         required_short_money: string;
     };
+    friends: IFriend[] | [],
     ranks: IRankUsers[] | [],
     exchanges: IExchangesOrigin[] | [],
     skins: ISkin[] | [],
@@ -83,6 +84,7 @@ const initialState: IDefaultState = {
         required_money: 0,
         required_short_money: ""
     },
+    friends: [],
     ranks: [],
     exchanges: [],
     skins: [],
@@ -120,6 +122,9 @@ export const appSlice: any = createSlice({
         setExchanges: (state, action: PayloadAction<IExchangesOrigin[]>) => {
             state.exchanges = action.payload;
         },
+        setFriends: (state, action: PayloadAction<IFriend[]>) => {
+            state.friends = action.payload;
+        },
         setSkins: (state, action: PayloadAction<ISkin[]>) => {
             state.skins = action.payload;
         },
@@ -132,5 +137,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setCategoryOfCards, setIsEditUserExchange, setUserEnergy } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setFriends, setCategoryOfCards, setIsEditUserExchange, setUserEnergy } = appSlice.actions;
 export default appSlice.reducer;

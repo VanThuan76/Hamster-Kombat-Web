@@ -86,7 +86,7 @@ export default function Page(): JSX.Element {
                 })}
                 onSlideChange={setCurrentTarget}
             />
-            <div className="w-full flex flex-col justify-start items-start gap-2 px-4 mb-4">
+            <div className="w-full flex flex-col justify-start items-start gap-2 px-4 pb-20">
                 {ranks[currentTarget]?.rank.filter(item => item.id !== user.id).map((item, i) => {
                     return (
                         <ItemCardRank key={i} item={item} order={i + 1} backgroundAva={swiperClass} />
