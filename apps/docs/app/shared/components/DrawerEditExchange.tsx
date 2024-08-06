@@ -33,7 +33,7 @@ export default function DrawerEditExchange(): JSX.Element {
                     <div className="absolute -top-10 z-10 w-[80px] h-[80px] p-5 bg-[#272a2f] border-4 border-[#1c1f24] rounded-full">
                         <Image src={user.exchange.icon} alt={user.exchange.name} width={115} height={115} priority={true} />
                     </div>
-                    <TypographyLarge text={`${t('title')} ${user.exchange.name}`} className="text-white text-[20px] font-bold" />
+                    <TypographyLarge text={`${t('title')} ${user.exchange.name}`} className="text-white text-[20px] text-center font-bold" />
                 </div>
                 <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleCloseDrawer}>
                     <TypographyLarge text={t('button')} className="text-white text-xl font-bold" />

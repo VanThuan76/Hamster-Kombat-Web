@@ -8,6 +8,7 @@ import { useMembershipByUser } from '@server/_action/membership-action';
 import { useExchanges, useExchangesByUser } from '@server/_action/exchanges-action';
 import { useCategoryOfCardByUser } from '@server/_action/card-action';
 import { useSkins } from '@server/_action/skin-action';
+import { useEarnByUser } from '@server/_action/earn-action';
 
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from '@ui/components/typography/small';
@@ -23,14 +24,15 @@ const OnBroadingPage = () => {
 
   const [initialized, setInitialized] = useState(false);
 
-  const categoryOfCardsAction = useCategoryOfCardByUser()
+  const userInitAction = userLoginAction()
   const exchangesInitAction = useExchanges();
   const friendsInitAction = useFriends();
-  const ranksInitAction = useRankUsers()
-  const userInitAction = userLoginAction()
-  const membershipAction = useMembershipByUser()
-  const skinAction = useSkins()
+  const earnsInitAction = useEarnByUser()
+  const skinsInitAction = useSkins()
+  const categoryOfCardsByUserAction = useCategoryOfCardByUser()
   const exchangeByUserAction = useExchangesByUser()
+  const membershipByUserAction = useMembershipByUser()
+  const ranksByUserInitAction = useRankUsers()
 
   const [miniApp] = initMiniApp();
   const [backButton] = initBackButton();
@@ -61,12 +63,13 @@ const OnBroadingPage = () => {
         const body = getUserRows(initData.user);
         const user = await userInitAction.mutateAsync(body);
         await exchangeByUserAction.mutateAsync({ user_id: user.data.id });
-        await membershipAction.mutateAsync({ user_id: user.data.id });
-        await ranksInitAction.mutateAsync({ user_id: user.data.id });
-        await categoryOfCardsAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour?.exchange_id ? user.data.profitPerHour.exchange_id : 51 })
+        await membershipByUserAction.mutateAsync({ user_id: user.data.id });
+        await ranksByUserInitAction.mutateAsync({ user_id: user.data.id });
+        await earnsInitAction.mutateAsync({ user_id: user.data.id })
+        await categoryOfCardsByUserAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour?.exchange_id ? user.data.profitPerHour.exchange_id : 51 })
         await friendsInitAction.mutateAsync({ id: user.data.id })
         await exchangesInitAction.mutateAsync({})
-        await skinAction.mutateAsync({})
+        await skinsInitAction.mutateAsync({})
 
         //Telegram SDK
         miniApp.setHeaderColor('#000');

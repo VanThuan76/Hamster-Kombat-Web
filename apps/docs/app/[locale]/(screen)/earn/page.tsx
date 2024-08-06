@@ -9,41 +9,47 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import { useUpdateEarn } from "@server/_action/earn-action";
+
+import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber"
+import { useRouter } from "@shared/next-intl/navigation";
+import { useAppSelector } from "@shared/redux/store";
 import useBackButton from "@shared/hooks/useBackButton"
-import { formatCoin } from "@shared/utils/formatNumber"
 
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 
+function CheckIcon({ is_completed }: { is_completed: number }) {
+    if (is_completed === 1) {
+        return (
+            <div className="earn-item-icon-success">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-[12px] h-[12px]" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 19.9c-.3 0-.6-.1-.8-.3L3 14.3c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0L9 17.2 20.2 6c.4-.4 1.2-.4 1.6 0 .4.4.4 1.2 0 1.6l-12 12c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
+            </div>
+        )
+    } else {
+        return (
+            <div className="earn-item-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
+            </div>
+        )
+    }
+}
+
 export default function Page(): JSX.Element {
+    const { earns, user } = useAppSelector(state => state.app)
+
     const t = useTranslations('screens.earn')
+    const router = useRouter()
+
+    const updateEarn = useUpdateEarn()
 
     const utils = initUtils();
     useBackButton()
 
-    const listEarn = [
-        {
-            name: t('join_telegram'),
-            image: '/project/telegram.png',
-            award: 5000
-        },
-        {
-            name: t('join_x'),
-            image: '/project/x.svg',
-            award: 5000
-        },
-        {
-            name: t('choose_exchange'),
-            image: '/project/icon_ava_plus.png',
-            award: 5000
-        },
-        {
-            name: t('invite_friends'),
-            image: '/project/friends.png',
-            award: 5000
-        }
-    ];
+    function containsHttps(link: string) {
+        return link.includes('https://');
+    }
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center pb-24">
@@ -73,28 +79,27 @@ export default function Page(): JSX.Element {
             </MotionContainer>
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text="Hamster Youtube" className="text-base text-white mt-5" />
-                {Array.from({ length: 2 }).map((_, i) => {
+                {earns.find(item => item.type === 1)?.earn.map((earn, i) => {
                     return (
-                        <div key={i} className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
+                        <div key={i} className={cn('w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 ]', earn.is_completed === 1 ? 'bg-[#272a2fb3]' : 'bg-[#272a2f]')} onClick={() => { utils.openLink(earn.link, { tryBrowser: true }) }}>
                             <div className="flex justify-start items-center gap-2">
                                 <MotionContainer type="scale">
-                                    <Image src="/project/hamster_youtube_channel.png" alt="@hamster_youtube_channel" width={56} height={56} priority={true} />
+                                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
                                 </MotionContainer>
                                 <div className="flex flex-col justify-start items-start">
-                                    <TypographySmall text="Xu hướng bạn không thể bỏ qua" className="text-[14px] text-white font-extralight" />
+                                    <TypographySmall text={earn.description} className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
-                                        <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
+                                        <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
                             </div>
-                            <div className="earn-item-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
-                            </div>
+                            <CheckIcon is_completed={earn.is_completed} />
                         </div>
                     )
                 })}
             </div>
+            {/* //Calendar */}
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text={t('daily_tasks')} className="text-base text-white mt-5" />
                 <DrawerMinCard
@@ -108,7 +113,7 @@ export default function Page(): JSX.Element {
                                     <TypographySmall text={t('daily_reward')} className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
                                         <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
-                                        <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
+                                        <TypographySmall text={`+${formatCoinStyleDot(earns.find(item => item.type === 3)?.earn.reduce((a, b) => a + b.reward, 0) || 0)}`} className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
                             </div>
@@ -129,64 +134,71 @@ export default function Page(): JSX.Element {
                                 <TypographyLarge text={t('daily_reward')} className="text-white text-[32px] font-bold" />
                                 <TypographySmall text={t('des_daily_reward')} className="text-white text-[14px] max-w-[280px] font-normal" />
                             </div>
-                            <ul className="w-full h-full grid grid-cols-4 justify-center items-center gap-2">
-                                {Array.from({ length: 10 }).map((_, i) => {
+                            <div className="w-full h-full grid grid-cols-4 justify-center items-center gap-2">
+                                {earns.find(item => item.type === 3)?.earn.map((earn, i) => {
                                     return (
-                                        <li key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2", i < 5 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : 'bg-[#272a2f] opacity-40')}>
+                                        <div key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2", earn.is_completed === 1 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : 'bg-[#272a2f] opacity-40')}>
                                             <TypographySmall text={`${t('day_daily')} ${i + 1}`} className="text-white text-[14px] font-normal" />
                                             <Image src="/project/icon_coin.png" alt="@coin" width={24} height={24} priority={true} />
-                                            <TypographySmall text={`${formatCoin(500 * (i + 1))}`} className="text-white text-[14px] font-medium" />
-                                        </li>
+                                            <TypographySmall text={`${formatCoin(earn.reward)}`} className="text-white text-[14px] font-medium" />
+                                        </div>
                                     )
                                 })}
-                            </ul>
+                            </div>
                         </div>
                     }
                     textBtnFinish="Quay lại ngày mai"
                     className="min-h-[85%] h-[90%] overflow-y-auto"
                 />
             </div>
+            {/* //Calendar */}
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text={t('task_list')} className="text-base text-white mt-5" />
-                {listEarn.map((item, i) => {
+                {earns.find(item => item.type === 2)?.earn.map((earn, i) => {
                     return (
                         <DrawerMinCard
                             key={i}
                             drawerTrigger={
-                                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
+                                <div className={cn('w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3', earn.is_completed === 1 ? 'bg-[#272a2fb3]' : 'bg-[#272a2f]')} onClick={() => { utils.openLink('https://www.youtube.com/watch?v=2CTckSiND1A', { tryBrowser: true }) }}>
                                     <div className="flex justify-start items-center gap-2">
                                         <MotionContainer type="scale">
-                                            <Image src={item.image} alt={item.name.toLowerCase()} width={56} height={56} priority={true} />
+                                            <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
                                         </MotionContainer>
                                         <div className="flex flex-col justify-start items-start">
-                                            <TypographySmall text={item.name} className="text-[14px] text-white font-extralight" />
+                                            <TypographySmall text={earn.name} className="text-[14px] text-white font-extralight" />
                                             <div className="flex justify-center items-center gap-1">
                                                 <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
-                                                <TypographySmall text="+100.000" className="text-[14px] text-white ml-1" />
+                                                <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-[14px] text-white ml-1" />
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="earn-item-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
-                                    </div>
+                                    <CheckIcon is_completed={earn.is_completed} />
                                 </div>
                             }
                             drawerContent={
                                 <div className="w-full flex flex-col justify-center items-center gap-8">
                                     <div className="relative visible">
                                         <div className="relative z-10">
-                                            <Image src={item.image} alt={item.name} width={115} height={115} priority={true} />
+                                            <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={115} height={115} priority={true} />
                                         </div>
                                     </div>
                                     <div className="w-full flex flex-col justify-center items-center gap-5">
-                                        <TypographyLarge text={item.name} className="text-white text-[32px] font-bold" />
+                                        <TypographyLarge text={earn.name} className="text-white text-[32px] font-bold" />
                                         <div className="flex justify-center items-center gap-1">
                                             <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
-                                            <TypographySmall text="+100.000" className="text-2xl text-white ml-1" />
+                                            <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-2xl text-white ml-1" />
                                         </div>
                                     </div>
                                 </div>
                             }
+                            handleSuccess={() => {
+                                earn.link !== null && containsHttps(earn.link) ? utils.openLink(earn.link, { tryBrowser: true }) : earn.link !== null && router.push(earn.link)
+                                earn.is_completed === 0 && updateEarn.mutate({
+                                    user_id: user.id,
+                                    user_earn_id: earn.user_earn_id,
+                                    is_completed: 1
+                                })
+                            }}
                             textBtnFinish={i === 2 ? "Chọn" : i === 3 ? "Kiểm tra" : "Tham gia"}
                             className="min-h-[50%] h-[55%]"
                         />

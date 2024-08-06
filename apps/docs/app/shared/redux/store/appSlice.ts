@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { ISkin } from "@server/_types/skin";
+import { IEarn } from "@server/_types/earn";
 import { IExchangesOrigin } from "@server/_types/exchanges";
 import { ICategoryOfCard } from "@server/_types/card";
 import { IFriend, IRankUsers } from "@server/_types/user";
@@ -42,6 +43,7 @@ export interface IDefaultState {
     };
     friends: IFriend[] | [],
     ranks: IRankUsers[] | [],
+    earns: IEarn[] | [],
     exchanges: IExchangesOrigin[] | [],
     skins: ISkin[] | [],
     categoryOfCards: ICategoryOfCard[] | [],
@@ -86,6 +88,7 @@ const initialState: IDefaultState = {
     },
     friends: [],
     ranks: [],
+    earns: [],
     exchanges: [],
     skins: [],
     categoryOfCards: [],
@@ -128,6 +131,9 @@ export const appSlice: any = createSlice({
         setSkins: (state, action: PayloadAction<ISkin[]>) => {
             state.skins = action.payload;
         },
+        setEarns: (state, action: PayloadAction<IEarn[]>) => {
+            state.earns = action.payload;
+        },
         setRanks: (state, action: PayloadAction<IRankUsers[]>) => {
             state.ranks = action.payload;
         },
@@ -137,5 +143,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setFriends, setCategoryOfCards, setIsEditUserExchange, setUserEnergy } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setIsEditUserExchange, setUserEnergy } = appSlice.actions;
 export default appSlice.reducer;
