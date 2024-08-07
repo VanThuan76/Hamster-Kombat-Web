@@ -22,14 +22,14 @@ import DrawerEditExchange from "@shared/components/DrawerEditExchange";
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
-function UserCardExist({ textBuySkin, user }: { textBuySkin: string, user: any }) {
+function UserCardExist({ textBuySkin, user, membership }: { textBuySkin: string, user: any, membership: any }) {
     const router = useRouter()
     return (
         <DialogTitle className="w-full flex justify-between items-center">
             <div className="inline-flex justify-start items-center" onClick={() => router.push("/skin")}>
                 <div className="user-info-avatar">
                     <Avatar className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
-                        <AvatarImage src="/project/icon_ava_user.png" alt="@user" sizes="sm" className="w-[32px] h-[32px]" />
+                        <AvatarImage src={`https://cdn.hamsterkombat.io/avatar/${9 + membership.level}.webp`} alt="@user" sizes="sm" className="w-[32px] h-[32px]" />
                         <AvatarFallback>User</AvatarFallback>
                     </Avatar>
                 </div>
@@ -39,7 +39,7 @@ function UserCardExist({ textBuySkin, user }: { textBuySkin: string, user: any }
                         <Image src="/project/_skin.png" alt="@skin" width={33} height={30} priority={true} />
                     </div>
                 </div>
-                <TypographySmall text={`${user?.first_name} ${user?.last_name}`} className="text-xs" />
+                <TypographySmall text={`${user?.first_name} ${user?.last_name} (CEO)`} className="text-xs" />
             </div>
             <div className="inline-flex gap-1 justify-end items-center">
                 <div className="w-[18px] h-[18px]">
@@ -80,7 +80,7 @@ export default function Page(): JSX.Element {
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
-                {user !== undefined ? <UserCardExist user={user} textBuySkin={t('buy_skin')} /> : <UserCardDefault user={user} />}
+                {user !== undefined ? <UserCardExist user={user} membership={membership} textBuySkin={t('buy_skin')} /> : <UserCardDefault user={user} />}
                 <DialogDescription className="w-full flex justify-between items-center">
                     <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
                         <div

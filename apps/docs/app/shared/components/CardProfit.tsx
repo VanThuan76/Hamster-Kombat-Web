@@ -9,7 +9,9 @@ import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 
 import TypographySmall from "@ui/components/typography/small"
 
+import CoinIcon from "@shared/components/CoinIcon"
 import DrawerInfoProfit from "@shared/components/DrawerInfoProfit"
+
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
 
@@ -25,9 +27,9 @@ const CardProfit = () => {
 
     return (
         <div className="flex justify-between items-center bg-[#ffffff26] border border-white/10 rounded-[20px] text-white flex-1 h-[40px] relative py-1 px-4">
-            <Avatar 
+            <Avatar
                 className="flex justify-start items-center"
-                onClick={() =>  router.push('/setting/exchanges', undefined)}
+                onClick={() => router.push('/setting/exchanges', undefined)}
             >
                 <AvatarImage src={user.exchange.icon} alt="@userPlus" sizes="sm" className="w-[26px] h-[26px]" />
                 <AvatarFallback>{user.exchange.name}</AvatarFallback>
@@ -36,7 +38,7 @@ const CardProfit = () => {
             <div className="w-full flex flex-1 flex-col justify-start items-center pb-1">
                 <TypographySmall text={t('profit_by_hour')} className="text-[8px] text-[#fff6]" />
                 <div className="w-full flex flex-1 justify-center items-center gap-[6px]">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
+                    <CoinIcon width={18} height={18} />
                     <TypographySmall text={`+${formatCoin(user.profit_per_hour)}`} className="text-xs" />
                     <DrawerInfoProfit />
                 </div>

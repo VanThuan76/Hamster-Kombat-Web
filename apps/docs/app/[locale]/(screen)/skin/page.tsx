@@ -14,6 +14,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import CoinIcon from "@shared/components/CoinIcon"
+
 import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 import { useAppSelector } from "@shared/redux/store/index"
@@ -61,7 +63,7 @@ export default function Page(): JSX.Element {
                                     {i === 0 ?
                                         <TypographySmall text={t('purchased')} className="text-[14px] font-normal text-[#82f88e] mt-5" />
                                         : <div className="flex justify-center items-center gap-2">
-                                            <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} className="coin-is-grayscale" />
+                                            <CoinIcon width={28} height={28} className="coin-is-grayscale" />
                                             <TypographySmall text={`${formatCoinStyleDot(item.price)}`} className="text-[20px] font-bold text-[#fff6]" />
                                         </div>}
                                     <Button className="bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl">{i === 0 ? 'Chọn' : 'Đạt đến giải đấu Legendary để mở khóa skin'}</Button>

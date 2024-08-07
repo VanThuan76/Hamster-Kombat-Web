@@ -58,9 +58,6 @@ function RootInner({ children }: PropsWithChildren) {
     }
 
     const debug = useLaunchParams().startParam === 'debug';
-    const manifestUrl = useMemo(() => {
-        return new URL('tonconnect-manifest.json', window.location.href).toString();
-    }, []);
 
     // Enable debug mode to see all the methods sent and events received.
     useEffect(() => {
@@ -68,8 +65,9 @@ function RootInner({ children }: PropsWithChildren) {
             import('eruda').then((lib) => lib.default.init());
         }
     }, [debug]);
+
     return (
-        <TonConnectUIProvider manifestUrl={manifestUrl}>
+        <TonConnectUIProvider manifestUrl={`https://${process.env.VERCEL_URL}/tonconnect-manifest.json`}>
             <SDKProvider acceptCustomStyles debug={debug}>
                 <App>
                     {children}

@@ -9,6 +9,7 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import CoinIcon from "@shared/components/CoinIcon"
 import InviteFriends from '@shared/components/InviteFriends'
 import listBonus from "@shared/constant/listBonus"
 import useBackButton from "@shared/hooks/useBackButton"
@@ -19,7 +20,7 @@ import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 const { initUtils } = require('@telegram-apps/sdk-react');
 
 export default function Page(): JSX.Element {
-    const { friends } = useAppSelector(state => state.app)
+    const { user, friends } = useAppSelector(state => state.app)
 
     const t = useTranslations('screens.friends')
 
@@ -46,7 +47,7 @@ export default function Page(): JSX.Element {
                             <div className="flex justify-center items-start gap-1">
                                 <div className="w-[6px] h-[6px] rounded-full mr-1 mt-2 bg-[#ffd337]"></div>
                                 <div className="flex justify-center items-center gap-1">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                    <CoinIcon width={20} height={20} />
                                     <TypographySmall text="+5.000" className="text-[14px] text-[#ffd337] ml-1" />
                                 </div>
                                 <span className="text-[14px] font-extralight">{t('des_invite_friends_card')}</span>
@@ -77,11 +78,11 @@ export default function Page(): JSX.Element {
                                     <TypographySmall text={item.name} className="text-[12px] font-light" />
                                 </div>
                                 <div className="flex justify-center items-center gap-1">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                    <CoinIcon width={20} height={20} />
                                     <TypographySmall text={`+${formatCoinStyleDot(item.for_friend)}`} className="text-[12px] text-[#ffd337] ml-1" />
                                 </div>
                                 <div className="flex justify-center items-center gap-1">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                    <CoinIcon width={20} height={20} />
                                     <TypographySmall text={`+${formatCoinStyleDot(item.premium)}`} className="text-[12px] text-[#ffd337] ml-1" />
                                 </div>
                             </div>
@@ -116,6 +117,7 @@ export default function Page(): JSX.Element {
                 <Button
                     className="w-[20%] h-[60px] bg-[#5a60ff]/85 hover:bg-[#5a60ff] rounded-2xl"
                     onClick={() => {
+                        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_URL_TELEGRAM_BOT}/?startapp=teleId${user.id}`)
                         utils.readTextFromClipboard().then((text: any) => alert('Successfully'));
                     }}
                 >

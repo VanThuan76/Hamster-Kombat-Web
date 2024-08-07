@@ -15,9 +15,10 @@ import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import TypographySmall from "@ui/components/typography/small"
 
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
+import { setUserEnergy } from "@shared/redux/store/appSlice";
+import CoinIcon from "@shared/components/CoinIcon"
 
 import { useUpdateRevenue } from "@server/_action/user-action";
-import { setUserEnergy } from "../redux/store/appSlice";
 
 const AnimatePresenceWrapper = dynamic(() => import('@ui/components/motion/AnimatePresenceWrapper').then((mod) => mod.default), { ssr: false })
 
@@ -100,13 +101,13 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     return (
         <>
             <MotionContainer className={cn("w-full flex justify-center items-center gap-2", !isScreenMine && "mb-3")} type="scale">
-                <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} priority={true} />
+                <CoinIcon width={40} height={40} />
                 <MemoTypographyLarge text={formattedRevenue} className="text-white text-3xl" />
             </MotionContainer>
             {isSecretFeature && <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
                 <TypographyLarge text={t('daily_cipher')} className="text-white text-[14px]" />
                 <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
+                    <CoinIcon width={18} height={18} />
                     <TypographySmall text='+1.000.000' className="text-white text-[14px]" />
                 </Button>
             </div>}

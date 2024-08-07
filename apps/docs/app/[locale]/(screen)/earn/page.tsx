@@ -11,6 +11,8 @@ import TypographySmall from "@ui/components/typography/small"
 
 import { useUpdateEarn } from "@server/_action/earn-action";
 
+import CoinIcon from "@shared/components/CoinIcon";
+
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber"
 import { useRouter } from "@shared/next-intl/navigation";
 import { useAppSelector } from "@shared/redux/store";
@@ -70,7 +72,7 @@ export default function Page(): JSX.Element {
                 </svg>
                 </div>
                 <div className="icon_earn_image w-[106px] h-[106px]">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={106} height={106} className="w-full h-full" priority={true} />
+                    <CoinIcon width={106} height={106} className="w-full h-full" />
                 </div>
             </MotionContainer>
             <div className="h-[220px]"></div>
@@ -89,7 +91,7 @@ export default function Page(): JSX.Element {
                                 <div className="flex flex-col justify-start items-start">
                                     <TypographySmall text={earn.description} className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
-                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                        <CoinIcon width={20} height={20} />
                                         <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
@@ -112,7 +114,7 @@ export default function Page(): JSX.Element {
                                 <div className="flex flex-col justify-start items-start">
                                     <TypographySmall text={t('daily_reward')} className="text-[14px] text-white font-extralight" />
                                     <div className="flex justify-center items-center gap-1">
-                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                        <CoinIcon width={20} height={20} />
                                         <TypographySmall text={`+${formatCoinStyleDot(earns.find(item => item.type === 3)?.earn.reduce((a, b) => a + b.reward, 0) || 0)}`} className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
@@ -134,12 +136,12 @@ export default function Page(): JSX.Element {
                                 <TypographyLarge text={t('daily_reward')} className="text-white text-[32px] font-bold" />
                                 <TypographySmall text={t('des_daily_reward')} className="text-white text-[14px] max-w-[280px] font-normal" />
                             </div>
-                            <div className="w-full h-full grid grid-cols-4 justify-center items-center gap-2">
+                            <div className="w-full min-h-[300px] grid grid-cols-4 justify-center items-center gap-2">
                                 {earns.find(item => item.type === 3)?.earn.map((earn, i) => {
                                     return (
                                         <div key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2", earn.is_completed === 1 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : 'bg-[#272a2f] opacity-40')}>
                                             <TypographySmall text={`${t('day_daily')} ${i + 1}`} className="text-white text-[14px] font-normal" />
-                                            <Image src="/project/icon_coin.png" alt="@coin" width={24} height={24} priority={true} />
+                                            <CoinIcon width={24} height={24} />
                                             <TypographySmall text={`${formatCoin(earn.reward)}`} className="text-white text-[14px] font-medium" />
                                         </div>
                                     )
@@ -148,7 +150,7 @@ export default function Page(): JSX.Element {
                         </div>
                     }
                     textBtnFinish="Quay lại ngày mai"
-                    className="min-h-[85%] h-[90%] overflow-y-auto"
+                    className="h-[90%] overflow-y-auto"
                 />
             </div>
             {/* //Calendar */}
@@ -167,7 +169,7 @@ export default function Page(): JSX.Element {
                                         <div className="flex flex-col justify-start items-start">
                                             <TypographySmall text={earn.name} className="text-[14px] text-white font-extralight" />
                                             <div className="flex justify-center items-center gap-1">
-                                                <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                                <CoinIcon width={20} height={20} />
                                                 <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-[14px] text-white ml-1" />
                                             </div>
                                         </div>
@@ -185,7 +187,7 @@ export default function Page(): JSX.Element {
                                     <div className="w-full flex flex-col justify-center items-center gap-5">
                                         <TypographyLarge text={earn.name} className="text-white text-[32px] font-bold" />
                                         <div className="flex justify-center items-center gap-1">
-                                            <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
+                                            <CoinIcon width={28} height={28} />
                                             <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-2xl text-white ml-1" />
                                         </div>
                                     </div>

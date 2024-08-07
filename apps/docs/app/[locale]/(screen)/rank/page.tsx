@@ -11,6 +11,8 @@ import TypographySmall from "@ui/components/typography/small"
 import TypographyLarge from "@ui/components/typography/large"
 import DynamicNavigationSwiper from "@ui/components/swiper/DynamicNavigation"
 
+import CoinIcon from "@shared/components/CoinIcon"
+
 import useBackButton from "@shared/hooks/useBackButton"
 import { useAppSelector } from "@shared/redux/store"
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber"
@@ -29,7 +31,7 @@ const ItemCardRank = ({ item, order, backgroundAva, className }: { item: any, or
                     <TypographySmall text={`${item?.first_name} ${item?.last_name}`} className="text-[14px]" />
                 </div>
                 <div className="flex justify-center items-center gap-1">
-                    <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                    <CoinIcon width={20} height={20} />
                     <TypographySmall text={String(formatCoinStyleDot(item.highest_score))} className="text-[14px] text-[#8b8e93]" />
                 </div>
             </div>

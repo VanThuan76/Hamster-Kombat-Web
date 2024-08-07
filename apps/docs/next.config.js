@@ -19,20 +19,12 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "i.pravatar.cc",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "github.com",
+        hostname: "cdn.hamsterkombat.io",
       },
       {
         protocol: "https",
         hostname: "hamster-admin.alphasius.com",
-      },
+      }
     ],
   },
   webpack(config, options) {

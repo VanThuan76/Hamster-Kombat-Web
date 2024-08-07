@@ -20,6 +20,7 @@ import TypographyLarge from "@ui/components/typography/large"
 
 import MineButton from '@shared/components/MineButton'
 import CardProfit from '@shared/components/CardProfit'
+import CoinIcon from "@shared/components/CoinIcon";
 
 import useBackButton from "@shared/hooks/useBackButton";
 import { useAppSelector } from "@shared/redux/store/index";
@@ -100,7 +101,7 @@ export default function Page(): JSX.Element {
                                 })}
                             </div>
                             <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
-                                <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
+                                <CoinIcon width={18} height={18} />
                                 <TypographySmall text="+5.000.000" className="text-white text-[14px]" />
                             </Button>
                         </div>
@@ -130,8 +131,8 @@ export default function Page(): JSX.Element {
                     isScreenMine={true}
                     tabScreenMine={
                         <CardContent className="w-full mt-5 p-4">
-                            <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full">
-                                <MotionContainer className="w-full flex justify-center items-center" direction="left">
+                            <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full min-h-[100px]">
+                                <MotionContainer className="sticky top-2 z-[500000] w-full flex justify-center items-center" direction="left">
                                     <TabsList className="w-full bg-[#272a2f]">
                                         {categoryOfCards?.map((item, i) => {
                                             return (
@@ -149,7 +150,7 @@ export default function Page(): JSX.Element {
                                                     <div className="bg-[#272a2f] text-white rounded-2xl select-none p-2">
                                                         <div className="w-full flex justify-start items-start gap-3">
                                                             <div className="w-[60px] h-[60px]">
-                                                                <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" priority={true} />
+                                                                <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" loading="eager" priority={true} />
                                                             </div>
                                                             <div className="flex flex-col justify-between items-start gap-4">
                                                                 <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
@@ -157,7 +158,7 @@ export default function Page(): JSX.Element {
                                                                     <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
                                                                     <div className="flex justify-center items-center gap-1">
                                                                         <div className="w-[16px] h-[16px]">
-                                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" priority={true} />
+                                                                            <CoinIcon width={18} height={18} className="w-full h-full" />
                                                                         </div>
                                                                         <TypographySmall text={`+${String(formatCoin(item.card_profits.find(child => child.is_purchased)?.profit as number))}`} className="text-white text-[12px]" />
                                                                     </div>
@@ -168,7 +169,7 @@ export default function Page(): JSX.Element {
                                                         <div className="flex h-5 items-center space-x-4 text-sm">
                                                             <TypographySmall text={`lv ${item.card_profits.find(child => child.is_purchased)?.level}`} className="text-white text-[12px]" />
                                                             <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                            <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} priority={true} />
+                                                            <CoinIcon width={18} height={18} />
                                                             <TypographySmall text={String(formatCoin(item.card_profits.find(child => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
                                                         </div>
                                                     </div>
@@ -182,14 +183,14 @@ export default function Page(): JSX.Element {
                                                             <TypographySmall text="Lợi nhuận mỗi giờ" className="text-white text-[10px] font-extralight" />
                                                             <div className="flex justify-center items-center gap-1">
                                                                 <div className="w-[16px] h-[16px]">
-                                                                    <Image src="/project/icon_coin.png" alt="@coin" width={18} height={18} className="w-full h-full" />
+                                                                    <CoinIcon width={18} height={18} className="w-full h-full" />
                                                                 </div>
                                                                 <TypographySmall text={`+${String(formatCoinStyleDot(item.card_profits.find(child => child.is_purchased)?.profit as number))}`} className="text-white text-[12px]" />
                                                             </div>
                                                         </div>
                                                         <div className="flex justify-center items-center gap-1">
                                                             <div className="w-[32px] h-[32px]">
-                                                                <Image src="/project/icon_coin.png" alt="@coin" width={32} height={32} className="w-full h-full" priority={true} />
+                                                                <CoinIcon width={32} height={32} className="w-full h-full" />
                                                             </div>
                                                             <TypographySmall text={String(formatCoinStyleDot(item.card_profits.find(child => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
                                                         </div>

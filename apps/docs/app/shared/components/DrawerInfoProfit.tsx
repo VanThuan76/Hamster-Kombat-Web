@@ -6,9 +6,10 @@ import { useState } from "react"
 import { Button } from "@ui/components/button"
 
 import Drawer from "@ui/components/drawer"
-
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
+
+import CoinIcon from "@shared/components/CoinIcon"
 
 export default function DrawerInfoProfit(): JSX.Element {
     const t = useTranslations('components.drawer_info_profit')
@@ -38,9 +39,9 @@ export default function DrawerInfoProfit(): JSX.Element {
                         <TypographySmall text={t('description_1')} className="text-white text-[14px] max-w-[280px] font-normal" />
                         <TypographySmall text={t('description_2')} className="text-white text-[16px] font-normal mt-3" />
                     </div>
-                    <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleOpenDrawer}>
+                    <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleCloseDrawer}>
                         <TypographyLarge text={t('start_button')} className="text-white text-xl font-bold" />
-                        <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
+                        <CoinIcon width={28} height={28} />
                     </Button>
                 </div>
             </Drawer>

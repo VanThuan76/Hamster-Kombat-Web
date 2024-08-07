@@ -8,6 +8,8 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
 
+import CoinIcon from "@shared/components/CoinIcon"
+
 import useBackButton from "@shared/hooks/useBackButton"
 import { useAppSelector } from "@shared/redux/store"
 
@@ -26,7 +28,7 @@ export default function Page(): JSX.Element {
                 <TypographySmall text={t('your_balance')} className="text-[#8b8e93] text-[14px] font-light" />
             </MotionContainer>
             <MotionContainer className="w-full flex justify-center items-center gap-2" type="scale">
-                <Image src="/project/icon_coin.png" alt="@coin" width={40} height={40} priority={true} />
+                <CoinIcon width={40} height={40} />
                 <TypographyLarge text={String(user.revenue)} className="text-white text-3xl" />
             </MotionContainer>
             <MotionContainer className="w-full my-2" direction="right">
@@ -57,7 +59,7 @@ export default function Page(): JSX.Element {
                                 <TypographyLarge text={t('full_energy')} className="text-white text-[32px] font-bold" />
                                 <TypographySmall text={t('des_full_energy')} className="text-white text-[14px] max-w-[280px] font-normal" />
                                 <div className="flex justify-center items-center gap-2">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
+                                    <CoinIcon width={28} height={28} />
                                     <TypographyLarge text={t('free')} className="text-white text-xl font-bold" />
                                 </div>
                             </div>
@@ -88,7 +90,7 @@ export default function Page(): JSX.Element {
                                 <div className="flex flex-col justify-start items-start">
                                     <TypographySmall text={t('multitap')} className="text-[14px] text-white font-light" />
                                     <div className="flex justify-center items-center gap-1">
-                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                        <CoinIcon width={20} height={20} />
                                         <TypographySmall text="2k" className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
@@ -108,7 +110,7 @@ export default function Page(): JSX.Element {
                                 <TypographySmall text={t('des_multitap_1')} className="text-white text-[14px] max-w-[280px] font-normal" />
                                 <TypographySmall text={t('des_multitap_2')} className="text-white text-base max-w-[280px] font-normal" />
                                 <div className="flex justify-center items-center gap-2">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
+                                    <CoinIcon width={28} height={28} />
                                     <TypographyLarge text="2.000" className="text-white text-xl font-bold" />
                                 </div>
                             </div>
@@ -125,7 +127,7 @@ export default function Page(): JSX.Element {
                                 <div className="flex flex-col justify-start items-start">
                                     <TypographySmall text={t('energy_limit')} className="text-[14px] text-white font-light" />
                                     <div className="flex justify-center items-center gap-1">
-                                        <Image src="/project/icon_coin.png" alt="@coin" width={20} height={20} priority={true} />
+                                        <CoinIcon width={20} height={20} />
                                         <TypographySmall text="4k" className="text-[14px] text-white ml-1" />
                                     </div>
                                 </div>
@@ -145,7 +147,7 @@ export default function Page(): JSX.Element {
                                 <TypographySmall text={t('des_energy_limit_1')} className="text-white text-[14px] max-w-[280px] font-normal" />
                                 <TypographySmall text={t('des_energy_limit_2')} className="text-white text-base max-w-[280px] font-normal" />
                                 <div className="flex justify-center items-center gap-2">
-                                    <Image src="/project/icon_coin.png" alt="@coin" width={28} height={28} priority={true} />
+                                    <CoinIcon width={28} height={28} />
                                     <TypographyLarge text="4.000" className="text-white text-xl font-bold" />
                                 </div>
                             </div>
