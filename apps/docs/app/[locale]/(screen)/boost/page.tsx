@@ -12,6 +12,7 @@ import CoinIcon from "@shared/components/CoinIcon"
 
 import useBackButton from "@shared/hooks/useBackButton"
 import { useAppSelector } from "@shared/redux/store"
+import { useDraw } from "@shared/hooks/useDraw";
 
 const DrawerMinCard = dynamic(() => import('@shared/components/DrawerMinCard').then((mod) => mod.default), { ssr: false })
 
@@ -19,6 +20,7 @@ export default function Page(): JSX.Element {
     const t = useTranslations('screens.boost')
 
     const { user } = useAppSelector(state => state.app)
+    const { onOpen } = useDraw()
 
     useBackButton()
 
@@ -36,36 +38,17 @@ export default function Page(): JSX.Element {
             </MotionContainer>
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text={t('free_daily_boost')} className="text-base text-white mt-5" />
-                <DrawerMinCard
-                    drawerTrigger={
-                        <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer">
-                            <div className="flex justify-start items-center gap-4">
-                                <MotionContainer className="p-3" type="scale">
-                                    <Image src="/project/icon_flash.svg" alt="@flash" width={32} height={32} priority={true} />
-                                </MotionContainer>
-                                <div className="flex flex-col justify-start items-start">
-                                    <TypographySmall text={t('full_energy')} className="text-[14px] text-white font-light" />
-                                    <TypographySmall text={`6/6 ${t('available')}`} className="text-[14px] text-[#8b8e93] font-light" />
-                                </div>
-                            </div>
+                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyBoost")}>
+                    <div className="flex justify-start items-center gap-4">
+                        <MotionContainer className="p-3" type="scale">
+                            <Image src="/project/icon_flash.svg" alt="@flash" width={32} height={32} priority={true} />
+                        </MotionContainer>
+                        <div className="flex flex-col justify-start items-start">
+                            <TypographySmall text={t('full_energy')} className="text-[14px] text-white font-light" />
+                            <TypographySmall text={`6/6 ${t('available')}`} className="text-[14px] text-[#8b8e93] font-light" />
                         </div>
-                    }
-                    drawerContent={
-                        <div className="w-full flex flex-col justify-center items-center gap-8">
-                            <div className="relative z-10">
-                                <Image src="/project/icon_flash.svg" alt="@icon_flash" width={115} height={115} priority={true} />
-                            </div>
-                            <div className="w-full flex flex-col justify-center items-center gap-5">
-                                <TypographyLarge text={t('full_energy')} className="text-white text-[32px] font-bold" />
-                                <TypographySmall text={t('des_full_energy')} className="text-white text-[14px] max-w-[280px] font-normal" />
-                                <div className="flex justify-center items-center gap-2">
-                                    <CoinIcon width={28} height={28} />
-                                    <TypographyLarge text={t('free')} className="text-white text-xl font-bold" />
-                                </div>
-                            </div>
-                        </div>
-                    }
-                />
+                    </div>
+                </div>
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] opacity-50">
                     <div className="flex justify-start items-center gap-4">
                         <MotionContainer type="scale">

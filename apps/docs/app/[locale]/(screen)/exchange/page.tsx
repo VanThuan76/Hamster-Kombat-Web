@@ -18,7 +18,6 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographySmall from "@ui/components/typography/small"
 import MineButton from '@shared/components/MineButton'
 import CardProfit from '@shared/components/CardProfit'
-import DrawerEditExchange from "@shared/components/DrawerEditExchange";
 
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
@@ -157,7 +156,6 @@ export default function Page(): JSX.Element {
                 </CardHeader>
                 <MineButton isSecretFeature={isSecretFeature} />
             </Card>
-            <DrawerEditExchange />
         </div>
     )
 }

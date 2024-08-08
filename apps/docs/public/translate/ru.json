@@ -1,0 +1,103 @@
+{
+  "menu": {
+    "exchange": "Обмен",
+    "mine": "Добыча",
+    "friends": "Друзья",
+    "earn": "Заработать"
+  },
+  "screens": {
+    "exchange": {
+      "buy_skin": "Купить скин",
+      "daily_reward": "Ежедневная награда",
+      "daily_cipher": "Ежедневный код",
+      "daily_combo": "Ежедневный комбо"
+    },
+    "mine": {
+      "daily_combo": "Ежедневный комбо"
+    },
+    "friends": {
+      "invite_friends": "Пригласите друзей!",
+      "des_invite_friends": "Вы и ваш друг получите бонусы",
+      "invite_friends_card": "Пригласите друга",
+      "des_invite_friends_card": "для вас и вашего друга",
+      "more_bonuses": "Больше бонусов",
+      "more_bonuses_two": "Бонусы за повышение уровня",
+      "level": "Уровень",
+      "for_friend": "Для друга",
+      "premium": "Премиум",
+      "list_friend": "Список ваших друзей",
+      "invite_friends_no": "Вы пока никого не пригласили"
+    },
+    "earn": {
+      "earn_coin": "Заработайте больше монет",
+      "daily_tasks": "Ежедневные задачи",
+      "task_list": "Список задач",
+      "daily_reward": "Ежедневная награда",
+      "day_daily": "День",
+      "des_daily_reward": "Зарабатывайте монеты, заходя в игру каждый день без пропусков",
+      "join_telegram": "Присоединяйтесь к нашему TG-каналу",
+      "join_x": "Подпишитесь на наш X-аккаунт",
+      "choose_exchange": "Выберите свой обмен",
+      "invite_friends": "Пригласите 3 друзей",
+      "btn_back": "Вернуться завтра",
+      "btn_require": "Запросить компенсацию",
+      "btn_choose": "Выбрать",
+      "btn_check": "Проверить",
+      "btn_join": "Присоединиться"
+    },
+    "airdrop": {
+      "des_airdrop": "Листинг в процессе. Задачи появятся ниже. Завершите их, чтобы участвовать в AirDrop"
+    },
+    "setting": {
+      "title": "Настройки",
+      "language": "Выберите язык",
+      "exchange": "Выберите обмен",
+      "delete_account": "Удалить аккаунт"
+    },
+    "skin": {
+      "profile": "Профиль",
+      "skin": "Скин",
+      "purchased": "Куплено"
+    },
+    "rank": {
+      "from": "из"
+    },
+    "boost": {
+      "your_balance": "Ваш баланс",
+      "how_boost_work": "Как работает Boost",
+      "free_daily_boost": "Бесплатный ежедневный бустер",
+      "full_energy": "Полная энергия",
+      "des_full_energy": "Заполните свою энергию до максимума и сделайте еще один цикл добычи",
+      "free": "Бесплатно",
+      "available": "доступно",
+      "coming_soon": "Скоро будет",
+      "boosters": "Бустеры",
+      "multitap": "Мультитап",
+      "des_multitap_1": "Увеличьте количество монет, которые вы можете заработать за одно нажатие",
+      "des_multitap_2": "+1 монета за нажатие для уровня 2",
+      "energy_limit": "Лимит энергии",
+      "des_energy_limit_1": "Увеличьте емкость энергии",
+      "des_energy_limit_2": "+500 энергии для уровня 3"
+    }
+    
+  },
+  "components": {
+    "mine_button": {
+      "daily_cipher": "Ежедневный код",
+      "boost": "Ускорение"
+    },
+    "card_profit": {
+      "profit_by_hour": "Прибыль за час"
+    },
+    "drawer_info_profit": {
+      "title": "Увеличьте свою прибыль",
+      "description_1": "Нажмите на меню добычи, чтобы купить улучшения для вашего обмена",
+      "description_2": "Зарабатывайте даже в оффлайн-режиме до 3 часов",
+      "start_button": "Начать добычу"
+    },
+    "drawer_change_exchange": {
+      "title": "Вы подписали контракт с",
+      "button": "Удачи!"
+    }
+  }
+}

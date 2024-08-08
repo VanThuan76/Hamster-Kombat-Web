@@ -52,7 +52,7 @@ export interface ICategoryOfCard {
     updated_by?: null;
     cardList: CardList[];
 }
-interface CardList {
+export interface CardList {
     id: number;
     name: string;
     description: string;

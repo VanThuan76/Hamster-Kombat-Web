@@ -1,0 +1,103 @@
+{
+  "menu": {
+    "exchange": "Échanger",
+    "mine": "Miner",
+    "friends": "Amis",
+    "earn": "Gagner"
+  },
+  "screens": {
+    "exchange": {
+      "buy_skin": "Acheter skin",
+      "daily_reward": "Récompense quotidienne",
+      "daily_cipher": "Chiffre quotidien",
+      "daily_combo": "Combo quotidien"
+    },
+    "mine": {
+      "daily_combo": "Combo quotidien"
+    },
+    "friends": {
+      "invite_friends": "Invitez des amis !",
+      "des_invite_friends": "Vous et votre ami recevrez des bonus",
+      "invite_friends_card": "Invitez un ami",
+      "des_invite_friends_card": "pour vous et votre ami",
+      "more_bonuses": "Plus de bonus",
+      "more_bonuses_two": "Bonus pour monter de niveau",
+      "level": "Niveau",
+      "for_friend": "Pour ami",
+      "premium": "Premium",
+      "list_friend": "Liste de vos amis",
+      "invite_friends_no": "Vous n'avez encore invité personne"
+    },
+    "earn": {
+      "earn_coin": "Gagnez plus de pièces",
+      "daily_tasks": "Tâches quotidiennes",
+      "task_list": "Liste des tâches",
+      "daily_reward": "Récompense quotidienne",
+      "day_daily": "Jour",
+      "des_daily_reward": "Accumulez des pièces en vous connectant quotidiennement au jeu sans sauter",
+      "join_telegram": "Rejoignez notre canal TG",
+      "join_x": "Suivez notre compte X",
+      "choose_exchange": "Choisissez votre échange",
+      "invite_friends": "Invitez 3 amis",
+      "btn_back": "Revenir demain",
+      "btn_require": "Demander une compensation",
+      "btn_choose": "Choisir",
+      "btn_check": "Vérifier",
+      "btn_join": "Rejoindre"
+    },
+    "airdrop": {
+      "des_airdrop": "L'inscription est en cours. Les tâches apparaîtront ci-dessous. Complétez-les pour participer à l'AirDrop"
+    },
+    "setting": {
+      "title": "Paramètres",
+      "language": "Choisir la langue",
+      "exchange": "Choisir l'échange",
+      "delete_account": "Supprimer le compte"
+    },
+    "skin": {
+      "profile": "Profil",
+      "skin": "Skin",
+      "purchased": "Acheté"
+    },
+    "rank": {
+      "from": "de"
+    },
+    "boost": {
+      "your_balance": "Votre solde",
+      "how_boost_work": "Comment fonctionne le Boost",
+      "free_daily_boost": "Booster quotidien gratuit",
+      "full_energy": "Énergie complète",
+      "des_full_energy": "Rechargez votre énergie au maximum et effectuez une autre session de minage",
+      "free": "Gratuit",
+      "available": "disponible",
+      "coming_soon": "Bientôt disponible",
+      "boosters": "Boosters",
+      "multitap": "Multitap",
+      "des_multitap_1": "Augmentez le nombre de pièces que vous pouvez gagner par tap",
+      "des_multitap_2": "+1 pièce par tap pour le niveau 2",
+      "energy_limit": "Limite d'énergie",
+      "des_energy_limit_1": "Augmentez la capacité énergétique",
+      "des_energy_limit_2": "+500 énergie pour le niveau 3"
+    }
+    
+  },
+  "components": {
+    "mine_button": {
+      "daily_cipher": "Chiffre quotidien",
+      "boost": "Boost"
+    },
+    "card_profit": {
+      "profit_by_hour": "Profit par heure"
+    },
+    "drawer_info_profit": {
+      "title": "Augmentez vos bénéfices",
+      "description_1": "Appuyez sur le menu de minage pour acheter des améliorations pour votre échange",
+      "description_2": "Gagnez même hors ligne jusqu'à 3 heures",
+      "start_button": "Commencer le minage"
+    },
+    "drawer_change_exchange": {
+      "title": "Vous avez signé un contrat avec",
+      "button": "Bonne chance !"
+    }
+  }
+}

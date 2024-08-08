@@ -38,7 +38,12 @@
       "join_telegram": "Tham gia kênh TG của chúng tôi",
       "join_x": "Theo dõi tài khoản X của chúng tôi",
       "choose_exchange": "Chọn sàn giao dịch của bạn",
-      "invite_friends": "Mời 3 người bạn"
+      "invite_friends": "Mời 3 người bạn",
+      "btn_back": "Quay lại ngày mai",
+      "btn_require": "Yêu cầu bồi thường",
+      "btn_choose": "Chọn",
+      "btn_check": "Kiểm tra",
+      "btn_join": "Tham gia"
     },
     "airdrop": {
       "des_airdrop": "Ngày listing đang đến. Nhiệm vụ sẽ xuất hiện bên dưới. Hoàn thành chúng để tham gia Airdrop"

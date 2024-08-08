@@ -1,0 +1,103 @@
+{
+  "menu": {
+    "exchange": "Takas",
+    "mine": "Madencilik",
+    "friends": "Arkadaşlar",
+    "earn": "Kazan"
+  },
+  "screens": {
+    "exchange": {
+      "buy_skin": "Skin Satın Al",
+      "daily_reward": "Günlük Ödül",
+      "daily_cipher": "Günlük Şifre",
+      "daily_combo": "Günlük Kombinasyon"
+    },
+    "mine": {
+      "daily_combo": "Günlük Kombinasyon"
+    },
+    "friends": {
+      "invite_friends": "Arkadaşlarını Davet Et!",
+      "des_invite_friends": "Sen ve arkadaşın bonus alacaksınız",
+      "invite_friends_card": "Bir arkadaşını davet et",
+      "des_invite_friends_card": "senin ve arkadaşının",
+      "more_bonuses": "Daha Fazla Bonus",
+      "more_bonuses_two": "Seviye atlama bonusu",
+      "level": "Seviye",
+      "for_friend": "Arkadaş İçin",
+      "premium": "Premium",
+      "list_friend": "Arkadaşlarının Listesi",
+      "invite_friends_no": "Henüz kimseyi davet etmedin"
+    },
+    "earn": {
+      "earn_coin": "Daha Fazla Para Kazan",
+      "daily_tasks": "Günlük Görevler",
+      "task_list": "Görev Listesi",
+      "daily_reward": "Günlük Ödül",
+      "day_daily": "Gün",
+      "des_daily_reward": "Güne her gün oyuna giriş yaparak para kazan",
+      "join_telegram": "TG kanalımıza katıl",
+      "join_x": "X hesabımızı takip et",
+      "choose_exchange": "Takasınızı seçin",
+      "invite_friends": "3 arkadaşını davet et",
+      "btn_back": "Yarın geri dön",
+      "btn_require": "Tazminat talep et",
+      "btn_choose": "Seç",
+      "btn_check": "Kontrol et",
+      "btn_join": "Katıl"
+    },
+    "airdrop": {
+      "des_airdrop": "Listeleme yolda. Görevler aşağıda görünecek. Katılmak için tamamlayın"
+    },
+    "setting": {
+      "title": "Ayarlar",
+      "language": "Dil seçin",
+      "exchange": "Takas seçin",
+      "delete_account": "Hesabı Sil"
+    },
+    "skin": {
+      "profile": "Profil",
+      "skin": "Skin",
+      "purchased": "Satın Alındı"
+    },
+    "rank": {
+      "from": "den"
+    },
+    "boost": {
+      "your_balance": "Bakiyeniz",
+      "how_boost_work": "Boost nasıl çalışır",
+      "free_daily_boost": "Ücretsiz günlük güçlendirici",
+      "full_energy": "Tam enerji",
+      "des_full_energy": "Enerjinizi sınırına kadar doldurun ve bir tur daha madencilik yapın",
+      "free": "Ücretsiz",
+      "available": "mevcut",
+      "coming_soon": "Çok yakında",
+      "boosters": "Güçlendiriciler",
+      "multitap": "Çoklu dokunuş",
+      "des_multitap_1": "Her dokunuşta kazanabileceğiniz madeni para sayısını artırın",
+      "des_multitap_2": "Seviye 2 için dokunuş başına +1 madeni para",
+      "energy_limit": "Enerji sınırı",
+      "des_energy_limit_1": "Enerji kapasitesini artırın",
+      "des_energy_limit_2": "Seviye 3 için +500 enerji"
+    }
+    
+  },
+  "components": {
+    "mine_button": {
+      "daily_cipher": "Günlük Şifre",
+      "boost": "Hızlandır"
+    },
+    "card_profit": {
+      "profit_by_hour": "Saatlik Kar"
+    },
+    "drawer_info_profit": {
+      "title": "Karınızı Artırın",
+      "description_1": "Madencilik menüsüne tıklayarak takasınız için yükseltmeler satın alın",
+      "description_2": "Çevrimdışı olduğunuzda bile 3 saate kadar para kazanın",
+      "start_button": "Madenciliğe Başla"
+    },
+    "drawer_change_exchange": {
+      "title": "Şu şirketle sözleşme imzaladınız",
+      "button": "Bol Şans!"
+    }
+  }
+}

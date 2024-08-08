@@ -6,7 +6,7 @@ export interface IEarn {
     earn: EarnDetail[];
 }
 
-interface EarnDetail {
+export interface EarnDetail {
     user_earn_id: number;
     is_completed: number;
     name: string;

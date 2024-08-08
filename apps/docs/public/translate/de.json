@@ -1,0 +1,102 @@
+{
+  "menu": {
+    "exchange": "Tauschen",
+    "mine": "Miner",
+    "friends": "Freunde",
+    "earn": "Verdienen"
+  },
+  "screens": {
+    "exchange": {
+      "buy_skin": "Skin kaufen",
+      "daily_reward": "Tägliche Belohnung",
+      "daily_cipher": "Täglicher Code",
+      "daily_combo": "Tägliches Combo"
+    },
+    "mine": {
+      "daily_combo": "Tägliches Combo"
+    },
+    "friends": {
+      "invite_friends": "Freunde einladen!",
+      "des_invite_friends": "Du und dein Freund erhalten Boni",
+      "invite_friends_card": "Freund einladen",
+      "des_invite_friends_card": "für dich und deinen Freund",
+      "more_bonuses": "Mehr Boni",
+      "more_bonuses_two": "Boni für das Aufleveln",
+      "level": "Level",
+      "for_friend": "Für Freund",
+      "premium": "Premium",
+      "list_friend": "Liste deiner Freunde",
+      "invite_friends_no": "Du hast noch niemanden eingeladen"
+    },
+    "earn": {
+      "earn_coin": "Mehr Münzen verdienen",
+      "daily_tasks": "Tägliche Aufgaben",
+      "task_list": "Aufgabenliste",
+      "daily_reward": "Tägliche Belohnung",
+      "day_daily": "Tag",
+      "des_daily_reward": "Verdiene Münzen durch tägliches Einloggen ins Spiel ohne auszulassen",
+      "join_telegram": "Tritt unserem TG-Kanal bei",
+      "join_x": "Folge unserem X-Account",
+      "choose_exchange": "Wähle deinen Tausch",
+      "invite_friends": "Lade 3 Freunde ein",
+      "btn_back": "Morgen zurückgehen",
+      "btn_require": "Entschädigung anfordern",
+      "btn_choose": "Auswählen",
+      "btn_check": "Überprüfen",
+      "btn_join": "Beitreten"
+    },
+    "airdrop": {
+      "des_airdrop": "Das Listing ist unterwegs. Aufgaben werden unten erscheinen. Schließe sie ab, um am AirDrop teilzunehmen"
+    },
+    "setting": {
+      "title": "Einstellungen",
+      "language": "Sprache auswählen",
+      "exchange": "Tausch auswählen",
+      "delete_account": "Konto löschen"
+    },
+    "skin": {
+      "profile": "Profil",
+      "skin": "Skin",
+      "purchased": "Gekauft"
+    },
+    "rank": {
+      "from": "von"
+    },
+    "boost": {
+      "your_balance": "Ihr Guthaben",
+      "how_boost_work": "Wie Boost funktioniert",
+      "free_daily_boost": "Täglicher kostenloser Booster",
+      "full_energy": "Volle Energie",
+      "des_full_energy": "Fülle deine Energie bis zum Limit auf und mache eine weitere Minenrunde",
+      "free": "Kostenlos",
+      "available": "verfügbar",
+      "coming_soon": "Kommt bald",
+      "boosters": "Booster",
+      "multitap": "Multitap",
+      "des_multitap_1": "Erhöhen Sie die Anzahl der Münzen, die Sie pro Tipp verdienen können",
+      "des_multitap_2": "+1 Münze pro Tipp für Level 2",
+      "energy_limit": "Energielimit",
+      "des_energy_limit_1": "Erhöhen Sie die Energiekapazität",
+      "des_energy_limit_2": "+500 Energie für Level 3"
+    }
+  },
+  "components": {
+    "mine_button": {
+      "daily_cipher": "Täglicher Code",
+      "boost": "Schub"
+    },
+    "card_profit": {
+      "profit_by_hour": "Gewinn pro Stunde"
+    },
+    "drawer_info_profit": {
+      "title": "Steigere deinen Gewinn",
+      "description_1": "Tippe auf das Mining-Menü, um Upgrades für deinen Tausch zu kaufen",
+      "description_2": "Verdiene auch offline bis zu 3 Stunden",
+      "start_button": "Mining starten"
+    },
+    "drawer_change_exchange": {
+      "title": "Du hast einen Vertrag mit",
+      "button": "Viel Glück!"
+    }
+  }
+}

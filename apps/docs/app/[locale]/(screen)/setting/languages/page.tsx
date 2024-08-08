@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from '@shared/next-intl/navigation';
+import { useRouter } from '@shared/next-intl/navigation';
 
 import TypographyLarge from "@ui/components/typography/large"
 import TypographySmall from "@ui/components/typography/small"
@@ -13,16 +13,15 @@ export default function Page(): JSX.Element {
     const t = useTranslations('screens.setting')
 
     const router = useRouter()
-    const pathname = usePathname()
 
     const handleLanguageChange = (code: any) => {
-        router.push(pathname, { locale: code });
+        router.push('/exchange', { locale: code });
     }
 
     useBackButton()
 
     return (
-        <div className="w-full min-h-screen relative overflow-y-auto bg-black">
+        <div className="w-full min-h-screen relative overflow-y-auto bg-black pb-12">
             <div className="p-5 space-y-4 text-center text-white overflow-y-auto h-full">
                 <TypographyLarge text={t('language')} className="text-4xl" />
                 {LANGUAGES.map((item, i) => {

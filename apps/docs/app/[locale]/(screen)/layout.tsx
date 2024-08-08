@@ -2,6 +2,8 @@ import { Dialog, DialogContent, DialogFooter } from "@ui/components/dialog";
 import LazyWrapper from "@ui/components/motion/LazyWrapper"
 import { Toaster } from "@shared/toaster";
 
+import DrawerProvider from "@shared/drawer";
+
 import { BottomNav } from "../../@navigator/BottomNav";
 
 export default function ScreenLayout({
@@ -20,6 +22,7 @@ export default function ScreenLayout({
                     <BottomNav />
                     <Toaster />
                 </DialogFooter>
+                <DrawerProvider />
             </DialogContent>
         </Dialog>
     );

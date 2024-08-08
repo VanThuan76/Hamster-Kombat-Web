@@ -38,7 +38,12 @@
       "join_telegram": "Join our TG channel",
       "join_x": "Follow our X account",
       "choose_exchange": "Choose your exchange",
-      "invite_friends": "Invite 3 friends"
+      "invite_friends": "Invite 3 friends",
+      "btn_back": "Go back tomorrow",
+      "btn_require": "Request compensation",
+      "btn_choose": "Choose",
+      "btn_check": "Check",
+      "btn_join": "Join"
     },
     "airdrop": {
       "des_airdrop": "Listing is on its way. Tasks will appear below. Complete them to participate in the AirDrop"
@@ -56,6 +61,23 @@
     },
     "rank": {
       "from": "from"
+    },
+    "boost": {
+      "your_balance": "Your balance",
+      "how_boost_work": "How Boost works",
+      "free_daily_boost": "Free daily booster",
+      "full_energy": "Full energy",
+      "des_full_energy": "Refill your energy to the limit and take another mining round",
+      "free": "Free",
+      "available": "available",
+      "coming_soon": "Coming soon",
+      "boosters": "Boosters",
+      "multitap": "Multitap",
+      "des_multitap_1": "Increase the number of coins you can earn per tap",
+      "des_multitap_2": "+1 coin per tap for level 2",
+      "energy_limit": "Energy limit",
+      "des_energy_limit_1": "Increase the energy capacity",
+      "des_energy_limit_2": "+500 energy for level 3"
     }
   },
   "components": {

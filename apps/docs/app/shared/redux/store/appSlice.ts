@@ -7,6 +7,8 @@ import { IBoost } from "@server/_types/boost";
 import { IExchangesOrigin } from "@server/_types/exchanges";
 import { ICategoryOfCard } from "@server/_types/card";
 import { IFriend, IRankUsers } from "@server/_types/user";
+
+import { DrawerProps } from "@shared/hooks/useDraw";
 export interface IDefaultState {
     user: {
         telegram_id: number,
@@ -50,7 +52,7 @@ export interface IDefaultState {
     skins: ISkin[] | [],
     categoryOfCards: ICategoryOfCard[] | [],
     userEnergy: number,
-    isEditExchange: boolean
+    drawerStore: DrawerProps
 }
 
 const initialState: IDefaultState = {
@@ -96,7 +98,11 @@ const initialState: IDefaultState = {
     skins: [],
     categoryOfCards: [],
     userEnergy: 1000,
-    isEditExchange: false
+    drawerStore: {
+        type: null,
+        data: {},
+        isOpen: false,
+    }
 };
 
 export const appSlice: any = createSlice({
@@ -112,14 +118,12 @@ export const appSlice: any = createSlice({
         setUserExchange: (state, action: PayloadAction<any>) => {
             state.user.exchange = action.payload;
             if (action.payload.id !== 0) {
-                state.isEditExchange = true
+                state.drawerStore.isOpen = true
+                state.drawerStore.type = "editExchange"
             }
         },
         setUserEnergy: (state, action: PayloadAction<number>) => {
             state.userEnergy = action.payload
-        },
-        setIsEditUserExchange: (state, action: PayloadAction<boolean>) => {
-            state.isEditExchange = action.payload
         },
         setUpdateProfitPerHour: (state, action: PayloadAction<number>) => {
             state.user.profit_per_hour = action.payload;
@@ -145,8 +149,14 @@ export const appSlice: any = createSlice({
         setCategoryOfCards: (state, action: PayloadAction<ICategoryOfCard[]>) => {
             state.categoryOfCards = action.payload;
         },
+        openDrawer: (state, action: PayloadAction<DrawerProps>) => {
+            state.drawerStore = action.payload
+        },
+        closeDrawer: (state) => {
+            state.drawerStore = { ...state.drawerStore, type: null, data: undefined, isOpen: false };
+        }
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setIsEditUserExchange, setUserEnergy } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setUserEnergy, openDrawer, closeDrawer } = appSlice.actions;
 export default appSlice.reducer;
