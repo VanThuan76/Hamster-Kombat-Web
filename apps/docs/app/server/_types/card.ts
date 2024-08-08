@@ -40,7 +40,6 @@ export interface IBuyCard {
     exchange_id: number;
 }
 
-
 export interface ICategoryOfCard {
     id: number;
     name: string;

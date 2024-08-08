@@ -1,8 +1,8 @@
 import { useMutation, UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import { toast } from "@shared/hooks/useToast";
 import { axiosInstance } from "@shared/axios.http";
-import { useAppDispatch } from "@shared/redux/store";
-import { setCategoryOfCards, setUpdateProfitPerHour, setUpdateRevenue } from "@shared/redux/store/appSlice";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store";
+import { setCategoryOfCards, setMembership, setUpdateProfitPerHour, setUpdateRevenue } from "@shared/redux/store/appSlice";
 
 import { queryClient } from "./config";
 
@@ -15,6 +15,7 @@ import CARD_PATHS from "../_path/card-path";
 const { useHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export const useBuyCard: () => UseMutationResult<IBaseResponse<any[]>, Error, IBuyCard> = () => {
+    const { membership } = useAppSelector(state => state.app)
     const dispatch = useAppDispatch();
     const haptics = useHapticFeedback();
 
@@ -34,6 +35,18 @@ export const useBuyCard: () => UseMutationResult<IBaseResponse<any[]>, Error, IB
             dispatch(setCategoryOfCards(data.data[0])); //Fix
             dispatch(setUpdateRevenue(data.data[1].revenue)) //Fix
             dispatch(setUpdateProfitPerHour(data.data[1].profitPerHour.profit_per_hour)) //Fix
+
+            const membershipData = {
+                ...membership,
+                name: data.data[1].membership[0]?.name,
+                image: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data.data[1].membership[0]?.image,
+                money: data.data[1].membership[0]?.money,
+                level: data.data[1].membership[0]?.level,
+                short_money: data.data[1].membership[0]?.short_money
+            }
+
+            dispatch(setMembership(membershipData)) //Fix
+
             toast({
                 variant: 'success',
                 title: `Upgrade is yours! Cointelegraph 2 lvl`,

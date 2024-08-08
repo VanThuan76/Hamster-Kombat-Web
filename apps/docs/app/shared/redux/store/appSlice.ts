@@ -108,7 +108,6 @@ export const appSlice: any = createSlice({
         },
         setUserExchange: (state, action: PayloadAction<any>) => {
             state.user.exchange = action.payload;
-            console.log(action.payload)
             if (action.payload.id !== 0) {
                 state.isEditExchange = true
             }
