@@ -43,7 +43,7 @@ const OnBroadingPage = () => {
   const matchResult = startAppParam.match(/\d+/);
   const startAppId = matchResult ? matchResult[0] : null;
 
-  function getUserRows(user: any) {
+  async function getUserRows(user: any) {
     return {
       telegram_id: String(user.id),
       username: user.username,
@@ -60,13 +60,13 @@ const OnBroadingPage = () => {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        const body = getUserRows(initData.user);
+        const body = await getUserRows(initData.user);
         const user = await userInitAction.mutateAsync(body);
         await exchangeByUserAction.mutateAsync({ user_id: user.data.id });
         await membershipByUserAction.mutateAsync({ user_id: user.data.id });
         await ranksByUserInitAction.mutateAsync({ user_id: user.data.id });
         await earnsInitAction.mutateAsync({ user_id: user.data.id })
-        await categoryOfCardsByUserAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour?.exchange_id ? user.data.profitPerHour.exchange_id : 51 })
+        await categoryOfCardsByUserAction.mutateAsync({ user_id: user.data.id, exchange_id: user.data.profitPerHour && user.data.profitPerHour.exchange_id ? user.data.profitPerHour.exchange_id : 51 })
         await friendsInitAction.mutateAsync({ id: user.data.id })
         await exchangesInitAction.mutateAsync({})
         await skinsInitAction.mutateAsync({})

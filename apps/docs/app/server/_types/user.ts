@@ -1,3 +1,5 @@
+import { IBoost } from "./boost";
+import { IEarn } from "./earn";
 import { ISkin } from "./skin";
 
 export interface IAuth {
@@ -35,6 +37,8 @@ export interface IUser {
         exchange_id: number,
         is_active: number
     }
+    earns: IEarn[],
+    boots: IBoost[]
 }
 
 export interface IUpdateRevenueByUser {

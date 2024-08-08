@@ -8,7 +8,7 @@ import { useRouter } from '@shared/next-intl/navigation';
 import { Progress } from "@ui/components/progress"
 import { Card, CardHeader } from "@ui/components/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
-import { DialogDescription, DialogHeader, DialogTitle } from "@ui/components/dialog"
+import { DialogHeader, DialogTitle } from "@ui/components/dialog"
 
 import { useAppSelector } from "@shared/redux/store/index"
 import { RANKS } from "@shared/constant/app";
@@ -81,7 +81,7 @@ export default function Page(): JSX.Element {
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
             <DialogHeader className="p-4">
                 {user !== undefined ? <UserCardExist user={user} membership={membership} textBuySkin={t('buy_skin')} /> : <UserCardDefault user={user} />}
-                <DialogDescription className="w-full flex justify-between items-center">
+                <div className="w-full flex justify-between items-center">
                     <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
                         <div
                             className="w-full flex justify-between items-start cursor-pointer"
@@ -102,7 +102,7 @@ export default function Page(): JSX.Element {
                         />
                     </div>
                     <CardProfit />
-                </DialogDescription>
+                </div>
             </DialogHeader>
             <Card className="card-has-glow w-full h-full border-none">
                 <CardHeader>

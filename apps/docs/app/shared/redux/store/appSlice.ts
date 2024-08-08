@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { ISkin } from "@server/_types/skin";
 import { IEarn } from "@server/_types/earn";
+import { IBoost } from "@server/_types/boost";
 import { IExchangesOrigin } from "@server/_types/exchanges";
 import { ICategoryOfCard } from "@server/_types/card";
 import { IFriend, IRankUsers } from "@server/_types/user";
@@ -24,7 +25,8 @@ export interface IDefaultState {
             id: number;
             name: string;
             icon: string
-        }
+        },
+        boots: IBoost[] | []
     };
     membership: {
         id: number;
@@ -69,7 +71,8 @@ const initialState: IDefaultState = {
             id: 0,
             name: '',
             icon: '/project/icon_ava_plus.png'
-        }
+        },
+        boots: []
     },
     membership: {
         id: 0,
