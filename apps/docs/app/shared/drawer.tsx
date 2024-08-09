@@ -9,6 +9,8 @@ import DrawerCardMine from './components/drawer/DrawerCardMine';
 import DrawerCalendarEarn from './components/drawer/DrawerCalendarEarn';
 import DrawerItemEarn from './components/drawer/DrawerItemEarn';
 import DrawerEnergyBoost from './components/drawer/DrawerEnergyBoost';
+import DrawerMultitapBoost from './components/drawer/DrawerMultitapBoost';
+import DrawerEnergyLimitBoost from './components/drawer/DrawerEnergyLimitBoost';
 
 const DrawerProvider = () => {
     const [isMounted, setIsMounted] = React.useState(false)
@@ -30,6 +32,8 @@ const DrawerProvider = () => {
             <DrawerCalendarEarn />
             <DrawerItemEarn />
             <DrawerEnergyBoost />
+            <DrawerMultitapBoost />
+            <DrawerEnergyLimitBoost />
         </React.Fragment>
     );
 }

@@ -74,10 +74,10 @@
       "boosters": "Boosters",
       "multitap": "Multitap",
       "des_multitap_1": "Aumente o número de moedas que você pode ganhar por toque",
-      "des_multitap_2": "+1 moeda por toque para o nível 2",
+      "des_multitap_2": "+1 moeda por toque para o nível",
       "energy_limit": "Limite de energia",
       "des_energy_limit_1": "Aumente a capacidade de energia",
-      "des_energy_limit_2": "+500 energia para o nível 3"
+      "des_energy_limit_2": "+500 energia para o nível"
     }
   },
   "components": {

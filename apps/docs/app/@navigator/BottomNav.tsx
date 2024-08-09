@@ -30,6 +30,11 @@ export const BottomNav = () => {
             icon: '/project/icon_mine.svg'
         },
         {
+            name: 'Playground',
+            link: "/playground",
+            icon: '/project/icon_playground.svg'
+        },
+        {
             name: t('friends'),
             link: "/friends",
             icon: '/project/icon_friends.svg'
@@ -65,7 +70,7 @@ export const BottomNav = () => {
     return (
         <div
             className={cn(
-                "flex w-[92%] fixed bottom-1 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-2xl dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] py-1 items-center justify-center space-x-2",
+                "flex w-full fixed bottom-0 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] py-1 items-center justify-center space-x-2",
             )}
         >
             {navItems.map((navItem: any, index: number) => (

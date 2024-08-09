@@ -74,10 +74,10 @@
       "boosters": "Güçlendiriciler",
       "multitap": "Çoklu dokunuş",
       "des_multitap_1": "Her dokunuşta kazanabileceğiniz madeni para sayısını artırın",
-      "des_multitap_2": "Seviye 2 için dokunuş başına +1 madeni para",
+      "des_multitap_2": "Çin dokunuş başına +1 madeni para, Seviye",
       "energy_limit": "Enerji sınırı",
       "des_energy_limit_1": "Enerji kapasitesini artırın",
-      "des_energy_limit_2": "Seviye 3 için +500 enerji"
+      "des_energy_limit_2": "Çin +500 enerji, Seviye"
     }
     
   },

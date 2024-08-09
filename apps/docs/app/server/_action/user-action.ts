@@ -3,7 +3,7 @@ import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 import { useAppDispatch } from "@shared/redux/store/index";
 import { axiosInstance } from "@shared/axios.http";
-import { setFriends, setInitUser, setRanks, setUpdateRevenue } from "@shared/redux/store/appSlice";
+import { setFriends, setInitUser, setRanks, setStateEnergy, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import { APP_SAVE_KEY } from "@shared/constant/app";
 
 import { queryClient } from "./config";
@@ -33,6 +33,7 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
                 profit_per_hour: data.data.profitPerHour?.profit_per_hour || 0,
             }
             dispatch(setInitUser(dataCurrentInitUser));
+            dispatch(setStateEnergy(data.data.energy_limit))
         },
         onError(error, variables, context) {
             console.log(error);

@@ -28,6 +28,11 @@ export interface IUser {
     skin_id: number;
     highest_score: number;
     is_first_login: number;
+    wallet: null;
+    highScore: null;
+    plays: null;
+    tap_value: number;
+    energy_limit: number
     profitPerHour: {
         id: number,
         user_id: number,

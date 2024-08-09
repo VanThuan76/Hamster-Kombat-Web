@@ -13,7 +13,7 @@ import CoinIcon from "@shared/components/CoinIcon"
 import { useDraw } from "@shared/hooks/useDraw";
 
 export default function DrawerEnergyBoost(): JSX.Element {
-    const { isOpen, onClose, type } = useDraw()
+    const { isOpen, data, onClose, type } = useDraw()
     const isDrawerOpen = isOpen && type === "energyBoost"
 
     const t = useTranslations('screens.boost')
@@ -29,7 +29,7 @@ export default function DrawerEnergyBoost(): JSX.Element {
                     <TypographySmall text={t('des_full_energy')} className="text-white text-center text-[14px] max-w-[280px] font-normal" />
                     <div className="flex justify-center items-center gap-2">
                         <CoinIcon width={28} height={28} />
-                        <TypographyLarge text={t('free')} className="text-white text-xl font-bold" />
+                        <TypographyLarge text={String(data?.required_money)} className="text-white text-xl font-bold" />
                     </div>
                 </div>
                 <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={onClose}>

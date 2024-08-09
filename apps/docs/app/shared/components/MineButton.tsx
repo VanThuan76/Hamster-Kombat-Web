@@ -15,7 +15,7 @@ import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import TypographySmall from "@ui/components/typography/small"
 
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
-import { setUserEnergy } from "@shared/redux/store/appSlice";
+import { setStateEnergy } from "@shared/redux/store/appSlice";
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useUpdateRevenue } from "@server/_action/user-action";
@@ -25,32 +25,32 @@ const AnimatePresenceWrapper = dynamic(() => import('@ui/components/motion/Anima
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
-    const dispatch = useAppDispatch()
+    const { user, membership, stateEnergy } = useAppSelector(state => state.app);
 
     const t = useTranslations('components.mine_button')
 
-    const maxEnergy = 1000
-    const { user, membership, userEnergy } = useAppSelector(state => state.app);
+    const maxEnergy = user.energy_limit
     const haptic = initHapticFeedback();
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
     const [revenue, setRevenue] = useState(user.revenue);
     const [clickCount, setClickCount] = useState(0);
-    const [energy, setEnergy] = useState(userEnergy);
+    const [energy, setEnergy] = useState(stateEnergy);
 
     const updateRevenue = useUpdateRevenue()
 
     function handleIncludedCoin() {
-        setClickCount(clickCount + membership.current_level);
-        setRevenue(revenue + membership.current_level);
-        setEnergy(energy - membership.current_level);
+        setClickCount(clickCount + user.tap_value);
+        setRevenue(revenue + user.tap_value);
+        setEnergy(energy - user.tap_value);
         if (saveTimeoutRef.current) {
             clearTimeout(saveTimeoutRef.current);
         }
         saveTimeoutRef.current = setTimeout(() => {
-            dispatch(setUserEnergy(energy))
+            dispatch(setStateEnergy(energy))
             updateRevenue.mutate({ user_id: user.id, amount: clickCount + 1 })
         }, 1000);
     }
@@ -86,7 +86,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     useEffect(() => {
         const interval = setInterval(() => {
             setEnergy(prevEnergy => Math.min(prevEnergy + 3, maxEnergy));
-            dispatch(setUserEnergy(energy))
+            dispatch(setStateEnergy(energy))
         }, 2000);
 
         return () => clearInterval(interval);
@@ -119,7 +119,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                     </div>
                     <AnimatePresenceWrapper>
                         {plusSigns.map((pos) => (
-                            <PlusSign numberPlus={membership.current_level} type={isSecretFeature ? "dot" : "plus"} key={pos.id} x={pos.x} y={pos.y} />
+                            <PlusSign numberPlus={user.tap_value} type={isSecretFeature ? "dot" : "plus"} key={pos.id} x={pos.x} y={pos.y} />
                         ))}
                     </AnimatePresenceWrapper>
                 </MotionContainer>

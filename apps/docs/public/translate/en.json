@@ -74,10 +74,10 @@
       "boosters": "Boosters",
       "multitap": "Multitap",
       "des_multitap_1": "Increase the number of coins you can earn per tap",
-      "des_multitap_2": "+1 coin per tap for level 2",
+      "des_multitap_2": "+1 coin per tap for level",
       "energy_limit": "Energy limit",
       "des_energy_limit_1": "Increase the energy capacity",
-      "des_energy_limit_2": "+500 energy for level 3"
+      "des_energy_limit_2": "+500 energy for level"
     }
   },
   "components": {

@@ -74,10 +74,10 @@
       "boosters": "Booster",
       "multitap": "Multitap",
       "des_multitap_1": "Erhöhen Sie die Anzahl der Münzen, die Sie pro Tipp verdienen können",
-      "des_multitap_2": "+1 Münze pro Tipp für Level 2",
+      "des_multitap_2": "+1 Münze pro Tipp für Level",
       "energy_limit": "Energielimit",
       "des_energy_limit_1": "Erhöhen Sie die Energiekapazität",
-      "des_energy_limit_2": "+500 Energie für Level 3"
+      "des_energy_limit_2": "+500 Energie für Level"
     }
   },
   "components": {

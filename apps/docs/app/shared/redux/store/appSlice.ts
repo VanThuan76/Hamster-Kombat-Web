@@ -23,6 +23,8 @@ export interface IDefaultState {
         revenue: number;
         highest_score: number;
         profit_per_hour: number;
+        tap_value: number;
+        energy_limit: number;
         exchange: {
             id: number;
             name: string;
@@ -51,7 +53,7 @@ export interface IDefaultState {
     exchanges: IExchangesOrigin[] | [],
     skins: ISkin[] | [],
     categoryOfCards: ICategoryOfCard[] | [],
-    userEnergy: number,
+    stateEnergy: number,
     drawerStore: DrawerProps
 }
 
@@ -69,6 +71,8 @@ const initialState: IDefaultState = {
         revenue: 0,
         highest_score: 0,
         profit_per_hour: 0,
+        tap_value: 1,
+        energy_limit: 1000,
         exchange: {
             id: 0,
             name: '',
@@ -97,7 +101,7 @@ const initialState: IDefaultState = {
     exchanges: [],
     skins: [],
     categoryOfCards: [],
-    userEnergy: 1000,
+    stateEnergy: 0,
     drawerStore: {
         type: null,
         data: {},
@@ -122,14 +126,18 @@ export const appSlice: any = createSlice({
                 state.drawerStore.type = "editExchange"
             }
         },
-        setUserEnergy: (state, action: PayloadAction<number>) => {
-            state.userEnergy = action.payload
+        setStateEnergy: (state, action: PayloadAction<number>) => {
+            state.stateEnergy = action.payload
         },
         setUpdateProfitPerHour: (state, action: PayloadAction<number>) => {
             state.user.profit_per_hour = action.payload;
         },
         setUpdateRevenue: (state, action: PayloadAction<number>) => {
             state.user.revenue = action.payload;
+        },
+        setUpdateBoost: (state, action: PayloadAction<any>) => {
+            state.user.boots = action.payload.boots;
+            state.user.tap_value = action.payload.tap_value
         },
         setExchanges: (state, action: PayloadAction<IExchangesOrigin[]>) => {
             state.exchanges = action.payload;
@@ -158,5 +166,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setUserEnergy, openDrawer, closeDrawer } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, openDrawer, closeDrawer } = appSlice.actions;
 export default appSlice.reducer;

@@ -38,7 +38,7 @@ function UserCardExist({ textBuySkin, user, membership }: { textBuySkin: string,
                         <Image src="/project/_skin.png" alt="@skin" width={33} height={30} priority={true} />
                     </div>
                 </div>
-                <TypographySmall text={`${user?.first_name} ${user?.last_name} (CEO)`} className="text-xs" />
+                <TypographySmall text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name} (CEO)`} className="text-xs" />
             </div>
             <div className="inline-flex gap-1 justify-end items-center">
                 <div className="w-[18px] h-[18px]">

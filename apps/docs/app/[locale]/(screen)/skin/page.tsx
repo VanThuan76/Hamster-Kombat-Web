@@ -25,22 +25,22 @@ const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/Dyna
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.skin')
 
-    const { user, skins } = useAppSelector(state => state.app)
+    const { user, skins, membership } = useAppSelector(state => state.app)
 
     const [currentTarget, setCurrentTarget] = useState(0)
     useBackButton()
 
     return (
         <div className="w-full h-screen relative space-y-2 overflow-y-auto text-center bg-black">
-            <div className="w-full flex justify-between items-center px-5 py-2">
+            <div className="w-full flex justify-center items-center px-5 py-2">
                 <TypographyLarge text={t('profile')} className="text-white text-base" />
             </div>
             <div className="flex justify-start items-center gap-2 px-5 py-2">
                 <Avatar className="bg-[#1c1f24] rounded-lg w-[40px] h-[40px]">
-                    <AvatarImage src="/project/icon_ava_user.png" alt="@user" sizes="sm" className="w-[40px] h-[40px]" />
+                    <AvatarImage src={`https://cdn.hamsterkombat.io/avatar/${9 + membership.level}.webp`} alt="@user" sizes="sm" className="w-[40px] h-[40px]" />
                     <AvatarFallback>User</AvatarFallback>
                 </Avatar>
-                <TypographySmall text={`${user?.first_name} ${user?.last_name}`} className="text-base" />
+                <TypographySmall text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name}`} className="text-base" />
             </div>
             <Separator className="w-full" />
             <Card className="w-full min-h-screen !mt-10  border-none bg-[#1c1f24] p-4 !pb-24" style={{ borderRadius: '40px 40px 0 0' }}>

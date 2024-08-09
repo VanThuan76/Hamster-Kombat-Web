@@ -74,10 +74,10 @@
       "boosters": "Bộ tăng cường",
       "multitap": "Gõ nhiều lần",
       "des_multitap_1": "Tăng số lượng tiền xu bạn có thể kiếm được mỗi lần chạm",
-      "des_multitap_2": "+1 tiền xu cho mỗi lần chạm cho cấp độ 2",
+      "des_multitap_2": "+1 tiền xu cho mỗi lần chạm cho cấp độ",
       "energy_limit": "Giới hạn năng lượng",
       "des_energy_limit_1": "Tăng lượng năng lượng",
-      "des_energy_limit_2": "+500 năng lượng cho cấp độ 3"
+      "des_energy_limit_2": "+500 năng lượng cho cấp độ"
     }
   },
   "components": {

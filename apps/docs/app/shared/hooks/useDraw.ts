@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@shared/redux/store';
 import { closeDrawer, openDrawer } from '@shared/redux/store/appSlice';
 
-export type DrawerType = "infoProfit" | "infoMine" | "cardMine" | 'editExchange' | 'walletConnect' | 'calendarEarn' | 'itemEarn' | 'energyBoost';
+export type DrawerType = "infoProfit" | "infoMine" | "cardMine" | 'editExchange' | 'walletConnect' | 'calendarEarn' | 'itemEarn' | 'energyBoost' | 'multitapBoost' | 'energyLimitBoost';
 export type DrawerData = any
 
 export type DrawerProps = {
