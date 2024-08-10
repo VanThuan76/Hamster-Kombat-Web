@@ -12,13 +12,14 @@ import { IResponseUpdateBoost, IUpdateBoost } from "../_types/boost";
 
 import BOOST_PATHS from "../_path/boost-path";
 
-const { useHapticFeedback } = require('@telegram-apps/sdk-react');
+const { useHapticFeedback, initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export const useUpdateBoost: () => UseMutationResult<IBaseResponse<IResponseUpdateBoost>, Error, IUpdateBoost> = () => {
     const { membership } = useAppSelector(state => state.app)
 
     const dispatch = useAppDispatch();
     const haptics = useHapticFeedback();
+    const haptic = initHapticFeedback();
 
     return useMutation<IBaseResponse<IResponseUpdateBoost>, Error, IUpdateBoost>({
         mutationFn: (body: IUpdateBoost) =>
@@ -37,11 +38,11 @@ export const useUpdateBoost: () => UseMutationResult<IBaseResponse<IResponseUpda
 
             const membershipData = {
                 ...membership,
-                name: data.data.membership[0]?.name,
-                image: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data.data.membership[0]?.image,
-                money: data.data.membership[0]?.money,
-                level: data.data.membership[0]?.level,
-                short_money: data.data.membership[0]?.short_money
+                name: data.data.membership.membership?.name,
+                image: data.data.membership.membership?.image,
+                money: data.data.membership.membership?.money,
+                level: data.data.membership.membership?.level,
+                short_money: data.data.membership.membership?.short_money
             }
 
             dispatch(setMembership(membershipData)) //Fix
@@ -51,6 +52,7 @@ export const useUpdateBoost: () => UseMutationResult<IBaseResponse<IResponseUpda
                 title: `Upgrade is yours! Cointelegraph 2 lvl`,
             });
             haptics.notificationOccurred('success');
+            haptic.impactOccurred('soft')
         },
         onError(error, variables, context) {
             console.log(error);

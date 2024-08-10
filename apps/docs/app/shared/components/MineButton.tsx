@@ -14,8 +14,9 @@ import TypographyLarge from "@ui/components/typography/large"
 import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import TypographySmall from "@ui/components/typography/small"
 
-import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
+import { toast } from "@shared/hooks/useToast";
 import { setStateEnergy } from "@shared/redux/store/appSlice";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useUpdateRevenue } from "@server/_action/user-action";
@@ -43,16 +44,23 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     const updateRevenue = useUpdateRevenue()
 
     function handleIncludedCoin() {
-        setClickCount(clickCount + user.tap_value);
-        setRevenue(revenue + user.tap_value);
-        setEnergy(energy - user.tap_value);
-        if (saveTimeoutRef.current) {
-            clearTimeout(saveTimeoutRef.current);
+        if (formattedEnergy < user.tap_value) {
+            toast({
+                variant: 'destructive',
+                title: 'Không đủ năng lượng',
+            });
+        } else {
+            setClickCount(clickCount + user.tap_value);
+            setRevenue(revenue + user.tap_value);
+            setEnergy(energy - user.tap_value);
+            if (saveTimeoutRef.current) {
+                clearTimeout(saveTimeoutRef.current);
+            }
+            saveTimeoutRef.current = setTimeout(() => {
+                dispatch(setStateEnergy(energy + user.tap_value));
+                updateRevenue.mutate({ user_id: user.id, amount: clickCount + 1 })
+            }, 1000);
         }
-        saveTimeoutRef.current = setTimeout(() => {
-            dispatch(setStateEnergy(energy))
-            updateRevenue.mutate({ user_id: user.id, amount: clickCount + 1 })
-        }, 1000);
     }
 
     const handleCardTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -119,7 +127,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                     </div>
                     <AnimatePresenceWrapper>
                         {plusSigns.map((pos) => (
-                            <PlusSign numberPlus={user.tap_value} type={isSecretFeature ? "dot" : "plus"} key={pos.id} x={pos.x} y={pos.y} />
+                            <PlusSign isActive={formattedEnergy < user.tap_value ? false : true} numberPlus={user.tap_value} type={isSecretFeature ? "dot" : "plus"} key={pos.id} x={pos.x} y={pos.y} />
                         ))}
                     </AnimatePresenceWrapper>
                 </MotionContainer>

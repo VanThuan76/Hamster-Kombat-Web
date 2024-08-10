@@ -1,4 +1,4 @@
-import { IMembership } from "./membership";
+import { IUserMembership } from "./membership";
 import { IUser } from "./user";
 
 export interface IEarn {
@@ -25,6 +25,6 @@ export interface IUpdateEarn {
 
 export interface IResponseUpdateEarn {
     earns: IEarn[];
-    membership: IMembership[];
+    membership: IUserMembership
     user: IUser;
 }

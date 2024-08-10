@@ -22,13 +22,13 @@ export default function Page(): JSX.Element {
 
     const newBoostArr = user.boots.flatMap(item => item.sub_types).flatMap(subType => subType.boots);
 
-    const currentEnergy = user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 0)?.boots.find(item => item.is_completed === 1)
+    const currentEnergy = user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 0)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 0)?.boots[0]
     const nextEnergy = currentEnergy && newBoostArr.find(item => item.boots_id === currentEnergy.boots_id + 1)
-    const currentTurbo = user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 1)?.boots.find(item => item.is_completed === 1)
+    const currentTurbo = user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 1)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 1)?.boots[0]
     const nextTurbo = currentTurbo && newBoostArr.find(item => item.boots_id === currentTurbo.boots_id + 1)
-    const currentMultitap = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 2)?.boots.find(item => item.is_completed === 1)
+    const currentMultitap = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 2)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 2)?.boots[0]
     const nextMultitap = currentMultitap && newBoostArr.find(item => item.boots_id === currentMultitap.boots_id + 1)
-    const currentEnergyLimit = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots.find(item => item.is_completed === 1)
+    const currentEnergyLimit = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots.find(item => item.is_completed === 1) ||  user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots[0]
     const nextEnergyLimit = currentEnergyLimit && newBoostArr.find(item => item.boots_id === currentEnergyLimit.boots_id + 1)
 
     useBackButton()

@@ -12,7 +12,7 @@ import { IEarn, IResponseUpdateEarn, IUpdateEarn } from "../_types/earn";
 
 import EARN_PATHS from "../_path/earn-path";
 
-const { useHapticFeedback } = require('@telegram-apps/sdk-react');
+const { useHapticFeedback, initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export const useEarnByUser: () => UseMutationResult<IBaseResponse<IEarn[]>, Error, { user_id: number }> = () => {
     const dispatch = useAppDispatch();
@@ -35,6 +35,7 @@ export const useUpdateEarn: () => UseMutationResult<IBaseResponse<IResponseUpdat
 
     const dispatch = useAppDispatch();
     const haptics = useHapticFeedback();
+    const haptic = initHapticFeedback();
 
     return useMutation<IBaseResponse<IResponseUpdateEarn>, Error, IUpdateEarn>({
         mutationFn: (body: IUpdateEarn) =>
@@ -53,11 +54,11 @@ export const useUpdateEarn: () => UseMutationResult<IBaseResponse<IResponseUpdat
 
             const membershipData = {
                 ...membership,
-                name: data.data.membership[0]?.name,
-                image: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data.data.membership[0]?.image,
-                money: data.data.membership[0]?.money,
-                level: data.data.membership[0]?.level,
-                short_money: data.data.membership[0]?.short_money
+                name: data.data.membership.membership?.name,
+                image: data.data.membership.membership?.image,
+                money: data.data.membership.membership?.money,
+                level: data.data.membership.membership?.level,
+                short_money: data.data.membership.membership?.short_money
             }
 
             dispatch(setMembership(membershipData)) //Fix
@@ -67,6 +68,7 @@ export const useUpdateEarn: () => UseMutationResult<IBaseResponse<IResponseUpdat
                 title: `Upgrade is yours! Cointelegraph 2 lvl`,
             });
             haptics.notificationOccurred('success');
+            haptic.impactOccurred('soft')
         },
         onError(error, variables, context) {
             console.log(error);

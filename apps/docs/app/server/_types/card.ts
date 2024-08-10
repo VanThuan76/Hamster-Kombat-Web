@@ -66,7 +66,6 @@ export interface CardList {
     updated_by?: null;
     card_profits: CardProfit[];
 }
-
 interface CardProfit {
     id: number;
     card_id: number;

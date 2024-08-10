@@ -29,11 +29,11 @@ export const BottomNav = () => {
             link: "/mine",
             icon: '/project/icon_mine.svg'
         },
-        {
-            name: 'Playground',
-            link: "/playground",
-            icon: '/project/icon_playground.svg'
-        },
+        // {
+        //     name: 'Playground',
+        //     link: "/playground",
+        //     icon: '/project/icon_playground.svg'
+        // },
         {
             name: t('friends'),
             link: "/friends",

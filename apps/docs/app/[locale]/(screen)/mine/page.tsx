@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
 
+import { cn } from "@ui/lib/utils"
 import { Separator } from "@ui/components/separator"
 import { Card, CardContent, CardHeader } from "@ui/components/card"
 import { Progress } from "@ui/components/progress"
@@ -137,38 +138,44 @@ export default function Page(): JSX.Element {
                                     <TabsList className="w-full bg-[#272a2f]">
                                         {categoryOfCards?.map((item, i) => {
                                             return (
-                                                <TabsTrigger key={i} value={item.name.toLowerCase()} className="w-full text-white text-[12px] px-3">{item.name}</TabsTrigger>
+                                                <TabsTrigger key={i} value={item.name.toLowerCase()} className="w-full text-white text-[12px] px-1">{item.name}</TabsTrigger>
                                             )
                                         })}
                                     </TabsList>
                                 </MotionContainer>
                                 <TabsContent value={currentTab} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
                                     {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.map((item, i) => {
+                                        const currentCardProfit = item.card_profits.find(child => child.is_purchased) || item.card_profits[0]
                                         return (
-                                            <div key={i} className="bg-[#272a2f] text-white rounded-2xl select-none p-2" onClick={() => onOpen("cardMine", item)}>
+                                            <div key={i} className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2" onClick={() => currentCardProfit && onOpen("cardMine", item)}>
                                                 <div className="w-full flex justify-start items-start gap-3">
-                                                    <div className="w-[60px] h-[60px]">
-                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className="w-full h-full" loading="eager" priority={true} />
+                                                    <div className="relative w-[60px] h-[60px] flex justify-center items-center">
+                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", !currentCardProfit && 'w-[40px] h-[40px]')} loading="eager" priority={true} />
+                                                        {!currentCardProfit && (
+                                                            <div className="absolute w-full h-full top-0 bottom-0 left-0 bg-[#34383fcc] rounded-full flex justify-center items-center">
+                                                                <Image src='/project/icon_key.svg' alt="@imageKey" width={24} height={24} className="w-[24px] h-[24px]" loading="eager" priority={true} />
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    <div className="flex flex-col justify-between items-start gap-4">
-                                                        <TypographyLarge text={item.name} className="text-white text-xs font-extralight" />
+                                                    <div className="flex flex-col justify-between items-start">
+                                                        <TypographyLarge text={item.name} className="text-white text-xs font-extralight leading-3" />
                                                         <div className="flex flex-col justify-start items-start">
                                                             <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
                                                             <div className="flex justify-center items-center gap-1">
                                                                 <div className="w-[16px] h-[16px]">
-                                                                    <CoinIcon width={18} height={18} className="w-full h-full" />
+                                                                    <CoinIcon width={18} height={18} className={cn("w-full h-full", !currentCardProfit && "coin-is-grayscale")} />
                                                                 </div>
-                                                                <TypographySmall text={`+${String(formatCoin(item.card_profits.find(child => child.is_purchased)?.profit as number))}`} className="text-white text-[12px]" />
+                                                                <TypographySmall text={`+${currentCardProfit ? String(formatCoin(currentCardProfit.profit as number)) : 0}`} className="text-white text-[12px]" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <Separator className="my-2 bg-[#34383f]" />
                                                 <div className="flex h-5 items-center space-x-4 text-sm">
-                                                    <TypographySmall text={`lv ${item.card_profits.find(child => child.is_purchased)?.level}`} className="text-white text-[12px]" />
+                                                    <TypographySmall text={`lv ${currentCardProfit ? currentCardProfit.level : 0}`} className="text-white text-[12px]" />
                                                     <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                    <CoinIcon width={18} height={18} />
-                                                    <TypographySmall text={String(formatCoin(item.card_profits.find(child => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
+                                                    <CoinIcon width={18} height={18} className={cn(!currentCardProfit && "coin-is-grayscale")} />
+                                                    <TypographySmall text={currentCardProfit ? String(formatCoin(currentCardProfit.required_money as number)) : '0'} className="text-white text-[12px] !m-1" />
                                                 </div>
                                             </div>
                                         )

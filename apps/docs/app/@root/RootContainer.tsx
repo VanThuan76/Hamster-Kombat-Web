@@ -1,6 +1,6 @@
 'use client';
 
-import { type PropsWithChildren, useEffect, useMemo } from 'react';
+import { type PropsWithChildren, useEffect } from 'react';
 
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import { AppRoot } from '@telegram-apps/telegram-ui';
@@ -42,7 +42,7 @@ function App(props: PropsWithChildren) {
 
     return (
         <AppRoot
-            appearance={miniApp.isDark ? 'dark' : 'light'}
+            appearance='dark'
             platform={['macos', 'ios'].includes(lp.platform) ? 'ios' : 'base'}
         >
             {props.children}

@@ -1,5 +1,5 @@
 import { IEarn } from "./earn";
-import { IMembership } from "./membership";
+import { IUserMembership } from "./membership";
 import { IUser } from "./user";
 
 export interface IBoost {
@@ -35,7 +35,7 @@ export interface IUpdateBoost {
 
 export interface IResponseUpdateBoost {
     earns: IEarn[];
-    membership: IMembership[];
+    membership: IUserMembership;
     user: IUser;
     boots: IBoost[];
     max_energy: number;
