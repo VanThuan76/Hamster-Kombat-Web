@@ -17,6 +17,7 @@ const {
     useMiniApp,
     useThemeParams,
     useViewport,
+    postEvent,
     bindMiniAppCSSVars,
     bindThemeParamsCSSVars,
     bindViewportCSSVars,
@@ -27,6 +28,8 @@ function App(props: PropsWithChildren) {
     const miniApp = useMiniApp();
     const themeParams = useThemeParams();
     const viewport = useViewport();
+
+    postEvent('web_app_set_header_color', { color: '#000' });
 
     useEffect(() => {
         return bindMiniAppCSSVars(miniApp, themeParams);
