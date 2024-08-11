@@ -17,8 +17,8 @@ import RootContainer from "../@root/RootContainer";
 const robotoFlex = Roboto_Flex({ subsets: ["latin"], display: 'swap' });
 
 export const metadata: Metadata = {
-  title: "Hamster Kombat",
-  description: "Hamster Kombat",
+  title: "Lion King",
+  description: "Lion King",
 };
 
 export default async function LocaleLayout({

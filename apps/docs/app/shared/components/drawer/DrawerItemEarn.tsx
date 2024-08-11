@@ -46,7 +46,7 @@ export default function DrawerItemEarn(): JSX.Element {
     }
 
     return (
-        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[50%] h-[55%] border-none">
+        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[50%] h-[60%] border-none">
             <div className="w-full flex flex-col justify-center items-center gap-8">
                 <div className="relative visible">
                     <div className="relative z-10">
