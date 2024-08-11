@@ -64,36 +64,56 @@ const OnBroadingPage = () => {
       try {
         const body = await getUserRows(initData.user);
         const user = await userInitAction.mutateAsync(body);
-  
+
         if (!user.data) {
           throw new Error('Expected user.data to be undefined');
         }
-  
+
         const tasks = actions.map((action, index) => {
           if (!action || !action.mutateAsync) {
             console.error(`Action at index ${index} is not defined or does not have a mutateAsync method.`);
             return;
           }
-          return action.mutateAsync({ user_id: user.data.id });
+
+          let params = {};
+          switch (index) {
+            case 0: // useExchanges
+            case 1: // useFriends
+            case 2: // useEarnByUser
+              params = { user_id: user.data.id };
+              break;
+            case 3: // useSkins
+            case 4: // useCategoryOfCardByUser
+              params = { user_id: user.data.id, exchange_id: user.data.profitPerHour && user.data.profitPerHour.exchange_id ? user.data.profitPerHour.exchange_id : 51 }
+              break;
+            case 5: // useExchangesByUser
+            case 6: // useRankUsers
+            case 7: // useMembershipByUser
+              params = { user_id: user.data.id };
+              break;
+            default:
+              console.warn(`No specific params for action at index ${index}`);
+          }
+
+          return action.mutateAsync(params);
         }).filter(Boolean);
-  
+
         for (let i = 0; i < tasks.length; i++) {
           await tasks[i];
           setProgress((prevProgress) => prevProgress + (100 / tasks.length));
         }
-  
+
         miniApp.setHeaderColor('#000');
         backButton.show();
-  
+
         setInitialized(true);
       } catch (error) {
         console.error('Error initializing app:', error);
       }
     };
-  
+
     initializeApp();
   }, []);
-  
 
   useEffect(() => {
     if (initialized) {
