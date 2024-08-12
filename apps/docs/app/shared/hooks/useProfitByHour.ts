@@ -15,7 +15,6 @@ const useProfitByHour = () => {
     const [profit, setProfit] = useLocalStorage<number>('profit_revenue', 0);
 
     useEffect(() => {
-        console.log(profit)
         if (profit > 0) {
             dispatch(setIsProfitRevenueActive(true))
         } else {

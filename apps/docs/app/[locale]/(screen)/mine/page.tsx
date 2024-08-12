@@ -27,7 +27,6 @@ import useBackButton from "@shared/hooks/useBackButton";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
-import { RANKS } from "@shared/constant/app";
 
 const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer').then((mod) => mod.default), { ssr: false })
 
@@ -40,7 +39,7 @@ export default function Page(): JSX.Element {
 
     const { onOpen } = useDraw()
 
-    const { membership, user, categoryOfCards } = useAppSelector(state => state.app)
+    const { membership, user, ranks, categoryOfCards } = useAppSelector(state => state.app)
 
     const [currentTab, setCurrentTab] = useState(categoryOfCards && categoryOfCards[0]!.name.toLowerCase());
 
@@ -54,7 +53,7 @@ export default function Page(): JSX.Element {
         setCurrentTab(value);
     };
 
-    const currentBrandMembership = RANKS.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.to
+    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">

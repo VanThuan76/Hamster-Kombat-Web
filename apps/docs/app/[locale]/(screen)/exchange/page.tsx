@@ -11,7 +11,6 @@ import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
 import { DialogHeader, DialogTitle } from "@ui/components/dialog"
 
 import { useAppSelector } from "@shared/redux/store/index"
-import { RANKS } from "@shared/constant/app";
 import useBackButton from "@shared/hooks/useBackButton";
 
 import MotionContainer from "@ui/components/motion/Container"
@@ -67,14 +66,13 @@ export default function Page(): JSX.Element {
 
     const router = useRouter()
 
-    const { user, membership } = useAppSelector(state => state.app)
+    const { user, membership, ranks } = useAppSelector(state => state.app)
 
     const [isSecretFeature, setSecretFeature] = useState(false)
 
     const haptic = initHapticFeedback();
     useBackButton()
-
-    const currentBrandMembership = RANKS.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.to
+    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
