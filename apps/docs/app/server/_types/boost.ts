@@ -39,4 +39,13 @@ export interface IResponseUpdateBoost {
     user: IUser;
     boots: IBoost[];
     max_energy: number;
+    profitPerHour: {
+        id: number,
+        user_id: number,
+        profit_per_hour: number,
+        created_at: string,
+        updated_at: string,
+        exchange_id: number,
+        is_active: number
+    }
 }

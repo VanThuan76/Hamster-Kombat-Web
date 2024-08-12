@@ -22,6 +22,22 @@ import { useAppSelector } from "@shared/redux/store/index"
 
 const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
+function CheckIcon({ is_purchased }: { is_purchased: boolean }) {
+    if (is_purchased) {
+        return (
+            <div className="absolute flex justify-center items-center top-0 right-0 w-[18px] h-[18px] bg-gradient-to-b from-[#74fc82] to-[#297e32] rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-[10px] h-[10px] text-white" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 19.9c-.3 0-.6-.1-.8-.3L3 14.3c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0L9 17.2 20.2 6c.4-.4 1.2-.4 1.6 0 .4.4.4 1.2 0 1.6l-12 12c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
+            </div>
+        )
+    } else {
+        return (
+            <div className="absolute top-2 right-1 w-[16px] h-[16px]">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 20 20"><path d="M16.2 6.2h-2.5V4.4C13.7 2.3 12 .6 9.9.6S6.2 2.3 6.2 4.4v1.9H3.8c-.7 0-1.2.6-1.2 1.2v8.8c0 .7.6 1.2 1.2 1.2h12.5c.7 0 1.2-.6 1.2-1.2V7.5c0-.7-.6-1.3-1.3-1.3zM10 12.8c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9zm2.5-6.6h-5V4.4C7.5 3 8.6 1.9 10 1.9s2.5 1.1 2.5 2.5v1.8z" fill="#4e4f50"></path></svg>
+            </div>
+        )
+    }
+}
+
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.skin')
 
@@ -71,19 +87,18 @@ export default function Page(): JSX.Element {
                             </div>
                         )
                     })}
+                    activeSlideChange={currentTarget}
                     onSlideChange={setCurrentTarget}
                 />
                 <CardContent className="w-full grid grid-cols-4 justify-center items-center gap-2 p-0 mt-5">
                     {skins.map((item, i) => {
                         return (
-                            <div key={i} className={cn("relative bg-[#272a2f] flex flex-col justify-center items-center rounded-xl py-2", i === 0 && 'border border-[#5a60ff]')}>
+                            <div key={i} className={cn("relative bg-[#272a2f] flex flex-col justify-center items-center rounded-xl py-2", i === currentTarget && 'border border-[#5a60ff]')} onClick={() => setCurrentTarget(i)}>
                                 <div className="w-[62px] h-[62px]">
                                     <Image src={item.image_url} alt={item.name} width={62} height={62} className="w-full h-full object-conntain object-center" />
                                 </div>
                                 <TypographySmall text={item.name} className="text-[9px] font-extralight text-white" />
-                                <div className="absolute top-2 right-1 w-[16px] h-[16px]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 20 20"><path d="M16.2 6.2h-2.5V4.4C13.7 2.3 12 .6 9.9.6S6.2 2.3 6.2 4.4v1.9H3.8c-.7 0-1.2.6-1.2 1.2v8.8c0 .7.6 1.2 1.2 1.2h12.5c.7 0 1.2-.6 1.2-1.2V7.5c0-.7-.6-1.3-1.3-1.3zM10 12.8c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9zm2.5-6.6h-5V4.4C7.5 3 8.6 1.9 10 1.9s2.5 1.1 2.5 2.5v1.8z" fill="#4e4f50"></path></svg>
-                                </div>
+                                {i === 0 ? <CheckIcon is_purchased={true} /> : <CheckIcon is_purchased={false} />}
                             </div>
                         )
                     })}

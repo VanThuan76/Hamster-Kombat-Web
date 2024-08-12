@@ -1,5 +1,3 @@
-import { IExchanges } from "./exchanges";
-
 export interface ICard {
     id: number;
     name: string;

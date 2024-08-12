@@ -12,13 +12,21 @@ import { useAppSelector } from "@shared/redux/store/index";
 
 import { useDraw } from "@shared/hooks/useDraw";
 
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
+
 export default function DrawerEditExchange(): JSX.Element {
     const { user } = useAppSelector(state => state.app);
     const { isOpen, onClose, type } = useDraw()
 
+    const haptic = initHapticFeedback();
     const isDrawerOpen = isOpen && type === "editExchange"
 
     const t = useTranslations('components.drawer_change_exchange')
+
+    function handleEditExchange() {
+        haptic.impactOccurred('soft')
+        onClose()
+    }
 
     return (
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[50%] border-none">
@@ -29,7 +37,7 @@ export default function DrawerEditExchange(): JSX.Element {
                     </div>
                     <TypographyLarge text={`${t('title')} ${user.exchange.name}`} className="text-white text-[20px] text-center font-bold" />
                 </div>
-                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={onClose}>
+                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleEditExchange}>
                     <TypographyLarge text={t('button')} className="text-white text-xl font-bold" />
                 </Button>
             </div>

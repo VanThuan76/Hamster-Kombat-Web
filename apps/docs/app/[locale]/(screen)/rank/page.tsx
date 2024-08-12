@@ -60,9 +60,9 @@ export default function Page(): JSX.Element {
                 items={ranks.map((item, i) => {
                     return (
                         <div key={i} className="flex flex-col justify-center items-center">
-                            <div className="rank-item-image">
+                            <div className="rank-item-image overflow-hidden">
                                 <Image
-                                    src={`/project/ava_${item.name.toLowerCase()}.png`}
+                                    src={item.image}
                                     alt={`avatar_${item.name}`}
                                     width={162}
                                     height={162}
@@ -76,7 +76,7 @@ export default function Page(): JSX.Element {
                                     (<>
                                         <TypographySmall text={`${formatCoin(user.revenue)} / ${formatCoin(item.money)}`} className="text-[14px] font-bold text-[#fff9] -translate-y-2" />
                                         <Progress
-                                            value={Math.ceil((user.highest_score / +item.money) * 100)}
+                                            value={Math.ceil((user.revenue / +item.money) * 100)}
                                             className="w-full h-[12px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                                         />
                                     </>) :

@@ -2,7 +2,7 @@ import { useMutation, UseMutationResult, UseQueryResult } from "@tanstack/react-
 import { toast } from "@shared/hooks/useToast";
 import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
-import { setEarns, setMembership, setUpdateRevenue } from "@shared/redux/store/appSlice";
+import { setEarns, setHighestScore, setMembership, setUpdateProfitPerHour, setUpdateRevenue } from "@shared/redux/store/appSlice";
 
 import { queryClient } from "./config";
 
@@ -51,6 +51,8 @@ export const useUpdateEarn: () => UseMutationResult<IBaseResponse<IResponseUpdat
             queryClient.invalidateQueries({ queryKey: ['UPDATE_EARN', 'EARN'] });
             dispatch(setEarns(data.data.earns));
             dispatch(setUpdateRevenue(data.data.user.revenue))
+            dispatch(setUpdateProfitPerHour(data.data.profitPerHour.profit_per_hour))
+            dispatch(setHighestScore(data.data.user.highest_score))
 
             const membershipData = {
                 ...membership,

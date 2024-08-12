@@ -17,9 +17,11 @@ import { useUpdateRevenue } from "@server/_action/user-action";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import CoinIcon from "@shared/components/CoinIcon";
 
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export default function DrawerGetProfit(): JSX.Element {
     const dispatch = useAppDispatch()
+    const haptic = initHapticFeedback();
 
     const { user, isProfitRevenueActive } = useAppSelector(state => state.app);
     const { isOpen, onClose, type } = useDraw()
@@ -32,7 +34,8 @@ export default function DrawerGetProfit(): JSX.Element {
     const t = useTranslations('components.drawer_change_exchange')
 
     function handleGetProfit() {
-        updateRevenue.mutate({user_id: user.id, amount: profit})
+        haptic.impactOccurred('soft')
+        updateRevenue.mutate({ user_id: user.id, amount: profit })
         dispatch(setIsProfitRevenueActive(false))
         setProfit(0)
         onClose()

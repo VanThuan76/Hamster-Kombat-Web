@@ -1,13 +1,13 @@
 import { useMutation, UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch } from "@shared/redux/store/index";
-import { setUserExchange, setExchanges } from "@shared/redux/store/appSlice";
+import { setUserExchange, setExchanges, setUpdateProfitPerHour, setCategoryOfCards } from "@shared/redux/store/appSlice";
 
 import { queryClient } from "./config";
 
 import { IBaseResponse } from "../_types/base";
 
-import { IExchanges, IExchangesOrigin } from "../_types/exchanges";
+import { IExchanges, IExchangesOrigin, IResponseUpdateExchange } from "../_types/exchanges";
 
 import EXCHANGES_PATHS from "../_path/exchanges-path";
 
@@ -31,14 +31,17 @@ export const useExchangesByUser: () => UseMutationResult<IBaseResponse<IExchange
     });
 };
 
-export const useUpdateExchange: () => UseMutationResult<IBaseResponse<IExchanges>, Error, { user_id: number, exchange_id: number }> = () => {
+export const useUpdateExchange: () => UseMutationResult<IBaseResponse<IResponseUpdateExchange>, Error, { user_id: number, exchange_id: number }> = () => {
+    const dispatch = useAppDispatch();
 
-    return useMutation<IBaseResponse<IExchanges>, Error, { user_id: number, exchange_id: number }>({
+    return useMutation<IBaseResponse<IResponseUpdateExchange>, Error, { user_id: number, exchange_id: number }>({
         mutationFn: (body: { user_id: number, exchange_id: number }) =>
-            axiosInstance.post<IBaseResponse<IExchanges>>(EXCHANGES_PATHS.UPDATE, body),
+            axiosInstance.post<IBaseResponse<IResponseUpdateExchange>>(EXCHANGES_PATHS.UPDATE, body),
         onSuccess: async data => {
             if (!data.data) return;
             queryClient.invalidateQueries({ queryKey: ['UPDATE', 'EXCHANGES'] });
+            dispatch(setUpdateProfitPerHour(data.data.profitPerHour.profit_per_hour))
+            dispatch(setCategoryOfCards(data.data.categoryList));
         },
         onError: (error, variables, context) => {
             console.log(error);

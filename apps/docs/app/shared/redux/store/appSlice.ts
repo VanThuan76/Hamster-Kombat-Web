@@ -134,6 +134,9 @@ export const appSlice: any = createSlice({
         setUpdateProfitPerHour: (state, action: PayloadAction<number>) => {
             state.user.profit_per_hour = action.payload;
         },
+        setHighestScore: (state, action: PayloadAction<number>) => {
+            state.user.highest_score = action.payload;
+        },
         setUpdateRevenue: (state, action: PayloadAction<number>) => {
             state.user.revenue = action.payload;
         },
@@ -173,5 +176,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, openDrawer, closeDrawer } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, setHighestScore, openDrawer, closeDrawer } = appSlice.actions;
 export default appSlice.reducer;
