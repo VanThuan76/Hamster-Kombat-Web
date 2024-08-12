@@ -94,7 +94,7 @@ export const BottomNav = () => {
                         className={cn(isSvg(navItem.icon) && index !== 0 && "hover:filter hover:brightness-0 hover:invert", checkPath?.includes(navItem.link.split("/")[1]) && index !== 0 && isSvg(navItem.icon) && 'filter brightness-0 invert')}
                         priority={true}
                     />
-                    <TypographySmall text={navItem.name} className={cn('text-[10px]', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />
+                    <TypographySmall text={navItem.name} className={cn('text-[10px] font-extralight', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />
                 </Link>
             ))}
         </div>

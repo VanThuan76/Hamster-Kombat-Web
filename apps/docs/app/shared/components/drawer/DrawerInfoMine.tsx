@@ -19,7 +19,7 @@ export default function DrawerInfoMine(): JSX.Element {
     const t = useTranslations('components.drawer_info_profit')
 
     return (
-        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[60%] border-none">
+        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[55%] border-none">
             <div className="w-full flex flex-col justify-center items-center gap-8">
                 <div className="relative visible">
                     <div className="absolute left-1/2 top-1/2 w-[100px] h-[100px] bg-[#9b37ffe6] rounded-full blur-[20px] transform -translate-x-1/2 -translate-y-1/2 z-0"></div>

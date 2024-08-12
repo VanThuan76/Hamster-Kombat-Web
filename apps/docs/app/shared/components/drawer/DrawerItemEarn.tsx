@@ -35,8 +35,15 @@ export default function DrawerItemEarn(): JSX.Element {
         return link.includes('https://');
     }
 
+    function containsTelegram(url: string): boolean {
+        return url.toLowerCase().includes("telegram");
+    }
+
     function handleSuccess(earn: EarnDetail) {
-        earn.link !== null && containsHttps(earn.link) ? utils.openLink(earn.link, { tryBrowser: true }) : earn.link !== null && router.push(earn.link)
+        if (earn.link !== null) {
+            containsHttps(earn.link) ? utils.openLink(earn.link, { tryBrowser: true }) : containsTelegram(earn.link)
+                ? utils.openTelegramLink(earn.link) : earn.link !== null && router.push(earn.link)
+        }
         earn.is_completed === 0 && updateEarn.mutate({
             user_id: user.id,
             user_earn_id: earn.user_earn_id,

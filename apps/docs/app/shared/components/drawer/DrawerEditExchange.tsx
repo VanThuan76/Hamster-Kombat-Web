@@ -24,8 +24,8 @@ export default function DrawerEditExchange(): JSX.Element {
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[50%] border-none">
             <div className="mt-10 w-full flex flex-col justify-center items-center gap-8">
                 <div className="relative w-full min-h-[150px] flex flex-col justify-center items-center gap-5 bg-[#272a2f] px-6 pt-8 -mb-2 rounded-3xl">
-                    <div className="absolute -top-10 z-10 w-[80px] h-[80px] p-5 bg-[#272a2f] border-4 border-[#1c1f24] rounded-full">
-                        <Image src={user.exchange.icon} alt={user.exchange.name} width={115} height={115} priority={true} />
+                    <div className="absolute -top-10 z-10 w-[80px] h-[80px] p-5 bg-[#272a2f] border-4 border-[#1c1f24] rounded-full flex items-center justify-center">
+                        <Image src={user.exchange.icon} alt={user.exchange.name} width={60} height={60} priority={true} />
                     </div>
                     <TypographyLarge text={`${t('title')} ${user.exchange.name}`} className="text-white text-[20px] text-center font-bold" />
                 </div>

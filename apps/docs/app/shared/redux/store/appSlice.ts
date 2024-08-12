@@ -53,6 +53,7 @@ export interface IDefaultState {
     exchanges: IExchangesOrigin[] | [],
     skins: ISkin[] | [],
     categoryOfCards: ICategoryOfCard[] | [],
+    isProfitRevenueActive: boolean;
     stateEnergy: number,
     drawerStore: DrawerProps
 }
@@ -101,6 +102,7 @@ const initialState: IDefaultState = {
     exchanges: [],
     skins: [],
     categoryOfCards: [],
+    isProfitRevenueActive: false,
     stateEnergy: 0,
     drawerStore: {
         type: null,
@@ -157,6 +159,11 @@ export const appSlice: any = createSlice({
         setCategoryOfCards: (state, action: PayloadAction<ICategoryOfCard[]>) => {
             state.categoryOfCards = action.payload;
         },
+        setIsProfitRevenueActive: (state, action: PayloadAction<boolean>) => {
+            state.isProfitRevenueActive = action.payload;
+            state.drawerStore.isOpen = action.payload;
+            state.drawerStore.type = "getProfit"
+        },
         openDrawer: (state, action: PayloadAction<DrawerProps>) => {
             state.drawerStore = action.payload
         },
@@ -166,5 +173,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateProfitPerHour, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, openDrawer, closeDrawer } = appSlice.actions;
+export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, openDrawer, closeDrawer } = appSlice.actions;
 export default appSlice.reducer;

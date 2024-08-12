@@ -14,6 +14,10 @@
   width: 300px;
 }
 
+.user-tap-button-inner-disabled {
+  background-color: rgba(16, 16, 16, 0.3);
+}
+
 .user-tap-button-inner-secret {
   background: linear-gradient(180deg, #ff3737, #3b40934f 49.53%, #1c1f24);
 }
@@ -45,6 +49,20 @@
   z-index: 3;
 }
 
+.user-tap-button-circle:before {
+  background-color: #3763ff;
+  background: radial-gradient(circle, #3763ff 0, #3763ff00 80%);
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 100%;
+  left: right 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 .user-tap-button-circle-secret {
   align-items: center;
   background: #272a2f;
@@ -58,20 +76,6 @@
   position: relative;
   width: 100%;
   z-index: 3;
-}
-
-.user-tap-button-circle:before {
-  background-color: #3763ff;
-  background: radial-gradient(circle, #3763ff 0, #3763ff00 80%);
-  border-radius: 50%;
-  content: "";
-  display: block;
-  height: 100%;
-  left: right 0;
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  width: 100%;
 }
 
 .user-tap-button-circle-secret:before {

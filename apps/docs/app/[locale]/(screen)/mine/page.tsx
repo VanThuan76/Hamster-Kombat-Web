@@ -72,7 +72,7 @@ export default function Page(): JSX.Element {
                                 <TypographySmall text={membership?.name as string} className="text-[10px] text-white" />
                                 <div className="w-[10px] h-[10px] text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg></div>
                             </div>
-                            <div className="text-[10px] text-white">{membership?.current_level}/{membership?.max_level}</div>
+                            <div className="text-[10px] text-white">{membership?.level}/{membership?.max_level}</div>
                         </div>
                         <Progress
                             value={(user.highest_score / currentBrandMembership) * 100}
@@ -145,13 +145,15 @@ export default function Page(): JSX.Element {
                                 </MotionContainer>
                                 <TabsContent value={currentTab} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
                                     {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.map((item, i) => {
-                                        const currentCardProfit = item.card_profits.find(child => child.is_purchased) || item.card_profits[0]
+                                        const currentCardProfit = item.card_profits.find(child => child.is_purchased) || item.card_profits.find(child => child.id === 1)
+                                        const isActiveCard = !currentCardProfit || currentCardProfit?.next_level
+                                        
                                         return (
-                                            <div key={i} className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2" onClick={() => currentCardProfit && onOpen("cardMine", item)}>
+                                            <div key={i} className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2" onClick={() => isActiveCard && onOpen("cardMine", { ...item, hasBuy: currentCardProfit && currentCardProfit?.required_money < user.revenue })}>
                                                 <div className="w-full flex justify-start items-start gap-3">
                                                     <div className="relative w-[60px] h-[60px] flex justify-center items-center">
-                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", !currentCardProfit && 'w-[40px] h-[40px]')} loading="eager" priority={true} />
-                                                        {!currentCardProfit && (
+                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", !isActiveCard && 'w-[40px] h-[40px]')} loading="eager" priority={true} />
+                                                        {!isActiveCard &&  (
                                                             <div className="absolute w-full h-full top-0 bottom-0 left-0 bg-[#34383fcc] rounded-full flex justify-center items-center">
                                                                 <Image src='/project/icon_key.svg' alt="@imageKey" width={24} height={24} className="w-[24px] h-[24px]" loading="eager" priority={true} />
                                                             </div>
@@ -163,7 +165,7 @@ export default function Page(): JSX.Element {
                                                             <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
                                                             <div className="flex justify-center items-center gap-1">
                                                                 <div className="w-[16px] h-[16px]">
-                                                                    <CoinIcon width={18} height={18} className={cn("w-full h-full", !currentCardProfit && "coin-is-grayscale")} />
+                                                                    <CoinIcon width={18} height={18} className={cn("w-full h-full", !isActiveCard && "coin-is-grayscale" ||currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
                                                                 </div>
                                                                 <TypographySmall text={`+${currentCardProfit ? String(formatCoin(currentCardProfit.profit as number)) : 0}`} className="text-white text-[12px]" />
                                                             </div>
@@ -174,7 +176,7 @@ export default function Page(): JSX.Element {
                                                 <div className="flex h-5 items-center space-x-4 text-sm">
                                                     <TypographySmall text={`lv ${currentCardProfit ? currentCardProfit.level : 0}`} className="text-white text-[12px]" />
                                                     <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                    <CoinIcon width={18} height={18} className={cn(!currentCardProfit && "coin-is-grayscale")} />
+                                                    <CoinIcon width={18} height={18} className={cn(!isActiveCard && "coin-is-grayscale" || currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
                                                     <TypographySmall text={currentCardProfit ? String(formatCoin(currentCardProfit.required_money as number)) : '0'} className="text-white text-[12px] !m-1" />
                                                 </div>
                                             </div>

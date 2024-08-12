@@ -11,6 +11,7 @@ import DrawerItemEarn from './components/drawer/DrawerItemEarn';
 import DrawerEnergyBoost from './components/drawer/DrawerEnergyBoost';
 import DrawerMultitapBoost from './components/drawer/DrawerMultitapBoost';
 import DrawerEnergyLimitBoost from './components/drawer/DrawerEnergyLimitBoost';
+import DrawerGetProfit from './components/drawer/DrawerGetProfit';
 
 const DrawerProvider = () => {
     const [isMounted, setIsMounted] = React.useState(false)
@@ -24,6 +25,7 @@ const DrawerProvider = () => {
     }
     return (
         <React.Fragment>
+            <DrawerGetProfit />
             <DrawerInfoProfit />
             <DrawerEditExchange />
             <DrawerWalletConnect />

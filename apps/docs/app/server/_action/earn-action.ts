@@ -60,12 +60,11 @@ export const useUpdateEarn: () => UseMutationResult<IBaseResponse<IResponseUpdat
                 level: data.data.membership.membership?.level,
                 short_money: data.data.membership.membership?.short_money
             }
-
             dispatch(setMembership(membershipData)) //Fix
 
             toast({
                 variant: 'success',
-                title: `Upgrade is yours! Cointelegraph 2 lvl`,
+                title: `Upgrade is yours! Cointelegraph +1 lvl`,
             });
             haptics.notificationOccurred('success');
             haptic.impactOccurred('soft')

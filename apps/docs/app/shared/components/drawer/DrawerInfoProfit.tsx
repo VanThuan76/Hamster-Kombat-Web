@@ -28,9 +28,9 @@ export default function DrawerInfoProfit(): JSX.Element {
                     </div>
                 </div>
                 <div className="w-full flex flex-col justify-center items-center gap-5">
-                    <TypographyLarge text={t('title')} className="text-white text-[32px] font-bold" />
-                    <TypographySmall text={t('description_1')} className="text-white text-[14px] max-w-[280px] font-normal" />
-                    <TypographySmall text={t('description_2')} className="text-white text-[16px] font-normal mt-3" />
+                    <TypographyLarge text={t('title')} className="text-white text-center text-[32px] font-bold" />
+                    <TypographySmall text={t('description_1')} className="text-white text-center text-[14px] max-w-[280px] font-normal" />
+                    <TypographySmall text={t('description_2')} className="text-white text-center text-[16px] font-normal mt-3" />
                 </div>
                 <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={onClose}>
                     <TypographyLarge text={t('start_button')} className="text-white text-xl font-bold" />

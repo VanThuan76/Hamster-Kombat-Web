@@ -1,6 +1,5 @@
 'use client'
 
-import Image from "next/image"
 import { useRouter } from '@shared/next-intl/navigation';
 import { useTranslations } from "next-intl";
 

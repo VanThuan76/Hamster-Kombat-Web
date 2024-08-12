@@ -49,7 +49,7 @@ export const useUpdateBoost: () => UseMutationResult<IBaseResponse<IResponseUpda
 
             toast({
                 variant: 'success',
-                title: `Upgrade is yours! Cointelegraph 2 lvl`,
+                title: `Upgrade is yours! Cointelegraph +1 lvl`,
             });
             haptics.notificationOccurred('success');
             haptic.impactOccurred('soft')

@@ -31,29 +31,37 @@ export const useBuyCard: () => UseMutationResult<IBaseResponse<any[]>, Error, IB
             });
         },
         onSuccess: async data => {
-            if (!data.data) return;
-            queryClient.invalidateQueries({ queryKey: ['BUY_CARD', 'CARD'] });
-            dispatch(setCategoryOfCards(data.data[0])); //Fix
-            dispatch(setUpdateRevenue(data.data[1].revenue)) //Fix
-            dispatch(setUpdateProfitPerHour(data.data[1].profitPerHour.profit_per_hour)) //Fix
+            if (!data.data) {
+                toast({
+                    variant: 'default',
+                    title: `Not enough money to buy card`,
+                });
+                haptics.notificationOccurred('error');
+                haptic.impactOccurred('soft')
+            } else {
+                queryClient.invalidateQueries({ queryKey: ['BUY_CARD', 'CARD'] });
+                dispatch(setCategoryOfCards(data.data[0])); //Fix
+                dispatch(setUpdateRevenue(data.data[1].revenue)) //Fix
+                dispatch(setUpdateProfitPerHour(data.data[1].profitPerHour.profit_per_hour)) //Fix
 
-            const membershipData = {
-                ...membership,
-                name: data.data[1].membership.membership?.name,
-                image: data.data[1].membership.membership?.image,
-                money: data.data[1].membership.membership?.money,
-                level: data.data[1].membership.membership?.level,
-                short_money: data.data[1].membership.membership?.short_money
+                const membershipData = {
+                    ...membership,
+                    name: data.data[1].membership.membership?.name,
+                    image: data.data[1].membership.membership?.image,
+                    money: data.data[1].membership.membership?.money,
+                    level: data.data[1].membership.membership?.level,
+                    short_money: data.data[1].membership.membership?.short_money
+                }
+
+                dispatch(setMembership(membershipData)) //Fix
+
+                toast({
+                    variant: 'success',
+                    title: `Upgrade is yours! Cointelegraph +1 lvl`,
+                });
+                haptics.notificationOccurred('success');
+                haptic.impactOccurred('soft')
             }
-
-            dispatch(setMembership(membershipData)) //Fix
-
-            toast({
-                variant: 'success',
-                title: `Upgrade is yours! Cointelegraph 2 lvl`,
-            });
-            haptics.notificationOccurred('success');
-            haptic.impactOccurred('soft')
         },
         onError(error, variables, context) {
             console.log(error);

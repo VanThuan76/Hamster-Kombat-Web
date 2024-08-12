@@ -13,6 +13,7 @@ import useBackButton from "@shared/hooks/useBackButton"
 import { useDraw } from "@shared/hooks/useDraw";
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
 import { useAppSelector } from "@shared/redux/store"
+import { cn } from "@/../ui/src/lib/utils"
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.boost')
@@ -28,7 +29,7 @@ export default function Page(): JSX.Element {
     const nextTurbo = currentTurbo && newBoostArr.find(item => item.boots_id === currentTurbo.boots_id + 1)
     const currentMultitap = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 2)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 2)?.boots[0]
     const nextMultitap = currentMultitap && newBoostArr.find(item => item.boots_id === currentMultitap.boots_id + 1)
-    const currentEnergyLimit = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots.find(item => item.is_completed === 1) ||  user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots[0]
+    const currentEnergyLimit = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots[0]
     const nextEnergyLimit = currentEnergyLimit && newBoostArr.find(item => item.boots_id === currentEnergyLimit.boots_id + 1)
 
     useBackButton()
@@ -72,7 +73,7 @@ export default function Page(): JSX.Element {
             </div>
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text={t('boosters')} className="text-base text-white mt-5" />
-                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("multitapBoost", {current: currentMultitap, next:nextMultitap})}>
+                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("multitapBoost", { current: currentMultitap, next: nextMultitap })}>
                     <div className="flex justify-start items-center gap-4">
                         <MotionContainer type="scale">
                             <Image src="/project/icon_boost-multitap.png" alt="@multitap" width={52} height={52} priority={true} />
@@ -80,7 +81,7 @@ export default function Page(): JSX.Element {
                         <div className="flex flex-col justify-start items-start">
                             <TypographySmall text={t('multitap')} className="text-[14px] text-white font-light" />
                             <div className="flex justify-center items-center gap-1">
-                                <CoinIcon width={20} height={20} />
+                                <CoinIcon width={20} height={20} className={cn(nextMultitap!.required_money > user.revenue && "coin-is-grayscale")} />
                                 <TypographySmall text={String(formatCoin(nextMultitap?.required_money ?? 0))} className="text-[14px] text-white ml-1" />
                                 <span className="text-[#8b8e93]">•</span>
                                 <TypographySmall text={String(nextMultitap?.level) + ' lv'} className="text-[14px] text-[#8b8e93] font-light" />
@@ -91,7 +92,7 @@ export default function Page(): JSX.Element {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
                     </div>
                 </div>
-                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyLimitBoost", {current: currentEnergyLimit, next:nextEnergyLimit})}>
+                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyLimitBoost", { current: currentEnergyLimit, next: nextEnergyLimit })}>
                     <div className="flex justify-start items-center gap-4">
                         <MotionContainer type="scale">
                             <Image src="/project/icon_boost-energy.png" alt="@icon_boost" width={52} height={52} priority={true} />
@@ -99,7 +100,7 @@ export default function Page(): JSX.Element {
                         <div className="flex flex-col justify-start items-start">
                             <TypographySmall text={t('energy_limit')} className="text-[14px] text-white font-light" />
                             <div className="flex justify-center items-center gap-1">
-                                <CoinIcon width={20} height={20} />
+                                <CoinIcon width={20} height={20} className={cn(nextEnergyLimit!.required_money > user.revenue && "coin-is-grayscale")} />
                                 <TypographySmall text={String(formatCoin(nextEnergyLimit?.required_money ?? 0))} className="text-[14px] text-white ml-1" />
                                 <span className="text-[#8b8e93]">•</span>
                                 <TypographySmall text={String(nextEnergyLimit?.level) + ' lv'} className="text-[14px] text-[#8b8e93] font-light" />

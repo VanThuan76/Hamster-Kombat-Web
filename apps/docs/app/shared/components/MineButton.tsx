@@ -18,8 +18,10 @@ import { toast } from "@shared/hooks/useToast";
 import { setStateEnergy } from "@shared/redux/store/appSlice";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import CoinIcon from "@shared/components/CoinIcon"
+import useLocalStorage from "@shared/hooks/useLocalStorage";
 
 import { useUpdateRevenue } from "@server/_action/user-action";
+
 
 const AnimatePresenceWrapper = dynamic(() => import('@ui/components/motion/AnimatePresenceWrapper').then((mod) => mod.default), { ssr: false })
 
@@ -36,10 +38,10 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     const dispatch = useAppDispatch()
     const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+    const [energy, setEnergy] = useLocalStorage<number>('current_energy', stateEnergy);
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
     const [revenue, setRevenue] = useState(user.revenue);
     const [clickCount, setClickCount] = useState(0);
-    const [energy, setEnergy] = useState(stateEnergy);
 
     const updateRevenue = useUpdateRevenue()
 
@@ -112,17 +114,19 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                 <CoinIcon width={40} height={40} />
                 <MemoTypographyLarge text={formattedRevenue} className="text-white text-3xl" />
             </MotionContainer>
-            {isSecretFeature && <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
-                <TypographyLarge text={t('daily_cipher')} className="text-white text-[14px]" />
-                <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
-                    <CoinIcon width={18} height={18} />
-                    <TypographySmall text='+1.000.000' className="text-white text-[14px]" />
-                </Button>
+            {isSecretFeature && <div className="w-full px-6">
+                <div className="w-full bg-[#272a2f] flex justify-between items-center rounded-lg px-2 py-1">
+                    <TypographyLarge text={t('daily_cipher')} className="text-white text-[14px]" />
+                    <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
+                        <CoinIcon width={18} height={18} />
+                        <TypographySmall text='+1.000.000' className="text-white text-[14px]" />
+                    </Button>
+                </div>
             </div>}
             {isScreenMine && tabScreenMine}
             <div className="w-full flex flex-col justify-center items-center p-4">
                 <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={handleCardTouchStart}>
-                    <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret')}>
+                    <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret', formattedEnergy < user.tap_value && 'user-tap-button-inner-disabled')}>
                         <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="avatar" width={268} height={268} className="z-30" priority={true} />
                     </div>
                     <AnimatePresenceWrapper>

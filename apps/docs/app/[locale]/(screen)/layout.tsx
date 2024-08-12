@@ -1,8 +1,10 @@
-import { Dialog, DialogContent, DialogFooter } from "@ui/components/dialog";
+'use client'
 import LazyWrapper from "@ui/components/motion/LazyWrapper"
-import { Toaster } from "@shared/toaster";
+import { Dialog, DialogContent, DialogFooter } from "@ui/components/dialog";
 
+import { Toaster } from "@shared/toaster";
 import DrawerProvider from "@shared/drawer";
+import useProfitByHour from "@shared/hooks/useProfitByHour";
 
 import { BottomNav } from "../../@navigator/BottomNav";
 
@@ -11,7 +13,7 @@ export default function ScreenLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
-
+    useProfitByHour()
     return (
         <Dialog open={true}>
             <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
