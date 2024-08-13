@@ -1,6 +1,5 @@
 'use client'
 import LazyWrapper from "@ui/components/motion/LazyWrapper"
-import { Dialog, DialogContent, DialogFooter } from "@ui/components/dialog";
 
 import { Toaster } from "@shared/toaster";
 import DrawerProvider from "@shared/drawer";
@@ -15,17 +14,17 @@ export default function ScreenLayout({
 }>) {
     useProfitByHour()
     return (
-        <Dialog open={true}>
-            <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
+        <div className="w-screen h-full">
+            <div className="w-full h-full bg-black !text-white border-none m-0 p-0">
                 <LazyWrapper>
                     {children}
                 </LazyWrapper>
-                <DialogFooter className="fixed bottom-0 w-full z-[5000]">
+                <div className="fixed bottom-0 w-full z-[5000]">
                     <BottomNav />
                     <Toaster />
-                </DialogFooter>
+                </div>
                 <DrawerProvider />
-            </DialogContent>
-        </Dialog>
+            </div>
+        </div>
     );
 }

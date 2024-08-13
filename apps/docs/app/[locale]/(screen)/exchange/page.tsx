@@ -8,7 +8,6 @@ import { useRouter } from '@shared/next-intl/navigation';
 import { Progress } from "@ui/components/progress"
 import { Card, CardHeader } from "@ui/components/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar"
-import { DialogHeader, DialogTitle } from "@ui/components/dialog"
 
 import { useAppSelector } from "@shared/redux/store/index"
 import useBackButton from "@shared/hooks/useBackButton";
@@ -23,21 +22,21 @@ const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 function UserCardExist({ textBuySkin, user, membership }: { textBuySkin: string, user: any, membership: any }) {
     const router = useRouter()
     return (
-        <DialogTitle className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center">
             <div className="inline-flex justify-start items-center" onClick={() => router.push("/skin")}>
                 <div className="user-info-avatar">
-                    <Avatar className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
-                        <AvatarImage src={`https://cdn.hamsterkombat.io/avatar/${9 + membership.level}.webp`} alt="@user" sizes="sm" className="w-[32px] h-[32px]" />
+                    <Avatar className="bg-[#1c1f24] rounded-lg w-full h-full">
+                        <AvatarImage src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="@user" sizes="sm" className="w-[32px] h-full rounded-md bg-contain bg-no-repeat bg-center" />
                         <AvatarFallback>User</AvatarFallback>
                     </Avatar>
                 </div>
                 <div className="user-info-avatar-skin">
-                    <TypographySmall text={textBuySkin} className="text-[9px] font-semibold w-full" />
-                    <div className="w-[110%]">
-                        <Image src="/project/_skin.png" alt="@skin" width={33} height={30} priority={true} />
+                    <TypographySmall text={textBuySkin} className="mr-[2px] text-center text-[9px] font-semibold leading-none" />
+                    <div className="w-[50px] h-full">
+                        <Image src="/project/_skin.png" alt="@skin" width={50} height={50} priority={true} className="w-full h-full bg-cover bg-center bg-no-repeat" />
                     </div>
                 </div>
-                <TypographySmall text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name} (CEO)`} className="text-xs" />
+                <TypographySmall text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name} (King)`} className="text-xs" />
             </div>
             <div className="inline-flex gap-1 justify-end items-center">
                 <div className="w-[18px] h-[18px]">
@@ -45,19 +44,19 @@ function UserCardExist({ textBuySkin, user, membership }: { textBuySkin: string,
                 </div>
                 <TypographySmall text="0" className="text-xs" />
             </div>
-        </DialogTitle>
+        </div>
     )
 }
 
 function UserCardDefault({ user }: { user: any }) {
     return (
-        <DialogTitle className="flex justify-start items-center gap-2">
+        <div className="flex justify-start items-center gap-2">
             <Avatar className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
                 <AvatarImage src="/project/icon_ava_user.png" alt="@user" sizes="sm" className="w-[32px] h-[32px]" />
                 <AvatarFallback>User</AvatarFallback>
             </Avatar>
             <TypographySmall text={`${user?.first_name} ${user?.last_name}`} className="text-xs" />
-        </DialogTitle>
+        </div>
     )
 }
 
@@ -75,8 +74,8 @@ export default function Page(): JSX.Element {
     const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
 
     return (
-        <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
-            <DialogHeader className="p-4">
+        <div className="w-full h-full relative overflow-y-auto overflow-hidden">
+            <div className="p-4">
                 {user !== undefined ? <UserCardExist user={user} membership={membership} textBuySkin={t('buy_skin')} /> : <UserCardDefault user={user} />}
                 <div className="w-full flex justify-between items-center">
                     <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
@@ -100,7 +99,7 @@ export default function Page(): JSX.Element {
                     </div>
                     <CardProfit />
                 </div>
-            </DialogHeader>
+            </div>
             <Card className="card-has-glow w-full h-full border-none">
                 <CardHeader>
                     <MotionContainer className="w-full flex flex-row justify-between items-center gap-2">

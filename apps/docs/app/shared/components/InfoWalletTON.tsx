@@ -6,6 +6,7 @@ import {
     Section,
     Title,
 } from '@telegram-apps/telegram-ui';
+
 import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
 
 import { DisplayData } from './DisplayData';
@@ -21,6 +22,7 @@ const InfoWalletTON = () => {
             <TonConnectButton />
         );
     }
+
     const {
         account: { chain, publicKey, address },
         device: {

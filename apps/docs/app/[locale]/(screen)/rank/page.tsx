@@ -58,6 +58,9 @@ export default function Page(): JSX.Element {
             <DynamicNavigationSwiper
                 className={cn("rank-slider mt-10", swiperClass)}
                 items={ranks.map((item, i) => {
+                    const currentLevelUserMembership = ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())?.level || 0
+                    const nextRequireLevelMoney = ranks.find(item => item.level === currentLevelUserMembership + 1)?.money || item.money
+
                     return (
                         <div key={i} className="flex flex-col justify-center items-center">
                             <div className="rank-item-image overflow-hidden">
@@ -74,7 +77,7 @@ export default function Page(): JSX.Element {
                                 <TypographyLarge text={item.name} className="text-white text-[32px] font-bold" />
                                 {membership.name.toLowerCase() === item.name.toLowerCase() ?
                                     (<>
-                                        <TypographySmall text={`${formatCoin(user.revenue)} / ${formatCoin(item.money)}`} className="text-[14px] font-bold text-[#fff9] -translate-y-2" />
+                                        <TypographySmall text={`${formatCoin(user.revenue)} / ${formatCoin(nextRequireLevelMoney)}`} className="text-[14px] font-bold text-[#fff9] -translate-y-2" />
                                         <Progress
                                             value={Math.ceil((user.revenue / +item.money) * 100)}
                                             className="w-full h-[12px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"

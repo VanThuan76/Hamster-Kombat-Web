@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useTranslations } from "next-intl"
+import { cn } from "@ui/lib/utils";
 
 import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
@@ -11,9 +12,8 @@ import CoinIcon from "@shared/components/CoinIcon"
 
 import useBackButton from "@shared/hooks/useBackButton"
 import { useDraw } from "@shared/hooks/useDraw";
-import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
 import { useAppSelector } from "@shared/redux/store"
-import { cn } from "@/../ui/src/lib/utils"
+import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.boost')
@@ -25,8 +25,8 @@ export default function Page(): JSX.Element {
 
     const currentEnergy = user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 0)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 0)?.boots[0]
     const nextEnergy = currentEnergy && newBoostArr.find(item => item.boots_id === currentEnergy.boots_id + 1)
-    const currentTurbo = user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 1)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 1)?.boots[0]
-    const nextTurbo = currentTurbo && newBoostArr.find(item => item.boots_id === currentTurbo.boots_id + 1)
+    // const currentTurbo = user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 1)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 0)?.sub_types.find(item => item.sub_type === 1)?.boots[0]
+    // const nextTurbo = currentTurbo && newBoostArr.find(item => item.boots_id === currentTurbo.boots_id + 1)
     const currentMultitap = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 2)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 2)?.boots[0]
     const nextMultitap = currentMultitap && newBoostArr.find(item => item.boots_id === currentMultitap.boots_id + 1)
     const currentEnergyLimit = user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots.find(item => item.is_completed === 1) || user.boots.find(item => item.type === 1)?.sub_types.find(item => item.sub_type === 3)?.boots[0]

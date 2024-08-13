@@ -5,11 +5,8 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Roboto_Flex } from "next/font/google";
+
 import { cn } from "@ui/lib/utils";
-
-import { Dialog, DialogContent, DialogTitle } from "@ui/components/dialog";
-import VisuallyHiddenCpn from "@ui/components/visually"
-
 import Providers from "@shared/provider";
 
 import RootContainer from "../@root/RootContainer";
@@ -37,14 +34,9 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={translate}>
           <RootContainer>
             <Providers>
-              <Dialog open={true}>
-                <VisuallyHiddenCpn>
-                  <DialogTitle></DialogTitle>
-                </VisuallyHiddenCpn>
-                <DialogContent className="!max-w-md h-screen bg-black !text-white border-none m-0 p-0">
-                  {children}
-                </DialogContent>
-              </Dialog>
+              <div className="w-screen h-screen bg-black !text-white border-none m-0 p-0">
+                {children}
+              </div>
             </Providers>
           </RootContainer>
         </NextIntlClientProvider>

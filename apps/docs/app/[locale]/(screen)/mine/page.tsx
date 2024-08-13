@@ -11,7 +11,6 @@ import { Separator } from "@ui/components/separator"
 import { Card, CardContent, CardHeader } from "@ui/components/card"
 import { Progress } from "@ui/components/progress"
 import { Button } from "@ui/components/button"
-import { DialogHeader } from "@ui/components/dialog"
 import { Popover, PopoverContent, PopoverTrigger } from "@ui/components/popover"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/components/tabs"
 
@@ -57,7 +56,7 @@ export default function Page(): JSX.Element {
 
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
-            <DialogHeader className="p-4">
+            <div className="p-4">
                 <div className="w-full flex justify-between items-center">
                     <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
                         <div
@@ -80,7 +79,7 @@ export default function Page(): JSX.Element {
                     </div>
                     <CardProfit />
                 </div>
-            </DialogHeader>
+            </div>
             <Card className="card-has-glow w-full min-h-screen border-none pb-20">
                 <CardHeader className="px-4">
                     <MotionContainer className="w-full flex justify-end items-center gap-2">

@@ -1,3 +1,6 @@
+#tc-widget-root{
+  z-index: 1000000;
+}
 .card-has-glow {
   background: #1c1f24;
   border-radius: 40px 40px 0 0;
@@ -362,17 +365,19 @@
 }
 
 .user-info-avatar-skin {
+  width: 70px;
   align-items: center;
   background: linear-gradient(101deg, #ff5f3c 3.81%, #ffb546 104.28%);
   border: 1px solid #ff8140;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
-  margin-left: -24px;
+  margin-left: -20px;
   margin-right: 8px;
   padding-left: 13px;
   position: relative;
   z-index: 2;
+  height: 32px;
 }
 
 .user-info-avatar {
@@ -382,6 +387,8 @@
   margin-right: 8px;
   overflow: visible;
   position: relative;
+  justify-content: center;
+  align-items: center;
   width: 32px;
   z-index: 3;
 }
