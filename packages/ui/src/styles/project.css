@@ -1,6 +1,21 @@
-#tc-widget-root{
+#tc-widget-root {
   z-index: 1000000;
 }
+
+.counter-container {
+  display: inline-block;
+  position: relative;
+  transition: all 5s;
+}
+
+.counter-container::after {
+  content: attr(data-counter);
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+}
+
 .card-has-glow {
   background: #1c1f24;
   border-radius: 40px 40px 0 0;

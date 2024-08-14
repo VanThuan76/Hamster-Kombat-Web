@@ -48,7 +48,7 @@ export default function Page(): JSX.Element {
             </MotionContainer>
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text={t('free_daily_boost')} className="text-base text-white mt-5" />
-                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyBoost", nextEnergy)}>
+                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyBoost", { current: currentEnergy, next: nextEnergy })}>
                     <div className="flex justify-start items-center gap-4">
                         <MotionContainer className="p-3" type="scale">
                             <Image src="/project/icon_flash.svg" alt="@flash" width={32} height={32} priority={true} />
@@ -81,7 +81,7 @@ export default function Page(): JSX.Element {
                         <div className="flex flex-col justify-start items-start">
                             <TypographySmall text={t('multitap')} className="text-[14px] text-white font-light" />
                             <div className="flex justify-center items-center gap-1">
-                                <CoinIcon width={20} height={20} className={cn(nextMultitap!.required_money > user.revenue && "coin-is-grayscale")} />
+                                <CoinIcon width={20} height={20} className={cn(nextMultitap && nextMultitap.required_money > user.revenue && "coin-is-grayscale")} />
                                 <TypographySmall text={String(formatCoin(nextMultitap?.required_money ?? 0))} className="text-[14px] text-white ml-1" />
                                 <span className="text-[#8b8e93]">•</span>
                                 <TypographySmall text={String(nextMultitap?.level) + ' lv'} className="text-[14px] text-[#8b8e93] font-light" />
@@ -100,8 +100,8 @@ export default function Page(): JSX.Element {
                         <div className="flex flex-col justify-start items-start">
                             <TypographySmall text={t('energy_limit')} className="text-[14px] text-white font-light" />
                             <div className="flex justify-center items-center gap-1">
-                                <CoinIcon width={20} height={20} className={cn(nextEnergyLimit!.required_money > user.revenue && "coin-is-grayscale")} />
-                                <TypographySmall text={String(formatCoin(nextEnergyLimit?.required_money ?? 0))} className="text-[14px] text-white ml-1" />
+                                <CoinIcon width={20} height={20} className={cn(nextEnergyLimit && nextEnergyLimit.required_money > user.revenue && "coin-is-grayscale")} />
+                                <TypographySmall text={String(formatCoin(nextEnergyLimit?.required_money || 0))} className="text-[14px] text-white ml-1" />
                                 <span className="text-[#8b8e93]">•</span>
                                 <TypographySmall text={String(nextEnergyLimit?.level) + ' lv'} className="text-[14px] text-[#8b8e93] font-light" />
                             </div>

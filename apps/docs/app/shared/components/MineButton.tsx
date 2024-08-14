@@ -13,6 +13,7 @@ import MotionContainer from "@ui/components/motion/Container"
 import TypographyLarge from "@ui/components/typography/large"
 import MemoTypographyLarge from "@shared/components/MemoTypographyLarge"
 import TypographySmall from "@ui/components/typography/small"
+import AnimatedCounter from "@ui/components/motion/AnimatedCounter"
 
 import { toast } from "@shared/hooks/useToast";
 import { setStateEnergy } from "@shared/redux/store/appSlice";
@@ -28,7 +29,7 @@ const AnimatePresenceWrapper = dynamic(() => import('@ui/components/motion/Anima
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
-    const { user, membership, stateEnergy } = useAppSelector(state => state.app);
+    const { user, membership, stateEnergy, isResetStateEnergy } = useAppSelector(state => state.app);
 
     const t = useTranslations('components.mine_button')
 
@@ -41,6 +42,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     const [energy, setEnergy] = useLocalStorage<number>('current_energy', stateEnergy);
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
     const [revenue, setRevenue] = useState(user.revenue);
+    const [prevRevenue, setPrevRevenue] = useState(user.revenue);
     const [clickCount, setClickCount] = useState(0);
 
     const updateRevenue = useUpdateRevenue()
@@ -52,6 +54,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                 title: 'Không đủ năng lượng',
             });
         } else {
+            setPrevRevenue(revenue);
             setClickCount(clickCount + user.tap_value);
             setRevenue(revenue + user.tap_value);
             setEnergy(energy - user.tap_value);
@@ -59,7 +62,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                 clearTimeout(saveTimeoutRef.current);
             }
             saveTimeoutRef.current = setTimeout(() => {
-                dispatch(setStateEnergy(energy + user.tap_value));
+                dispatch(setStateEnergy({ amount: energy + user.tap_value, isReset: false }))
                 updateRevenue.mutate({ user_id: user.id, amount: clickCount + 1 })
             }, 1000);
         }
@@ -96,8 +99,8 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     useEffect(() => {
         const interval = setInterval(() => {
             setEnergy(prevEnergy => Math.min(prevEnergy + 3, maxEnergy));
-            dispatch(setStateEnergy(energy))
-        }, 2000);
+            dispatch(setStateEnergy({ amount: energy, isReset: false }))
+        }, 1000);
 
         return () => clearInterval(interval);
     }, []);
@@ -105,14 +108,20 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     useEffect(() => {
         setRevenue(user.revenue)
     }, [user.revenue])
-    const formattedRevenue = useMemo(() => revenue.toLocaleString(), [revenue]);
+
+    useEffect(() => {
+        if(!isResetStateEnergy) return
+        setEnergy(stateEnergy)
+    }, [stateEnergy, isResetStateEnergy])
+
+    const formattedRevenue = useMemo(() => revenue, [revenue]);
     const formattedEnergy = useMemo(() => energy, [energy]);
 
     return (
         <>
             <MotionContainer className={cn("w-full flex justify-center items-center gap-2", !isScreenMine && "mb-3")} type="scale">
                 <CoinIcon width={40} height={40} />
-                <MemoTypographyLarge text={formattedRevenue} className="text-white text-3xl" />
+                <AnimatedCounter from={prevRevenue} to={formattedRevenue} className="text-white text-3xl font-semibold" />
             </MotionContainer>
             {isSecretFeature && <div className="w-full px-6">
                 <div className="w-full bg-[#272a2f] flex justify-between items-center rounded-lg px-2 py-1">
@@ -125,7 +134,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
             </div>}
             {isScreenMine && tabScreenMine}
             <div className="w-full flex flex-col justify-center items-center p-4">
-                <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={handleCardTouchStart}>
+                <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={formattedEnergy >= user.tap_value ? handleCardTouchStart : () => {}}>
                     <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret', formattedEnergy < user.tap_value && 'user-tap-button-inner-disabled')}>
                         <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="avatar" width={268} height={268} className="z-30" priority={true} />
                     </div>

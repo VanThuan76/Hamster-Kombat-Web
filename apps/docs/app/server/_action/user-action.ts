@@ -33,7 +33,7 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
                 profit_per_hour: data.data.profitPerHour?.profit_per_hour || 0,
             }
             dispatch(setInitUser(dataCurrentInitUser));
-            dispatch(setStateEnergy(data.data.energy_limit))
+            dispatch(setStateEnergy({ amount: data.data.energy_limit, isReset: false }))
         },
         onError(error, variables, context) {
             console.log(error);

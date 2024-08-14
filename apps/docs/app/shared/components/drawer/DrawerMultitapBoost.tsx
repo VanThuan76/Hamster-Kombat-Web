@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@ui/lib/utils"
+import { useRouter } from "@shared/next-intl/navigation";
 
 import { Button } from "@ui/components/button"
 import Drawer from "@ui/components/drawer"
@@ -24,6 +25,7 @@ export default function DrawerMultitapBoost(): JSX.Element {
 
     const t = useTranslations('screens.boost')
 
+    const router = useRouter()
     const updateBoost = useUpdateBoost()
 
     function handleSuccess() {
@@ -37,6 +39,7 @@ export default function DrawerMultitapBoost(): JSX.Element {
             sub_type: 2
         })
         onClose()
+        router.push('/exchange')
     }
 
     return (

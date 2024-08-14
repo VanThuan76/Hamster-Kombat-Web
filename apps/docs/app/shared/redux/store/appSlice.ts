@@ -55,6 +55,7 @@ export interface IDefaultState {
     categoryOfCards: ICategoryOfCard[] | [],
     isProfitRevenueActive: boolean;
     stateEnergy: number,
+    isResetStateEnergy: boolean;
     drawerStore: DrawerProps
 }
 
@@ -104,6 +105,7 @@ const initialState: IDefaultState = {
     categoryOfCards: [],
     isProfitRevenueActive: false,
     stateEnergy: 0,
+    isResetStateEnergy: false,
     drawerStore: {
         type: null,
         data: {},
@@ -128,8 +130,9 @@ export const appSlice: any = createSlice({
                 state.drawerStore.type = "editExchange"
             }
         },
-        setStateEnergy: (state, action: PayloadAction<number>) => {
-            state.stateEnergy = action.payload
+        setStateEnergy: (state, action: PayloadAction<{ amount: number, isReset: boolean }>) => {
+            state.stateEnergy = action.payload.amount
+            state.isResetStateEnergy = action.payload.isReset;
         },
         setUpdateProfitPerHour: (state, action: PayloadAction<number>) => {
             state.user.profit_per_hour = action.payload;
