@@ -1,56 +1,39 @@
 'use client';
 
 import { type PropsWithChildren, useEffect } from 'react';
+import { useRouter } from '@shared/next-intl/navigation';
 
 import { THEME, TonConnectUIProvider } from '@tonconnect/ui-react';
 import { AppRoot } from '@telegram-apps/telegram-ui';
 
 import { ErrorBoundary } from '@shared/components/ErrorBoundary';
 import { ErrorPage } from '@shared/components/ErrorPage';
-import { useTelegramMock } from '@shared/hooks/useTelegramMock';
 
-import { useRouter } from '@shared/next-intl/navigation';
 import { useDidMount } from '@shared/hooks/useDidMount';
+import { useAppDispatch } from '@shared/redux/store';
+import { setInitDataTelegram } from '@shared/redux/store/appSlice';
+import { useTelegramMock } from '@shared/hooks/useTelegramMock';
+import { useTelegramInitialization } from '@shared/hooks/useTelegramInitialization';
 
-const {
-    SDKProvider,
-    useLaunchParams,
-    useMiniApp,
-    useThemeParams,
-    useViewport,
-    postEvent,
-    bindMiniAppCSSVars,
-    bindThemeParamsCSSVars,
-    bindViewportCSSVars,
-} = require('@telegram-apps/sdk-react');
+
+const { SDKProvider, useLaunchParams } = require('@telegram-apps/sdk-react');
 
 function App(props: PropsWithChildren) {
+    const dispatch = useAppDispatch()
     const router = useRouter();
-    const lp = useLaunchParams();
-    const miniApp = useMiniApp();
-    const themeParams = useThemeParams();
-    const viewport = useViewport();
-
-    postEvent('web_app_set_header_color', { color: '#000' });
-    postEvent('web_app_expand')
+    const { lp, initData } = useTelegramInitialization();
 
     useEffect(() => {
-        return bindMiniAppCSSVars(miniApp, themeParams);
-    }, [miniApp, themeParams]);
+        if (initData.user) {
+            dispatch(setInitDataTelegram(initData.user));
+        }
+    }, [initData.user])
 
     useEffect(() => {
-        return bindThemeParamsCSSVars(themeParams);
-    }, [themeParams]);
-
-    useEffect(() => {
-        return viewport && bindViewportCSSVars(viewport);
-    }, [viewport]);
-
-    useEffect(() => {
-        if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
+        if (['tdesktop', 'weba', 'web'].includes(lp.platform)) {
             router.push('/qr', undefined);
         }
-    }, [lp]);
+    }, [lp, router]);
 
     return (
         <AppRoot

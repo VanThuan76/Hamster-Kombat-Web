@@ -10,6 +10,7 @@ import { IFriend, IRankUsers } from "@server/_types/user";
 
 import { DrawerProps } from "@shared/hooks/useDraw";
 export interface IDefaultState {
+    initDataTelegram: any,
     user: {
         telegram_id: number,
         id: number;
@@ -60,6 +61,7 @@ export interface IDefaultState {
 }
 
 const initialState: IDefaultState = {
+    initDataTelegram: null,
     user: {
         telegram_id: 0,
         id: 0,
@@ -117,6 +119,9 @@ export const appSlice: any = createSlice({
     name: "app",
     initialState,
     reducers: {
+        setInitDataTelegram: (state, action: PayloadAction<any>) => {
+            state.initDataTelegram = action.payload;
+        },
         setInitUser: (state, action: PayloadAction<IDefaultState["user"]>) => {
             state.user = action.payload;
         },
@@ -179,5 +184,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, setHighestScore, openDrawer, closeDrawer } = appSlice.actions;
+export const { setInitDataTelegram, setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, setHighestScore, openDrawer, closeDrawer } = appSlice.actions;
 export default appSlice.reducer;

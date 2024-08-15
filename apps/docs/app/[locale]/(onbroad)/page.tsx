@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from '@shared/next-intl/navigation';
+import { useAppSelector } from '@shared/redux/store';
 
 import { useFriends, useRankUsers, userLoginAction } from '@server/_action/user-action';
 import { useMembershipByUser } from '@server/_action/membership-action';
@@ -13,17 +14,13 @@ import { useEarnByUser } from '@server/_action/earn-action';
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from '@ui/components/typography/small';
 
-const {
-  useInitData,
-  initBackButton,
-  initMiniApp,
-} = require('@telegram-apps/sdk-react');
-
 const OnBroadingPage = () => {
+  const { initDataTelegram } = useAppSelector(state => state.app)
   const router = useRouter();
+  const userInitAction = userLoginAction();
+
   const [initialized, setInitialized] = useState(false);
   const [progress, setProgress] = useState(0);
-  const userInitAction = userLoginAction();
 
   const actions = [
     useExchanges(),
@@ -35,10 +32,6 @@ const OnBroadingPage = () => {
     useMembershipByUser(),
     useRankUsers()
   ];
-
-  const [miniApp] = initMiniApp();
-  const [backButton] = initBackButton();
-  const initData = useInitData();
 
   const urlParams = new URLSearchParams(window.location.search);
   const startAppParam = urlParams.get('startapp') ?? '';
@@ -98,9 +91,6 @@ const OnBroadingPage = () => {
           setProgress(prev => prev + (100 / tasks.length));
         }
       }
-
-      miniApp.setHeaderColor('#000');
-      backButton.show();
       setInitialized(true);
     } catch (error) {
       console.error('Error initializing app:', error);
@@ -110,8 +100,8 @@ const OnBroadingPage = () => {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        if (initData.user) {
-          await fetchData(initData.user);
+        if (initDataTelegram) {
+          await fetchData(initDataTelegram);
         }
       } catch (error) {
         console.error('Error during initialization:', error);
@@ -119,7 +109,7 @@ const OnBroadingPage = () => {
     };
 
     initializeApp();
-  }, [initData.user]);
+  }, [initDataTelegram]);
 
   useEffect(() => {
     if (initialized) {
