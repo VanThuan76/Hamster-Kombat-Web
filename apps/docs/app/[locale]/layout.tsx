@@ -1,5 +1,6 @@
 import "@ui/styles/globals.css";
 import "@ui/styles/project.css";
+import '@telegram-apps/telegram-ui/dist/styles.css';
 
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -31,15 +32,15 @@ export default async function LocaleLayout({
     <html lang={locale} className={robotoFlex.className}>
       <link rel="icon" href="/project/icon_hamster-coin.png" sizes="any" />
       <body className={cn('flex flex-col items-center justify-between min-h-screen p-24 bg-indigo-500')}>
-        <NextIntlClientProvider messages={translate}>
-          <RootContainer>
+        <RootContainer>
+          <NextIntlClientProvider messages={translate}>
             <Providers>
               <div className="w-screen h-screen bg-black !text-white border-none m-0 p-0">
                 {children}
               </div>
             </Providers>
-          </RootContainer>
-        </NextIntlClientProvider>
+          </NextIntlClientProvider>
+        </RootContainer>
       </body>
     </html>
   );
