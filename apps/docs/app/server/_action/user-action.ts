@@ -30,10 +30,12 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
             haptic.notificationOccurred('success');
             const dataCurrentInitUser = {
                 ...data.data,
-                profit_per_hour: data.data.profitPerHour?.profit_per_hour || 0,
+                tap_value: data.data?.tap_value || 1,
+                energy_limit: data.data?.energy_limit || 1000, //Fixed
+                profit_per_hour: data.data.profitPerHour?.profit_per_hour || 0, //Fixed
             }
             dispatch(setInitUser(dataCurrentInitUser));
-            dispatch(setStateEnergy({ amount: data.data.energy_limit, isReset: false }))
+            dispatch(setStateEnergy({ amount: data.data?.energy_limit || 1000, isReset: false })) //Fixed
         },
         onError(error, variables, context) {
             console.log(error);

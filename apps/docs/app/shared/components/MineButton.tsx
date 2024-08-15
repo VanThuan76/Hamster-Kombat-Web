@@ -45,6 +45,9 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
     const [prevRevenue, setPrevRevenue] = useState(user.revenue);
     const [clickCount, setClickCount] = useState(0);
 
+    const formattedRevenue = useMemo(() => revenue, [revenue]);
+    const formattedEnergy = useMemo(() => energy, [energy]);
+
     const updateRevenue = useUpdateRevenue()
 
     function handleIncludedCoin() {
@@ -98,12 +101,15 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setEnergy(prevEnergy => Math.min(prevEnergy + 3, maxEnergy));
-            dispatch(setStateEnergy({ amount: energy, isReset: false }))
+            setEnergy(prevEnergy => {
+                const newEnergy = Math.min(prevEnergy + 3, maxEnergy);
+                dispatch(setStateEnergy({ amount: newEnergy, isReset: false }));
+                return newEnergy;
+            });
         }, 1000);
-
+    
         return () => clearInterval(interval);
-    }, []);
+    }, [energy, maxEnergy]);
 
     useEffect(() => {
         setRevenue(user.revenue)
@@ -113,9 +119,6 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
         if(!isResetStateEnergy) return
         setEnergy(stateEnergy)
     }, [stateEnergy, isResetStateEnergy])
-
-    const formattedRevenue = useMemo(() => revenue, [revenue]);
-    const formattedEnergy = useMemo(() => energy, [energy]);
 
     return (
         <>
