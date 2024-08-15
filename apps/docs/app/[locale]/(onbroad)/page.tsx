@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from '@shared/next-intl/navigation';
@@ -10,7 +10,7 @@ import { useCategoryOfCardByUser } from '@server/_action/card-action';
 import { useSkins } from '@server/_action/skin-action';
 import { useEarnByUser } from '@server/_action/earn-action';
 
-import TypographyLarge from "@ui/components/typography/large"
+import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from '@ui/components/typography/small';
 
 const {
@@ -23,9 +23,9 @@ const OnBroadingPage = () => {
   const router = useRouter();
   const [initialized, setInitialized] = useState(false);
   const [progress, setProgress] = useState(0);
-  const userInitAction = userLoginAction()
+  const userInitAction = userLoginAction();
 
-  const actions: any[] = [
+  const actions = [
     useExchanges(),
     useFriends(),
     useEarnByUser(),
@@ -59,55 +59,67 @@ const OnBroadingPage = () => {
     }
   }
 
-  useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        const body = await getUserRows(initData.user);
-        const user = await userInitAction.mutateAsync(body);
-  
-        if (!user.data) {
-          throw new Error('Expected user.data to be undefined');
+  const fetchData = async (user: any) => {
+    try {
+      const body = await getUserRows(user);
+      const userData = await userInitAction.mutateAsync(body);
+
+      if (!userData.data) {
+        throw new Error('Expected user.data to be undefined');
+      }
+
+      const tasks = actions.map((action, index) => {
+        if (!action || !action.mutateAsync) {
+          console.error(`Action at index ${index} is not defined or does not have a mutateAsync method.`);
+          return null; // Filter out invalid actions
         }
-  
-        const tasks = actions.map((action, index) => {
-          if (!action || !action.mutateAsync) {
-            console.error(`Action at index ${index} is not defined or does not have a mutateAsync method.`);
-            return null; // Filter out invalid actions
-          }
-  
-          let params = {};
-          switch (index) {
-            case 0: case 1: case 2:
-              params = { user_id: user.data.id };
-              break;
-            case 3: case 4:
-              params = { user_id: user.data.id, exchange_id: user.data.profitPerHour?.exchange_id || 51 };
-              break;
-            case 5: case 6: case 7:
-              params = { user_id: user.data.id };
-              break;
-            default:
-              console.warn(`No specific params for action at index ${index}`);
-          }
-  
-          return action.mutateAsync(params);
-        }).filter(Boolean);
-  
-        for (const task of tasks) {
+
+        let params = {};
+        switch (index) {
+          case 0: case 1: case 2:
+            params = { user_id: userData.data.id };
+            break;
+          case 3: case 4:
+            params = { user_id: userData.data.id, exchange_id: userData.data.profitPerHour?.exchange_id || 51 };
+            break;
+          case 5: case 6: case 7:
+            params = { user_id: userData.data.id };
+            break;
+          default:
+            console.warn(`No specific params for action at index ${index}`);
+        }
+
+        return action.mutateAsync(params);
+      }).filter(Boolean);
+
+      for (const task of tasks) {
+        if (task) {
           await task;
           setProgress(prev => prev + (100 / tasks.length));
         }
-  
-        miniApp.setHeaderColor('#000');
-        backButton.show();
-        setInitialized(true);
+      }
+
+      miniApp.setHeaderColor('#000');
+      backButton.show();
+      setInitialized(true);
+    } catch (error) {
+      console.error('Error initializing app:', error);
+    }
+  };
+
+  useEffect(() => {
+    const initializeApp = async () => {
+      try {
+        if (initData.user) {
+          await fetchData(initData.user);
+        }
       } catch (error) {
-        console.error('Error initializing app:', error);
+        console.error('Error during initialization:', error);
       }
     };
-  
+
     initializeApp();
-  }, []);  
+  }, [initData.user]);
 
   useEffect(() => {
     if (initialized) {

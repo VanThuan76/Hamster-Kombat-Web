@@ -46,11 +46,11 @@ function App(props: PropsWithChildren) {
         return viewport && bindViewportCSSVars(viewport);
     }, [viewport]);
 
-    // useEffect(() => {
-    //     if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
-    //         router.push('/qr', undefined);
-    //     }
-    // }, [lp]);
+    useEffect(() => {
+        if (lp.platform === 'tdesktop' || lp.platform === 'weba' || lp.platform === 'web') {
+            router.push('/qr', undefined);
+        }
+    }, [lp]);
 
     return (
         <AppRoot
@@ -157,7 +157,7 @@ function RootInner({ children }: PropsWithChildren) {
                 ]
             }}
         >
-            <SDKProvider acceptCustomStyles debug={debug} options={{ async: true }}>
+            <SDKProvider acceptCustomStyles debug={debug}>
                 <App>
                     {children}
                 </App>
