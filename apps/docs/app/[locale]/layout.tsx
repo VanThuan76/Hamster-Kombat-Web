@@ -1,6 +1,5 @@
 import "@ui/styles/globals.css";
 import "@ui/styles/project.css";
-import '@telegram-apps/telegram-ui/dist/styles.css';
 
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
