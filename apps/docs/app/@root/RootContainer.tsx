@@ -15,25 +15,27 @@ import { setInitDataTelegram } from '@shared/redux/store/appSlice';
 import { useTelegramMock } from '@shared/hooks/useTelegramMock';
 import { useTelegramInitialization } from '@shared/hooks/useTelegramInitialization';
 
-
-const { SDKProvider, useLaunchParams } = require('@telegram-apps/sdk-react');
+const { SDKProvider, useLaunchParams, initUtils } = require('@telegram-apps/sdk-react');
 
 function App(props: PropsWithChildren) {
     const dispatch = useAppDispatch()
     const router = useRouter();
+    const utils = initUtils();
+
     const { lp, initData } = useTelegramInitialization();
 
     useEffect(() => {
-        if (initData.user) {
-            dispatch(setInitDataTelegram(initData.user));
+        if (initData) {
+            dispatch(setInitDataTelegram(initData));
+            utils.readTextFromClipboard().then((text: any) => alert(`Get data successfully ${initData?.username}`));
         }
-    }, [initData.user])
+    }, [initData])
 
-    useEffect(() => {
-        if (['tdesktop', 'weba', 'web'].includes(lp.platform)) {
-            router.push('/qr', undefined);
-        }
-    }, [lp, router]);
+    // useEffect(() => {
+    //     if (['tdesktop', 'weba', 'web'].includes(lp.platform)) {
+    //         router.push('/qr', undefined);
+    //     }
+    // }, [lp, router]);
 
     return (
         <AppRoot

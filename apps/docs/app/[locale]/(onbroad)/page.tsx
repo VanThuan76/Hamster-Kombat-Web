@@ -42,12 +42,12 @@ const OnBroadingPage = () => {
     return {
       telegram_id: String(user.id),
       username: user.username,
-      photo_url: user.photoUrl,
-      first_name: user.firstName,
-      last_name: user.lastName,
-      is_bot: user.isBot,
-      is_premium: user.isPremium,
-      language_code: user.languageCode,
+      photo_url: user.photo_url,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      is_bot: user.is_bot,
+      is_premium: user.is_premium,
+      language_code: user.language_code,
       reference_telegram_id: startAppId
     }
   }

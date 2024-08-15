@@ -10,8 +10,7 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
   swcMinify: true,
   experimental: {
     serverComponentsExternalPackages: ["grammy"],
-    mdxRs: true,
-    middleware: true,
+    mdxRs: true
   },
   transpilePackages: ["ui"],
   images: {

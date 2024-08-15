@@ -61,7 +61,7 @@ export interface IDefaultState {
 }
 
 const initialState: IDefaultState = {
-    initDataTelegram: null,
+    initDataTelegram: undefined,
     user: {
         telegram_id: 0,
         id: 0,
