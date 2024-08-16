@@ -38,9 +38,9 @@ export function useTelegramInitialization() {
 
     useEffect(() => {
         if (postEvent) {
-            postEvent('web_app_set_header_color', { color: '#000' });
-            postEvent('web_app_expand');
-            postEvent('web_app_setup_swipe_behavior');
+            // postEvent('web_app_set_header_color', { color: '#000' });
+            // postEvent('web_app_expand');
+            // postEvent('web_app_setup_swipe_behavior');
         }
         backButton.show();
     }, []);
@@ -52,6 +52,6 @@ export function useTelegramInitialization() {
     const userRows = useMemo<any | undefined>(() => {
         return initData && initData.user ? getUserRows(initData.user) : undefined;
     }, [initData]);
-
+    
     return { lp, initData: userRows };
 }
