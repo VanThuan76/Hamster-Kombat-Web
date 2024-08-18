@@ -21,6 +21,7 @@
     "axios": "^1.6.8",
     "cookies-next": "^4.1.1",
     "redux-persist": "^6.0.0",
+    "date-fns": "^3.6.0",
     "eruda": "^3.0.1",
     "eslint": "^9.5.0",
     "next-intl": "^3.17.2",

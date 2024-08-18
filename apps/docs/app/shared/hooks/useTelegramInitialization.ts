@@ -1,17 +1,17 @@
 import { useEffect, useMemo } from "react";
 
 const {
+    postEvent,
     useInitData,
     useLaunchParams,
     useMiniApp,
     useThemeParams,
     useViewport,
-    postEvent,
     initBackButton,
     bindMiniAppCSSVars,
     bindThemeParamsCSSVars,
     bindViewportCSSVars,
-} = require('@telegram-apps/sdk-react');
+} = require("@telegram-apps/sdk-react");
 
 function getUserRows(user: any) {
     return {
@@ -37,11 +37,9 @@ export function useTelegramInitialization() {
     const initData = useInitData();
 
     useEffect(() => {
-        if (postEvent) {
-            // postEvent('web_app_set_header_color', { color: '#000' });
-            // postEvent('web_app_expand');
-            // postEvent('web_app_setup_swipe_behavior');
-        }
+        postEvent('web_app_set_header_color', { color: '#000' });
+        postEvent('web_app_expand');
+        postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
         backButton.show();
     }, []);
 
@@ -52,6 +50,6 @@ export function useTelegramInitialization() {
     const userRows = useMemo<any | undefined>(() => {
         return initData && initData.user ? getUserRows(initData.user) : undefined;
     }, [initData]);
-    
+
     return { lp, initData: userRows };
 }

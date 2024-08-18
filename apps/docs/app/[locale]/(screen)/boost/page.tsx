@@ -10,16 +10,26 @@ import TypographySmall from "@ui/components/typography/small"
 
 import CoinIcon from "@shared/components/CoinIcon"
 
+import useCountdown from "@shared/hooks/useCountdown";
 import useBackButton from "@shared/hooks/useBackButton"
 import { useDraw } from "@shared/hooks/useDraw";
-import { useAppSelector } from "@shared/redux/store"
+import { useAppDispatch, useAppSelector } from "@shared/redux/store"
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
+import { setUpdateEnergyBoost } from "@shared/redux/store/appSlice";
 
 export default function Page(): JSX.Element {
+    const dispatch = useAppDispatch()
     const t = useTranslations('screens.boost')
 
-    const { user } = useAppSelector(state => state.app)
+    const { user, stateBoostEnergy } = useAppSelector(state => state.app)
     const { onOpen } = useDraw()
+
+    const countdown = useCountdown({
+        minutes: stateBoostEnergy.delay,
+        format: "mm:ss",
+        autoStart: true,
+        onCompleted: () => dispatch(setUpdateEnergyBoost({ step: stateBoostEnergy.step, delay: stateBoostEnergy.delay - 1 }))
+    })
 
     const newBoostArr = user.boots.flatMap(item => item.sub_types).flatMap(subType => subType.boots);
 
@@ -33,7 +43,6 @@ export default function Page(): JSX.Element {
     const nextEnergyLimit = currentEnergyLimit && newBoostArr.find(item => item.boots_id === currentEnergyLimit.boots_id + 1)
 
     useBackButton()
-
     return (
         <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-4 text-center bg-black">
             <MotionContainer className="w-full my-2" direction="left">
@@ -48,14 +57,17 @@ export default function Page(): JSX.Element {
             </MotionContainer>
             <div className="flex flex-col justify-start items-start gap-2">
                 <TypographySmall text={t('free_daily_boost')} className="text-base text-white mt-5" />
-                <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyBoost", { current: currentEnergy, next: nextEnergy })}>
-                    <div className="flex justify-start items-center gap-4">
+                <div className={cn("w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer", countdown.minutes && "cursor-not-allowed")} onClick={() => !countdown.minutes && onOpen("energyBoost", { current: currentEnergy, next: nextEnergy })}>
+                    <div className="w-full flex justify-start items-center gap-4">
                         <MotionContainer className="p-3" type="scale">
                             <Image src="/project/icon_flash.svg" alt="@flash" width={32} height={32} priority={true} />
                         </MotionContainer>
-                        <div className="flex flex-col justify-start items-start">
+                        <div className="w-full flex flex-col justify-start items-start">
                             <TypographySmall text={t('full_energy')} className="text-[14px] text-white font-light" />
-                            <TypographySmall text={`6/6 ${t('available')}`} className="text-[14px] text-[#8b8e93] font-light" />
+                            <div className="w-full flex justify-between items-center">
+                                <TypographySmall text={`${stateBoostEnergy.step}/6 ${t('available')}`} className={cn("text-[14px] text-[#8b8e93] font-light", countdown.minutes && 'opacity-30')} />
+                                {countdown.minutes && <TypographySmall text={`${countdown.minutes} phút còn lại`} className="text-[12px] text-[#8b8e93] font-light" />}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -46,6 +46,20 @@ export default function Page(): JSX.Element {
     const [currentTarget, setCurrentTarget] = useState(0)
     useBackButton()
 
+    const defaultSkin = [{
+        id: -1,
+        name: "Default",
+        description: "Your league's default skin",
+        image: membership.image,
+        image_url: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image,
+        price: 0,
+        created_at: "2024-07-20T23:35:04.000000Z",
+        updated_at: "2024-08-02T19:05:21.000000Z",
+        required_level: 0,
+    }]
+
+    const currentSkins = defaultSkin.concat(skins)
+
     return (
         <div className="w-full h-screen relative space-y-2 overflow-y-auto text-center bg-black">
             <div className="w-full flex justify-center items-center px-5 py-2">
@@ -62,15 +76,15 @@ export default function Page(): JSX.Element {
             <Card className="w-full min-h-screen !mt-10  border-none bg-[#1c1f24] p-4 !pb-24" style={{ borderRadius: '40px 40px 0 0' }}>
                 <TypographySmall text={t('skin')} className="text-base text-white text-center" />
                 <DynamicNavigationSwiper
-                    items={skins.map((item, i) => {
+                    items={currentSkins.map((item, i) => {
                         return (
-                            <div key={i} className="flex flex-col justify-center items-center">
+                            <div key={i} className="flex flex-col justify-center items-center overflow-hidden">
                                 <Image
                                     src={item.image_url}
                                     alt={`skin_${item.name}`}
                                     width={270}
                                     height={270}
-                                    className="z-30"
+                                    className="z-30 object-contain object-center"
                                     priority={true}
                                 />
                                 <div className="w-full flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
@@ -91,7 +105,7 @@ export default function Page(): JSX.Element {
                     onSlideChange={setCurrentTarget}
                 />
                 <CardContent className="w-full grid grid-cols-4 justify-center items-center gap-2 p-0 mt-5">
-                    {skins.map((item, i) => {
+                    {currentSkins.map((item, i) => {
                         return (
                             <div key={i} className={cn("relative bg-[#272a2f] flex flex-col justify-center items-center rounded-xl py-2", i === currentTarget && 'border border-[#5a60ff]')} onClick={() => setCurrentTarget(i)}>
                                 <div className="w-[62px] h-[62px]">

@@ -12,17 +12,20 @@ import TypographySmall from "@ui/components/typography/small";
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useDraw } from "@shared/hooks/useDraw";
-import { useAppSelector } from "@shared/redux/store";
+import { setUpdateEnergyBoost } from "@shared/redux/store/appSlice";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 
 import { useUpdateBoost } from "@server/_action/boost-action";
 
 export default function DrawerEnergyBoost(): JSX.Element {
-    const { user } = useAppSelector(state => state.app)
+    const { user, stateBoostEnergy } = useAppSelector(state => state.app)
     const { isOpen, data, onClose, type } = useDraw()
     const isDrawerOpen = isOpen && type === "energyBoost"
 
+    const date = new Date()
     const t = useTranslations('screens.boost')
     
+    const dispatch = useAppDispatch()
     const router = useRouter()
     const updateBoost = useUpdateBoost()
 
@@ -36,6 +39,7 @@ export default function DrawerEnergyBoost(): JSX.Element {
             type: 0,
             sub_type: 0
         })
+        dispatch(setUpdateEnergyBoost({step: stateBoostEnergy.step - 1, delay: 60 }))
         onClose()
         router.push('/exchange')
     }

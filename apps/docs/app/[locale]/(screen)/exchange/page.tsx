@@ -33,7 +33,7 @@ function UserCardExist({ textBuySkin, user, membership }: { textBuySkin: string,
                 <div className="user-info-avatar-skin">
                     <TypographySmall text={textBuySkin} className="mr-[2px] text-center text-[9px] font-semibold leading-none" />
                     <div className="w-[50px] h-full">
-                        <Image src="/project/_skin.png" alt="@skin" width={50} height={50} priority={true} className="w-full h-full bg-cover bg-center bg-no-repeat" />
+                        <Image src="/project/hero_skin.gif" alt="@skin" width={50} height={50} priority={true} className="w-full h-full bg-cover bg-center bg-no-repeat" />
                     </div>
                 </div>
                 <TypographySmall text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name} (King)`} className="text-xs" />
@@ -71,7 +71,7 @@ export default function Page(): JSX.Element {
 
     const haptic = initHapticFeedback();
     useBackButton()
-    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
+    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.money
 
     return (
         <div className="w-full h-full relative overflow-y-auto overflow-hidden">
