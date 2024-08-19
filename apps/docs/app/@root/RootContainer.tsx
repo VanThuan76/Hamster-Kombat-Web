@@ -15,17 +15,20 @@ import { setInitDataTelegram } from '@shared/redux/store/appSlice';
 import { useTelegramMock } from '@shared/hooks/useTelegramMock';
 import { useTelegramInitialization } from '@shared/hooks/useTelegramInitialization';
 
-const { SDKProvider, useLaunchParams } = require('@telegram-apps/sdk-react');
+const { SDKProvider, useLaunchParams, initUtils } = require('@telegram-apps/sdk-react');
 
 function App(props: PropsWithChildren) {
     const dispatch = useAppDispatch()
     const router = useRouter();
+    const utils = initUtils();
 
     const { lp, initData } = useTelegramInitialization();
 
     useEffect(() => {
         if (initData) {
             dispatch(setInitDataTelegram(initData));
+        } else {
+            utils.readTextFromClipboard().then((text: any) => alert('Failed to get information from telegram app. Please check settings on telegram'))
         }
     }, [initData])
 

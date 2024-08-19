@@ -25,12 +25,12 @@ const ItemCardRank = ({ item, order, backgroundAva, className }: { item: any, or
                 <AvatarImage src="/project/icon_ava_user.png" alt="@user" sizes="sm" className="w-[50px] h-[50px]" />
                 <AvatarFallback>User</AvatarFallback>
             </Avatar>
-            <div className="ml-3 w-full flex flex-col justify-start items-start gap-2">
-                <div className="flex justify-center items-center gap-1">
+            <div className="flex flex-col items-start justify-start w-full gap-2 ml-3">
+                <div className="flex items-center justify-center gap-1">
                     <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image} alt="@coin" width={18} height={18} priority={true} />
                     <TypographySmall text={`${item?.first_name} ${item?.last_name}`} className="text-[14px]" />
                 </div>
-                <div className="flex justify-center items-center gap-1">
+                <div className="flex items-center justify-center gap-1">
                     <CoinIcon width={20} height={20} />
                     <TypographySmall text={String(formatCoinStyleDot(item.highest_score))} className="text-[14px] text-[#8b8e93]" />
                 </div>
@@ -54,7 +54,7 @@ export default function Page(): JSX.Element {
     }, [currentTarget])
 
     return (
-        <div className="w-screen h-screen relative overflow-y-auto overflow-hidden space-y-2 text-center">
+        <div className="relative w-screen h-screen space-y-2 overflow-hidden overflow-y-auto text-center">
             <DynamicNavigationSwiper
                 className={cn("rank-slider mt-10", swiperClass)}
                 items={ranks.map((item, i) => {
@@ -62,8 +62,8 @@ export default function Page(): JSX.Element {
                     const nextRequireLevelMoney = ranks.find(item => item.level === currentLevelUserMembership + 1)?.money || item.money
 
                     return (
-                        <div key={i} className="flex flex-col justify-center items-center">
-                            <div className="rank-item-image overflow-hidden">
+                        <div key={i} className="flex flex-col items-center justify-center">
+                            <div className="overflow-hidden rank-item-image">
                                 <Image
                                     src={item.image}
                                     alt={`avatar_${item.name}`}
@@ -73,7 +73,7 @@ export default function Page(): JSX.Element {
                                     priority={true}
                                 />
                             </div>
-                            <div className="w-full flex flex-col justify-center items-center gap-3 px-4">
+                            <div className="flex flex-col items-center justify-center w-full gap-3 px-4">
                                 <TypographyLarge text={item.name} className="text-white text-[32px] font-bold" />
                                 {membership.name.toLowerCase() === item.name.toLowerCase() ?
                                     (<>
@@ -91,7 +91,7 @@ export default function Page(): JSX.Element {
                 })}
                 onSlideChange={setCurrentTarget}
             />
-            <div className="w-full flex flex-col justify-start items-start gap-2 px-4 pb-20">
+            <div className="flex flex-col items-start justify-start w-full gap-2 px-4 pb-20">
                 {ranks[currentTarget]?.rank.filter(item => item.id !== user.id).map((item, i) => {
                     return (
                         <ItemCardRank key={i} item={item} order={i + 1} backgroundAva={swiperClass} />
