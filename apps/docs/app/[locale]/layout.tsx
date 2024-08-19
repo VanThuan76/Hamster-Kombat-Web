@@ -30,7 +30,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={robotoFlex.className}>
       <link rel="icon" href="/project/icon_hamster-coin.png" sizes="any" />
-      <body className={cn('flex flex-col items-center justify-between min-h-screen p-24 bg-black')}>
+      <body className={cn('relative w-full flex flex-col items-center justify-between min-h-screen p-24 bg-black')}>
         <NextIntlClientProvider messages={translate}>
           <Providers>
             <RootContainer>

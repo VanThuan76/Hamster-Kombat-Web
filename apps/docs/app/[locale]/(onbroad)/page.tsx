@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from '@shared/next-intl/navigation';
 import { useAppSelector } from '@shared/redux/store';
+import { toast } from '@shared/hooks/useToast';
 
 import { useFriends, useRankUsers, userLoginAction } from '@server/_action/user-action';
 import { useMembershipByUser } from '@server/_action/membership-action';
@@ -58,12 +59,18 @@ const OnBroadingPage = () => {
             const userData = await userInitAction.mutateAsync(body);
 
             if (!userData.data) {
-                throw new Error('Expected user.data to be undefined');
+                toast({
+                    variant: 'error',
+                    title: 'Expected user.data to be undefined',
+                });
             }
 
             const tasks = actions.map((action, index) => {
                 if (!action || !action.mutateAsync) {
-                    console.error(`Action at index ${index} is not defined or does not have a mutateAsync method.`);
+                    toast({
+                        variant: 'error',
+                        title: `Action at index ${index} is not defined or does not have a mutateAsync method.`,
+                    });
                     return null; // Filter out invalid actions
                 }
 
@@ -89,10 +96,16 @@ const OnBroadingPage = () => {
 
             results.forEach((result, index) => {
                 if (result.status === "fulfilled") {
-                    console.log(`Task ${index + 1} completed successfully`);
+                    toast({
+                        variant: 'success',
+                        title: `Data completed successfully`,
+                    });
                     setProgress(prev => prev + (100 / tasks.length));
                 } else {
-                    console.error(`Task ${index + 1} failed:`, result.reason);
+                    toast({
+                        variant: 'error',
+                        title: `Task ${index + 1} failed: ${result.reason}`,
+                    });
                 }
             });
 
@@ -107,6 +120,11 @@ const OnBroadingPage = () => {
             try {
                 if (initDataTelegram) {
                     await fetchData(initDataTelegram);
+                }else{
+                    toast({
+                        variant: 'destructive',
+                        title: `Data telegram is installed`,
+                    });
                 }
             } catch (error) {
                 console.error('Error during initialization:', error);

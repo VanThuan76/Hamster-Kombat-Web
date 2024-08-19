@@ -1,7 +1,6 @@
 'use client'
 import LazyWrapper from "@ui/components/motion/LazyWrapper"
 
-import { Toaster } from "@shared/toaster";
 import DrawerProvider from "@shared/drawer";
 import useProfitByHour from "@shared/hooks/useProfitByHour";
 
@@ -21,7 +20,6 @@ export default function ScreenLayout({
                 </LazyWrapper>
                 <div className="fixed bottom-0 w-full z-[5000]">
                     <BottomNav />
-                    <Toaster />
                 </div>
                 <DrawerProvider />
             </div>

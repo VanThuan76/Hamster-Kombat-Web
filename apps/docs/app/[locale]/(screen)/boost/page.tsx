@@ -66,7 +66,7 @@ export default function Page(): JSX.Element {
                             <TypographySmall text={t('full_energy')} className="text-[14px] text-white font-light" />
                             <div className="flex items-center justify-between w-full">
                                 <TypographySmall text={`${stateBoostEnergy.step}/6 ${t('available')}`} className={cn("text-[14px] text-[#8b8e93] font-light", countdown.minutes && 'opacity-30')} />
-                                {countdown.minutes && <TypographySmall text={`${countdown.minutes > 0 && countdown.minutes} phút còn lại`} className="text-[12px] text-[#8b8e93] font-light" />}
+                                {countdown.minutes && countdown.minutes > 0 ? <TypographySmall text={`${countdown.minutes} phút còn lại`} className="text-[12px] text-[#8b8e93] font-light" /> : <></> }
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,7 @@ const ToastViewport = React.forwardRef<
     <ToastPrimitives.Viewport
         ref={ref}
         className={cn(
-            'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
+            'fixed left-0 top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
             className,
         )}
         {...props}
@@ -29,6 +29,7 @@ const toastVariants = cva(
             variant: {
                 default: 'border bg-background',
                 success: 'group border-green-100 bg-green-400 text-destructive-foreground',
+                error: 'group border-red-100 bg-red-400 text-destructive-foreground',
                 destructive: 'destructive group border-destructive bg-destructive text-destructive-foreground',
             },
         },
@@ -74,7 +75,7 @@ const ToastClose = React.forwardRef<
         toast-close=''
         {...props}
     >
-        <Cross2Icon className='h-4 w-4' />
+        <Cross2Icon className='w-4 h-4' />
     </ToastPrimitives.Close>
 ));
 ToastClose.displayName = ToastPrimitives.Close.displayName;
