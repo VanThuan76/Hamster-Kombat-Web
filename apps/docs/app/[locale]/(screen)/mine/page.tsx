@@ -43,7 +43,6 @@ export default function Page(): JSX.Element {
     const [currentTab, setCurrentTab] = useState(categoryOfCards && categoryOfCards[0]!.name.toLowerCase());
 
     const haptic = initHapticFeedback();
-    useBackButton()
 
     const targetDate = new Date();
     targetDate.setHours(24, 0, 0, 0);
@@ -52,15 +51,17 @@ export default function Page(): JSX.Element {
         setCurrentTab(value);
     };
 
-    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
+    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.money
+
+    useBackButton()
 
     return (
-        <div className="w-full h-screen relative overflow-y-auto overflow-hidden">
+        <div className="relative w-full h-screen overflow-hidden overflow-y-auto">
             <div className="p-4">
-                <div className="w-full flex justify-between items-center">
+                <div className="flex items-center justify-between w-full">
                     <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
                         <div
-                            className="w-full flex justify-between items-start cursor-pointer"
+                            className="flex items-start justify-between w-full cursor-pointer"
                             onClick={() => {
                                 router.push('/rank', undefined);
                                 haptic.impactOccurred('soft');
@@ -80,9 +81,9 @@ export default function Page(): JSX.Element {
                     <CardProfit />
                 </div>
             </div>
-            <Card className="card-has-glow w-full min-h-screen border-none pb-20">
+            <Card className="w-full min-h-screen pb-20 border-none card-has-glow">
                 <CardHeader className="px-4">
-                    <MotionContainer className="w-full flex justify-end items-center gap-2">
+                    <MotionContainer className="flex items-center justify-end w-full gap-2">
                         <CountdownTimer targetTime={targetDate} />
                         <div className="cursor-pointer" style={{ color: '#fff3' }} onClick={() => onOpen("infoMine")}>
                             <svg width="17" height="18" viewBox="0 0 17 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -90,22 +91,22 @@ export default function Page(): JSX.Element {
                             </svg>
                         </div>
                     </MotionContainer>
-                    <MotionContainer className="w-full flex flex-col justify-end items-center gap-3">
+                    <MotionContainer className="flex flex-col items-center justify-end w-full gap-3">
                         <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
                             <TypographyLarge text={t('daily_combo')} className="text-white text-[14px] w-[30%]" />
-                            <div className="flex justify-center items-center gap-1">
+                            <div className="flex items-center justify-center gap-1">
                                 {Array.from({ length: 3 }).map((_, i) => {
                                     return (
                                         <div key={i} className="w-[14px] h-[14px] bg-[#ffffff0d] rounded-full border-2 border-[#68696a]"></div>
                                     )
                                 })}
                             </div>
-                            <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
+                            <Button className="flex items-center justify-center gap-2 p-2 rounded-md bg-button-mine">
                                 <CoinIcon width={18} height={18} />
                                 <TypographySmall text="+5.000.000" className="text-white text-[14px]" />
                             </Button>
                         </div>
-                        <div className="w-full flex justify-center items-center gap-2">
+                        <div className="flex items-center justify-center w-full gap-2">
                             {Array.from({ length: 3 }).map((_, i) => {
                                 return (
                                     <Popover key={i}>
@@ -130,7 +131,7 @@ export default function Page(): JSX.Element {
                 <MineButton
                     isScreenMine={true}
                     tabScreenMine={
-                        <CardContent className="w-full mt-5 p-4">
+                        <CardContent className="w-full p-4 mt-5">
                             <Tabs value={currentTab} onValueChange={handleTabChange} className="w-full min-h-[100px]">
                                 <MotionContainer className="sticky top-2 z-[50] w-full flex justify-center items-center" direction="left">
                                     <TabsList className="w-full bg-[#272a2f]">
@@ -141,29 +142,29 @@ export default function Page(): JSX.Element {
                                         })}
                                     </TabsList>
                                 </MotionContainer>
-                                <TabsContent value={currentTab} className="relative w-full grid grid-cols-2 justify-start items-start gap-2">
+                                <TabsContent value={currentTab} className="relative grid items-start justify-start w-full grid-cols-2 gap-2">
                                     {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.map((item, i) => {
                                         const currentCardProfit = item.card_profits.find(child => child.is_purchased) || item.card_profits.find(child => child.id === 1)
                                         const isActiveCard = !currentCardProfit || currentCardProfit?.next_level
-                                        
+
                                         return (
                                             <div key={i} className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2" onClick={() => isActiveCard && onOpen("cardMine", { ...item, hasBuy: currentCardProfit && currentCardProfit?.required_money < user.revenue })}>
-                                                <div className="w-full flex justify-start items-start gap-3">
-                                                    <div className="relative w-[60px] h-[60px] flex justify-center items-center">
+                                                <div className="flex items-start justify-start w-full gap-3">
+                                                    <div className="relative w-[60px] h-[60px] flex flex-grow-0 flex-shrink-0 justify-center items-center">
                                                         <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", !isActiveCard && 'w-[40px] h-[40px]')} loading="eager" priority={true} />
-                                                        {!isActiveCard &&  (
+                                                        {!isActiveCard && (
                                                             <div className="absolute w-full h-full top-0 bottom-0 left-0 bg-[#34383fcc] rounded-full flex justify-center items-center">
                                                                 <Image src='/project/icon_key.svg' alt="@imageKey" width={24} height={24} className="w-[24px] h-[24px]" loading="eager" priority={true} />
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="flex flex-col justify-between items-start">
-                                                        <TypographyLarge text={item.name} className="text-white text-xs font-extralight leading-3" />
-                                                        <div className="flex flex-col justify-start items-start">
+                                                    <div className="flex flex-col items-start justify-between">
+                                                        <TypographyLarge text={item.name} className="text-xs leading-3 text-white fix-words-mine font-extralight" />
+                                                        <div className="flex flex-col items-start justify-start">
                                                             <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
-                                                            <div className="flex justify-center items-center gap-1">
+                                                            <div className="flex items-center justify-center gap-1">
                                                                 <div className="w-[16px] h-[16px]">
-                                                                    <CoinIcon width={18} height={18} className={cn("w-full h-full", !isActiveCard && "coin-is-grayscale" ||currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
+                                                                    <CoinIcon width={18} height={18} className={cn("w-full h-full", !isActiveCard && "coin-is-grayscale" || currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
                                                                 </div>
                                                                 <TypographySmall text={`+${currentCardProfit ? String(formatCoin(currentCardProfit.profit as number)) : 0}`} className="text-white text-[12px]" />
                                                             </div>
@@ -171,7 +172,7 @@ export default function Page(): JSX.Element {
                                                     </div>
                                                 </div>
                                                 <Separator className="my-2 bg-[#34383f]" />
-                                                <div className="flex h-5 items-center space-x-4 text-sm">
+                                                <div className="flex items-center h-5 space-x-4 text-sm">
                                                     <TypographySmall text={`lv ${currentCardProfit ? currentCardProfit.level : 0}`} className="text-white text-[12px]" />
                                                     <Separator orientation="vertical" className="bg-[#34383f]" />
                                                     <CoinIcon width={18} height={18} className={cn(!isActiveCard && "coin-is-grayscale" || currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />

@@ -132,12 +132,12 @@ const OnBroadingPage = () => {
             </linearGradient>
           </defs>
         </svg>
-        <TypographyLarge text="Đang tải" className="text-white text-2xl" />
+        <TypographyLarge text="Đang tải" className="text-2xl text-white" />
       </div>
       <div className="loading-launch-bottom">
         <TypographyLarge text="Lion King Token" className="text-2xl text-[#ffc147] font-black" />
         <TypographySmall text="will be launched" className="text-[14px] text-[#fff8] font-bold" />
-        <TypographySmall text="on TON" className="text-5xl text-white font-black mt-2" />
+        <TypographySmall text="on TON" className="mt-2 text-5xl font-black text-white" />
       </div>
     </div>
   );

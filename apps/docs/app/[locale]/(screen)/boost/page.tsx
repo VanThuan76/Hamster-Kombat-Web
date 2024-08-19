@@ -44,55 +44,55 @@ export default function Page(): JSX.Element {
 
     useBackButton()
     return (
-        <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-4 text-center bg-black">
+        <div className="relative w-full h-screen p-5 space-y-4 overflow-hidden overflow-y-auto text-center bg-black">
             <MotionContainer className="w-full my-2" direction="left">
                 <TypographySmall text={t('your_balance')} className="text-[#8b8e93] text-[14px] font-light" />
             </MotionContainer>
-            <MotionContainer className="w-full flex justify-center items-center gap-2" type="scale">
+            <MotionContainer className="flex items-center justify-center w-full gap-2" type="scale">
                 <CoinIcon width={40} height={40} />
-                <TypographyLarge text={String(formatCoinStyleDot(user.revenue))} className="text-white text-3xl" />
+                <TypographyLarge text={String(formatCoinStyleDot(user.revenue))} className="text-3xl text-white" />
             </MotionContainer>
             <MotionContainer className="w-full my-2" direction="right">
                 <TypographySmall text={t('how_boost_work')} className="text-[#ffd337] text-[14px] font-light" />
             </MotionContainer>
-            <div className="flex flex-col justify-start items-start gap-2">
-                <TypographySmall text={t('free_daily_boost')} className="text-base text-white mt-5" />
+            <div className="flex flex-col items-start justify-start gap-2">
+                <TypographySmall text={t('free_daily_boost')} className="mt-5 text-base text-white" />
                 <div className={cn("w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer", countdown.minutes && "cursor-not-allowed")} onClick={() => !countdown.minutes && onOpen("energyBoost", { current: currentEnergy, next: nextEnergy })}>
-                    <div className="w-full flex justify-start items-center gap-4">
+                    <div className="flex items-center justify-start w-full gap-4">
                         <MotionContainer className="p-3" type="scale">
                             <Image src="/project/icon_flash.svg" alt="@flash" width={32} height={32} priority={true} />
                         </MotionContainer>
-                        <div className="w-full flex flex-col justify-start items-start">
+                        <div className="flex flex-col items-start justify-start w-full">
                             <TypographySmall text={t('full_energy')} className="text-[14px] text-white font-light" />
-                            <div className="w-full flex justify-between items-center">
+                            <div className="flex items-center justify-between w-full">
                                 <TypographySmall text={`${stateBoostEnergy.step}/6 ${t('available')}`} className={cn("text-[14px] text-[#8b8e93] font-light", countdown.minutes && 'opacity-30')} />
-                                {countdown.minutes && <TypographySmall text={`${countdown.minutes} phút còn lại`} className="text-[12px] text-[#8b8e93] font-light" />}
+                                {countdown.minutes && <TypographySmall text={`${countdown.minutes > 0 && countdown.minutes} phút còn lại`} className="text-[12px] text-[#8b8e93] font-light" />}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] opacity-50">
-                    <div className="flex justify-start items-center gap-4">
+                    <div className="flex items-center justify-start gap-4">
                         <MotionContainer type="scale">
                             <Image src="/project/icon_rocket.png" alt="@icon_rocket" width={52} height={52} priority={true} />
                         </MotionContainer>
-                        <div className="flex flex-col justify-start items-start">
+                        <div className="flex flex-col items-start justify-start">
                             <TypographySmall text="Turbo" className="text-[14px] text-white font-light" />
                             <TypographySmall text={t('coming_soon')} className="text-[14px] text-[#8b8e93] font-light" />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col justify-start items-start gap-2">
-                <TypographySmall text={t('boosters')} className="text-base text-white mt-5" />
+            <div className="flex flex-col items-start justify-start gap-2">
+                <TypographySmall text={t('boosters')} className="mt-5 text-base text-white" />
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("multitapBoost", { current: currentMultitap, next: nextMultitap })}>
-                    <div className="flex justify-start items-center gap-4">
+                    <div className="flex items-center justify-start gap-4">
                         <MotionContainer type="scale">
                             <Image src="/project/icon_boost-multitap.png" alt="@multitap" width={52} height={52} priority={true} />
                         </MotionContainer>
-                        <div className="flex flex-col justify-start items-start">
+                        <div className="flex flex-col items-start justify-start">
                             <TypographySmall text={t('multitap')} className="text-[14px] text-white font-light" />
-                            <div className="flex justify-center items-center gap-1">
+                            <div className="flex items-center justify-center gap-1">
                                 <CoinIcon width={20} height={20} className={cn(nextMultitap && nextMultitap.required_money > user.revenue && "coin-is-grayscale")} />
                                 <TypographySmall text={String(formatCoin(nextMultitap?.required_money ?? 0))} className="text-[14px] text-white ml-1" />
                                 <span className="text-[#8b8e93]">•</span>
@@ -105,13 +105,13 @@ export default function Page(): JSX.Element {
                     </div>
                 </div>
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyLimitBoost", { current: currentEnergyLimit, next: nextEnergyLimit })}>
-                    <div className="flex justify-start items-center gap-4">
+                    <div className="flex items-center justify-start gap-4">
                         <MotionContainer type="scale">
                             <Image src="/project/icon_boost-energy.png" alt="@icon_boost" width={52} height={52} priority={true} />
                         </MotionContainer>
-                        <div className="flex flex-col justify-start items-start">
+                        <div className="flex flex-col items-start justify-start">
                             <TypographySmall text={t('energy_limit')} className="text-[14px] text-white font-light" />
-                            <div className="flex justify-center items-center gap-1">
+                            <div className="flex items-center justify-center gap-1">
                                 <CoinIcon width={20} height={20} className={cn(nextEnergyLimit && nextEnergyLimit.required_money > user.revenue && "coin-is-grayscale")} />
                                 <TypographySmall text={String(formatCoin(nextEnergyLimit?.required_money || 0))} className="text-[14px] text-white ml-1" />
                                 <span className="text-[#8b8e93]">•</span>

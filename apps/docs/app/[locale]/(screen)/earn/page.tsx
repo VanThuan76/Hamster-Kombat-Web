@@ -43,7 +43,7 @@ export default function Page(): JSX.Element {
     useBackButton()
 
     return (
-        <div className="w-full h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center pb-24">
+        <div className="relative w-full h-screen p-5 pb-24 space-y-2 overflow-hidden overflow-y-auto text-center">
             <MotionContainer className="relative w-full" direction="top">
                 <div className="icon_earn"><svg width="275" height="275" viewBox="0 0 275 275" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_f_1464_6497)">
@@ -68,18 +68,18 @@ export default function Page(): JSX.Element {
             <MotionContainer className="relative w-full" direction="right">
                 <TypographyLarge text={t('earn_coin')} className="text-white text-[32px]" />
             </MotionContainer>
-            <div className="flex flex-col justify-start items-start gap-2">
-                <TypographySmall text="Hamster Youtube" className="text-base text-white mt-5" />
+            <div className="flex flex-col items-start justify-start gap-2">
+                <TypographySmall text="Hamster Youtube" className="mt-5 text-base text-white" />
                 {earns.find(item => item.type === 1)?.earn.map((earn, i) => {
                     return (
                         <div key={i} className={cn('w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 ]', earn.is_completed === 1 ? 'bg-[#272a2fb3]' : 'bg-[#272a2f]')} onClick={() => { utils.openLink(earn.link, { tryBrowser: true }) }}>
-                            <div className="flex justify-start items-center gap-2">
+                            <div className="flex items-center justify-start gap-2">
                                 <MotionContainer type="scale">
                                     <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
                                 </MotionContainer>
-                                <div className="flex flex-col justify-start items-start">
+                                <div className="flex flex-col items-start justify-start">
                                     <TypographySmall text={earn.description} className="text-[14px] text-white font-extralight" />
-                                    <div className="flex justify-center items-center gap-1">
+                                    <div className="flex items-center justify-center gap-1">
                                         <CoinIcon width={20} height={20} />
                                         <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-[14px] text-white ml-1" />
                                     </div>
@@ -91,16 +91,16 @@ export default function Page(): JSX.Element {
                 })}
             </div>
             {/* //Calendar */}
-            <div className="flex flex-col justify-start items-start gap-2">
-                <TypographySmall text={t('daily_tasks')} className="text-base text-white mt-5" />
+            <div className="flex flex-col items-start justify-start gap-2">
+                <TypographySmall text={t('daily_tasks')} className="mt-5 text-base text-white" />
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => onOpen("calendarEarn")}>
-                    <div className="flex justify-start items-center gap-2">
+                    <div className="flex items-center justify-start gap-2">
                         <MotionContainer type="scale">
                             <Image src='/project/calendar.png' alt='@calendar' width={56} height={56} priority={true} />
                         </MotionContainer>
-                        <div className="flex flex-col justify-start items-start">
+                        <div className="flex flex-col items-start justify-start">
                             <TypographySmall text={t('daily_reward')} className="text-[14px] text-white font-extralight" />
-                            <div className="flex justify-center items-center gap-1">
+                            <div className="flex items-center justify-center gap-1">
                                 <CoinIcon width={20} height={20} />
                                 <TypographySmall text={`+${formatCoinStyleDot(earns.find(item => item.type === 3)?.earn.reduce((a, b) => a + b.reward, 0) || 0)}`} className="text-[14px] text-white ml-1" />
                             </div>
@@ -112,8 +112,8 @@ export default function Page(): JSX.Element {
                 </div>
             </div>
             {/* //Calendar */}
-            <div className="flex flex-col justify-start items-start gap-2">
-                <TypographySmall text={t('task_list')} className="text-base text-white mt-5" />
+            <div className="flex flex-col items-start justify-start gap-2">
+                <TypographySmall text={t('task_list')} className="mt-5 text-base text-white" />
                 {earns.find(item => item.type === 2)?.earn.map((earn, i) => {
                     return (
                         <div
@@ -122,13 +122,13 @@ export default function Page(): JSX.Element {
                                 onOpen("itemEarn", earn)
                             }}
                         >
-                            <div className="flex justify-start items-center gap-2">
+                            <div className="flex items-center justify-start gap-2">
                                 <MotionContainer type="scale">
                                     <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
                                 </MotionContainer>
-                                <div className="flex flex-col justify-start items-start">
+                                <div className="flex flex-col items-start justify-start">
                                     <TypographySmall text={earn.name} className="text-[14px] text-white font-extralight" />
-                                    <div className="flex justify-center items-center gap-1">
+                                    <div className="flex items-center justify-center gap-1">
                                         <CoinIcon width={20} height={20} />
                                         <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-[14px] text-white ml-1" />
                                     </div>

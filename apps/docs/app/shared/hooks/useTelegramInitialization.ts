@@ -37,10 +37,14 @@ export function useTelegramInitialization() {
     const initData = useInitData();
 
     useEffect(() => {
-        postEvent('web_app_set_header_color', { color: '#000' });
-        postEvent('web_app_expand');
-        postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
-        backButton.show();
+        try {
+            postEvent('web_app_set_header_color', { color: '#000' });
+            postEvent('web_app_expand');
+            postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
+            backButton.show();
+        } catch (error) {
+            console.error('An error occurred while setting up the web app:', error);
+        }
     }, []);
 
     useEffect(() => bindMiniAppCSSVars(miniApp, themeParams), [miniApp, themeParams]);

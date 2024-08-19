@@ -458,3 +458,8 @@
 .rank-ava.is-lord {
   background: linear-gradient(131deg, #fff 12.82%, #ffbb7c 53%, #b75800 95.77%);
 }
+
+.fix-words-mine {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
