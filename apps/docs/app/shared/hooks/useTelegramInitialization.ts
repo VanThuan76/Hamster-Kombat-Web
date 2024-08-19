@@ -2,16 +2,17 @@ import { useEffect, useMemo } from "react";
 
 const {
     postEvent,
+    useMiniApp,
+    useViewport,
     useInitData,
     useLaunchParams,
-    useMiniApp,
     useThemeParams,
-    useViewport,
     initBackButton,
     bindMiniAppCSSVars,
     bindThemeParamsCSSVars,
     bindViewportCSSVars,
 } = require("@telegram-apps/sdk-react");
+
 
 function getUserRows(user: any) {
     return {
@@ -37,19 +38,10 @@ export function useTelegramInitialization() {
     const initData = useInitData();
 
     useEffect(() => {
-        const setupApp = async () => {
-            try {
-                await postEvent('web_app_set_header_color', { color: '#000' });
-                await postEvent('web_app_expand');
-                await postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
-                backButton.show();
-            } catch (error) {
-                console.error('An error occurred while setting up the web app:', error);
-            }
-        };
-
-        setupApp();
-    }, []);
+        postEvent && postEvent('web_app_expand');
+        miniApp && miniApp.setHeaderColor('#000');
+        backButton && backButton.show();
+    }, [miniApp, backButton]);
 
 
     useEffect(() => bindMiniAppCSSVars(miniApp, themeParams), [miniApp, themeParams]);

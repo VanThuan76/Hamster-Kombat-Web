@@ -35,11 +35,11 @@ function App(props: PropsWithChildren) {
         }
     }, [initData])
 
-    // useEffect(() => {
-    //     if (['tdesktop', 'weba', 'web'].includes(lp.platform)) {
-    //         router.push('/qr', undefined);
-    //     }
-    // }, [lp, router]);
+    useEffect(() => {
+        if (['tdesktop', 'weba', 'web'].includes(lp.platform)) {
+            router.push('/qr', undefined);
+        }
+    }, [lp, router]);
 
     return (
         <AppRoot
