@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 
 const {
+    postEvent,
     useInitData,
     useLaunchParams,
     useMiniApp,
@@ -12,7 +13,6 @@ const {
     bindViewportCSSVars,
 } = require("@telegram-apps/sdk-react");
 
-import { postEvent } from "@telegram-apps/sdk-react"
 
 function getUserRows(user: any) {
     return {
