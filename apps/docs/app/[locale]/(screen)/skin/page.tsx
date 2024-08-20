@@ -46,12 +46,13 @@ export default function Page(): JSX.Element {
     const [currentTarget, setCurrentTarget] = useState(0)
     useBackButton()
 
+    const avatarImage = process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image
     const defaultSkin = [{
         id: -1,
         name: "Default",
         description: "Your league's default skin",
         image: membership.image,
-        image_url: process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image,
+        image_url: avatarImage,
         price: 0,
         created_at: "2024-07-20T23:35:04.000000Z",
         updated_at: "2024-08-02T19:05:21.000000Z",
@@ -61,24 +62,24 @@ export default function Page(): JSX.Element {
     const currentSkins = defaultSkin.concat(skins)
 
     return (
-        <div className="w-full h-screen relative space-y-2 overflow-y-auto text-center bg-black">
-            <div className="w-full flex justify-center items-center px-5 py-2">
-                <TypographyLarge text={t('profile')} className="text-white text-base" />
+        <div className="relative w-full h-screen space-y-2 overflow-y-auto text-center bg-black">
+            <div className="flex items-center justify-center w-full px-5 py-2">
+                <TypographyLarge text={t('profile')} className="text-base text-white" />
             </div>
-            <div className="flex justify-start items-center gap-2 px-5 py-2">
+            <div className="flex items-center justify-start gap-2 px-5 py-2">
                 <Avatar className="bg-[#1c1f24] rounded-lg w-[40px] h-[40px]">
-                    <AvatarImage src={`https://cdn.hamsterkombat.io/avatar/${9 + membership.level}.webp`} alt="@user" sizes="sm" className="w-[40px] h-[40px]" />
+                    <AvatarImage src={avatarImage} alt="@user" sizes="sm" className="w-[40px] h-[40px]" />
                     <AvatarFallback>User</AvatarFallback>
                 </Avatar>
                 <TypographySmall text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name}`} className="text-base" />
             </div>
             <Separator className="w-full" />
             <Card className="w-full min-h-screen !mt-10  border-none bg-[#1c1f24] p-4 !pb-24" style={{ borderRadius: '40px 40px 0 0' }}>
-                <TypographySmall text={t('skin')} className="text-base text-white text-center" />
+                <TypographySmall text={t('skin')} className="text-base text-center text-white" />
                 <DynamicNavigationSwiper
                     items={currentSkins.map((item, i) => {
                         return (
-                            <div key={i} className="flex flex-col justify-center items-center overflow-hidden">
+                            <div key={i} className="flex flex-col items-center justify-center overflow-hidden">
                                 <Image
                                     src={item.image_url}
                                     alt={`skin_${item.name}`}
@@ -92,7 +93,7 @@ export default function Page(): JSX.Element {
                                     <TypographySmall text={item.description} className="text-[12px] font-normal text-white" />
                                     {i === 0 ?
                                         <TypographySmall text={t('purchased')} className="text-[14px] font-normal text-[#82f88e] mt-5" />
-                                        : <div className="flex justify-center items-center gap-2">
+                                        : <div className="flex items-center justify-center gap-2">
                                             <CoinIcon width={28} height={28} className="coin-is-grayscale" />
                                             <TypographySmall text={`${formatCoinStyleDot(item.price)}`} className="text-[20px] font-bold text-[#fff6]" />
                                         </div>}
@@ -104,12 +105,12 @@ export default function Page(): JSX.Element {
                     activeSlideChange={currentTarget}
                     onSlideChange={setCurrentTarget}
                 />
-                <CardContent className="w-full grid grid-cols-4 justify-center items-center gap-2 p-0 mt-5">
+                <CardContent className="grid items-center justify-center w-full grid-cols-4 gap-2 p-0 mt-5">
                     {currentSkins.map((item, i) => {
                         return (
                             <div key={i} className={cn("relative bg-[#272a2f] flex flex-col justify-center items-center rounded-xl py-2", i === currentTarget && 'border border-[#5a60ff]')} onClick={() => setCurrentTarget(i)}>
                                 <div className="w-[62px] h-[62px]">
-                                    <Image src={item.image_url} alt={item.name} width={62} height={62} className="w-full h-full object-conntain object-center" />
+                                    <Image src={item.image_url} alt={item.name} width={62} height={62} className="object-center w-full h-full object-conntain" />
                                 </div>
                                 <TypographySmall text={item.name} className="text-[9px] font-extralight text-white" />
                                 {i === 0 ? <CheckIcon is_purchased={true} /> : <CheckIcon is_purchased={false} />}

@@ -79,7 +79,7 @@ export default function Page(): JSX.Element {
                                     (<>
                                         <TypographySmall text={`${formatCoin(user.revenue)} / ${formatCoin(nextRequireLevelMoney)}`} className="text-[14px] font-bold text-[#fff9] -translate-y-2" />
                                         <Progress
-                                            value={Math.ceil((user.revenue / +item.money) * 100)}
+                                            value={Math.ceil((user.revenue / +item.short_money) * 100)}
                                             className="w-full h-[12px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                                         />
                                     </>) :
@@ -92,16 +92,14 @@ export default function Page(): JSX.Element {
                 onSlideChange={setCurrentTarget}
             />
             <div className="flex flex-col items-start justify-start w-full gap-2 px-4 pb-20">
-                {ranks[currentTarget]?.rank.filter(item => item.id !== user.id).map((item, i) => {
+                {ranks[currentTarget]?.rank.map((item, i) => {
+                    if (item.id === user.id) return (
+                        <div className="fixed px-4 left-0 bottom-20 w-full z-[10000]">
+                            <ItemCardRank key={i} item={item} order={i + 1} backgroundAva={swiperClass} className="border border-white" />
+                        </div>
+                    )
                     return (
                         <ItemCardRank key={i} item={item} order={i + 1} backgroundAva={swiperClass} />
-                    )
-                })}
-            </div>
-            <div className="fixed px-4 bottom-18 w-full z-[10000]">
-                {ranks[currentTarget]?.currentUser?.map((item, i) => {
-                    return (
-                        <ItemCardRank key={i} item={item} order={i} backgroundAva={swiperClass} className="border border-white" />
                     )
                 })}
             </div>

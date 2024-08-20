@@ -463,3 +463,14 @@
   word-break: break-word;
   overflow-wrap: break-word;
 }
+
+.app-bar-item-notification {
+  background-color: #ff3b30;
+  border-radius: 50%;
+  height: 10px;
+  left: 50%;
+  margin-left: 10px;
+  position: absolute;
+  top: 6px;
+  width: 10px;
+}

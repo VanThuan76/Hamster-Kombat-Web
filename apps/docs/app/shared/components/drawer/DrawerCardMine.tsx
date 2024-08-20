@@ -44,33 +44,33 @@ export default function DrawerCardMine(): JSX.Element {
 
     return (
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[60%] border-none">
-            <div className="mt-2 w-full flex flex-col justify-center items-center gap-2">
+            <div className="flex flex-col items-center justify-center w-full gap-2 mt-2">
                 <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data?.image}` || ''} alt="@imageTask" width={115} height={115} priority={true} />
                 <TypographySmall text={data?.name} className="text-white text-[28px] font-semibold" />
                 <TypographySmall text={data?.description} className="text-white text-[14px] text-center" />
-                <div className="flex flex-col justify-center items-center gap-1">
+                <div className="flex flex-col items-center justify-center gap-1">
                     <TypographySmall text="Lợi nhuận mỗi giờ" className="text-white text-[10px] font-extralight" />
-                    <div className="flex justify-center items-center gap-1">
+                    <div className="flex items-center justify-center gap-1">
                         <div className="w-[16px] h-[16px]">
                             <CoinIcon width={18} height={18} className={cn("w-full h-full", !data.hasBuy && 'coin-is-grayscale')} />
                         </div>
-                        <TypographySmall text={`+${String(formatCoinStyleDot(data.card_profits?.find((child: any) => child.is_purchased)?.profit as number))}`} className="text-white text-[12px]" />
+                        <TypographySmall text={`+${String(formatCoinStyleDot(data.card_profits?.find((child: any) => child.is_purchased)?.next_level.profit as number))}`} className="text-white text-[12px]" />
                     </div>
                 </div>
-                <div className="flex justify-center items-center gap-1">
+                <div className="flex items-center justify-center gap-1">
                     <div className="w-[32px] h-[32px]">
                         <CoinIcon width={32} height={32} className={cn("w-full h-full", !data.hasBuy && 'coin-is-grayscale')} />
                     </div>
-                    <TypographySmall text={String(formatCoinStyleDot(data.card_profits?.find((child: any) => child.is_purchased)?.required_money as number))} className="text-white text-[12px] !m-1" />
+                    <TypographySmall text={String(formatCoinStyleDot(data.card_profits?.find((child: any) => child.is_purchased)?.next_level.required_money as number))} className="text-white text-[12px] !m-1" />
                 </div>
                 {data.hasBuy ? (
                     <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => handleSuccess()}>
-                        <TypographyLarge text="Chúc bạn may mắn!" className="text-white text-xl font-bold" />
+                        <TypographyLarge text="Chúc bạn may mắn!" className="text-xl font-bold text-white" />
                         <CoinIcon width={28} height={28} />
                     </Button>
                 ) : (
                     <Button className="w-full h-[80px] bg-[#4e4f50cc] hover:bg-[#4e4f50cc] text-white flex justify-center items-center gap-2 rounded-2xl pointer-events-none">
-                        <TypographyLarge text="Không đủ tiền" className="text-white text-xl font-bold" />
+                        <TypographyLarge text="Không đủ tiền" className="text-xl font-bold text-white" />
                     </Button>
                 )}
             </div>

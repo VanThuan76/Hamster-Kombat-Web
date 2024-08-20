@@ -47,7 +47,7 @@ export const BottomNav = () => {
         {
             name: "Airdrop",
             link: "/airdrop",
-            icon: '/project/icon_hamster-coin.png'
+            icon: '/project/icon_lion_coin.png'
         },
     ]);
 
@@ -95,6 +95,7 @@ export const BottomNav = () => {
                         priority={true}
                     />
                     <TypographySmall text={navItem.name} className={cn('text-[10px] font-extralight', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />
+                    <div className={cn(navItem.link === "/earn" && "app-bar-item-notification")}></div>
                 </Link>
             ))}
         </div>

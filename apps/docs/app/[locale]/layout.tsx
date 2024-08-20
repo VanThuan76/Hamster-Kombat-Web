@@ -28,8 +28,8 @@ export default async function LocaleLayout({
   const translate = await getMessages();
 
   return (
-    <html lang={locale} className={robotoFlex.className}>
-      <link rel="icon" href="/project/icon_hamster-coin.png" sizes="any" />
+    <html suppressHydrationWarning lang={locale} className={robotoFlex.className}>
+      <link rel="icon" href="/project/icon_lion_coin.png" sizes="any" />
       <body className={cn('relative w-full flex flex-col items-center justify-between min-h-screen p-24 bg-black')}>
         <NextIntlClientProvider messages={translate}>
           <Providers>

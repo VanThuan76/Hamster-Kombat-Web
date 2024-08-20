@@ -79,7 +79,7 @@ interface CardProfit {
     created_by?: null;
     updated_by?: null;
     is_purchased: boolean;
-    next_level?: NextLevel[];
+    next_level?: NextLevel;
 }
 
 interface NextLevel {

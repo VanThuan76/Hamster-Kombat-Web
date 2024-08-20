@@ -70,7 +70,7 @@ export default function Page(): JSX.Element {
     const [isSecretFeature, setSecretFeature] = useState(false)
 
     const haptic = initHapticFeedback();
-    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.money
+    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
 
     useBackButton()
 

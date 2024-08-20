@@ -10,7 +10,7 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
   swcMinify: true,
   experimental: {
     serverComponentsExternalPackages: ["grammy"],
-    mdxRs: true
+    mdxRs: true,
   },
   transpilePackages: ["ui"],
   images: {
@@ -18,12 +18,8 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn.hamsterkombat.io",
-      },
-      {
-        protocol: "https",
         hostname: "hamster-admin.alphasius.com",
-      }
+      },
     ],
   },
   webpack(config, options) {

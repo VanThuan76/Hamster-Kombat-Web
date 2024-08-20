@@ -51,7 +51,7 @@ export default function Page(): JSX.Element {
         setCurrentTab(value);
     };
 
-    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.money
+    const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
 
     useBackButton()
 
@@ -166,7 +166,7 @@ export default function Page(): JSX.Element {
                                                                 <div className="w-[16px] h-[16px]">
                                                                     <CoinIcon width={18} height={18} className={cn("w-full h-full", !isActiveCard && "coin-is-grayscale" || currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
                                                                 </div>
-                                                                <TypographySmall text={`+${currentCardProfit ? String(formatCoin(currentCardProfit.profit as number)) : 0}`} className="text-white text-[12px]" />
+                                                                <TypographySmall text={`+${currentCardProfit?.next_level ? String(formatCoin(currentCardProfit.next_level.profit as number)) : 0}`} className="text-white text-[12px]" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -176,7 +176,7 @@ export default function Page(): JSX.Element {
                                                     <TypographySmall text={`lv ${currentCardProfit ? currentCardProfit.level : 0}`} className="text-white text-[12px]" />
                                                     <Separator orientation="vertical" className="bg-[#34383f]" />
                                                     <CoinIcon width={18} height={18} className={cn(!isActiveCard && "coin-is-grayscale" || currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
-                                                    <TypographySmall text={currentCardProfit ? String(formatCoin(currentCardProfit.required_money as number)) : '0'} className="text-white text-[12px] !m-1" />
+                                                    <TypographySmall text={currentCardProfit?.next_level ? String(formatCoin(currentCardProfit.next_level.required_money as number)) : '0'} className="text-white text-[12px] !m-1" />
                                                 </div>
                                             </div>
                                         )
