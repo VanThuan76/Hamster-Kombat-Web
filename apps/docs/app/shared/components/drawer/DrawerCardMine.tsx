@@ -43,7 +43,7 @@ export default function DrawerCardMine(): JSX.Element {
     if (!data) return <></>
 
     return (
-        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[60%] border-none">
+        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
             <div className="flex flex-col items-center justify-center w-full gap-2 mt-2">
                 <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data?.image}` || ''} alt="@imageTask" width={115} height={115} priority={true} />
                 <TypographySmall text={data?.name} className="text-white text-[28px] font-semibold" />

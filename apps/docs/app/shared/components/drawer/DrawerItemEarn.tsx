@@ -7,7 +7,6 @@ import { Button } from "@ui/components/button"
 import Drawer from "@ui/components/drawer"
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
-
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useDraw } from "@shared/hooks/useDraw";
@@ -36,14 +35,14 @@ export default function DrawerItemEarn(): JSX.Element {
     }
 
     function containsTelegram(url: string): boolean {
-        return url.toLowerCase().includes("telegram");
+        return url?.toLowerCase().includes("telegram");
+    }
+
+    function containsYoutube(url: string): boolean {
+        return url?.toLowerCase().includes("youtube");
     }
 
     function handleSuccess(earn: EarnDetail) {
-        if (earn.link !== null) {
-            containsHttps(earn.link) ? utils.openLink(earn.link, { tryBrowser: true }) : containsTelegram(earn.link)
-                ? utils.openTelegramLink(earn.link) : earn.link !== null && router.push(earn.link)
-        }
         earn.is_completed === 0 && updateEarn.mutate({
             user_id: user.id,
             user_earn_id: earn.user_earn_id,
@@ -52,28 +51,46 @@ export default function DrawerItemEarn(): JSX.Element {
         onClose()
     }
 
+    function handleChoosen(earn: EarnDetail) {
+        if (earn.link !== null) {
+            containsHttps(earn.link) ? utils.openLink(earn.link, { tryBrowser: true }) : containsTelegram(earn.link)
+                ? utils.openTelegramLink(earn.link) : earn.link !== null && router.push(earn.link)
+        }
+    }
+
+    if (!data) return <></>
+
     return (
-        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[50%] h-[60%] border-none">
-            <div className="w-full flex flex-col justify-center items-center gap-8">
-                <div className="relative visible">
-                    <div className="relative z-10">
-                        <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data?.image} alt={data?.name} width={115} height={115} priority={true} />
-                    </div>
+        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
+            <div className="flex flex-col items-center justify-center w-full gap-6">
+                <div className="relative z-10">
+                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data?.image} alt={data?.name} width={115} height={115} priority={true} />
                 </div>
-                <div className="w-full flex flex-col justify-center items-center gap-5">
-                    <TypographyLarge text={data?.name} className="text-white text-center text-[32px] font-bold" />
-                    <div className="flex justify-center items-center gap-1">
+                <div className="flex flex-col items-center justify-center w-full gap-5">
+                    <div className="flex flex-col items-center justify-center gap-3 text-center text-white">
+                        <TypographyLarge text={data?.name} className="text-[32px] font-bold leading-8" />
+                        <TypographySmall text={data?.description} className="text-[14px]" />
+                    </div>
+                    <Button className="h-[50px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl px-12" onClick={() => handleChoosen(data)}>
+                        <TypographyLarge
+                            text={containsYoutube(data.link) ? 'Xem video' : 'Tham gia'}
+                            className="text-[18px] font-bold text-white"
+                        />
+                    </Button>
+                    <div className="flex items-center justify-center gap-1">
                         <CoinIcon width={28} height={28} />
-                        <TypographySmall text={`+${formatCoinStyleDot(data?.reward)}`} className="text-2xl text-white ml-1" />
+                        <TypographySmall text={`+${formatCoinStyleDot(data?.reward)}`} className="ml-1 text-2xl text-white" />
                     </div>
                 </div>
-                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => handleSuccess(data)}>
-                    <TypographyLarge
-                        text={earns.find(item => item.type === 3)?.earn[0]?.is_completed === 0 ? t('btn_require') : t('btn_back')}
-                        className="text-white text-xl font-bold"
-                    />
-                    <CoinIcon width={28} height={28} />
-                </Button>
+                {data.is_completed === 0 && (
+                    <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => handleSuccess(data)}>
+                        <TypographyLarge
+                            text={earns.find(item => item.type === 3)?.earn[0]?.is_completed === 0 ? t('btn_require') : 'Kiểm tra'}
+                            className="text-xl font-bold text-white"
+                        />
+                        <CoinIcon width={28} height={28} />
+                    </Button>
+                )}
             </div>
         </Drawer>
     )

@@ -16,7 +16,7 @@ export interface ICard {
 export interface ICardProfit {
     id: number;
     card_id: number;
-    card_name: null;
+    card_name: string;
     level: number;
     profit: number;
     required_card: number;
@@ -70,7 +70,7 @@ interface CardProfit {
     card_name?: null;
     level: number;
     profit: number;
-    required_card: number;
+    required_card: ICardProfit;
     required_money: number;
     required_short_money?: null | string;
     status?: null;
@@ -88,7 +88,7 @@ interface NextLevel {
     card_name?: null;
     level: number;
     profit: number;
-    required_card: number;
+    required_card: ICardProfit;
     required_money: number;
     required_short_money?: null | string;
     status?: null;

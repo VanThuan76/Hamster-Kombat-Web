@@ -24,7 +24,7 @@ export default function DrawerEnergyBoost(): JSX.Element {
 
     const date = new Date()
     const t = useTranslations('screens.boost')
-    
+
     const dispatch = useAppDispatch()
     const router = useRouter()
     const updateBoost = useUpdateBoost()
@@ -45,23 +45,23 @@ export default function DrawerEnergyBoost(): JSX.Element {
     }
 
     return (
-        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[70%] border-none">
-            <div className="w-full flex flex-col justify-center items-center gap-8">
+        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
+            <div className="flex flex-col items-center justify-center w-full gap-8">
                 <div className="relative z-10">
                     <Image src="/project/icon_flash.svg" alt="@icon_flash" width={115} height={115} priority={true} />
                 </div>
-                <div className="w-full flex flex-col justify-center items-center gap-5">
+                <div className="flex flex-col items-center justify-center w-full gap-5">
                     <TypographyLarge text={t('full_energy')} className="text-white text-[32px] font-bold" />
                     <TypographySmall text={t('des_full_energy')} className="text-white text-center text-[14px] max-w-[280px] font-normal" />
-                    <div className="flex justify-center items-center gap-2">
+                    <div className="flex items-center justify-center gap-2">
                         <CoinIcon width={28} height={28} />
-                        <TypographyLarge text={String(data?.next?.required_money)} className="text-white text-xl font-bold" />
+                        <TypographyLarge text={String(data?.next?.required_money)} className="text-xl font-bold text-white" />
                     </div>
                 </div>
                 <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleSuccess}>
                     <TypographyLarge
                         text="Nhận"
-                        className="text-white text-xl font-bold"
+                        className="text-xl font-bold text-white"
                     />
                     <CoinIcon width={28} height={28} />
                 </Button>

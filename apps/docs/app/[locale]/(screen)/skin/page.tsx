@@ -22,14 +22,14 @@ import { useAppSelector } from "@shared/redux/store/index"
 
 const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
-function CheckIcon({ is_purchased }: { is_purchased: boolean }) {
-    if (is_purchased) {
+function CheckIcon({ is_purchased, is_active = true }: { is_purchased: boolean, is_active?: boolean }) {
+    if (is_purchased && is_active) {
         return (
             <div className="absolute flex justify-center items-center top-0 right-0 w-[18px] h-[18px] bg-gradient-to-b from-[#74fc82] to-[#297e32] rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-[10px] h-[10px] text-white" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 19.9c-.3 0-.6-.1-.8-.3L3 14.3c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0L9 17.2 20.2 6c.4-.4 1.2-.4 1.6 0 .4.4.4 1.2 0 1.6l-12 12c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg>
             </div>
         )
-    } else {
+    } else if (!is_active) {
         return (
             <div className="absolute top-2 right-1 w-[16px] h-[16px]">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" viewBox="0 0 20 20"><path d="M16.2 6.2h-2.5V4.4C13.7 2.3 12 .6 9.9.6S6.2 2.3 6.2 4.4v1.9H3.8c-.7 0-1.2.6-1.2 1.2v8.8c0 .7.6 1.2 1.2 1.2h12.5c.7 0 1.2-.6 1.2-1.2V7.5c0-.7-.6-1.3-1.3-1.3zM10 12.8c-.5 0-.9-.4-.9-.9s.4-.9.9-.9.9.4.9.9-.4.9-.9.9zm2.5-6.6h-5V4.4C7.5 3 8.6 1.9 10 1.9s2.5 1.1 2.5 2.5v1.8z" fill="#4e4f50"></path></svg>
@@ -41,7 +41,7 @@ function CheckIcon({ is_purchased }: { is_purchased: boolean }) {
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.skin')
 
-    const { user, skins, membership } = useAppSelector(state => state.app)
+    const { user, skins, membership, ranks } = useAppSelector(state => state.app)
 
     const [currentTarget, setCurrentTarget] = useState(0)
     useBackButton()
@@ -92,12 +92,13 @@ export default function Page(): JSX.Element {
                                     <TypographySmall text={item.name} className="text-base font-bold text-white" />
                                     <TypographySmall text={item.description} className="text-[12px] font-normal text-white" />
                                     {i === 0 ?
-                                        <TypographySmall text={t('purchased')} className="text-[14px] font-normal text-[#82f88e] mt-5" />
-                                        : <div className="flex items-center justify-center gap-2">
-                                            <CoinIcon width={28} height={28} className="coin-is-grayscale" />
+                                        <TypographySmall text={t('purchased')} className="text-[14px] font-normal text-[#82f88e] mt-5" /> :
+                                        <div className="flex items-center justify-center gap-2">
+                                            <CoinIcon width={28} height={28} className={cn(item.required_level === 0 || ranks.find(child => child.level === item.required_level)?.name.toLowerCase() === membership.name.toLowerCase() ? "" : "coin-is-grayscale")} />
                                             <TypographySmall text={`${formatCoinStyleDot(item.price)}`} className="text-[20px] font-bold text-[#fff6]" />
-                                        </div>}
-                                    <Button className="bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl">{i === 0 ? 'Chọn' : 'Đạt đến giải đấu Legendary để mở khóa skin'}</Button>
+                                        </div>
+                                    }
+                                    <Button className="bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl">{item.required_level === 0 || ranks.find(child => child.level === item.required_level)?.name.toLowerCase() === membership.name.toLowerCase() ? 'Chọn' : `Đạt đến giải đấu ${ranks.find(child => child.level === item.required_level)?.name} để mở khóa skin`}</Button>
                                 </div>
                             </div>
                         )
@@ -113,7 +114,7 @@ export default function Page(): JSX.Element {
                                     <Image src={item.image_url} alt={item.name} width={62} height={62} className="object-center w-full h-full object-conntain" />
                                 </div>
                                 <TypographySmall text={item.name} className="text-[9px] font-extralight text-white" />
-                                {i === 0 ? <CheckIcon is_purchased={true} /> : <CheckIcon is_purchased={false} />}
+                                {i === 0 ? <CheckIcon is_purchased={true} /> : <CheckIcon is_purchased={false} is_active={item.required_level === 0 || ranks.find(child => child.level === item.required_level)?.name.toLowerCase() === membership.name.toLowerCase()} />}
                             </div>
                         )
                     })}

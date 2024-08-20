@@ -43,29 +43,29 @@ export default function DrawerEnergyLimitBoost(): JSX.Element {
     }
 
     return (
-        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[70%] border-none">
-            <div className="w-full flex flex-col justify-center items-center gap-8">
+        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
+            <div className="flex flex-col items-center justify-center w-full gap-8">
                 <div className="relative z-10">
                     <Image src="/project/icon_boost-energy.png" alt="@icon_boost-energy" width={115} height={115} priority={true} />
                 </div>
-                <div className="w-full flex flex-col justify-center items-center gap-5">
+                <div className="flex flex-col items-center justify-center w-full gap-5">
                     <TypographyLarge text={t('energy_limit')} className="text-white text-[32px] font-bold" />
                     <TypographySmall text={t('des_energy_limit_1')} className="text-white text-[14px] max-w-[280px] font-normal" />
                     <TypographySmall text={t('des_energy_limit_2') + ' ' + String(data?.next?.level)} className="text-white text-base max-w-[280px] font-normal" />
-                    <div className="flex justify-center items-center gap-2">
+                    <div className="flex items-center justify-center gap-2">
                         <CoinIcon width={28} height={28} className={cn(data?.next?.required_money > user.revenue && "coin-is-grayscale")} />
-                        <TypographyLarge text={String(formatCoinStyleDot(data?.next?.required_money))} className="text-white text-xl font-bold" />
+                        <TypographyLarge text={String(formatCoinStyleDot(data?.next?.required_money))} className="text-xl font-bold text-white" />
                     </div>
                 </div>
                 {data?.next?.required_money > user.revenue ? (
                     <Button className="w-full h-[80px] bg-[#4e4f50cc] hover:bg-[#4e4f50cc] text-white flex justify-center items-center gap-2 rounded-2xl pointer-events-none">
-                        <TypographyLarge text="Không đủ tiền" className="text-white text-xl font-bold" />
+                        <TypographyLarge text="Không đủ tiền" className="text-xl font-bold text-white" />
                     </Button>
                 ) : (
                     <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={handleSuccess}>
                         <TypographyLarge
                             text="Nhận"
-                            className="text-white text-xl font-bold"
+                            className="text-xl font-bold text-white"
                         />
                         <CoinIcon width={28} height={28} />
                     </Button>

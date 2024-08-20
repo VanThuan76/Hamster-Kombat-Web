@@ -16,14 +16,14 @@ const DrawerWalletConnect = () => {
     const isDrawerOpen = isOpen && type === "walletConnect"
 
     return (
-        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow h-[75%] border-none">
-            <div className="w-full flex flex-col justify-center items-center gap-8">
+        <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
+            <div className="flex flex-col items-center justify-center w-full gap-8">
                 <div className="relative visible">
                     <div className="relative z-10">
                         <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={115} height={115} priority={true} />
                     </div>
                 </div>
-                <div className="w-full flex flex-col justify-center items-center gap-5">
+                <div className="flex flex-col items-center justify-center w-full gap-5">
                     <TypographyLarge text="Kết nối ví TON của bạn" className="text-white text-[32px] font-bold" />
                     <TypographySmall text="Kết nối ví tiền điện tử của bạn.  Nếu bạn chưa có, hãy tạo một cái trong tài khoản Telegram của bạn" className="text-white text-[14px] max-w-[280px] font-normal" />
                 </div>

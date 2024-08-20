@@ -72,7 +72,13 @@ export default function Page(): JSX.Element {
                 <TypographySmall text="Hamster Youtube" className="mt-5 text-base text-white" />
                 {earns.find(item => item.type === 1)?.earn.map((earn, i) => {
                     return (
-                        <div key={i} className={cn('w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 ]', earn.is_completed === 1 ? 'bg-[#272a2fb3]' : 'bg-[#272a2f]')} onClick={() => { utils.openLink(earn.link, { tryBrowser: true }) }}>
+                        <div
+                            key={i}
+                            className={cn('w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 ]', earn.is_completed === 1 ? 'bg-[#272a2fb3]' : 'bg-[#272a2f]')}
+                            onClick={() => {
+                                onOpen("itemEarn", earn)
+                            }}
+                        >
                             <div className="flex items-center justify-start gap-2">
                                 <MotionContainer type="scale">
                                     <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
@@ -117,6 +123,7 @@ export default function Page(): JSX.Element {
                 {earns.find(item => item.type === 2)?.earn.map((earn, i) => {
                     return (
                         <div
+                            key={i}
                             className={cn('w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3', earn.is_completed === 1 ? 'bg-[#272a2fb3]' : 'bg-[#272a2f]')}
                             onClick={() => {
                                 onOpen("itemEarn", earn)

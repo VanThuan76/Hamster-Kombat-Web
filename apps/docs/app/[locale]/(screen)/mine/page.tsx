@@ -26,6 +26,7 @@ import useBackButton from "@shared/hooks/useBackButton";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
+import { type } from "os";
 
 const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer').then((mod) => mod.default), { ssr: false })
 
@@ -145,14 +146,16 @@ export default function Page(): JSX.Element {
                                 <TabsContent value={currentTab} className="relative grid items-start justify-start w-full grid-cols-2 gap-2">
                                     {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.map((item, i) => {
                                         const currentCardProfit = item.card_profits.find(child => child.is_purchased) || item.card_profits.find(child => child.id === 1)
-                                        const isActiveCard = !currentCardProfit || currentCardProfit?.next_level
+                                        const requiredCardProfit = currentCardProfit && typeof (currentCardProfit.required_card)
+                                        const isActiveCard = !currentCardProfit || !currentCardProfit.next_level || requiredCardProfit !== 'number'
+                                        if (!currentCardProfit) return <></>
 
                                         return (
-                                            <div key={i} className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2" onClick={() => isActiveCard && onOpen("cardMine", { ...item, hasBuy: currentCardProfit && currentCardProfit?.required_money < user.revenue })}>
+                                            <div key={i} className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2" onClick={() => requiredCardProfit === 'number' && onOpen("cardMine", { ...item, hasBuy: currentCardProfit.required_money < user.revenue })}>
                                                 <div className="flex items-start justify-start w-full gap-3">
                                                     <div className="relative w-[60px] h-[60px] flex flex-grow-0 flex-shrink-0 justify-center items-center">
-                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", !isActiveCard && 'w-[40px] h-[40px]')} loading="eager" priority={true} />
-                                                        {!isActiveCard && (
+                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", isActiveCard && 'w-[40px] h-[40px]')} loading="eager" priority={true} />
+                                                        {isActiveCard && (
                                                             <div className="absolute w-full h-full top-0 bottom-0 left-0 bg-[#34383fcc] rounded-full flex justify-center items-center">
                                                                 <Image src='/project/icon_key.svg' alt="@imageKey" width={24} height={24} className="w-[24px] h-[24px]" loading="eager" priority={true} />
                                                             </div>
@@ -164,9 +167,9 @@ export default function Page(): JSX.Element {
                                                             <TypographySmall text="Lợi nhuận mỗi giờ" className="text-[#8b8e93] text-[10px] font-extralight" />
                                                             <div className="flex items-center justify-center gap-1">
                                                                 <div className="w-[16px] h-[16px]">
-                                                                    <CoinIcon width={18} height={18} className={cn("w-full h-full", !isActiveCard && "coin-is-grayscale" || currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
+                                                                    <CoinIcon width={18} height={18} className={cn("w-full h-full", isActiveCard && "coin-is-grayscale" || currentCardProfit.required_money > user.revenue && "coin-is-grayscale")} />
                                                                 </div>
-                                                                <TypographySmall text={`+${currentCardProfit?.next_level ? String(formatCoin(currentCardProfit.next_level.profit as number)) : 0}`} className="text-white text-[12px]" />
+                                                                <TypographySmall text={`+${currentCardProfit.next_level ? String(formatCoin(currentCardProfit.next_level.profit as number)) : 0}`} className="text-white text-[12px]" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -175,8 +178,16 @@ export default function Page(): JSX.Element {
                                                 <div className="flex items-center h-5 space-x-4 text-sm">
                                                     <TypographySmall text={`lv ${currentCardProfit ? currentCardProfit.level : 0}`} className="text-white text-[12px]" />
                                                     <Separator orientation="vertical" className="bg-[#34383f]" />
-                                                    <CoinIcon width={18} height={18} className={cn(!isActiveCard && "coin-is-grayscale" || currentCardProfit && currentCardProfit?.required_money > user.revenue && "coin-is-grayscale")} />
-                                                    <TypographySmall text={currentCardProfit?.next_level ? String(formatCoin(currentCardProfit.next_level.required_money as number)) : '0'} className="text-white text-[12px] !m-1" />
+                                                    <CoinIcon width={18} height={18} className={cn(isActiveCard && "coin-is-grayscale" || currentCardProfit.required_money > user.revenue && "coin-is-grayscale")} />
+                                                    <TypographySmall
+                                                        text={
+                                                            requiredCardProfit !== "number" ?
+                                                            currentCardProfit.required_card.card_name :
+                                                            currentCardProfit.next_level ?
+                                                            String(formatCoin(currentCardProfit.next_level.required_money as number)) :
+                                                            '0'
+                                                        }
+                                                        className="text-white text-[12px] !m-1" />
                                                 </div>
                                             </div>
                                         )
