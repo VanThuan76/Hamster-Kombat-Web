@@ -22,7 +22,7 @@ export default function DrawerCalendarEarn(): JSX.Element {
     const { earns, user } = useAppSelector(state => state.app)
     const { isOpen, onClose, type } = useDraw()
 
-    const [lastDateChecked, setLastDateChecked] = useLocalStorage<string | undefined>('lastDateChecked', '');
+    const [lastDateChecked, setLastDateChecked] = useLocalStorage<string | undefined>('last_date_checked', '');
 
     const isDrawerOpen = isOpen && type === "calendarEarn"
     const now = new Date();
@@ -68,6 +68,8 @@ export default function DrawerCalendarEarn(): JSX.Element {
                             <div key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2",
                                 earn.is_completed === 1 ?
                                     'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' :
+                                    !lastDateChecked ?
+                                    'bg-[#272a2f] border-2 border-[#62cc6c]' :
                                     lastDateChecked === today && dayLastCompleted && earn.order === dayLastCompleted.order + 1
                                         ? 'bg-[#272a2f] border-2 border-[#62cc6c]' :
                                         'bg-[#272a2f] opacity-40')
@@ -79,9 +81,9 @@ export default function DrawerCalendarEarn(): JSX.Element {
                         )
                     })}
                 </div>
-                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => lastDateChecked === today ? handleSuccess() : onClose()}>
+                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => lastDateChecked && lastDateChecked === today ? onClose() : handleSuccess()}>
                     <TypographyLarge
-                        text={lastDateChecked === today ? t('btn_require') : t('btn_back')}
+                        text={lastDateChecked && lastDateChecked === today ? t('btn_back') : t('btn_require')}
                         className="text-xl font-bold text-white"
                     />
                     <CoinIcon width={28} height={28} />

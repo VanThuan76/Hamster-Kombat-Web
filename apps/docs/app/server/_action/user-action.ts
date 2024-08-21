@@ -1,6 +1,7 @@
 import { setCookie } from "cookies-next";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
+import useLocalStorage from "@shared/hooks/useLocalStorage";
 import { useAppDispatch } from "@shared/redux/store/index";
 import { axiosInstance } from "@shared/axios.http";
 import { setFriends, setInitUser, setRanks, setStateEnergy, setUpdateRevenue } from "@shared/redux/store/appSlice";
@@ -20,6 +21,9 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
     const dispatch = useAppDispatch();
     const haptic = initHapticFeedback();
 
+    const [energy, setEnergy] = useLocalStorage<number>('current_energy', 1000);
+    const [profit, setProfit] = useLocalStorage<number>('profit_revenue', 0);
+
     return useMutation<IBaseResponse<IUser>, Error>({
         mutationFn: (body) =>
             axiosInstance.post<IBaseResponse<IUser>>(USER_PATHS.LOGIN, body),
@@ -28,6 +32,10 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
             queryClient.invalidateQueries({ queryKey: ['AUTH_USER', 'USER'] });
             setCookie(APP_SAVE_KEY.TELEGRAM_ID, data.data.telegram_id);
             haptic.notificationOccurred('success');
+            if (data.data.revenue === 0) {
+                setEnergy(1000);
+                setProfit(0);
+            }
             const dataCurrentInitUser = {
                 ...data.data,
                 tap_value: data.data?.tap_value || 1,

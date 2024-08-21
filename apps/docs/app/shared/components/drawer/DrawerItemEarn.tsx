@@ -56,6 +56,7 @@ export default function DrawerItemEarn(): JSX.Element {
             containsHttps(earn.link) ? utils.openLink(earn.link, { tryBrowser: true }) : containsTelegram(earn.link)
                 ? utils.openTelegramLink(earn.link) : earn.link !== null && router.push(earn.link)
         }
+        onClose()
     }
 
     if (!data) return <></>
