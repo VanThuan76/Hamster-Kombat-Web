@@ -47,7 +47,6 @@ export const useBuyCard: () => UseMutationResult<IBaseResponse<any[]>, Error, IB
                 const membershipData = {
                     ...membership,
                     name: data.data[1].membership.membership?.name,
-                    image: data.data[1].membership.membership?.image,
                     money: data.data[1].membership.membership?.money,
                     level: data.data[1].membership.membership?.level,
                     short_money: data.data[1].membership.membership?.short_money

@@ -21,9 +21,14 @@ const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 function UserCardExist({ textBuySkin, user, membership }: { textBuySkin: string, user: any, membership: any }) {
     const router = useRouter()
+    const haptic = initHapticFeedback();
+
     return (
         <div className="flex items-center justify-between w-full">
-            <div className="inline-flex items-center justify-start" onClick={() => router.push("/skin")}>
+            <div className="inline-flex items-center justify-start" onClick={() => {
+                router.push("/skin")
+                haptic.impactOccurred('soft');
+            }}>
                 <div className="user-info-avatar">
                     <Avatar className="bg-[#1c1f24] rounded-lg w-full h-full">
                         <AvatarImage src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="@user" sizes="sm" className="w-[32px] h-full rounded-md bg-contain bg-no-repeat bg-center" />

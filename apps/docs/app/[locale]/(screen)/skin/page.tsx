@@ -4,6 +4,7 @@ import Image from "next/image"
 import dynamic from 'next/dynamic'
 import { useState } from "react"
 import { useTranslations } from "next-intl"
+import { useRouter } from "@shared/next-intl/navigation";
 
 import { cn } from "@ui/lib/utils"
 import { Button } from "@ui/components/button"
@@ -41,6 +42,7 @@ function CheckIcon({ is_purchased, is_active = true }: { is_purchased: boolean, 
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.skin')
+    const router = useRouter()
 
     const { user, skins, membership, ranks } = useAppSelector(state => state.app)
 
@@ -67,6 +69,7 @@ export default function Page(): JSX.Element {
             user_id: user.id,
             skin_id: skin_id
         })
+        router.push('/exchange')
     }
 
     useBackButton()

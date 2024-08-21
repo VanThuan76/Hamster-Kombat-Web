@@ -9,6 +9,7 @@ import { AppRoot } from '@telegram-apps/telegram-ui';
 import { ErrorBoundary } from '@shared/components/ErrorBoundary';
 import { ErrorPage } from '@shared/components/ErrorPage';
 
+import useLocalStorage from '@shared/hooks/useLocalStorage';
 import { useDidMount } from '@shared/hooks/useDidMount';
 import { useAppDispatch } from '@shared/redux/store';
 import { setInitDataTelegram } from '@shared/redux/store/appSlice';
@@ -21,6 +22,9 @@ const { SDKProvider, useLaunchParams } = require('@telegram-apps/sdk-react');
 function App(props: PropsWithChildren) {
     const dispatch = useAppDispatch()
     const router = useRouter();
+    const now = new Date();
+
+    const [today, setToDay] = useLocalStorage<string | undefined>('lastDateChecked', '');
 
     const { lp, initData } = useTelegramInitialization();
 
@@ -33,13 +37,15 @@ function App(props: PropsWithChildren) {
                 title: `Failed to get information from telegram app. Please check settings on telegram`,
             });
         }
+        if(!today) setToDay(now.toISOString().split('T')[0])
+
     }, [initData])
 
-    // useEffect(() => {
-    //     if (['tdesktop', 'weba', 'web'].includes(lp.platform)) {
-    //         router.push('/qr', undefined);
-    //     }
-    // }, [lp, router]);
+    useEffect(() => {
+        if (['tdesktop', 'weba', 'web'].includes(lp.platform)) {
+            router.push('/qr', undefined);
+        }
+    }, [lp, router]);
 
     return (
         <AppRoot

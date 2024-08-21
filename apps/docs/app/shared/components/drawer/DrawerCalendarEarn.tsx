@@ -11,6 +11,7 @@ import TypographySmall from "@ui/components/typography/small";
 
 import CoinIcon from "@shared/components/CoinIcon"
 
+import useLocalStorage from "@shared/hooks/useLocalStorage";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store";
 import { formatCoin } from "@shared/utils/formatNumber"
@@ -20,18 +21,31 @@ import { useUpdateEarn } from "@server/_action/earn-action";
 export default function DrawerCalendarEarn(): JSX.Element {
     const { earns, user } = useAppSelector(state => state.app)
     const { isOpen, onClose, type } = useDraw()
+
+    const [lastDateChecked, setLastDateChecked] = useLocalStorage<string | undefined>('lastDateChecked', '');
+
     const isDrawerOpen = isOpen && type === "calendarEarn"
+    const now = new Date();
+    const today = now.toISOString().split('T')[0];
+    const dayLastCompleted = earns.find(item => item.type === 3)?.earn.find(item => item.is_completed === 1)
 
     const t = useTranslations('screens.earn')
 
     const updateEarn = useUpdateEarn()
 
     function handleSuccess() {
-        earns.find(item => item.type === 3)?.earn[0]?.is_completed === 0 && updateEarn.mutate({ //Fixed Temporary
+        const dayNext = dayLastCompleted && earns.find(item => item.type === 3)?.earn.find(item => item.order === dayLastCompleted.order + 1)
+
+        updateEarn.mutate({ //Fixed Temporary
             user_id: user.id,
-            user_earn_id: earns.find(item => item.type === 3)?.earn[0]?.user_earn_id || 0,
+            user_earn_id: dayNext?.user_earn_id || 1, //Fixed
             is_completed: 1
         })
+
+        const newNextDate = new Date(now);
+        newNextDate.setDate(newNextDate.getDate() + 1);
+        setLastDateChecked(newNextDate.toISOString().split('T')[0]);
+
         onClose()
     }
 
@@ -51,7 +65,13 @@ export default function DrawerCalendarEarn(): JSX.Element {
                 <div className="w-full min-h-[300px] grid grid-cols-4 justify-center items-center gap-2">
                     {earns.find(item => item.type === 3)?.earn.map((earn, i) => {
                         return (
-                            <div key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2", earn.is_completed === 1 ? 'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' : i === 0 ? 'bg-[#272a2f] border-2 border-[#62cc6c]' : 'bg-[#272a2f] opacity-40')}>
+                            <div key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2",
+                                earn.is_completed === 1 ?
+                                    'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' :
+                                    lastDateChecked === today && dayLastCompleted && earn.order === dayLastCompleted.order + 1
+                                        ? 'bg-[#272a2f] border-2 border-[#62cc6c]' :
+                                        'bg-[#272a2f] opacity-40')
+                            }>
                                 <TypographySmall text={`${t('day_daily')} ${i + 1}`} className="text-white text-[14px] font-normal" />
                                 <CoinIcon width={24} height={24} />
                                 <TypographySmall text={`${formatCoin(earn.reward)}`} className="text-white text-[14px] font-medium" />
@@ -59,9 +79,9 @@ export default function DrawerCalendarEarn(): JSX.Element {
                         )
                     })}
                 </div>
-                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => handleSuccess()}>
+                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => lastDateChecked === today ? handleSuccess() : onClose()}>
                     <TypographyLarge
-                        text={earns.find(item => item.type === 3)?.earn[0]?.is_completed === 0 ? t('btn_require') : t('btn_back')}
+                        text={lastDateChecked === today ? t('btn_require') : t('btn_back')}
                         className="text-xl font-bold text-white"
                     />
                     <CoinIcon width={28} height={28} />
