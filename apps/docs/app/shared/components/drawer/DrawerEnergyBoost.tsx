@@ -48,7 +48,7 @@ export default function DrawerEnergyBoost(): JSX.Element {
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
             <div className="flex flex-col items-center justify-center w-full gap-8">
                 <div className="relative z-10">
-                    <Image src="/project/icon_flash.svg" alt="@icon_flash" width={115} height={115} priority={true} />
+                    <Image src="/project/icon_flash.png" alt="@icon_flash" width={115} height={115} priority={true} />
                 </div>
                 <div className="flex flex-col items-center justify-center w-full gap-5">
                     <TypographyLarge text={t('full_energy')} className="text-white text-[32px] font-bold" />

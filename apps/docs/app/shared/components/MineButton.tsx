@@ -149,7 +149,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                 </MotionContainer>
                 <div className="w-full flex justify-between items-center">
                     <div className="w-full flex justify-start items-center gap-1">
-                        <Image src="/project/icon_flash.svg" alt="@flash" width={26} height={26} priority={true} />
+                        <Image src="/project/icon_flash.png" alt="@flash" width={48} height={48} priority={true} />
                         <MemoTypographyLarge text={`${formattedEnergy} / ${maxEnergy}`} className="text-white text-base" />
                     </div>
                     <div

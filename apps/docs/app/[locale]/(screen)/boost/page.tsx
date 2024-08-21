@@ -59,8 +59,8 @@ export default function Page(): JSX.Element {
                 <TypographySmall text={t('free_daily_boost')} className="mt-5 text-base text-white" />
                 <div className={cn("w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer", countdown.minutes && "cursor-not-allowed")} onClick={() => !countdown.minutes && onOpen("energyBoost", { current: currentEnergy, next: nextEnergy })}>
                     <div className="flex items-center justify-start w-full gap-4">
-                        <MotionContainer className="p-3" type="scale">
-                            <Image src="/project/icon_flash.svg" alt="@flash" width={32} height={32} priority={true} />
+                        <MotionContainer type="scale">
+                            <Image src="/project/icon_flash.png" alt="@flash" width={70} height={70} priority={true} />
                         </MotionContainer>
                         <div className="flex flex-col items-start justify-start w-full">
                             <TypographySmall text={t('full_energy')} className="text-[14px] text-white font-light" />
