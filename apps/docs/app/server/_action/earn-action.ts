@@ -57,7 +57,6 @@ export const useUpdateEarn: () => UseMutationResult<IBaseResponse<IResponseUpdat
             const membershipData = {
                 ...membership,
                 name: data.data.membership.membership?.name,
-                image: data.data.membership.membership?.image,
                 money: data.data.membership.membership?.money,
                 level: data.data.membership.membership?.level,
                 short_money: data.data.membership.membership?.short_money
