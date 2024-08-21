@@ -68,7 +68,7 @@ export default function DrawerCalendarEarn(): JSX.Element {
                             <div key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2",
                                 earn.is_completed === 1 ?
                                     'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' :
-                                    !lastDateChecked ?
+                                    !lastDateChecked && i === 0 ?
                                     'bg-[#272a2f] border-2 border-[#62cc6c]' :
                                     lastDateChecked === today && dayLastCompleted && earn.order === dayLastCompleted.order + 1
                                         ? 'bg-[#272a2f] border-2 border-[#62cc6c]' :
