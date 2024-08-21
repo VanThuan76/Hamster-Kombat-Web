@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface ISkin {
     id: number;
     name: string;
@@ -8,4 +10,9 @@ export interface ISkin {
     updated_at: string;
     required_level: number;
     image_url: string;
+}
+
+export interface IResponseBuySkin {
+    user: IUser;
+    skin: ISkin;
 }

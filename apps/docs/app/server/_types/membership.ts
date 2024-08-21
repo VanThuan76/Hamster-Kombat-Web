@@ -1,9 +1,12 @@
+import { ISkin } from "./skin";
+
 export interface IUserMembership {
     membership: IMembership;
     current_level: number;
     max_level: number;
     required_money: number;
     required_short_money: string;
+    skin?: ISkin
 }
 
 export interface IMembership {

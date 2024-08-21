@@ -141,7 +141,7 @@ const OnBroadingPage = () => {
     }, [initialized, router]);
 
     return (
-        <div className="relative w-full flex flex-col items-end justify-end h-full bg-[url('/project/bg_onbroad.jpg')] bg-cover bg-no-repeat bg-center">
+        <div className="relative w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_onbroad.jpg')] bg-cover bg-no-repeat bg-center">
             <div className="absolute top-0 w-full h-[3px]">
                 <div className="h-full progress-bar" style={{ width: `${progress}%` }}></div>
             </div>

@@ -28,15 +28,15 @@ const CardProfit = () => {
     return (
         <div className="flex justify-between items-center bg-[#ffffff26] border border-white/10 rounded-[20px] text-white flex-1 h-[40px] relative py-1 px-4">
             <Avatar
-                className="flex justify-start items-center"
+                className="flex items-center justify-start"
                 onClick={() => router.push('/setting/exchanges', undefined)}
             >
                 <AvatarImage src={user.exchange.icon} alt="@userPlus" sizes="sm" className="w-[26px] h-[26px]" />
                 <AvatarFallback>{user.exchange.name}</AvatarFallback>
             </Avatar>
             <Separator orientation="vertical" className="bg-[#ffffff1a] w-[1px]" />
-            <div className="w-full flex flex-1 flex-col justify-start items-center pb-1">
-                <TypographySmall text={t('profit_by_hour')} className="text-[8px] text-[#fff6]" />
+            <div className="flex flex-col items-center justify-start flex-1 w-full pb-1">
+                <TypographySmall text={t('profit_by_hour')} className="text-[8px] text-[#fff6] truncate" />
                 <div className="w-full flex flex-1 justify-center items-center gap-[6px]">
                     <CoinIcon width={18} height={18} />
                     <TypographySmall text={`+${formatCoin(user.profit_per_hour)}`} className="text-xs" />
@@ -48,7 +48,7 @@ const CardProfit = () => {
                 </div>
             </div>
             <Separator orientation="vertical" className="bg-[#ffffff1a] w-[1px]" />
-            <div className="pl-4 items-end cursor-pointer" onClick={() => {
+            <div className="items-end pl-4 cursor-pointer" onClick={() => {
                 router.push('/setting', undefined);
                 haptic.impactOccurred('soft');
             }}>

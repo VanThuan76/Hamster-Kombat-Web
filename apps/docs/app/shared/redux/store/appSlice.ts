@@ -61,6 +61,7 @@ export interface IDefaultState {
         delay: number
     }
     isResetStateEnergy: boolean;
+    isAnimatedCouterCoin: boolean;
     drawerStore: DrawerProps
 }
 
@@ -116,6 +117,7 @@ const initialState: IDefaultState = {
         delay: 0
     },
     isResetStateEnergy: false,
+    isAnimatedCouterCoin: false,
     drawerStore: {
         type: null,
         data: {},
@@ -181,6 +183,9 @@ export const appSlice: any = createSlice({
         setCategoryOfCards: (state, action: PayloadAction<ICategoryOfCard[]>) => {
             state.categoryOfCards = action.payload;
         },
+        setIsAnimatedCouterCoin: (state, action: PayloadAction<boolean>) => {
+            state.isAnimatedCouterCoin = action.payload;
+        },
         setIsProfitRevenueActive: (state, action: PayloadAction<boolean>) => {
             state.isProfitRevenueActive = action.payload;
             state.drawerStore.isOpen = action.payload;
@@ -195,5 +200,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitDataTelegram, setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateEnergyBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, setHighestScore, openDrawer, closeDrawer } = appSlice.actions;
+export const { setInitDataTelegram, setIsAnimatedCouterCoin, setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateEnergyBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, setHighestScore, openDrawer, closeDrawer } = appSlice.actions;
 export default appSlice.reducer;

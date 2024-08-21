@@ -2,8 +2,8 @@
 
 import Image from "next/image"
 import dynamic from 'next/dynamic'
+import React, { useMemo, useState, useEffect, useRef } from "react"
 import { useTranslations } from "next-intl";
-import { useMemo, useState, useEffect, useRef } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
 import { cn } from "@ui/lib/utils"
 
@@ -29,7 +29,7 @@ const AnimatePresenceWrapper = dynamic(() => import('@ui/components/motion/Anima
 const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreenMine?: boolean, tabScreenMine?: any, isSecretFeature?: boolean }) => {
-    const { user, membership, stateEnergy, isResetStateEnergy } = useAppSelector(state => state.app);
+    const { user, membership, stateEnergy, isResetStateEnergy, isAnimatedCouterCoin } = useAppSelector(state => state.app);
 
     const t = useTranslations('components.mine_button')
 
@@ -41,6 +41,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
 
     const [energy, setEnergy] = useLocalStorage<number>('current_energy', stateEnergy);
     const [plusSigns, setPlusSigns] = useState<{ id: number, x: number; y: number }[]>([]);
+    const [profit, setProfit] = useLocalStorage<number>('profit_revenue', 0);
     const [revenue, setRevenue] = useState(user.revenue);
     const [prevRevenue, setPrevRevenue] = useState(user.revenue);
     const [clickCount, setClickCount] = useState(0);
@@ -58,15 +59,17 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
             });
         } else {
             setPrevRevenue(revenue);
-            setClickCount(clickCount + user.tap_value);
+            setClickCount(prevCount => prevCount + 1);
             setRevenue(revenue + user.tap_value);
             setEnergy(energy - user.tap_value);
             if (saveTimeoutRef.current) {
                 clearTimeout(saveTimeoutRef.current);
             }
+            dispatch(setStateEnergy({ amount: energy + user.tap_value, isReset: false }))
             saveTimeoutRef.current = setTimeout(() => {
-                dispatch(setStateEnergy({ amount: energy + user.tap_value, isReset: false }))
-                updateRevenue.mutate({ user_id: user.id, amount: clickCount + 1 })
+                updateRevenue.mutate({ user_id: user.id, amount: ((clickCount + 1) * user.tap_value) + profit })
+                setClickCount(0)
+                setProfit(0)
             }, 1000);
         }
     }
@@ -88,10 +91,9 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
             setPlusSigns(current => [...current, newPlusSign]);
 
             requestAnimationFrame(() => {
-                setTimeout(() => {
-                    card.style.transform = '';
-                    handleIncludedCoin();
-                }, 100);
+                card.style.transform = '';
+                handleIncludedCoin();
+
                 setTimeout(() => {
                     setPlusSigns(current => current.filter(pos => pos.id !== newPlusSign.id));
                 }, 500);
@@ -107,37 +109,47 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                 return newEnergy;
             });
         }, 1000);
-    
+
         return () => clearInterval(interval);
     }, [energy, maxEnergy]);
 
     useEffect(() => {
-        setRevenue(user.revenue)
+        const timeoutId = setTimeout(() => {
+            setRevenue(user.revenue)
+        }, 1000);
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+
     }, [user.revenue])
 
     useEffect(() => {
-        if(!isResetStateEnergy) return
+        if (!isResetStateEnergy) return
         setEnergy(stateEnergy)
     }, [stateEnergy, isResetStateEnergy])
 
     return (
-        <>
+        <React.Fragment>
             <MotionContainer className={cn("w-full flex justify-center items-center gap-2", !isScreenMine && "mb-3")} type="scale">
                 <CoinIcon width={40} height={40} />
-                <AnimatedCounter from={prevRevenue} to={formattedRevenue} className="text-white text-3xl font-semibold" />
+                {isAnimatedCouterCoin ?
+                    <AnimatedCounter from={prevRevenue} to={formattedRevenue} className="text-3xl font-semibold text-white" /> :
+                    <MemoTypographyLarge text={String(formattedRevenue.toLocaleString('de-DE'))} className="text-3xl font-semibold text-white" />
+                }
             </MotionContainer>
             {isSecretFeature && <div className="w-full px-6">
                 <div className="w-full bg-[#272a2f] flex justify-between items-center rounded-lg px-2 py-1">
                     <TypographyLarge text={t('daily_cipher')} className="text-white text-[14px]" />
-                    <Button className="flex justify-center items-center gap-2 bg-button-mine rounded-md p-2">
+                    <Button className="flex items-center justify-center gap-2 p-2 rounded-md bg-button-mine">
                         <CoinIcon width={18} height={18} />
                         <TypographySmall text='+1.000.000' className="text-white text-[14px]" />
                     </Button>
                 </div>
             </div>}
             {isScreenMine && tabScreenMine}
-            <div className="w-full flex flex-col justify-center items-center p-4">
-                <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={formattedEnergy >= user.tap_value ? handleCardTouchStart : () => {}}>
+            <div className="flex flex-col items-center justify-center w-full p-4">
+                <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={formattedEnergy >= user.tap_value ? handleCardTouchStart : () => {} }>
                     <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret', formattedEnergy < user.tap_value && 'user-tap-button-inner-disabled')}>
                         <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="avatar" width={268} height={268} className="z-30" priority={true} />
                     </div>
@@ -147,24 +159,24 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
                         ))}
                     </AnimatePresenceWrapper>
                 </MotionContainer>
-                <div className="w-full flex justify-between items-center">
-                    <div className="w-full flex justify-start items-center gap-1">
-                        <Image src="/project/icon_flash.png" alt="@flash" width={48} height={48} priority={true} />
-                        <MemoTypographyLarge text={`${formattedEnergy} / ${maxEnergy}`} className="text-white text-base" />
+                <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center justify-start w-full gap-1">
+                        <Image src="/project/icon_flash.png" alt="@flash" width={32} height={26} priority={true} />
+                        <MemoTypographyLarge text={`${formattedEnergy} / ${maxEnergy}`} className="text-base text-white" />
                     </div>
                     <div
-                        className="w-full flex justify-end items-center gap-1 cursor-pointer"
+                        className="flex items-center justify-end w-full gap-1 cursor-pointer"
                         onClick={() => {
                             router.push('/boost', undefined);
                             haptic.impactOccurred('soft');
                         }}
                     >
-                        <Image src="/project/icon_rocket.png" alt="@rocket" width={48} height={48} priority={true} />
-                        <TypographyLarge text={t('boost')} className="text-white text-base" />
+                        <Image src="/project/icon_rocket.png" alt="@rocket" width={32} height={26} priority={true} />
+                        <TypographyLarge text={t('boost')} className="text-[14px] text-white" />
                     </div>
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 }
 

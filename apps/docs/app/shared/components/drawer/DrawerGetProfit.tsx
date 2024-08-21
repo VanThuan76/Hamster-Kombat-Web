@@ -10,7 +10,7 @@ import TypographyLarge from "@ui/components/typography/large";
 import useLocalStorage from "@shared/hooks/useLocalStorage";
 import { useDraw } from "@shared/hooks/useDraw";
 import { formatCoin } from "@shared/utils/formatNumber";
-import { setIsProfitRevenueActive } from "@shared/redux/store/appSlice";
+import { setIsAnimatedCouterCoin, setIsProfitRevenueActive } from "@shared/redux/store/appSlice";
 
 import { useUpdateRevenue } from "@server/_action/user-action";
 
@@ -34,12 +34,24 @@ export default function DrawerGetProfit(): JSX.Element {
     const t = useTranslations('components.drawer_change_exchange')
 
     function handleGetProfit() {
-        haptic.impactOccurred('medium')
-        updateRevenue.mutate({ user_id: user.id, amount: profit })
-        dispatch(setIsProfitRevenueActive(false))
-        setProfit(0)
-        onClose()
+        haptic.impactOccurred('medium');
+
+        // dispatch(setIsAnimatedCouterCoin(true));
+
+        updateRevenue.mutate({ user_id: user.id, amount: profit });
+
+        dispatch(setIsProfitRevenueActive(false));
+
+        setProfit(0);
+
+        // setTimeout(() => {
+        //     dispatch(setIsAnimatedCouterCoin(false));
+        // }, 2000);
+
+        onClose();
     }
+
+
     return (
         <Drawer isOpen={isDrawerOpen} onClose={handleGetProfit} className="w-full card-has-glow min-h-[60%] border-none">
             <div className="flex flex-col items-center justify-center w-full gap-8 mt-10">

@@ -15,8 +15,6 @@ import { useAppSelector } from "@shared/redux/store";
 import { useDraw } from "@shared/hooks/useDraw";
 import useBackButton from "@shared/hooks/useBackButton"
 
-const { initUtils } = require('@telegram-apps/sdk-react');
-
 function CheckIcon({ is_completed }: { is_completed: number }) {
     if (is_completed === 1) {
         return (
@@ -39,7 +37,6 @@ export default function Page(): JSX.Element {
 
     const t = useTranslations('screens.earn')
 
-    const utils = initUtils();
     useBackButton()
 
     return (
@@ -69,7 +66,7 @@ export default function Page(): JSX.Element {
                 <TypographyLarge text={t('earn_coin')} className="text-white text-[32px]" />
             </MotionContainer>
             <div className="flex flex-col items-start justify-start gap-2">
-                <TypographySmall text="Hamster Youtube" className="mt-5 text-base text-white" />
+                <TypographySmall text="Lion Youtube" className="mt-5 text-base text-white" />
                 {earns.find(item => item.type === 1)?.earn.map((earn, i) => {
                     return (
                         <div
@@ -134,7 +131,7 @@ export default function Page(): JSX.Element {
                                     <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
                                 </MotionContainer>
                                 <div className="flex flex-col items-start justify-start">
-                                    <TypographySmall text={earn.name} className="text-[14px] text-white font-extralight" />
+                                    <TypographySmall text={earn.name} className="text-[14px] text-white font-extralight text-start truncate" />
                                     <div className="flex items-center justify-center gap-1">
                                         <CoinIcon width={20} height={20} />
                                         <TypographySmall text={`+${formatCoinStyleDot(earn.reward)}`} className="text-[14px] text-white ml-1" />

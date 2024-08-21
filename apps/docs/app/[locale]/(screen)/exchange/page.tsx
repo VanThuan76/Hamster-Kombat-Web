@@ -88,7 +88,7 @@ export default function Page(): JSX.Element {
                             }}
                         >
                             <div className="flex justify-start items-center gap-[2px]">
-                                <TypographySmall text={membership?.name as string} className="text-[10px] text-white" />
+                                <TypographySmall text={membership?.name as string} className="text-[10px] text-white truncate" />
                                 <div className="w-[10px] h-[10px] text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg></div>
                             </div>
                             <div className="text-[10px] text-white">{membership?.level}/{membership?.max_level}</div>
@@ -112,7 +112,7 @@ export default function Page(): JSX.Element {
                             }}
                         >
                             <Image src="/project/icon_daily_reward.png" alt="@card" width={56} height={56} priority={true} />
-                            <TypographySmall text={t('daily_reward')} className="text-[10px] text-white" />
+                            <TypographySmall text={t('daily_reward')} className="text-[10px] text-white text-center truncate" />
                             <span className="text-[#8b8e93] text-[10px] my-2">07:03</span>
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             {/* //TODO: active task */}
@@ -134,7 +134,7 @@ export default function Page(): JSX.Element {
                         </div>
                         <div className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer" onClick={() => setSecretFeature(!isSecretFeature)}>
                             <Image src="/project/icon_daily_cipher.png" alt="@card" width={56} height={56} priority={true} />
-                            <TypographySmall text={t('daily_cipher')} className="text-[10px] text-white" />
+                            <TypographySmall text={t('daily_cipher')} className="text-[10px] text-white text-center truncate" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             <span className="text-[#8b8e93] text-[10px] my-2">02:13</span>
                         </div>
@@ -146,7 +146,7 @@ export default function Page(): JSX.Element {
                             }}
                         >
                             <Image src="/project/icon_daily_combo.png" alt="@card" width={56} height={56} priority={true} />
-                            <TypographySmall text={t('daily_combo')} className="text-[10px] text-white" />
+                            <TypographySmall text={t('daily_combo')} className="text-[10px] text-white text-center truncate" />
                             <div className="absolute top-[7px] right-[7px] w-[6px] h-[6px] rounded-full bg-white flash"></div>
                             <span className="text-[#8b8e93] text-[10px] my-2">19:03</span>
                         </div>

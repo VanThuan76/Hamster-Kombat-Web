@@ -25,7 +25,8 @@ export const useMembershipByUser: () => UseMutationResult<IBaseResponse<IUserMem
                 max_level: data.data.max_level,
                 required_money: data.data.required_money,
                 required_short_money: data.data.required_short_money,
-                ...data.data.membership
+                ...data.data.membership,
+                image: data.data.skin ? data.data.skin.image : data.data.membership.image
             }
 
             dispatch(setMembership(membershipData));

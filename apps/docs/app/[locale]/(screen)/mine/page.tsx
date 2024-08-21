@@ -26,7 +26,6 @@ import useBackButton from "@shared/hooks/useBackButton";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
-import { type } from "os";
 
 const CountdownTimer = dynamic(() => import('@shared/components/CountdownTimer').then((mod) => mod.default), { ssr: false })
 
@@ -69,7 +68,7 @@ export default function Page(): JSX.Element {
                             }}
                         >
                             <div className="flex justify-start items-center gap-[2px] cursor-pointer">
-                                <TypographySmall text={membership?.name as string} className="text-[10px] text-white" />
+                                <TypographySmall text={membership?.name as string} className="text-[10px] text-white truncate" />
                                 <div className="w-[10px] h-[10px] text-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlSpace="preserve"><path d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z" fill="currentColor"></path></svg></div>
                             </div>
                             <div className="text-[10px] text-white">{membership?.level}/{membership?.max_level}</div>
@@ -182,12 +181,14 @@ export default function Page(): JSX.Element {
                                                     <TypographySmall
                                                         text={
                                                             requiredCardProfit !== "number" ?
-                                                            currentCardProfit.required_card.card_name :
-                                                            currentCardProfit.next_level ?
-                                                            String(formatCoin(currentCardProfit.next_level.required_money as number)) :
-                                                            '0'
+                                                                currentCardProfit.required_card.card_name :
+                                                                currentCardProfit.next_level ?
+                                                                    String(formatCoin(currentCardProfit.next_level.required_money as number)) :
+                                                                    '0'
                                                         }
-                                                        className="text-white text-[12px] !m-1" />
+                                                        className="text-white text-[12px] !m-1"
+                                                    />
+                                                    {requiredCardProfit !== "number" && <span className="text-white text-[12px] font-extralight !ml-0">lv {currentCardProfit.required_card.level}</span>}
                                                 </div>
                                             </div>
                                         )

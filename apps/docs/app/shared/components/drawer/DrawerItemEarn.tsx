@@ -71,12 +71,14 @@ export default function DrawerItemEarn(): JSX.Element {
                         <TypographyLarge text={data?.name} className="text-[32px] font-bold leading-8" />
                         <TypographySmall text={data?.description} className="text-[14px]" />
                     </div>
-                    <Button className="h-[50px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl px-12" onClick={() => handleChoosen(data)}>
-                        <TypographyLarge
-                            text={containsYoutube(data.link) ? 'Xem video' : 'Tham gia'}
-                            className="text-[18px] font-bold text-white"
-                        />
-                    </Button>
+                    {data.user_earn_id !== 353 ? ( //Fixed
+                        <Button className="h-[50px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl px-12" onClick={() => handleChoosen(data)}>
+                            <TypographyLarge
+                                text={containsYoutube(data.link) ? 'Xem video' : 'Tham gia'}
+                                className="text-[18px] font-bold text-white"
+                            />
+                        </Button>
+                    ) : <></>}
                     <div className="flex items-center justify-center gap-1">
                         <CoinIcon width={28} height={28} />
                         <TypographySmall text={`+${formatCoinStyleDot(data?.reward)}`} className="ml-1 text-2xl text-white" />

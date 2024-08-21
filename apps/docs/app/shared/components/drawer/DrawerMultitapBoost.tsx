@@ -48,10 +48,10 @@ export default function DrawerMultitapBoost(): JSX.Element {
                 <div className="relative z-10">
                     <Image src="/project/icon_boost-multitap.png" alt="@multitap" width={115} height={115} priority={true} />
                 </div>
-                <div className="flex flex-col items-center justify-center w-full gap-5">
+                <div className="flex flex-col items-center justify-center gap-5">
                     <TypographyLarge text={t('multitap')} className="text-white text-[32px] font-bold" />
-                    <TypographySmall text={t('des_multitap_1')} className="text-white text-center text-[14px] max-w-[280px] font-normal" />
-                    <TypographySmall text={t('des_multitap_2') + ' ' + String(data?.next?.level)} className="text-white text-base max-w-[280px] font-normal" />
+                    <TypographySmall text={t('des_multitap_1')} className="text-white text-center text-[14px] max-w-[285px] font-normal" />
+                    <TypographySmall text={t('des_multitap_2') + ' ' + String(data?.next?.level)} className="text-white text-base max-w-[300px] font-normal" />
                     <div className="flex items-center justify-center gap-2">
                         <CoinIcon width={28} height={28} className={cn(data?.next?.required_money > user.revenue && "coin-is-grayscale")} />
                         <TypographyLarge text={String(formatCoinStyleDot(data?.next?.required_money))} className="text-xl font-bold text-white" />

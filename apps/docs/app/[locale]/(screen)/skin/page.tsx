@@ -19,6 +19,7 @@ import CoinIcon from "@shared/components/CoinIcon"
 import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 import { useAppSelector } from "@shared/redux/store/index"
+import { useBuySkin } from "@server/_action/skin-action"
 
 const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
@@ -44,7 +45,6 @@ export default function Page(): JSX.Element {
     const { user, skins, membership, ranks } = useAppSelector(state => state.app)
 
     const [currentTarget, setCurrentTarget] = useState(0)
-    useBackButton()
 
     const avatarImage = process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image
     const defaultSkin = [{
@@ -61,6 +61,16 @@ export default function Page(): JSX.Element {
 
     const currentSkins = defaultSkin.concat(skins)
 
+    const buySkin = useBuySkin()
+    function handleBuySkin(skin_id: number) {
+        buySkin.mutate({
+            user_id: user.id,
+            skin_id: skin_id
+        })
+    }
+
+    useBackButton()
+
     return (
         <div className="relative w-full h-screen space-y-2 overflow-y-auto text-center bg-black">
             <div className="flex items-center justify-center w-full px-5 py-2">
@@ -74,35 +84,48 @@ export default function Page(): JSX.Element {
                 <TypographySmall text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name}`} className="text-base" />
             </div>
             <Separator className="w-full" />
-            <Card className="w-full min-h-screen !mt-10  border-none bg-[#1c1f24] p-4 !pb-24" style={{ borderRadius: '40px 40px 0 0' }}>
+            <Card className="w-full min-h-screen !mt-10  border-none bg-[#1c1f24] p-4 !pb-24 gap-2" style={{ borderRadius: '40px 40px 0 0' }}>
                 <TypographySmall text={t('skin')} className="text-base text-center text-white" />
                 <DynamicNavigationSwiper
                     items={currentSkins.map((item, i) => {
+                        const hasBuySkin = item.required_level === 0 || ranks.find(child => child.level > item.required_level)?.name.toLowerCase() === membership.name.toLowerCase()
+                        const hasMoneyBuySkin = user.revenue < item.price
+
                         return (
-                            <div key={i} className="flex flex-col items-center justify-center overflow-hidden">
+                            <div key={i} className="flex flex-col items-center justify-center gap-2 overflow-hidden">
                                 <Image
                                     src={item.image_url}
                                     alt={`skin_${item.name}`}
-                                    width={270}
-                                    height={270}
-                                    className="z-30 object-contain object-center"
+                                    width={250}
+                                    height={250}
+                                    className="z-30 object-contain object-center mb-2 rounded-sm"
                                     priority={true}
                                 />
-                                <div className="w-full flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
+                                <div className="w-full min-h-[200px] flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
                                     <TypographySmall text={item.name} className="text-base font-bold text-white" />
                                     <TypographySmall text={item.description} className="text-[12px] font-normal text-white" />
-                                    {i === 0 ?
-                                        <TypographySmall text={t('purchased')} className="text-[14px] font-normal text-[#82f88e] mt-5" /> :
+                                    {i === 0 ? //Check user_purchased
+                                        <TypographySmall text={t('purchased')} className="text-[14px] font-normal text-[#82f88e]" /> :
                                         <div className="flex items-center justify-center gap-2">
-                                            <CoinIcon width={28} height={28} className={cn(item.required_level === 0 || ranks.find(child => child.level === item.required_level)?.name.toLowerCase() === membership.name.toLowerCase() ? "" : "coin-is-grayscale")} />
+                                            <CoinIcon width={28} height={28} className={cn(hasBuySkin ? "" : "coin-is-grayscale")} />
                                             <TypographySmall text={`${formatCoinStyleDot(item.price)}`} className="text-[20px] font-bold text-[#fff6]" />
                                         </div>
                                     }
-                                    <Button className="bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl">{item.required_level === 0 || ranks.find(child => child.level === item.required_level)?.name.toLowerCase() === membership.name.toLowerCase() ? 'Chọn' : `Đạt đến giải đấu ${ranks.find(child => child.level === item.required_level)?.name} để mở khóa skin`}</Button>
+                                    <Button className="bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl" onClick={() => hasBuySkin && handleBuySkin(item.id)}>
+                                        {i === 0 ? //Check user_purchased
+                                            'Chọn' :
+                                            hasMoneyBuySkin ?
+                                                'Không đủ tiền' :
+                                                hasBuySkin ?
+                                                    'Mua' :
+                                                    `Đạt đến giải đấu ${ranks.find(child => child.level === item.required_level)?.name} để mở khóa skin`
+                                        }
+                                    </Button>
                                 </div>
                             </div>
                         )
                     })}
+                    className="flex items-center justify-center mt-4"
                     activeSlideChange={currentTarget}
                     onSlideChange={setCurrentTarget}
                 />
@@ -114,7 +137,7 @@ export default function Page(): JSX.Element {
                                     <Image src={item.image_url} alt={item.name} width={62} height={62} className="object-center w-full h-full object-conntain" />
                                 </div>
                                 <TypographySmall text={item.name} className="text-[9px] font-extralight text-white" />
-                                {i === 0 ? <CheckIcon is_purchased={true} /> : <CheckIcon is_purchased={false} is_active={item.required_level === 0 || ranks.find(child => child.level === item.required_level)?.name.toLowerCase() === membership.name.toLowerCase()} />}
+                                {i === 0 ? <CheckIcon is_purchased={true} /> : <CheckIcon is_purchased={false} is_active={item.required_level === 0 || ranks.find(child => child.level > item.required_level)?.name.toLowerCase() === membership.name.toLowerCase()} />}
                             </div>
                         )
                     })}

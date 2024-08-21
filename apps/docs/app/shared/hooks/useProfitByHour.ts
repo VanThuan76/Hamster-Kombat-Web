@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import { setIsProfitRevenueActive, setUpdateRevenue } from "@shared/redux/store/appSlice";
@@ -37,9 +37,11 @@ const useProfitByHour = () => {
                 // Chỉ cập nhật doanh thu nếu revenueIncrement lớn hơn minimumIncrement
                 if (revenueIncrement >= minimumIncrement) {
                     // Cập nhật giá trị lưu trữ
-                    setProfit(prevProfit => Math.round(prevProfit + revenueIncrement));
-                    const newRevenue = Math.round(user.revenue + revenueIncrement); // Làm tròn giá trị doanh thu
-                    dispatch(setUpdateRevenue(newRevenue));
+                    setProfit(prevProfit => {
+                        const newProfit = Math.round(prevProfit + revenueIncrement);
+                        dispatch(setUpdateRevenue(user.revenue + Math.round(revenueIncrement)));
+                        return newProfit;
+                    });
                 }
 
                 lastUpdateRef.current = currentTime;

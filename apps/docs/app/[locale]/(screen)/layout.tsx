@@ -13,7 +13,7 @@ export default function ScreenLayout({
 }>) {
     useProfitByHour()
     return (
-        <div className="w-screen h-full">
+        <div className="w-screen h-screen">
             <div className="w-full h-full bg-black !text-white border-none m-0 p-0">
                 <LazyWrapper>
                     {children}
