@@ -151,7 +151,7 @@ const MineButton = ({ isScreenMine, tabScreenMine, isSecretFeature }: { isScreen
             <div className="flex flex-col items-center justify-center w-full p-4">
                 <MotionContainer className={cn("relative user-tap-button-inner select-none cursor-pointer", isSecretFeature && 'user-tap-button-inner-secret')} type="scale" onTouchStart={formattedEnergy >= user.tap_value ? handleCardTouchStart : () => {} }>
                     <div className={cn("user-tap-button-circle", isSecretFeature && 'user-tap-button-circle-secret', formattedEnergy < user.tap_value && 'user-tap-button-inner-disabled')}>
-                        <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="avatar" width={268} height={268} className="z-30" priority={true} />
+                        <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image} alt="avatar" width={320} height={320} className="z-30" priority={true} />
                     </div>
                     <AnimatePresenceWrapper>
                         {plusSigns.map((pos) => (
