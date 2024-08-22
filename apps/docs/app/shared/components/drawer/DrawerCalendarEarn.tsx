@@ -27,7 +27,7 @@ export default function DrawerCalendarEarn(): JSX.Element {
     const isDrawerOpen = isOpen && type === "calendarEarn"
     const now = new Date();
     const today = now.toISOString().split('T')[0];
-    const dayLastCompleted = earns.find(item => item.type === 3)?.earn.find(item => item.is_completed === 1)
+    const dayLastCompleted = earns.find(item => item.type === 3)?.earn.slice().reverse().find(item => item.is_completed === 1);
 
     const t = useTranslations('screens.earn')
 
@@ -38,12 +38,12 @@ export default function DrawerCalendarEarn(): JSX.Element {
 
         updateEarn.mutate({ //Fixed Temporary
             user_id: user.id,
-            user_earn_id: dayNext?.user_earn_id || 1, //Fixed
+            user_earn_id: dayNext?.user_earn_id || 705, //Fixed
             is_completed: 1
         })
 
         const newNextDate = new Date(now);
-        newNextDate.setDate(newNextDate.getDate() + 1);
+        newNextDate.setDate(newNextDate.getDate());
         setLastDateChecked(newNextDate.toISOString().split('T')[0]);
 
         onClose()
@@ -68,11 +68,11 @@ export default function DrawerCalendarEarn(): JSX.Element {
                             <div key={i} className={cn("flex flex-col justify-center items-center rounded-2xl p-2",
                                 earn.is_completed === 1 ?
                                     'bg-[linear-gradient(180deg,#62cc6c,#2a7031)]' :
-                                    !lastDateChecked && i === 0 ?
-                                    'bg-[#272a2f] border-2 border-[#62cc6c]' :
-                                    lastDateChecked === today && dayLastCompleted && earn.order === dayLastCompleted.order + 1
-                                        ? 'bg-[#272a2f] border-2 border-[#62cc6c]' :
-                                        'bg-[#272a2f] opacity-40')
+                                    lastDateChecked && i === 0 ?
+                                        'bg-[#272a2f] border-2 border-[#62cc6c]' :
+                                        dayLastCompleted && lastDateChecked !== today && earn.order === dayLastCompleted.order + 1
+                                            ? 'bg-[#272a2f] border-2 border-[#62cc6c]' :
+                                            'bg-[#272a2f] opacity-40')
                             }>
                                 <TypographySmall text={`${t('day_daily')} ${i + 1}`} className="text-white text-[14px] font-normal" />
                                 <CoinIcon width={24} height={24} />
@@ -81,9 +81,9 @@ export default function DrawerCalendarEarn(): JSX.Element {
                         )
                     })}
                 </div>
-                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => lastDateChecked && lastDateChecked === today ? onClose() : handleSuccess()}>
+                <Button className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl" onClick={() => lastDateChecked !== today ? handleSuccess() : onClose()}>
                     <TypographyLarge
-                        text={lastDateChecked && lastDateChecked === today ? t('btn_back') : t('btn_require')}
+                        text={lastDateChecked !== today ? t('btn_require') : t('btn_back')}
                         className="text-xl font-bold text-white"
                     />
                     <CoinIcon width={28} height={28} />

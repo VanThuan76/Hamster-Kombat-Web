@@ -41,7 +41,7 @@ export function useTelegramInitialization() {
         try {
             lp.platform === 'ios' && postEvent('web_app_set_header_color', { color: '#000' });
             lp.platform === 'ios' && postEvent('web_app_expand');
-            // lp.platform === 'ios' && postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false })
+            lp.platform === 'ios' && postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false })
             backButton && backButton.show();
         } catch (error) {
             console.log(error);

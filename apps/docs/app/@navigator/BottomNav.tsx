@@ -70,7 +70,8 @@ export const BottomNav = () => {
     return (
         <div
             className={cn(
-                "flex w-full fixed bottom-0 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] py-1 items-center justify-center space-x-2",
+                path.includes('/exchange') ? 'absolute' : 'fixed',
+                "flex w-full bottom-0 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] py-1 items-center justify-center space-x-2",
             )}
         >
             {navItems.map((navItem: any, index: number) => (
@@ -82,18 +83,20 @@ export const BottomNav = () => {
                     passHref
                     onClick={() => haptic.impactOccurred('soft')}
                     className={cn(
-                        "relative w-full min-h-[50px] dark:text-neutral-50 flex flex-col justify-around items-center text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 cursor-pointer px-2 py-1",
+                        "relative w-full min-h-[50px] dark:text-neutral-50 flex flex-col justify-between items-center text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500 cursor-pointer px-2 py-1",
                         checkPath?.includes(navItem.link.split("/")[1]) ? 'bg-[#1c1f24] rounded-xl' : 'bg-transparent'
                     )}
                 >
-                    <Image
-                        src={navItem.icon}
-                        alt={navItem.name}
-                        width={28}
-                        height={28}
-                        className={cn(isSvg(navItem.icon) && index !== 0 && "hover:filter hover:brightness-0 hover:invert", checkPath?.includes(navItem.link.split("/")[1]) && index !== 0 && isSvg(navItem.icon) && 'filter brightness-0 invert')}
-                        priority={true}
-                    />
+                    <div className="w-[28px] h-[28px] flex justify-center items-center">
+                        <Image
+                            src={navItem.icon}
+                            alt={navItem.name}
+                            width={28}
+                            height={28}
+                            className={cn(isSvg(navItem.icon) && index !== 0 && "w-full h-full hover:filter hover:brightness-0 hover:invert", checkPath?.includes(navItem.link.split("/")[1]) && index !== 0 && isSvg(navItem.icon) && 'filter brightness-0 invert')}
+                            priority={true}
+                        />
+                    </div>
                     <TypographySmall text={navItem.name} className={cn('text-[10px] font-extralight truncate', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />
                     <div className={cn(navItem.link === "/earn" && "app-bar-item-notification")}></div>
                 </Link>

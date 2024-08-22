@@ -174,21 +174,23 @@ export default function Page(): JSX.Element {
                                                     </div>
                                                 </div>
                                                 <Separator className="my-2 bg-[#34383f]" />
-                                                <div className="flex items-center h-5 space-x-4 text-sm">
-                                                    <TypographySmall text={`lv ${currentCardProfit ? currentCardProfit.level : 0}`} className="text-white text-[12px]" />
+                                                <div className="flex items-center h-5 space-x-2 text-sm">
+                                                    <TypographySmall text={`lv ${currentCardProfit ? currentCardProfit.level : 0}`} className="flex-grow-0 flex-shrink-0 text-white text-[12px] truncate" />
                                                     <Separator orientation="vertical" className="bg-[#34383f]" />
                                                     <CoinIcon width={18} height={18} className={cn(isActiveCard && "coin-is-grayscale" || currentCardProfit.required_money > user.revenue && "coin-is-grayscale")} />
-                                                    <TypographySmall
-                                                        text={
-                                                            requiredCardProfit !== "number" ?
-                                                                currentCardProfit.required_card.card_name :
-                                                                currentCardProfit.next_level ?
-                                                                    String(formatCoin(currentCardProfit.next_level.required_money as number)) :
-                                                                    '0'
-                                                        }
-                                                        className="text-white text-[12px] !m-1"
-                                                    />
-                                                    {requiredCardProfit !== "number" && <span className="text-white text-[12px] font-extralight !ml-0">lv {currentCardProfit.required_card.level}</span>}
+                                                    <div className="flex flex-wrap items-start justify-start gap-1 leading-3">
+                                                        <TypographySmall
+                                                            text={
+                                                                requiredCardProfit !== "number" ?
+                                                                    currentCardProfit.required_card.card_name :
+                                                                    currentCardProfit.next_level ?
+                                                                        String(formatCoin(currentCardProfit.next_level.required_money as number)) :
+                                                                        '0'
+                                                            }
+                                                            className="text-white text-[12px] text-wrap"
+                                                        />
+                                                        {requiredCardProfit !== "number" && <span className="text-white text-[12px] font-extralight !ml-0 block">lv {currentCardProfit.required_card.level}</span>}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )

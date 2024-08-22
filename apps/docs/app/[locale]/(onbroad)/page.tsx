@@ -65,13 +65,16 @@ const OnBroadingPage = () => {
                 });
             }
 
+            const totalTasks = actions.length;
+            let completedTasks = 0;
+
             const tasks = actions.map((action, index) => {
                 if (!action || !action.mutateAsync) {
                     toast({
                         variant: 'error',
                         title: `Action at index ${index} is not defined or does not have a mutateAsync method.`,
                     });
-                    return null; // Filter out invalid actions
+                    return null;
                 }
 
                 let params = {};
@@ -89,25 +92,20 @@ const OnBroadingPage = () => {
                         console.warn(`No specific params for action at index ${index}`);
                 }
 
-                return action.mutateAsync(params);
+                return action.mutateAsync(params)
+                    .then(() => {
+                        completedTasks += 1;
+                        setProgress((completedTasks / totalTasks) * 100);
+                    })
+                    .catch((error) => {
+                        toast({
+                            variant: 'error',
+                            title: `Task ${index + 1} failed: ${error.message}`,
+                        });
+                    });
             }).filter(Boolean);
 
-            const results = await Promise.allSettled(tasks); //Refactor
-
-            results.forEach((result, index) => {
-                if (result.status === "fulfilled") {
-                    toast({
-                        variant: 'success',
-                        title: `Data completed successfully`,
-                    });
-                    setProgress(prev => prev + (100 / tasks.length));
-                } else {
-                    toast({
-                        variant: 'error',
-                        title: `Task ${index + 1} failed: ${result.reason}`,
-                    });
-                }
-            });
+            await Promise.allSettled(tasks);
 
             setInitialized(true);
         } catch (error) {
@@ -115,16 +113,12 @@ const OnBroadingPage = () => {
         }
     };
 
+
     useEffect(() => {
         const initializeApp = async () => {
             try {
                 if (initDataTelegram) {
                     await fetchData(initDataTelegram);
-                }else{
-                    toast({
-                        variant: 'destructive',
-                        title: `Data telegram is installed`,
-                    });
                 }
             } catch (error) {
                 console.error('Error during initialization:', error);

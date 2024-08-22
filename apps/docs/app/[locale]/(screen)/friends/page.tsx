@@ -26,6 +26,7 @@ export default function Page(): JSX.Element {
 
     const [isOpenBonus, setIsOpenBonus] = useState(false)
     const utils = initUtils();
+
     useBackButton()
 
     return (
@@ -48,7 +49,7 @@ export default function Page(): JSX.Element {
                                 <div className="w-[6px] h-[6px] rounded-full mr-1 mt-2 bg-[#ffd337]"></div>
                                 <div className="flex items-center justify-center gap-1">
                                     <CoinIcon width={20} height={20} />
-                                    <TypographySmall text="+5.000" className="text-[14px] text-[#ffd337] ml-1" />
+                                    <TypographySmall text="+5.000" className="text-[14px] text-[#ffd337] ml-1 truncate" />
                                 </div>
                                 <span className="text-[14px] font-extralight">{t('des_invite_friends_card')}</span>
                             </div>

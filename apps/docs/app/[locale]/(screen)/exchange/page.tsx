@@ -106,7 +106,7 @@ export default function Page(): JSX.Element {
                     <CardProfit />
                 </div>
             </div>
-            <Card className="w-full h-full border-none card-has-glow">
+            <Card className="w-full h-full pb-16 border-none card-has-glow">
                 <CardHeader>
                     <MotionContainer className="flex flex-row items-center justify-between w-full gap-2">
                         <div
