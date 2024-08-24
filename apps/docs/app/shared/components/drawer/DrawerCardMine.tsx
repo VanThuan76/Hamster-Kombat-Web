@@ -18,11 +18,14 @@ import { formatCoinStyleDot } from "@shared/utils/formatNumber";
 import { useBuyCard } from "@server/_action/card-action";
 import { setUpdateProfitPerHour, setUpdateRevenue } from "@shared/redux/store/appSlice";
 
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
+
 export default function DrawerCardMine(): JSX.Element {
     const { user } = useAppSelector(state => state.app)
     const { isOpen, onClose, data, type } = useDraw()
     const isDrawerOpen = isOpen && type === "cardMine"
 
+    const haptic = initHapticFeedback();
     const dispatch = useAppDispatch();
     const t = useTranslations('components.drawer_info_profit')
 
@@ -36,6 +39,7 @@ export default function DrawerCardMine(): JSX.Element {
             await dispatch(setUpdateRevenue(user.revenue - currentCardProfit.required_money)); // Fix
             await dispatch(setUpdateProfitPerHour(user.profit_per_hour + currentCardProfit.profit)); // Fix
 
+            haptic.impactOccurred('soft')
             onClose();
 
             await buyCard.mutateAsync({

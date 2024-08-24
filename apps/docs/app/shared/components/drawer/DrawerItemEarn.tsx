@@ -9,6 +9,7 @@ import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
 import CoinIcon from "@shared/components/CoinIcon"
 
+import { toast } from "@shared/hooks/useToast";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 import { useRouter } from "@shared/next-intl/navigation";
@@ -32,7 +33,8 @@ export default function DrawerItemEarn(): JSX.Element {
     const utils = initUtils();
     const updateEarn = useUpdateEarn()
 
-    function containsHttps(link: string) {
+    function containsHttps(link: string | null) {
+        if (!link) return false;
         return link.includes('https://');
     }
 
@@ -46,18 +48,25 @@ export default function DrawerItemEarn(): JSX.Element {
 
     async function handleSuccess(earn: EarnDetail) {
         try {
-            if(earn.is_completed !== 0) return
-            await dispatch(setUpdateRevenue(user.revenue + earn.reward)); // Fix
+            if (earn.is_completed !== 0) return
+            if (containsHttps(earn.link)) {
+                toast({
+                    variant: 'error',
+                    title: 'Bạn chưa chọn sàn giao dịch',
+                });
+            } else {
+                await dispatch(setUpdateRevenue(user.revenue + earn.reward)); // Fix
 
-            onClose();
+                onClose();
 
-            await updateEarn.mutateAsync({
-                user_id: user.id,
-                user_earn_id: earn.user_earn_id,
-                is_completed: 1
-            })
+                await updateEarn.mutateAsync({
+                    user_id: user.id,
+                    user_earn_id: earn.user_earn_id,
+                    is_completed: 1
+                })
 
-            console.log('Successfully');
+                console.log('Successfully');
+            }
         } catch (error) {
             console.error('Error in handleSuccess:', error);
         }

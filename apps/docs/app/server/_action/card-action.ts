@@ -12,14 +12,13 @@ import { IBuyCard, ICategoryOfCard } from "../_types/card";
 
 import CARD_PATHS from "../_path/card-path";
 
-const { useHapticFeedback, initHapticFeedback } = require('@telegram-apps/sdk-react');
+const { useHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export const useBuyCard: () => UseMutationResult<IBaseResponse<any[]>, Error, IBuyCard> = () => {
     const { membership } = useAppSelector(state => state.app)
     const dispatch = useAppDispatch();
 
     const haptics = useHapticFeedback();
-    const haptic = initHapticFeedback();
 
     return useMutation<IBaseResponse<any[]>, Error, IBuyCard>({
         mutationFn: (body: IBuyCard) =>
@@ -37,12 +36,9 @@ export const useBuyCard: () => UseMutationResult<IBaseResponse<any[]>, Error, IB
                     title: `Not enough money to buy card`,
                 });
                 haptics.notificationOccurred('error');
-                haptic.impactOccurred('soft')
             } else {
                 queryClient.invalidateQueries({ queryKey: ['BUY_CARD', 'CARD'] });
                 dispatch(setCategoryOfCards(data.data[0])); //Fix
-                dispatch(setUpdateRevenue(data.data[1].revenue)) //Fix
-                dispatch(setUpdateProfitPerHour(data.data[1].profitPerHour.profit_per_hour)) //Fix
 
                 const membershipData = {
                     ...membership,
@@ -59,7 +55,6 @@ export const useBuyCard: () => UseMutationResult<IBaseResponse<any[]>, Error, IB
                     title: `Upgrade is yours! Cointelegraph +1 lvl`,
                 });
                 haptics.notificationOccurred('success');
-                haptic.impactOccurred('soft')
             }
         },
         onError(error, variables, context) {

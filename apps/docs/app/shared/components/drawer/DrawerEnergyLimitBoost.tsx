@@ -19,12 +19,15 @@ import { formatCoinStyleDot } from "@shared/utils/formatNumber";
 import { useUpdateBoost } from "@server/_action/boost-action";
 import { setUpdateRevenue } from "@shared/redux/store/appSlice";
 
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
+
 export default function DrawerEnergyLimitBoost(): JSX.Element {
     const { user } = useAppSelector(state => state.app)
     const { isOpen, data, onClose, type } = useDraw()
     const isDrawerOpen = isOpen && type === "energyLimitBoost"
 
     const dispatch = useAppDispatch();
+    const haptic = initHapticFeedback();
     const t = useTranslations('screens.boost')
 
     const router = useRouter()
@@ -35,6 +38,7 @@ export default function DrawerEnergyLimitBoost(): JSX.Element {
             await dispatch(setUpdateRevenue(user.revenue - data?.next?.required_money)); // Fix
 
             onClose();
+            haptic.impactOccurred('soft')
             router.push('/exchange')
 
             await updateBoost.mutateAsync({

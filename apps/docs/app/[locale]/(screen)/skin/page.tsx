@@ -22,7 +22,9 @@ import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index"
 import { useBuySkin } from "@server/_action/skin-action"
-import { setUpdateRevenue } from "@shared/redux/store/appSlice"
+import { setMembership, setUpdateRevenue } from "@shared/redux/store/appSlice"
+
+const { initHapticFeedback } = require('@telegram-apps/sdk-react');
 
 const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
@@ -46,6 +48,7 @@ export default function Page(): JSX.Element {
     const t = useTranslations('screens.skin')
     const dispatch = useAppDispatch();
     const router = useRouter()
+    const haptic = initHapticFeedback();
 
     const { ref, inView } = useInView({
         triggerOnce: true,
@@ -74,9 +77,17 @@ export default function Page(): JSX.Element {
 
     const buySkin = useBuySkin()
 
-    async function handleBuySkin(skin_id: number, price: number) {
+    async function handleBuySkin(skin_id: number, price: number, image: string) {
         try {
+            const membershipData = {
+                ...membership,
+                image: image
+            }
+
             await dispatch(setUpdateRevenue(user.revenue - price)); // Fix
+            await dispatch(setMembership(membershipData)) //Fix
+
+            haptic.impactOccurred('soft')
 
             router.push('/exchange')
 
@@ -93,9 +104,9 @@ export default function Page(): JSX.Element {
 
     useEffect(() => {
         if (inView) {
-          setVisibleItems(currentSkins.length);
+            setVisibleItems(currentSkins.length);
         }
-      }, [inView, currentSkins.length]);
+    }, [inView, currentSkins.length]);
 
     useBackButton()
 
@@ -140,7 +151,10 @@ export default function Page(): JSX.Element {
                                             <TypographySmall text={`${formatCoinStyleDot(item.price)}`} className="text-[20px] font-bold text-[#fff6]" />
                                         </div>
                                     }
-                                    <Button className="bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl" onClick={() => hasBuySkin && handleBuySkin(item.id, item.price)}>
+                                    <Button
+                                        className={cn("bg-[#34383fcc] hover:bg-[#34383fcc] focus:bg-[#34383fcc] w-full min-h-[60px] rounded-2xl", i !== 0 && hasBuySkin && 'bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d]')}
+                                        onClick={() => hasBuySkin && handleBuySkin(item.id, item.price, item.image)}
+                                    >
                                         {i === 0 ? //Check user_purchased
                                             'Chọn' :
                                             hasMoneyBuySkin ?

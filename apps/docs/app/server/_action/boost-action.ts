@@ -2,7 +2,7 @@ import { useMutation, UseMutationResult, UseQueryResult } from "@tanstack/react-
 import { toast } from "@shared/hooks/useToast";
 import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
-import { setMembership, setUpdateBoost, setUpdateRevenue, setStateEnergy } from "@shared/redux/store/appSlice";
+import { setMembership, setUpdateBoost, setUpdateRevenue, setStateEnergy, setEnergyLimit } from "@shared/redux/store/appSlice";
 
 import { queryClient } from "./config";
 
@@ -12,14 +12,13 @@ import { IResponseUpdateBoost, IUpdateBoost } from "../_types/boost";
 
 import BOOST_PATHS from "../_path/boost-path";
 
-const { useHapticFeedback, initHapticFeedback } = require('@telegram-apps/sdk-react');
+const { useHapticFeedback } = require('@telegram-apps/sdk-react');
 
 export const useUpdateBoost: () => UseMutationResult<IBaseResponse<IResponseUpdateBoost>, Error, IUpdateBoost> = () => {
     const { membership } = useAppSelector(state => state.app)
 
     const dispatch = useAppDispatch();
     const haptics = useHapticFeedback();
-    const haptic = initHapticFeedback();
 
     return useMutation<IBaseResponse<IResponseUpdateBoost>, Error, IUpdateBoost>({
         mutationFn: (body: IUpdateBoost) =>
@@ -33,9 +32,8 @@ export const useUpdateBoost: () => UseMutationResult<IBaseResponse<IResponseUpda
         onSuccess: async data => {
             if (!data.data) return;
             queryClient.invalidateQueries({ queryKey: ['UPDATE_BOOST', 'BOOST'] });
-            dispatch(setUpdateBoost({boots: data.data.boots, tap_value: data.data.user.tap_value}));
-            dispatch(setUpdateRevenue(data.data.user.revenue))
-            dispatch(setStateEnergy({amount: data.data.max_energy, isReset: true}))
+            dispatch(setUpdateBoost({ boots: data.data.boots, tap_value: data.data.user.tap_value }));
+            dispatch(setEnergyLimit(data.data.max_energy))
 
             const membershipData = {
                 ...membership,
@@ -52,7 +50,6 @@ export const useUpdateBoost: () => UseMutationResult<IBaseResponse<IResponseUpda
                 title: `Upgrade is successful!`,
             });
             haptics.notificationOccurred('success');
-            haptic.impactOccurred('soft')
         },
         onError(error, variables, context) {
             console.log(error);

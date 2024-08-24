@@ -12,6 +12,7 @@ import { useCategoryOfCardByUser } from '@server/_action/card-action';
 import { useSkins } from '@server/_action/skin-action';
 import { useEarnByUser } from '@server/_action/earn-action';
 
+import useServiceWorker from "@shared/hooks/useServiceWorker";
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from '@ui/components/typography/small';
 
@@ -133,6 +134,8 @@ const OnBroadingPage = () => {
             router.push('/exchange', undefined);
         }
     }, [initialized, router]);
+
+    useServiceWorker();
 
     return (
         <div className="relative w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_onbroad.jpg')] bg-cover bg-no-repeat bg-center">

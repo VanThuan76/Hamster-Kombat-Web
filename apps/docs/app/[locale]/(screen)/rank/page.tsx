@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { useInView } from "react-intersection-observer"
 import { useTranslations } from "next-intl"
 import { cn } from "@ui/lib/utils"
 
@@ -43,8 +44,14 @@ const ItemCardRank = ({ item, order, backgroundAva, className }: { item: any, or
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.rank')
 
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    });
+
     const { user, membership, ranks } = useAppSelector(state => state.app)
 
+    const [visibleRank, setVisibleRanks] = useState(5);
     const [currentTarget, setCurrentTarget] = useState(0)
     const [swiperClass, setSwiperClass] = useState(`is-${ranks[0]?.name.toLowerCase()}`)
     useBackButton()
@@ -52,6 +59,12 @@ export default function Page(): JSX.Element {
     useEffect(() => {
         setSwiperClass(`is-${ranks[currentTarget]?.name.toLowerCase()}`)
     }, [currentTarget])
+
+    useEffect(() => {
+        if (inView && ranks) {
+            setVisibleRanks((prev) => Math.min(prev + 10, ranks[currentTarget]?.rank.length as number));
+        }
+    }, [inView, ranks]);
 
     return (
         <div className="relative w-screen h-screen space-y-2 overflow-hidden overflow-y-auto text-center">
@@ -91,8 +104,8 @@ export default function Page(): JSX.Element {
                 })}
                 onSlideChange={setCurrentTarget}
             />
-            <div className="flex flex-col items-start justify-start w-full gap-2 px-4 pb-20">
-                {ranks[currentTarget]?.rank.map((item, i) => {
+            <div ref={ref} className="flex flex-col items-start justify-start w-full gap-2 px-4 pb-20">
+                {ranks[currentTarget]?.rank.slice(0, visibleRank).map((item, i) => {
                     if (item.id === user.id) return (
                         <div className="fixed px-4 left-0 bottom-20 w-full z-[10000]">
                             <ItemCardRank key={i} item={item} order={i + 1} backgroundAva={swiperClass} className="border border-white" />

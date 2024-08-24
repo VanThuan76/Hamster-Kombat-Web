@@ -145,6 +145,9 @@ export const appSlice: any = createSlice({
                 state.drawerStore.type = "editExchange"
             }
         },
+        setEnergyLimit: (state, action: PayloadAction<number>) => {
+            state.user.energy_limit = action.payload;
+        },
         setStateEnergy: (state, action: PayloadAction<{ amount: number, isReset: boolean }>) => {
             state.stateEnergy = action.payload.amount
             state.isResetStateEnergy = action.payload.isReset;
@@ -200,5 +203,5 @@ export const appSlice: any = createSlice({
     },
 });
 
-export const { setInitDataTelegram, setIsAnimatedCouterCoin, setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateEnergyBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, setHighestScore, openDrawer, closeDrawer } = appSlice.actions;
+export const { setInitDataTelegram, setIsAnimatedCouterCoin, setInitUser, setMembership, setUserExchange, setUpdateRevenue, setUpdateBoost, setUpdateEnergyBoost, setUpdateProfitPerHour, setIsProfitRevenueActive, setEnergyLimit, setExchanges, setRanks, setSkins, setEarns, setFriends, setCategoryOfCards, setStateEnergy, setHighestScore, openDrawer, closeDrawer } = appSlice.actions;
 export default appSlice.reducer;
