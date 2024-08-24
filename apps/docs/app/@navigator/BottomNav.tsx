@@ -70,8 +70,7 @@ export const BottomNav = () => {
     return (
         <div
             className={cn(
-                path.includes('/exchange') ? 'absolute' : 'fixed',
-                "flex w-full bottom-0 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] py-1 items-center justify-center space-x-2",
+                "fixed flex w-full bottom-0 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] py-1 items-center justify-center space-x-2",
             )}
         >
             {navItems.map((navItem: any, index: number) => (
@@ -94,7 +93,7 @@ export const BottomNav = () => {
                             width={28}
                             height={28}
                             className={cn(isSvg(navItem.icon) && index !== 0 && "w-full h-full hover:filter hover:brightness-0 hover:invert", checkPath?.includes(navItem.link.split("/")[1]) && index !== 0 && isSvg(navItem.icon) && 'filter brightness-0 invert')}
-                            priority={true}
+                            priority={true} quality={75}
                         />
                     </div>
                     <TypographySmall text={navItem.name} className={cn('text-[10px] font-extralight truncate', checkPath?.includes(navItem.link.split("/")[1]) ? 'text-white' : 'text-[#8b8e93]')} />

@@ -19,7 +19,7 @@ export default function Page(): JSX.Element {
     useBackButton()
 
     return (
-        <div className="w-full min-h-screen relative overflow-y-auto overflow-hidden p-5 space-y-2 text-center">
+        <div className="relative w-full min-h-screen p-5 space-y-2 overflow-hidden overflow-y-auto text-center">
             <MotionContainer className="relative w-full" direction="top">
                 <div className="icon_earn"><svg width="275" height="275" viewBox="0 0 275 275" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_f_1464_6497)">
@@ -37,7 +37,7 @@ export default function Page(): JSX.Element {
                 </svg>
                 </div>
                 <div className="icon_earn_image w-[106px] h-[106px]">
-                    <Image src="/project/icon_lion_coin.png" alt="@hamsterCoin" width={106} height={106} className="w-full h-full" priority={true} />
+                    <Image src="/project/icon_lion_coin.png" alt="@hamsterCoin" width={106} height={106} className="w-full h-full" priority={true} quality={75} />
                 </div>
             </MotionContainer>
             <div className="h-[220px]"></div>
@@ -45,16 +45,16 @@ export default function Page(): JSX.Element {
                 <TypographyLarge text="Airdrop tasks" className="text-white text-[32px]" />
             </MotionContainer>
             <MotionContainer className="relative w-full" direction="left">
-                <TypographySmall text={t('des_airdrop')} className="text-white text-base" />
+                <TypographySmall text={t('des_airdrop')} className="text-base text-white" />
             </MotionContainer>
-            <div className="flex flex-col justify-start items-start gap-2 cursor-pointer" onClick={() => onOpen('walletConnect')}>
-                <TypographySmall text="Danh sách công việc" className="text-base text-white mt-5" />
+            <div className="flex flex-col items-start justify-start gap-2 cursor-pointer" onClick={() => onOpen('walletConnect')}>
+                <TypographySmall text="Danh sách công việc" className="mt-5 text-base text-white" />
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3" style={{ background: 'linear-gradient(98deg, #35a6eb 3.58%, #309adb 101.32%)' }}>
-                    <div className="flex justify-start items-center gap-2">
+                    <div className="flex items-center justify-start gap-2">
                         <MotionContainer type="scale">
-                            <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={56} height={56} priority={true} />
+                            <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={56} height={56} priority={true} quality={75} />
                         </MotionContainer>
-                        <div className="flex flex-col justify-start items-start">
+                        <div className="flex flex-col items-start justify-start">
                             <TypographySmall text="Kết nối ví TON của bạn" className="text-[14px] text-white font-extralight" />
                         </div>
                     </div>

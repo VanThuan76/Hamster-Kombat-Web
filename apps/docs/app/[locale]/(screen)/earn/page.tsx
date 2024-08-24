@@ -78,7 +78,7 @@ export default function Page(): JSX.Element {
                         >
                             <div className="flex items-center justify-start gap-2">
                                 <MotionContainer type="scale">
-                                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
+                                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} quality={75} />
                                 </MotionContainer>
                                 <div className="flex flex-col items-start justify-start">
                                     <TypographySmall text={earn.description} className="text-[14px] text-white font-extralight" />
@@ -99,7 +99,7 @@ export default function Page(): JSX.Element {
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]" onClick={() => onOpen("calendarEarn")}>
                     <div className="flex items-center justify-start gap-2">
                         <MotionContainer type="scale">
-                            <Image src='/project/calendar.png' alt='@calendar' width={56} height={56} priority={true} />
+                            <Image src='/project/calendar.png' alt='@calendar' width={56} height={56} priority={true} quality={75} />
                         </MotionContainer>
                         <div className="flex flex-col items-start justify-start">
                             <TypographySmall text={t('daily_reward')} className="text-[14px] text-white font-extralight" />
@@ -128,7 +128,7 @@ export default function Page(): JSX.Element {
                         >
                             <div className="flex items-center justify-start gap-2">
                                 <MotionContainer type="scale">
-                                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} />
+                                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + earn.image} alt={earn.name} width={56} height={56} priority={true} quality={75} />
                                 </MotionContainer>
                                 <div className="flex flex-col items-start justify-start">
                                     <TypographySmall text={earn.name} className="text-[14px] text-white font-extralight text-start truncate" />

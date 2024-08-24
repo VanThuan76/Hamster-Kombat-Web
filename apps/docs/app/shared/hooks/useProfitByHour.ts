@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-
+import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import { setIsProfitRevenueActive, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import useLocalStorage from "./useLocalStorage";
+import { useUpdateRevenue } from "@server/_action/user-action";
 
 const useProfitByHour = () => {
     const { user } = useAppSelector(state => state.app);
@@ -11,40 +11,49 @@ const useProfitByHour = () => {
     const lastUpdateRef = useRef(Date.now()); // Sử dụng useRef để theo dõi lastUpdate
     const intervalIdRef = useRef<NodeJS.Timeout | null>(null); // Sử dụng useRef để lưu intervalId
 
-    // Sử dụng hook useLocalStorage để lưu trữ giá trị doanh thu
     const [profit, setProfit] = useLocalStorage<number>('profit_revenue', 0);
+    const [profitTime, setProfitTime] = useLocalStorage<number>('profit_revenue_time', 0);
+
+    const updateRevenue = useUpdateRevenue()
 
     useEffect(() => {
+        // Thiết lập trạng thái active dựa trên profit
         if (profit > 0) {
-            dispatch(setIsProfitRevenueActive(true))
+            dispatch(setIsProfitRevenueActive(true));
         } else {
             lastUpdateRef.current = Date.now();
-            dispatch(setIsProfitRevenueActive(false))
+            dispatch(setIsProfitRevenueActive(false));
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (user.profit_per_hour > 0) {
             const profitPerSecond = user.profit_per_hour / 3600;
-            const minimumIncrement = 1; // Ngưỡng tối thiểu để cập nhật doanh thu
+            let profitTemp = profit; // Biến tạm để lưu giá trị hiện tại của profit
 
-            // Cập nhật doanh thu mỗi giây
+            // Cài đặt interval để cập nhật doanh thu mỗi giây
             const id = setInterval(() => {
-                const currentTime = Date.now();
-                const secondsPassed = (currentTime - lastUpdateRef.current) / 1000;
-                const revenueIncrement = profitPerSecond * secondsPassed;
+                const currentRevenue = user.revenue + profitPerSecond;
 
-                // Chỉ cập nhật doanh thu nếu revenueIncrement lớn hơn minimumIncrement
-                if (revenueIncrement >= minimumIncrement) {
-                    // Cập nhật giá trị lưu trữ
-                    setProfit(prevProfit => {
-                        const newProfit = Math.round(prevProfit + revenueIncrement);
-                        dispatch(setUpdateRevenue(user.revenue + Math.round(revenueIncrement)));
-                        return newProfit;
-                    });
+                // Cập nhật revenue thông qua dispatch
+                dispatch(setUpdateRevenue(currentRevenue));
+
+                // Cộng dồn giá trị profit
+                profitTemp += profitPerSecond;
+
+                // Sử dụng setProfit để cập nhật giá trị không làm tròn để lưu chính xác
+                setProfit(profitTemp);
+
+                // Tăng queryTime
+                setProfitTime(prev => prev + 1)
+
+                if (profitTime > 180) {
+                    dispatch(setUpdateRevenue(user.revenue + Math.round(profit))); // Fix
+                    updateRevenue.mutate({ user_id: user.id, amount: Math.round(profit) });
+                    setProfitTime(0)
+                    setProfit(0)
                 }
 
-                lastUpdateRef.current = currentTime;
             }, 1000);
 
             intervalIdRef.current = id;
@@ -53,7 +62,7 @@ const useProfitByHour = () => {
         return () => {
             if (intervalIdRef.current) clearInterval(intervalIdRef.current);
         };
-    }, [user.profit_per_hour, dispatch, user.revenue, setProfit]);
+    }, [user.profit_per_hour, dispatch, user.revenue, profit, setProfit]);
 
     return null;
 };

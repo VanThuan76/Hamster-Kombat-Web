@@ -12,16 +12,18 @@ import TypographySmall from "@ui/components/typography/small";
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useDraw } from "@shared/hooks/useDraw";
-import { useAppSelector } from "@shared/redux/store";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 import { formatCoinStyleDot } from "@shared/utils/formatNumber";
 
 import { useBuyCard } from "@server/_action/card-action";
+import { setUpdateProfitPerHour, setUpdateRevenue } from "@shared/redux/store/appSlice";
 
 export default function DrawerCardMine(): JSX.Element {
     const { user } = useAppSelector(state => state.app)
     const { isOpen, onClose, data, type } = useDraw()
     const isDrawerOpen = isOpen && type === "cardMine"
 
+    const dispatch = useAppDispatch();
     const t = useTranslations('components.drawer_info_profit')
 
     const currentCardProfit = data?.card_profits?.find((child: any) => child.is_purchased) || data?.card_profits?.find((child: any) => child.id === 1)
@@ -29,23 +31,34 @@ export default function DrawerCardMine(): JSX.Element {
 
     const buyCard = useBuyCard()
 
-    function handleSuccess() {
-        buyCard.mutate({
-            card_id: nextCardProfit.card_id,
-            card_profit_id: nextCardProfit.id,
-            level: nextCardProfit.level,
-            exchange_id: user.exchange.id,
-            user_id: user.id
-        })
-        onClose()
+    async function handleSuccess() {
+        try {
+            await dispatch(setUpdateRevenue(user.revenue - currentCardProfit.required_money)); // Fix
+            await dispatch(setUpdateProfitPerHour(user.profit_per_hour + currentCardProfit.profit)); // Fix
+
+            onClose();
+
+            await buyCard.mutateAsync({
+                card_id: nextCardProfit.card_id,
+                card_profit_id: nextCardProfit.id,
+                level: nextCardProfit.level,
+                exchange_id: user.exchange.id,
+                user_id: user.id
+            });
+
+            console.log('Card purchased successfully');
+        } catch (error) {
+            console.error('Error in handleSuccess:', error);
+        }
     }
+
 
     if (!data) return <></>
 
     return (
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
             <div className="flex flex-col items-center justify-center w-full gap-2 mt-2">
-                <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data?.image}` || ''} alt="@imageTask" width={115} height={115} priority={true} />
+                <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data?.image}` || ''} alt="@imageTask" width={115} height={115} priority={true} quality={75} />
                 <TypographySmall text={data?.name} className="text-white text-[28px] font-semibold" />
                 <TypographySmall text={data?.description} className="text-white text-[14px] text-center" />
                 <div className="flex flex-col items-center justify-center gap-1">

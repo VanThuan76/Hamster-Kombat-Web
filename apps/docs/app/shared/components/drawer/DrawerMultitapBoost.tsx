@@ -13,40 +13,51 @@ import TypographySmall from "@ui/components/typography/small";
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useDraw } from "@shared/hooks/useDraw";
-import { useAppSelector } from "@shared/redux/store";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 import { formatCoinStyleDot } from "@shared/utils/formatNumber";
 
 import { useUpdateBoost } from "@server/_action/boost-action";
+import { setUpdateRevenue } from "@shared/redux/store/appSlice";
 
 export default function DrawerMultitapBoost(): JSX.Element {
     const { user } = useAppSelector(state => state.app)
     const { isOpen, data, onClose, type } = useDraw()
     const isDrawerOpen = isOpen && type === "multitapBoost"
 
+    const dispatch = useAppDispatch();
     const t = useTranslations('screens.boost')
 
     const router = useRouter()
     const updateBoost = useUpdateBoost()
 
-    function handleSuccess() {
-        updateBoost.mutate({
-            user_id: user.id,
-            current_user_boots_id: data?.current?.user_boots_id,
-            current_boots_level: data?.current?.level,
-            next_user_boots_id: data?.next?.user_boots_id,
-            next_boots_level: data?.next?.level,
-            type: 1,
-            sub_type: 2
-        })
-        onClose()
-        router.push('/exchange')
+    async function handleSuccess() {
+        try {
+            await dispatch(setUpdateRevenue(user.revenue - data?.next?.required_money)); // Fix
+
+            onClose();
+            router.push('/exchange')
+
+            await updateBoost.mutateAsync({
+                user_id: user.id,
+                current_user_boots_id: data?.current?.user_boots_id,
+                current_boots_level: data?.current?.level,
+                next_user_boots_id: data?.next?.user_boots_id,
+                next_boots_level: data?.next?.level,
+                type: 1,
+                sub_type: 2
+            })
+
+            console.log('Successfully');
+        } catch (error) {
+            console.error('Error in handleSuccess:', error);
+        }
     }
 
     return (
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
             <div className="flex flex-col items-center justify-center w-full gap-8">
                 <div className="relative z-10">
-                    <Image src="/project/icon_boost-multitap.png" alt="@multitap" width={115} height={115} priority={true} />
+                    <Image src="/project/icon_boost-multitap.png" alt="@multitap" width={115} height={115} priority={true} quality={75} />
                 </div>
                 <div className="flex flex-col items-center justify-center gap-5">
                     <TypographyLarge text={t('multitap')} className="text-white text-[32px] font-bold" />

@@ -33,7 +33,7 @@ export default function DrawerEditExchange(): JSX.Element {
             <div className="flex flex-col items-center justify-center w-full gap-8 mt-10">
                 <div className="relative w-full min-h-[150px] flex flex-col justify-center items-center gap-5 bg-[#272a2f] px-6 pt-8 -mb-2 rounded-3xl">
                     <div className="absolute -top-10 z-10 w-[80px] h-[80px] p-5 bg-[#272a2f] border-4 border-[#1c1f24] rounded-full flex items-center justify-center">
-                        <Image src={user.exchange.icon} alt={user.exchange.name} width={60} height={60} priority={true} />
+                        <Image src={user.exchange.icon} alt={user.exchange.name} width={60} height={60} priority={true} quality={75} />
                     </div>
                     <TypographyLarge text={`${t('title')} ${user.exchange.name}`} className="text-white text-[20px] text-center font-bold" />
                 </div>

@@ -38,6 +38,7 @@ export const userLoginAction: () => UseMutationResult<IBaseResponse<IUser>, Erro
             }
             const dataCurrentInitUser = {
                 ...data.data,
+                revenue: Math.round(data.data.revenue),
                 tap_value: data.data?.tap_value || 1,
                 energy_limit: data.data?.energy_limit || 1000, //Fixed
                 profit_per_hour: data.data.profitPerHour?.profit_per_hour || 0, //Fixed

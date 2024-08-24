@@ -27,7 +27,7 @@ const ItemCardRank = ({ item, order, backgroundAva, className }: { item: any, or
             </Avatar>
             <div className="flex flex-col items-start justify-start w-full gap-2 ml-3">
                 <div className="flex items-center justify-center gap-1">
-                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image} alt="@coin" width={18} height={18} priority={true} />
+                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + item.image} alt="@coin" width={18} height={18} priority={true} quality={75} />
                     <TypographySmall text={`${item?.first_name} ${item?.last_name}`} className="text-[14px]" />
                 </div>
                 <div className="flex items-center justify-center gap-1">
@@ -70,7 +70,7 @@ export default function Page(): JSX.Element {
                                     width={162}
                                     height={162}
                                     className="z-30"
-                                    priority={true}
+                                    priority={true} quality={75}
                                 />
                             </div>
                             <div className="flex flex-col items-center justify-center w-full gap-3 px-4">

@@ -41,7 +41,7 @@ export default function Page(): JSX.Element {
                 return (
                     <div key={i} className="flex justify-start items-start gap-3 rounded-2xl p-3 py-6 bg-[#272a2f]">
                         <MotionContainer type="scale">
-                            <Image src="/project/gift.png" alt="@gift" width={60} height={50} priority={true} />
+                            <Image src="/project/gift.png" alt="@gift" width={60} height={50} priority={true} quality={75} />
                         </MotionContainer>
                         <div className="flex flex-col items-start justify-start gap-2">
                             <TypographySmall text={t('invite_friends_card')} className="text-base text-white" />
@@ -74,7 +74,7 @@ export default function Page(): JSX.Element {
                             <div key={i} className="w-full flex justify-between items-center p-2 bg-[#272a2f] rounded-2xl">
                                 <div className="flex items-center justify-start gap-2">
                                     <div className="h-[40px] w-[40px]">
-                                        <Image src={item.image} alt={item.name} width={100} height={100} className="object-cover w-full h-full rounded-md" priority={true} />
+                                        <Image src={item.image} alt={item.name} width={100} height={100} className="object-cover w-full h-full rounded-md" priority={true} quality={75} />
                                     </div>
                                     <TypographySmall text={item.name} className="text-[12px] font-light" />
                                 </div>

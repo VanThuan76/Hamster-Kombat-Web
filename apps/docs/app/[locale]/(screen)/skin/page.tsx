@@ -2,9 +2,10 @@
 
 import Image from "next/image"
 import dynamic from 'next/dynamic'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 import { useRouter } from "@shared/next-intl/navigation";
+import { useInView } from 'react-intersection-observer';
 
 import { cn } from "@ui/lib/utils"
 import { Button } from "@ui/components/button"
@@ -19,8 +20,9 @@ import CoinIcon from "@shared/components/CoinIcon"
 
 import useBackButton from "@shared/hooks/useBackButton"
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
-import { useAppSelector } from "@shared/redux/store/index"
+import { useAppDispatch, useAppSelector } from "@shared/redux/store/index"
 import { useBuySkin } from "@server/_action/skin-action"
+import { setUpdateRevenue } from "@shared/redux/store/appSlice"
 
 const DynamicNavigationSwiper = dynamic(() => import('@ui/components/swiper/DynamicNavigation').then((mod) => mod.default), { ssr: false })
 
@@ -42,11 +44,18 @@ function CheckIcon({ is_purchased, is_active = true }: { is_purchased: boolean, 
 
 export default function Page(): JSX.Element {
     const t = useTranslations('screens.skin')
+    const dispatch = useAppDispatch();
     const router = useRouter()
+
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    });
 
     const { user, skins, membership, ranks } = useAppSelector(state => state.app)
 
     const [currentTarget, setCurrentTarget] = useState(0)
+    const [visibleItems, setVisibleItems] = useState(20);
 
     const avatarImage = process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + membership.image
     const defaultSkin = [{
@@ -64,13 +73,29 @@ export default function Page(): JSX.Element {
     const currentSkins = defaultSkin.concat(skins)
 
     const buySkin = useBuySkin()
-    function handleBuySkin(skin_id: number) {
-        buySkin.mutate({
-            user_id: user.id,
-            skin_id: skin_id
-        })
-        router.push('/exchange')
+
+    async function handleBuySkin(skin_id: number, price: number) {
+        try {
+            await dispatch(setUpdateRevenue(user.revenue - price)); // Fix
+
+            router.push('/exchange')
+
+            await buySkin.mutateAsync({
+                user_id: user.id,
+                skin_id: skin_id
+            })
+
+            console.log('Successfully');
+        } catch (error) {
+            console.error('Error in handleSuccess:', error);
+        }
     }
+
+    useEffect(() => {
+        if (inView) {
+          setVisibleItems(currentSkins.length);
+        }
+      }, [inView, currentSkins.length]);
 
     useBackButton()
 
@@ -103,6 +128,7 @@ export default function Page(): JSX.Element {
                                     height={250}
                                     className="z-30 object-contain object-center mb-2 rounded-sm"
                                     priority={true}
+                                    quality={75}
                                 />
                                 <div className="w-full min-h-[200px] flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
                                     <TypographySmall text={item.name} className="text-base font-bold text-white" />
@@ -114,7 +140,7 @@ export default function Page(): JSX.Element {
                                             <TypographySmall text={`${formatCoinStyleDot(item.price)}`} className="text-[20px] font-bold text-[#fff6]" />
                                         </div>
                                     }
-                                    <Button className="bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl" onClick={() => hasBuySkin && handleBuySkin(item.id)}>
+                                    <Button className="bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d] cursor-not-allowed w-full min-h-[60px] rounded-2xl" onClick={() => hasBuySkin && handleBuySkin(item.id, item.price)}>
                                         {i === 0 ? //Check user_purchased
                                             'Chọn' :
                                             hasMoneyBuySkin ?
@@ -132,12 +158,12 @@ export default function Page(): JSX.Element {
                     activeSlideChange={currentTarget}
                     onSlideChange={setCurrentTarget}
                 />
-                <CardContent className="grid items-center justify-center w-full grid-cols-4 gap-2 p-0 mt-5">
-                    {currentSkins.map((item, i) => {
+                <CardContent ref={ref} className="grid items-center justify-center w-full grid-cols-4 gap-2 p-0 mt-5">
+                    {inView && currentSkins.slice(0, visibleItems).map((item, i) => {
                         return (
                             <div key={i} className={cn("relative bg-[#272a2f] flex flex-col justify-center items-center rounded-xl py-2", i === currentTarget && 'border border-[#5a60ff]')} onClick={() => setCurrentTarget(i)}>
                                 <div className="w-[62px] h-[62px]">
-                                    <Image src={item.image_url} alt={item.name} width={62} height={62} className="object-center w-full h-full object-conntain" />
+                                    <Image src={item.image_url} alt={item.name} width={62} height={62} className="object-center w-full h-full object-conntain" priority={true} quality={75} />
                                 </div>
                                 <TypographySmall text={item.name} className="text-[9px] font-extralight text-white" />
                                 {i === 0 ? <CheckIcon is_purchased={true} /> : <CheckIcon is_purchased={false} is_active={item.required_level === 0 || ranks.find(child => child.level > item.required_level)?.name.toLowerCase() === membership.name.toLowerCase()} />}

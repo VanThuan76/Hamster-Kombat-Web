@@ -20,7 +20,7 @@ const DrawerWalletConnect = () => {
             <div className="flex flex-col items-center justify-center w-full gap-8">
                 <div className="relative visible">
                     <div className="relative z-10">
-                        <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={115} height={115} priority={true} />
+                        <Image src="/project/airdrop_connect_ton_wallet.png" alt="@airdrop_connect_ton_wallet" width={115} height={115} priority={true} quality={75} />
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center w-full gap-5">

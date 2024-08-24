@@ -60,7 +60,7 @@ export default function Page(): JSX.Element {
                 <div className={cn("w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer", countdown.minutes && "cursor-not-allowed")} onClick={() => !countdown.minutes && onOpen("energyBoost", { current: currentEnergy, next: nextEnergy })}>
                     <div className="flex items-center justify-start w-full gap-4">
                         <MotionContainer type="scale">
-                            <Image src="/project/icon_flash.png" alt="@flash" width={70} height={70} priority={true} />
+                            <Image src="/project/icon_flash.png" alt="@flash" width={70} height={70} priority={true} quality={75} />
                         </MotionContainer>
                         <div className="flex flex-col items-start justify-start w-full">
                             <TypographySmall text={t('full_energy')} className="text-[14px] text-white font-light" />
@@ -74,7 +74,7 @@ export default function Page(): JSX.Element {
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] opacity-50">
                     <div className="flex items-center justify-start gap-4">
                         <MotionContainer type="scale">
-                            <Image src="/project/icon_rocket.png" alt="@icon_rocket" width={52} height={52} priority={true} />
+                            <Image src="/project/icon_rocket.png" alt="@icon_rocket" width={52} height={52} priority={true} quality={75} />
                         </MotionContainer>
                         <div className="flex flex-col items-start justify-start">
                             <TypographySmall text="Turbo" className="text-[14px] text-white font-light" />
@@ -88,7 +88,7 @@ export default function Page(): JSX.Element {
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("multitapBoost", { current: currentMultitap, next: nextMultitap })}>
                     <div className="flex items-center justify-start gap-4">
                         <MotionContainer type="scale">
-                            <Image src="/project/icon_boost-multitap.png" alt="@multitap" width={52} height={52} priority={true} />
+                            <Image src="/project/icon_boost-multitap.png" alt="@multitap" width={52} height={52} priority={true} quality={75} />
                         </MotionContainer>
                         <div className="flex flex-col items-start justify-start">
                             <TypographySmall text={t('multitap')} className="text-[14px] text-white font-light" />
@@ -107,7 +107,7 @@ export default function Page(): JSX.Element {
                 <div className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer" onClick={() => onOpen("energyLimitBoost", { current: currentEnergyLimit, next: nextEnergyLimit })}>
                     <div className="flex items-center justify-start gap-4">
                         <MotionContainer type="scale">
-                            <Image src="/project/icon_boost-energy.png" alt="@icon_boost" width={52} height={52} priority={true} />
+                            <Image src="/project/icon_boost-energy.png" alt="@icon_boost" width={52} height={52} priority={true} quality={75} />
                         </MotionContainer>
                         <div className="flex flex-col items-start justify-start">
                             <TypographySmall text={t('energy_limit')} className="text-[14px] text-white font-light" />

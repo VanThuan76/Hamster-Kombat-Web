@@ -44,7 +44,7 @@ const AnimatedCounter = ({
       ease: "easeOut",
       ...animationOptions,
       onUpdate(value) {
-        element.textContent = Math.round(value).toLocaleString('de-DE')
+        element.textContent = String(value)
       },
     });
 

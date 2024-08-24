@@ -12,7 +12,7 @@ import TypographySmall from "@ui/components/typography/small";
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useDraw } from "@shared/hooks/useDraw";
-import { setUpdateEnergyBoost } from "@shared/redux/store/appSlice";
+import { setStateEnergy, setUpdateEnergyBoost } from "@shared/redux/store/appSlice";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 
 import { useUpdateBoost } from "@server/_action/boost-action";
@@ -22,33 +22,40 @@ export default function DrawerEnergyBoost(): JSX.Element {
     const { isOpen, data, onClose, type } = useDraw()
     const isDrawerOpen = isOpen && type === "energyBoost"
 
-    const date = new Date()
     const t = useTranslations('screens.boost')
 
     const dispatch = useAppDispatch()
     const router = useRouter()
     const updateBoost = useUpdateBoost()
 
-    function handleSuccess() {
-        updateBoost.mutate({
-            user_id: user.id,
-            current_user_boots_id: data?.current?.user_boots_id,
-            current_boots_level: data?.current?.level,
-            next_user_boots_id: data?.next?.user_boots_id,
-            next_boots_level: data?.next?.level,
-            type: 0,
-            sub_type: 0
-        })
-        dispatch(setUpdateEnergyBoost({step: stateBoostEnergy.step - 1, delay: 60 }))
-        onClose()
-        router.push('/exchange')
+    async function handleSuccess() {
+        try {
+            await dispatch(setStateEnergy({ amount: user.energy_limit, isReset: true }))
+            await dispatch(setUpdateEnergyBoost({ step: stateBoostEnergy.step - 1, delay: 60 }))
+
+            onClose();
+            router.push('/exchange')
+
+            await updateBoost.mutateAsync({
+                user_id: user.id,
+                current_user_boots_id: data?.current?.user_boots_id,
+                current_boots_level: data?.current?.level,
+                next_user_boots_id: data?.next?.user_boots_id,
+                next_boots_level: data?.next?.level,
+                type: 0,
+                sub_type: 0
+            })
+            console.log('Successfully');
+        } catch (error) {
+            console.error('Error in handleSuccess:', error);
+        }
     }
 
     return (
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
             <div className="flex flex-col items-center justify-center w-full gap-8">
                 <div className="relative z-10">
-                    <Image src="/project/icon_flash.png" alt="@icon_flash" width={115} height={115} priority={true} />
+                    <Image src="/project/icon_flash.png" alt="@icon_flash" width={115} height={115} priority={true} quality={75} />
                 </div>
                 <div className="flex flex-col items-center justify-center w-full gap-5">
                     <TypographyLarge text={t('full_energy')} className="text-white text-[32px] font-bold" />

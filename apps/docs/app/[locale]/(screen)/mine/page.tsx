@@ -3,8 +3,9 @@
 import Image from "next/image"
 import dynamic from 'next/dynamic'
 import { useTranslations } from "next-intl";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from '@shared/next-intl/navigation';
+import { useInView } from "react-intersection-observer";
 
 import { cn } from "@ui/lib/utils"
 import { Separator } from "@ui/components/separator"
@@ -36,6 +37,18 @@ export default function Page(): JSX.Element {
 
     const router = useRouter()
 
+    const { ref: refTabCards, inView: inViewTabCards } = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    });
+
+    const { ref: refMineButton, inView: inViewMineButton } = useInView({
+        triggerOnce: true,
+        threshold: 0.5,
+    });
+
+    const [visibleCard, setVisibleCards] = useState(10);
+
     const { onOpen } = useDraw()
 
     const { membership, user, ranks, categoryOfCards } = useAppSelector(state => state.app)
@@ -52,6 +65,12 @@ export default function Page(): JSX.Element {
     };
 
     const currentBrandMembership = +ranks.find(item => item.name.toLowerCase() === membership.name.toLowerCase())!.short_money
+
+    useEffect(() => {
+        if (inViewTabCards && categoryOfCards) {
+            setVisibleCards((prev) => Math.min(prev + 10, categoryOfCards.find(item => item.name.toLowerCase() === currentTab)?.cardList.length as number));
+        }
+    }, [inViewTabCards, categoryOfCards]);
 
     useBackButton()
 
@@ -114,7 +133,7 @@ export default function Page(): JSX.Element {
                                             <div className="daily-combo-card">
                                                 <div className="daily-combo-card-inner">
                                                     <div className="bg-[#ffffff0d] rounded-md m-4 h-[75%]">
-                                                        <Image src="/project/img_daily-combo.png" alt="@dailyCombo" width={91} height={104} priority={true} />
+                                                        <Image src="/project/img_daily-combo.png" alt="@dailyCombo" width={91} height={104} priority={true} quality={75} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,6 +148,7 @@ export default function Page(): JSX.Element {
                     </MotionContainer>
                 </CardHeader>
                 <MineButton
+                    ref={refMineButton}
                     isScreenMine={true}
                     tabScreenMine={
                         <CardContent className="w-full p-4 mt-5">
@@ -142,8 +162,8 @@ export default function Page(): JSX.Element {
                                         })}
                                     </TabsList>
                                 </MotionContainer>
-                                <TabsContent value={currentTab} className="relative grid items-start justify-start w-full grid-cols-2 gap-2">
-                                    {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.map((item, i) => {
+                                <TabsContent ref={refTabCards} value={currentTab} className="relative grid items-start justify-start w-full grid-cols-2 gap-2">
+                                    {categoryOfCards?.find(item => item.name.toLowerCase() === currentTab)?.cardList.slice(0, visibleCard).map((item, i) => {
                                         const currentCardProfit = item.card_profits.find(child => child.is_purchased) || item.card_profits.find(child => child.id === 1)
                                         const requiredCardProfit = currentCardProfit && typeof (currentCardProfit.required_card)
                                         const isActiveCard = !currentCardProfit || !currentCardProfit.next_level || requiredCardProfit !== 'number'
@@ -153,10 +173,10 @@ export default function Page(): JSX.Element {
                                             <div key={i} className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2" onClick={() => requiredCardProfit === 'number' && onOpen("cardMine", { ...item, hasBuy: currentCardProfit.required_money < user.revenue })}>
                                                 <div className="flex items-start justify-start w-full gap-3">
                                                     <div className="relative w-[60px] h-[60px] flex flex-grow-0 flex-shrink-0 justify-center items-center">
-                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", isActiveCard && 'w-[40px] h-[40px]')} loading="eager" priority={true} />
+                                                        <Image src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` || ''} alt="@imageTask" width={60} height={60} className={cn("w-[60px] h-[60px] object-cover", isActiveCard && 'w-[40px] h-[40px]')} loading="eager" priority={true} quality={75} />
                                                         {isActiveCard && (
                                                             <div className="absolute w-full h-full top-0 bottom-0 left-0 bg-[#34383fcc] rounded-full flex justify-center items-center">
-                                                                <Image src='/project/icon_key.svg' alt="@imageKey" width={24} height={24} className="w-[24px] h-[24px]" loading="eager" priority={true} />
+                                                                <Image src='/project/icon_key.svg' alt="@imageKey" width={24} height={24} className="w-[24px] h-[24px]" loading="eager" priority={true} quality={75} />
                                                             </div>
                                                         )}
                                                     </div>

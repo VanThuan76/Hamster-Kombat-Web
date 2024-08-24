@@ -10,12 +10,13 @@ import TypographySmall from "@ui/components/typography/small";
 import CoinIcon from "@shared/components/CoinIcon"
 
 import { useDraw } from "@shared/hooks/useDraw";
-import { useAppSelector } from "@shared/redux/store";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 import { useRouter } from "@shared/next-intl/navigation";
 import { formatCoinStyleDot } from "@shared/utils/formatNumber"
 
 import { useUpdateEarn } from "@server/_action/earn-action";
 import { EarnDetail } from "@server/_types/earn";
+import { setUpdateRevenue } from "@shared/redux/store/appSlice";
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 
@@ -24,6 +25,7 @@ export default function DrawerItemEarn(): JSX.Element {
     const { isOpen, data, onClose, type } = useDraw()
     const isDrawerOpen = isOpen && type === "itemEarn"
 
+    const dispatch = useAppDispatch();
     const t = useTranslations('screens.earn')
 
     const router = useRouter()
@@ -42,13 +44,23 @@ export default function DrawerItemEarn(): JSX.Element {
         return url?.toLowerCase().includes("youtube");
     }
 
-    function handleSuccess(earn: EarnDetail) {
-        earn.is_completed === 0 && updateEarn.mutate({
-            user_id: user.id,
-            user_earn_id: earn.user_earn_id,
-            is_completed: 1
-        })
-        onClose()
+    async function handleSuccess(earn: EarnDetail) {
+        try {
+            if(earn.is_completed !== 0) return
+            await dispatch(setUpdateRevenue(user.revenue + earn.reward)); // Fix
+
+            onClose();
+
+            await updateEarn.mutateAsync({
+                user_id: user.id,
+                user_earn_id: earn.user_earn_id,
+                is_completed: 1
+            })
+
+            console.log('Successfully');
+        } catch (error) {
+            console.error('Error in handleSuccess:', error);
+        }
     }
 
     function handleChoosen(earn: EarnDetail) {
@@ -65,7 +77,7 @@ export default function DrawerItemEarn(): JSX.Element {
         <Drawer isOpen={isDrawerOpen} onClose={onClose} className="w-full card-has-glow min-h-[60%] border-none">
             <div className="flex flex-col items-center justify-center w-full gap-6">
                 <div className="relative z-10">
-                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data?.image} alt={data?.name} width={115} height={115} priority={true} />
+                    <Image src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + '/' + data?.image} alt={data?.name} width={115} height={115} priority={true} quality={75} />
                 </div>
                 <div className="flex flex-col items-center justify-center w-full gap-5">
                     <div className="flex flex-col items-center justify-center gap-3 text-center text-white">
