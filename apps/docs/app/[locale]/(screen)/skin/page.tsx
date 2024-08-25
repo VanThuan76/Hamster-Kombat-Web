@@ -222,13 +222,23 @@ export default function Page(): JSX.Element {
                       <CoinIcon
                         width={28}
                         height={28}
-                        className={cn(hasBuySkin ? "" : "coin-is-grayscale")}
+                        className={cn(
+                          hasMoneyBuySkin
+                            ? "coin-is-grayscale"
+                            : hasBuySkin
+                              ? ""
+                              : "coin-is-grayscale",
+                        )}
                       />
                       <TypographySmall
                         text={`${formatCoinStyleDot(item.price)}`}
                         className={cn(
                           "text-[20px] font-bold ",
-                          hasBuySkin ? "text-white" : "text-[#fff6]",
+                          hasMoneyBuySkin
+                            ? "coin-is-grayscale"
+                            : hasBuySkin
+                              ? "text-white"
+                              : "text-[#fff6]",
                         )}
                       />
                     </div>
