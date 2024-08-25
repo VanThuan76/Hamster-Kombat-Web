@@ -235,7 +235,7 @@ export default function Page(): JSX.Element {
                         className={cn(
                           "text-[20px] font-bold ",
                           hasMoneyBuySkin
-                            ? "coin-is-grayscale"
+                            ? "text-[#fff6]"
                             : hasBuySkin
                               ? "text-white"
                               : "text-[#fff6]",
