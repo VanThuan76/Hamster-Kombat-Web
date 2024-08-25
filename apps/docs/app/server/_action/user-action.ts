@@ -9,7 +9,6 @@ import {
   setInitUser,
   setRanks,
   setStateEnergy,
-  setUpdateRevenue,
 } from "@shared/redux/store/appSlice";
 import { APP_SAVE_KEY } from "@shared/constant/app";
 

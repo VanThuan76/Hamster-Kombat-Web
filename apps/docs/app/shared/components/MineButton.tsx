@@ -77,51 +77,37 @@ const MineButton = ({
 
   const updateRevenue = useUpdateRevenue();
 
-  // Biến này sẽ lưu trữ số lần click tích lũy trong một khoảng thời gian
-  let accumulatedClicks = 0;
-
   function handleIncludedCoin() {
     if (formattedEnergy < user.tap_value) {
       toast({
         variant: "destructive",
         title: "Không đủ năng lượng",
       });
-    } else {
-      // Tính toán trước các giá trị mới
-      const newRevenue = revenue + user.tap_value;
-      const newEnergy = energy - user.tap_value;
-
-      // Cập nhật giá trị ngay lập tức
-      setPrevRevenue(newRevenue);
-      setRevenue(newRevenue);
-      setEnergy(newEnergy);
-
-      // Tích lũy số lần click vào hàng đợi
-      accumulatedClicks += 1;
-
-      // Cập nhật Redux ngay lập tức để đảm bảo Redux luôn đúng
-      dispatch(setStateEnergy({ amount: newEnergy, isReset: false }));
-      dispatch(
-        setUpdateRevenue(user.revenue + accumulatedClicks * user.tap_value),
-      );
-
-      // Nếu đã có một timeout đang chạy, chúng ta không tạo thêm timeout mới
-      if (saveTimeoutRef.current) {
-        clearTimeout(saveTimeoutRef.current);
-      }
-
-      // Đặt một timeout để cập nhật lên server sau một khoảng thời gian ngắn (1 giây)
-      saveTimeoutRef.current = setTimeout(() => {
-        // Gửi cập nhật lên server với số lần click đã tích lũy
-        updateRevenue.mutate({
-          user_id: user.id,
-          amount: accumulatedClicks * user.tap_value,
-        });
-
-        // Reset hàng đợi sau khi cập nhật thành công
-        accumulatedClicks = 0;
-      }, 1000); // Cứ mỗi giây tích lũy rồi mới cập nhật một lần
+      return;
     }
+    const newRevenue = clickCount + 1 + user.tap_value;
+
+    setPrevRevenue(revenue);
+    setClickCount((prevCount) => prevCount + 1);
+
+    dispatch(
+      setStateEnergy({ amount: energy + user.tap_value, isReset: false }),
+    );
+
+    dispatch(setUpdateRevenue(user.revenue + user.tap_value));
+
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+
+    // Tạo mới timeout để gửi số liệu tích lũy lên server sau 1 giây
+    saveTimeoutRef.current = setTimeout(() => {
+      // Gửi cập nhật lên server
+      updateRevenue.mutate({
+        user_id: user.id,
+        amount: newRevenue,
+      });
+    }, 1000);
   }
 
   const handleCardTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {

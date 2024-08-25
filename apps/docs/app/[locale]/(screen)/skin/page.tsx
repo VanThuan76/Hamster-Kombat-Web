@@ -185,9 +185,8 @@ export default function Page(): JSX.Element {
           items={skins.map((item, i) => {
             const hasBuySkin =
               item.required_level === 0 ||
-              ranks
-                .find((child) => child.level > item.required_level)
-                ?.name.toLowerCase() === membership.name.toLowerCase();
+              membership.current_level > item.required_level;
+
             const hasMoneyBuySkin = user.revenue < item.price;
 
             return (
@@ -227,15 +226,17 @@ export default function Page(): JSX.Element {
                       />
                       <TypographySmall
                         text={`${formatCoinStyleDot(item.price)}`}
-                        className="text-[20px] font-bold text-[#fff6]"
+                        className={cn(
+                          "text-[20px] font-bold ",
+                          hasBuySkin ? "text-white" : "text-[#fff6]",
+                        )}
                       />
                     </div>
                   )}
                   <Button
                     className={cn(
                       "bg-[#34383fcc] hover:bg-[#34383fcc] focus:bg-[#34383fcc] w-full min-h-[60px] rounded-2xl",
-                      i !== 0 &&
-                        hasBuySkin &&
+                      hasBuySkin &&
                         "bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d]",
                     )}
                     onClick={() =>
@@ -251,7 +252,7 @@ export default function Page(): JSX.Element {
                         ? "Không đủ tiền"
                         : hasBuySkin
                           ? "Mua"
-                          : `Đạt đến giải đấu ${ranks.find((child) => child.level === item.required_level)?.name} để mở khóa skin`}
+                          : `Đạt đến lv ${ranks.find((child) => child.level === item.required_level)?.level} để mở khóa skin`}
                   </Button>
                 </div>
               </div>

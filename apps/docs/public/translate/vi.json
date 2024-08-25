@@ -98,5 +98,10 @@
       "title": "Bạn đã ký hợp đồng với",
       "button": "Chúc may mắn!"
     }
+  },
+  "other": {
+    "not_enough_money": "Không đủ tiền",
+    "pending_action": "Đang xử lý dữ liệu...",
+    "success_action": "Nâng cấp thành công!"
   }
 }

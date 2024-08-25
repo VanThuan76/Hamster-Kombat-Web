@@ -3,6 +3,7 @@ import {
   UseMutationResult,
   UseQueryResult,
 } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch } from "@shared/redux/store";
 import { setSkins } from "@shared/redux/store/appSlice";
@@ -42,6 +43,8 @@ export const useBuySkin: () => UseMutationResult<
   Error,
   { user_id: number; skin_id: number }
 > = () => {
+  const t = useTranslations("other");
+
   return useMutation<
     IBaseResponse<IResponseBuySkin>,
     Error,
@@ -55,7 +58,7 @@ export const useBuySkin: () => UseMutationResult<
     onMutate: () => {
       toast({
         variant: "default",
-        title: "Đang xử lý dữ liệu...",
+        title: t("pending_action"),
       });
     },
     onSuccess: async (data) => {
@@ -64,7 +67,7 @@ export const useBuySkin: () => UseMutationResult<
 
       toast({
         variant: "success",
-        title: `Upgrade is yours skin`,
+        title: t("success_action"),
       });
     },
     onError(error, variables, context) {
