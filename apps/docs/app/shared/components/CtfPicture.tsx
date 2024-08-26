@@ -85,6 +85,7 @@ export const CtfPicture = ({
         media="(min-width: 1480px)"
         srcSet={`${url}?w=${width}&h=${height}`}
       />
+      {/* @ts-ignore */}
       <img {...commonProps} src={`${url}?w=${width}&h=${height}`} />
     </picture>
   );
