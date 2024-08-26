@@ -1,15 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@ui/lib/utils";
 import { Separator } from "@ui/components/separator";
 import { Card, CardContent, CardHeader } from "@ui/components/card";
-import { Progress } from "@ui/components/progress";
 import { Button } from "@ui/components/button";
 import {
   Popover,
@@ -31,42 +28,23 @@ import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
 import { CtfPicture } from "@shared/components/CtfPicture";
+import CardLevel from "@shared/components/CardLevel";
 
 const CountdownTimer = dynamic(
   () => import("@shared/components/CountdownTimer").then((mod) => mod.default),
   { ssr: false },
 );
 
-const { initHapticFeedback } = require("@telegram-apps/sdk-react");
-
 export default function Page(): JSX.Element {
   const t = useTranslations("screens.mine");
 
-  const locale = useLocale();
-
-  const { ref: refTabCards, inView: inViewTabCards } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const { ref: refMineButton, inView: inViewMineButton } = useInView({
-    triggerOnce: true,
-    threshold: 0.5,
-  });
-
-  const [visibleCard, setVisibleCards] = useState(10);
-
   const { onOpen } = useDraw();
 
-  const { membership, user, ranks, categoryOfCards } = useAppSelector(
-    (state) => state.app,
-  );
+  const { user, categoryOfCards } = useAppSelector((state) => state.app);
 
   const [currentTab, setCurrentTab] = useState(
     categoryOfCards && categoryOfCards[0]!.name.toLowerCase(),
   );
-
-  const haptic = initHapticFeedback();
 
   const targetDate = new Date();
   targetDate.setHours(24, 0, 0, 0);
@@ -75,65 +53,13 @@ export default function Page(): JSX.Element {
     setCurrentTab(value);
   };
 
-  const currentBrandMembership = +ranks.find(
-    (item) => item.name.toLowerCase() === membership.name.toLowerCase(),
-  )!.short_money;
-
-  useEffect(() => {
-    if (inViewTabCards && categoryOfCards) {
-      setVisibleCards((prev) =>
-        Math.min(
-          prev + 10,
-          categoryOfCards.find((item) => item.name.toLowerCase() === currentTab)
-            ?.cardList.length as number,
-        ),
-      );
-    }
-  }, [inViewTabCards, categoryOfCards]);
-
   useBackButton();
 
   return (
     <div className="relative w-full h-screen overflow-hidden overflow-y-auto">
       <div className="p-4">
         <div className="flex items-center justify-between w-full">
-          <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
-            <Link
-              key={`link-short-rank`}
-              href={`/${locale}/rank`}
-              prefetch={true}
-              shallow
-              passHref
-              onClick={() => haptic.impactOccurred("soft")}
-              className="flex items-start justify-between w-full cursor-pointer"
-            >
-              <div className="flex justify-start items-center gap-[2px] cursor-pointer">
-                <TypographySmall
-                  text={membership?.name as string}
-                  className="text-[10px] text-white truncate"
-                />
-                <div className="w-[10px] h-[10px] text-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    xmlSpace="preserve"
-                  >
-                    <path
-                      d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="text-[10px] text-white">
-                {membership?.level}/{membership?.max_level}
-              </div>
-            </Link>
-            <Progress
-              value={(user.highest_score / currentBrandMembership) * 100}
-              className="w-full h-[8px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
-            />
-          </div>
+          <CardLevel />
           <CardProfit />
         </div>
       </div>
@@ -221,7 +147,6 @@ export default function Page(): JSX.Element {
           </MotionContainer>
         </CardHeader>
         <MineButton
-          ref={refMineButton}
           isScreenMine={true}
           tabScreenMine={
             <CardContent className="w-full p-4 mt-5">
@@ -249,14 +174,12 @@ export default function Page(): JSX.Element {
                   </TabsList>
                 </MotionContainer>
                 <TabsContent
-                  ref={refTabCards}
                   value={currentTab}
                   className="relative grid items-start justify-start w-full grid-cols-2 gap-2"
                 >
                   {categoryOfCards
                     ?.find((item) => item.name.toLowerCase() === currentTab)
-                    ?.cardList.slice(0, visibleCard)
-                    .map((item, i) => {
+                    ?.cardList.map((item, i) => {
                       const currentCardProfit =
                         item.card_profits.find((child) => child.is_purchased) ||
                         item.card_profits.find((child) => child.id === 1);

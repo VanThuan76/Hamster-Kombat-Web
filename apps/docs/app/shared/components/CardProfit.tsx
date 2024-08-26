@@ -1,10 +1,11 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Separator } from "@ui/components/separator";
-import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar";
+import { CtfPicture } from "@shared/components/CtfPicture";
 
 import TypographySmall from "@ui/components/typography/small";
 
@@ -16,7 +17,7 @@ import { formatCoin } from "@shared/utils/formatNumber";
 
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
-const CardProfit = () => {
+const CardProfit = React.memo(() => {
   const t = useTranslations("components.card_profit");
 
   const { user } = useAppSelector((state) => state.app);
@@ -35,16 +36,21 @@ const CardProfit = () => {
         shallow
         passHref
         onClick={() => haptic.impactOccurred("soft")}
+        className="transition-all duration-300 ease-in-out"
       >
-        <Avatar className="flex items-center justify-star">
-          <AvatarImage
-            src={user.exchange.icon}
-            alt="@userPlus"
-            sizes="sm"
-            className="w-[26px] h-[26px]"
+        <div className="flex items-center justify-start">
+          <CtfPicture
+            url={user.exchange.icon}
+            width={26}
+            height={26}
+            title="@userPlus"
+            nextImageProps={{
+              priority: true,
+              loading: "eager",
+              className: "w-[26px] h-[26px]",
+            }}
           />
-          <AvatarFallback>{user.exchange.name}</AvatarFallback>
-        </Avatar>
+        </div>
       </Link>
       <Separator orientation="vertical" className="bg-[#ffffff1a] w-[1px]" />
       <div className="flex flex-col items-center justify-start flex-1 w-full pb-1">
@@ -103,6 +109,6 @@ const CardProfit = () => {
       </Link>
     </div>
   );
-};
+});
 
 export default CardProfit;

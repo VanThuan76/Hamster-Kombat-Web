@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { Progress } from "@ui/components/progress";
 import { Card, CardHeader } from "@ui/components/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@ui/components/avatar";
+import { CtfPicture } from "@shared/components/CtfPicture";
 
 import { useAppSelector } from "@shared/redux/store/index";
 import useBackButton from "@shared/hooks/useBackButton";
@@ -15,7 +14,7 @@ import MotionContainer from "@ui/components/motion/Container";
 import TypographySmall from "@ui/components/typography/small";
 import MineButton from "@shared/components/MineButton";
 import CardProfit from "@shared/components/CardProfit";
-import { CtfPicture } from "@shared/components/CtfPicture";
+import CardLevel from "@shared/components/CardLevel";
 
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
@@ -43,17 +42,22 @@ function UserCardExist({
         onClick={() => haptic.impactOccurred("soft")}
       >
         <div className="user-info-avatar">
-          <Avatar className="bg-[#1c1f24] rounded-lg w-full h-full">
-            <AvatarImage
-              src={
+          <div className="bg-[#1c1f24] rounded-lg w-full h-full">
+            <CtfPicture
+              url={
                 process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + membership.image
               }
-              alt="@user"
-              sizes="sm"
-              className="w-[32px] h-full rounded-md bg-contain bg-no-repeat bg-center"
+              width={32}
+              height={32}
+              title="@user"
+              nextImageProps={{
+                priority: true,
+                loading: "eager",
+                className:
+                  "w-[32px] h-full rounded-md bg-contain bg-no-repeat bg-center",
+              }}
             />
-            <AvatarFallback>User</AvatarFallback>
-          </Avatar>
+          </div>
         </div>
         <div className="user-info-avatar-skin">
           <TypographySmall
@@ -113,15 +117,19 @@ function UserCardExist({
 function UserCardDefault({ user }: { user: any }) {
   return (
     <div className="flex items-center justify-start gap-2">
-      <Avatar className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
-        <AvatarImage
-          src="/project/icon_ava_user.png"
-          alt="@user"
-          sizes="sm"
-          className="w-[32px] h-[32px]"
+      <div className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
+        <CtfPicture
+          url="/project/icon_ava_user.png"
+          width={32}
+          height={32}
+          title="@user"
+          nextImageProps={{
+            priority: true,
+            loading: "eager",
+            className: "w-[32px] h-[32px]",
+          }}
         />
-        <AvatarFallback>User</AvatarFallback>
-      </Avatar>
+      </div>
       <TypographySmall
         text={`${user?.first_name} ${user?.last_name}`}
         className="text-xs"
@@ -159,43 +167,7 @@ export default function Page(): JSX.Element {
           <UserCardDefault user={user} />
         )}
         <div className="flex items-center justify-between w-full">
-          <div className="flex flex-[0.5] flex-col justify-start items-start gap-1 pr-5">
-            <Link
-              key={`link-short-rank`}
-              href={`/${locale}/rank`}
-              prefetch={true}
-              shallow
-              passHref
-              onClick={() => haptic.impactOccurred("soft")}
-              className="flex items-start justify-between w-full cursor-pointer"
-            >
-              <div className="flex justify-start items-center gap-[2px]">
-                <TypographySmall
-                  text={membership?.name as string}
-                  className="text-[10px] text-white truncate"
-                />
-                <div className="w-[10px] h-[10px] text-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    xmlSpace="preserve"
-                  >
-                    <path
-                      d="M9 20.6c-.3 0-.6-.1-.8-.3-.4-.4-.4-1.2 0-1.6l6.7-6.7-6.7-6.7c-.4-.4-.4-1.2 0-1.6s1.2-.4 1.6 0l7.5 7.5c.4.4.4 1.2 0 1.6l-7.5 7.5c-.2.2-.5.3-.8.3z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <div className="text-[10px] text-white">
-                {membership?.level}/{membership?.max_level}
-              </div>
-            </Link>
-            <Progress
-              value={(user.highest_score / currentBrandMembership) * 100}
-              className="w-full h-[8px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
-            />
-          </div>
+          <CardLevel />
           <CardProfit />
         </div>
       </div>
