@@ -191,7 +191,7 @@ export default function Page(): JSX.Element {
                     <PopoverTrigger asChild>
                       <div className="daily-combo-card">
                         <div className="daily-combo-card-inner">
-                          <div className="bg-[#ffffff0d] rounded-md m-4 h-[75%]">
+                          <div className="bg-[#ffffff0d] rounded-md m-2 md:m-4 h-[75%]">
                             <CtfPicture
                               url="/project/img_daily-combo.png"
                               width={91}
@@ -272,7 +272,7 @@ export default function Page(): JSX.Element {
                       return (
                         <div
                           key={i}
-                          className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-2"
+                          className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-1 sm:p-2"
                           onClick={() =>
                             requiredCardProfit === "number" &&
                             onOpen("cardMine", {
@@ -282,7 +282,7 @@ export default function Page(): JSX.Element {
                             })
                           }
                         >
-                          <div className="flex items-start justify-start w-full gap-3">
+                          <div className="flex items-start justify-start w-full gap-2 sm:gap-3">
                             <div className="relative w-[60px] h-[60px] flex flex-grow-0 flex-shrink-0 justify-center items-center">
                               <CtfPicture
                                 url={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}`}
@@ -364,7 +364,7 @@ export default function Page(): JSX.Element {
                                     "coin-is-grayscale"),
                               )}
                             />
-                            <div className="flex flex-wrap items-start justify-start gap-1 leading-3">
+                            <div className="flex flex-wrap items-center justify-center gap-1 leading-3">
                               <TypographySmall
                                 text={
                                   requiredCardProfit !== "number"
@@ -378,7 +378,7 @@ export default function Page(): JSX.Element {
                                         )
                                       : "0"
                                 }
-                                className="text-white text-[12px] text-wrap"
+                                className="text-white text-[12px] fix-words-mine"
                               />
                               {requiredCardProfit !== "number" && (
                                 <span className="text-white text-[12px] font-extralight !ml-0 block">

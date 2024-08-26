@@ -116,7 +116,7 @@ const MineButton = ({
     const y = e.touches[0]!.clientY - rect.top - rect.height / 2;
     card.style.transform = `perspective(1500px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
 
-    haptic.impactOccurred("soft");
+    haptic.impactOccurred("medium");
 
     const xPlus = e.touches[0]!.clientX - rect.left;
     const yPlus = e.touches[0]!.clientY - rect.top;
