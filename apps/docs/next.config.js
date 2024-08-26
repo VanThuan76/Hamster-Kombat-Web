@@ -43,4 +43,17 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
     }
     return config;
   },
+  async headers() {
+     return [
+       {
+         source: '/(.*)',
+         headers: [
+           {
+             key: 'Cache-Control',
+             value: 'public, max-age=31536000, immutable',
+           },
+         ],
+       },
+     ];
+   },
 });

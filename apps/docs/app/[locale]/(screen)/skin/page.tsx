@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@shared/next-intl/navigation";
@@ -24,6 +23,7 @@ import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import { useBuySkin } from "@server/_action/skin-action";
 import { setMembership, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import { useUpdateSkin } from "@server/_action/user-action";
+import { CtfPicture } from "@shared/components/CtfPicture";
 
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
@@ -194,15 +194,20 @@ export default function Page(): JSX.Element {
                 key={i}
                 className="flex flex-col items-center justify-center gap-2 overflow-hidden"
               >
-                <Image
-                  src={item.image_url}
-                  alt={`skin_${item.name}`}
-                  width={250}
-                  height={250}
-                  className="z-30 object-contain object-center mb-2 rounded-sm"
-                  priority={true}
-                  quality={75}
-                />
+                <div className="w-[250px] h-[250px]">
+                  <CtfPicture
+                    url={item.image_url}
+                    width={250}
+                    height={250}
+                    title={`skin_${item.name}`}
+                    nextImageProps={{
+                      priority: true,
+                      loading: "eager",
+                      className:
+                        "z-30 object-contain object-center mb-2 rounded-sm",
+                    }}
+                  />
+                </div>
                 <div className="w-full min-h-[200px] flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
                   <TypographySmall
                     text={item.name}
@@ -278,7 +283,6 @@ export default function Page(): JSX.Element {
         >
           {inView &&
             skins.slice(0, visibleItems).map((item, i) => {
-              console.log(item.required_level);
               return (
                 <div
                   key={i}
@@ -289,14 +293,16 @@ export default function Page(): JSX.Element {
                   onClick={() => setCurrentTarget(i)}
                 >
                   <div className="w-[62px] h-[62px]">
-                    <Image
-                      src={item.image_url}
-                      alt={item.name}
+                    <CtfPicture
+                      url={item.image_url}
                       width={62}
                       height={62}
-                      className="object-center w-full h-full object-conntain"
-                      priority={true}
-                      quality={75}
+                      title={item.name}
+                      nextImageProps={{
+                        priority: true,
+                        loading: "eager",
+                        className: "object-center w-full h-full object-contain",
+                      }}
                     />
                   </div>
                   <TypographySmall

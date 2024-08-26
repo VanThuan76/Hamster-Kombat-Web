@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
@@ -19,18 +18,19 @@ import {
 } from "@ui/components/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/components/tabs";
 
-import MotionContainer from "@ui/components/motion/Container";
 import TypographySmall from "@ui/components/typography/small";
 import TypographyLarge from "@ui/components/typography/large";
 
 import MineButton from "@shared/components/MineButton";
 import CardProfit from "@shared/components/CardProfit";
 import CoinIcon from "@shared/components/CoinIcon";
+import MotionContainer from "@ui/components/motion/Container";
 
 import useBackButton from "@shared/hooks/useBackButton";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
+import { CtfPicture } from "@shared/components/CtfPicture";
 
 const CountdownTimer = dynamic(
   () => import("@shared/components/CountdownTimer").then((mod) => mod.default),
@@ -192,13 +192,14 @@ export default function Page(): JSX.Element {
                       <div className="daily-combo-card">
                         <div className="daily-combo-card-inner">
                           <div className="bg-[#ffffff0d] rounded-md m-4 h-[75%]">
-                            <Image
-                              src="/project/img_daily-combo.png"
-                              alt="@dailyCombo"
+                            <CtfPicture
+                              url="/project/img_daily-combo.png"
                               width={91}
                               height={104}
-                              priority={true}
-                              quality={75}
+                              title="@dailyCombo"
+                              nextImageProps={{
+                                priority: true,
+                              }}
                             />
                           </div>
                         </div>
@@ -283,33 +284,30 @@ export default function Page(): JSX.Element {
                         >
                           <div className="flex items-start justify-start w-full gap-3">
                             <div className="relative w-[60px] h-[60px] flex flex-grow-0 flex-shrink-0 justify-center items-center">
-                              <Image
-                                src={
-                                  `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}` ||
-                                  ""
-                                }
-                                alt="@imageTask"
-                                width={60}
-                                height={60}
-                                className={cn(
-                                  "w-[60px] h-[60px] object-cover",
-                                  isActiveCard && "w-[40px] h-[40px]",
-                                )}
-                                loading="eager"
-                                priority={true}
-                                quality={75}
+                              <CtfPicture
+                                url={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}`}
+                                width={isActiveCard ? 40 : 60}
+                                height={isActiveCard ? 40 : 60}
+                                title="@imageTask"
+                                nextImageProps={{
+                                  className: cn(
+                                    "object-cover",
+                                    isActiveCard && "w-[40px] h-[40px]",
+                                  ),
+                                  priority: true,
+                                }}
                               />
                               {isActiveCard && (
                                 <div className="absolute w-full h-full top-0 bottom-0 left-0 bg-[#34383fcc] rounded-full flex justify-center items-center">
-                                  <Image
-                                    src="/project/icon_key.svg"
-                                    alt="@imageKey"
+                                  <CtfPicture
+                                    url="/project/icon_key.svg"
                                     width={24}
                                     height={24}
-                                    className="w-[24px] h-[24px]"
-                                    loading="eager"
-                                    priority={true}
-                                    quality={75}
+                                    title="@imageKey"
+                                    nextImageProps={{
+                                      priority: true,
+                                      className: "w-[24px] h-[24px]",
+                                    }}
                                   />
                                 </div>
                               )}

@@ -474,3 +474,10 @@
   top: 6px;
   width: 10px;
 }
+
+@media (max-width: 480px) {
+  .user-tap-button-inner {
+    height: 300px;
+    width: 300px;
+  }
+}

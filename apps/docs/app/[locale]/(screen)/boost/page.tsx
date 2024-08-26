@@ -190,6 +190,7 @@ export default function Page(): JSX.Element {
         <div
           className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer"
           onClick={() =>
+            nextMultitap &&
             onOpen("multitapBoost", {
               current: currentMultitap,
               next: nextMultitap,
@@ -212,26 +213,33 @@ export default function Page(): JSX.Element {
                 text={t("multitap")}
                 className="text-[14px] text-white font-light"
               />
-              <div className="flex items-center justify-center gap-1">
-                <CoinIcon
-                  width={20}
-                  height={20}
-                  className={cn(
-                    nextMultitap &&
-                      nextMultitap?.required_money > user.revenue &&
-                      "coin-is-grayscale",
-                  )}
-                />
+              {nextMultitap ? (
+                <div className="flex items-center justify-center gap-1">
+                  <CoinIcon
+                    width={20}
+                    height={20}
+                    className={cn(
+                      nextMultitap &&
+                        nextMultitap?.required_money > user.revenue &&
+                        "coin-is-grayscale",
+                    )}
+                  />
+                  <TypographySmall
+                    text={String(formatCoin(nextMultitap?.required_money ?? 0))}
+                    className="text-[14px] text-white ml-1"
+                  />
+                  <span className="text-[#8b8e93]">•</span>
+                  <TypographySmall
+                    text={String(nextMultitap?.level) + " lv"}
+                    className="text-[14px] text-[#8b8e93] font-light"
+                  />
+                </div>
+              ) : (
                 <TypographySmall
-                  text={String(formatCoin(nextMultitap?.required_money ?? 0))}
-                  className="text-[14px] text-white ml-1"
-                />
-                <span className="text-[#8b8e93]">•</span>
-                <TypographySmall
-                  text={String(nextMultitap?.level) + " lv"}
+                  text="Đạt max giới hạn"
                   className="text-[14px] text-[#8b8e93] font-light"
                 />
-              </div>
+              )}
             </div>
           </div>
           <div className="earn-item-icon">
@@ -250,6 +258,7 @@ export default function Page(): JSX.Element {
         <div
           className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f] cursor-pointer"
           onClick={() =>
+            nextEnergyLimit &&
             onOpen("energyLimitBoost", {
               current: currentEnergyLimit,
               next: nextEnergyLimit,
@@ -272,28 +281,35 @@ export default function Page(): JSX.Element {
                 text={t("energy_limit")}
                 className="text-[14px] text-white font-light"
               />
-              <div className="flex items-center justify-center gap-1">
-                <CoinIcon
-                  width={20}
-                  height={20}
-                  className={cn(
-                    nextEnergyLimit &&
-                      nextEnergyLimit.required_money > user.revenue &&
-                      "coin-is-grayscale",
-                  )}
-                />
+              {nextEnergyLimit ? (
+                <div className="flex items-center justify-center gap-1">
+                  <CoinIcon
+                    width={20}
+                    height={20}
+                    className={cn(
+                      nextEnergyLimit &&
+                        nextEnergyLimit.required_money > user.revenue &&
+                        "coin-is-grayscale",
+                    )}
+                  />
+                  <TypographySmall
+                    text={String(
+                      formatCoin(nextEnergyLimit?.required_money || 0),
+                    )}
+                    className="text-[14px] text-white ml-1"
+                  />
+                  <span className="text-[#8b8e93]">•</span>
+                  <TypographySmall
+                    text={String(nextEnergyLimit?.level) + " lv"}
+                    className="text-[14px] text-[#8b8e93] font-light"
+                  />
+                </div>
+              ) : (
                 <TypographySmall
-                  text={String(
-                    formatCoin(nextEnergyLimit?.required_money || 0),
-                  )}
-                  className="text-[14px] text-white ml-1"
-                />
-                <span className="text-[#8b8e93]">•</span>
-                <TypographySmall
-                  text={String(nextEnergyLimit?.level) + " lv"}
+                  text="Đạt max giới hạn"
                   className="text-[14px] text-[#8b8e93] font-light"
                 />
-              </div>
+              )}
             </div>
           </div>
           <div className="earn-item-icon">

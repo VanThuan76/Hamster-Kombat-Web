@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
@@ -22,6 +21,7 @@ import CoinIcon from "@shared/components/CoinIcon";
 import useLocalStorage from "@shared/hooks/useLocalStorage";
 
 import { useUpdateRevenue } from "@server/_action/user-action";
+import { CtfPicture } from "./CtfPicture";
 
 const AnimatePresenceWrapper = dynamic(
   () =>
@@ -86,14 +86,13 @@ const MineButton = ({
       return;
     }
     const newRevenue = clickCount + 1 + user.tap_value;
+    const newEnergy = energy - user.tap_value;
 
     setPrevRevenue(revenue);
+    setEnergy(newEnergy);
     setClickCount((prevCount) => prevCount + 1);
 
-    dispatch(
-      setStateEnergy({ amount: energy + user.tap_value, isReset: false }),
-    );
-
+    dispatch(setStateEnergy({ amount: newEnergy, isReset: false }));
     dispatch(setUpdateRevenue(user.revenue + user.tap_value));
 
     if (saveTimeoutRef.current) {
@@ -225,22 +224,23 @@ const MineButton = ({
         >
           <div
             className={cn(
-              "user-tap-button-circle",
+              "user-tap-button-circle overflow-hidden",
               isSecretFeature && "user-tap-button-circle-secret",
               formattedEnergy < user.tap_value &&
                 "user-tap-button-inner-disabled",
             )}
           >
-            <Image
-              src={
+            <CtfPicture
+              url={
                 process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + membership.image
               }
-              alt="avatar"
               width={320}
               height={320}
-              className="z-30"
-              priority={true}
-              quality={75}
+              title="avatar"
+              nextImageProps={{
+                priority: true,
+                className: "relative object-cover w-full h-full z-10",
+              }}
             />
           </div>
           <AnimatePresenceWrapper>
@@ -258,14 +258,17 @@ const MineButton = ({
         </MotionContainer>
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center justify-start w-full gap-1">
-            <Image
-              src="/project/icon_flash.png"
-              alt="@flash"
-              width={32}
-              height={26}
-              priority={true}
-              quality={75}
-            />
+            <div className="w-[32px] h-[26px]">
+              <CtfPicture
+                url="/project/icon_flash.png"
+                width={32}
+                height={26}
+                title="@flash"
+                nextImageProps={{
+                  priority: true,
+                }}
+              />
+            </div>
             <MemoTypographyLarge
               text={`${formattedEnergy} / ${maxEnergy}`}
               className="text-base text-white"
@@ -278,14 +281,17 @@ const MineButton = ({
               haptic.impactOccurred("soft");
             }}
           >
-            <Image
-              src="/project/icon_rocket.png"
-              alt="@rocket"
-              width={32}
-              height={26}
-              priority={true}
-              quality={75}
-            />
+            <div className="w-[32px] h-[26px]">
+              <CtfPicture
+                url="/project/icon_rocket.png"
+                width={32}
+                height={26}
+                title="@rocket"
+                nextImageProps={{
+                  priority: true,
+                }}
+              />
+            </div>
             <TypographyLarge
               text={t("boost")}
               className="text-[14px] text-white"

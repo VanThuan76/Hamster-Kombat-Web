@@ -1,16 +1,33 @@
-import Image from 'next/image';
+"use client";
 
-const CoinIcon = ({ width = 18, height = 18, priority = true, className }: { width: number, height: number, priority?: boolean, className?: string }) => {
-    return (
-        <Image
-            src="/project/icon_coin.png"
-            alt="@coin"
-            width={width}
-            height={height}
-            priority={priority}
-            className={className}
-        />
-    );
+import { CtfPicture } from "./CtfPicture";
+
+const CoinIcon = ({
+  width = 18,
+  height = 18,
+  priority = true,
+  className,
+}: {
+  width: number;
+  height: number;
+  priority?: boolean;
+  className?: string;
+}) => {
+  return (
+    <div className={`w-[${width}px] h-[${height}px]`}>
+      <CtfPicture
+        url="/project/icon_coin.png"
+        width={width}
+        height={height}
+        title="@coin"
+        nextImageProps={{
+          priority: priority,
+          loading: "eager",
+          className: className,
+        }}
+      />
+    </div>
+  );
 };
 
 export default CoinIcon;

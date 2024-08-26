@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
 
@@ -19,6 +18,7 @@ import useLocalStorage from "@shared/hooks/useLocalStorage";
 import { useUpdateEarn } from "@server/_action/earn-action";
 import { EarnDetail } from "@server/_types/earn";
 import { setUpdateRevenue } from "@shared/redux/store/appSlice";
+import { CtfPicture } from "@shared/components/CtfPicture";
 
 const { initUtils } = require("@telegram-apps/sdk-react");
 
@@ -120,14 +120,15 @@ export default function DrawerItemEarn(): JSX.Element {
       className="w-full card-has-glow min-h-[60%] border-none"
     >
       <div className="flex flex-col items-center justify-center w-full gap-6">
-        <div className="relative z-10">
-          <Image
-            src={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + data?.image}
-            alt={data?.name}
+        <div className="relative z-10 w-[115px] h-[115px]">
+          <CtfPicture
+            url={process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + data?.image}
             width={115}
             height={115}
-            priority={true}
-            quality={75}
+            title={data?.name}
+            nextImageProps={{
+              priority: true,
+            }}
           />
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-5">
