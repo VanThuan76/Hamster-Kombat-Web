@@ -78,7 +78,7 @@ export default function DrawerItemEarn(): JSX.Element {
           // Nếu không có timeYt (chưa lưu trước đó), lưu thời gian hiện tại
           setTimeYt(currentTime);
         }
-      } else if (containsHttps(earn.link)) {
+      } else if (!containsHttps(earn.link)) {
         toast({
           variant: "error",
           title: "Bạn chưa chọn sàn giao dịch",

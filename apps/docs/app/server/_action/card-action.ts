@@ -9,6 +9,7 @@ import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 import {
   setCategoryOfCards,
+  setImageUrls,
   setMembership,
   setUpdateProfitPerHour,
   setUpdateRevenue,
@@ -85,6 +86,7 @@ export const useCategoryOfCardByUser: () => UseMutationResult<
   Error,
   { user_id: number; exchange_id: number }
 > = () => {
+  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<
@@ -99,10 +101,29 @@ export const useCategoryOfCardByUser: () => UseMutationResult<
       ),
     onSuccess: async (data) => {
       if (!data.data) return;
+
+      const cardImageUrls = data.data
+        .filter((item) => item.order === 1)
+        .flatMap((item) =>
+          item.cardList
+            .filter((chil) => chil.image)
+            .map(
+              (chil) =>
+                `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${chil.image}`,
+            ),
+        );
+
+      const uniqueImageUrls = Array.from(
+        new Set([...imageUrls, ...cardImageUrls]),
+      );
+
+      dispatch(setCategoryOfCards(data.data));
+
+      dispatch(setImageUrls(uniqueImageUrls));
+
       queryClient.invalidateQueries({
         queryKey: ["GET_LIST_CATEGORY_OF_CARD", "CARD"],
       });
-      dispatch(setCategoryOfCards(data.data));
     },
     onError(error, variables, context) {
       console.log(error);

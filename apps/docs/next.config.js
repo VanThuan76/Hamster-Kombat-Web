@@ -24,36 +24,22 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
   },
   webpack(config, options) {
     if (options.isServer) {
-      const originalEntry = config.entry;
-      config.entry = async () => {
-        const entries = await originalEntry();
-
-        const preloadImages = require("fs")
-          .readdirSync("./public/project")
-          .filter((file) => /\.(jpe?g|png|webp|avif|svg)$/.test(file))
-          .map((file) => `import './public/project/${file}';`)
-          .join("\n");
-
-        if (entries["main.js"]) {
-          entries["main.js"].unshift(preloadImages);
-        }
-
-        return entries;
-      };
+      // Remove the image preloading section if not needed
+      // Add any additional webpack configuration if necessary
     }
     return config;
   },
   async headers() {
-     return [
-       {
-         source: '/(.*)',
-         headers: [
-           {
-             key: 'Cache-Control',
-             value: 'public, max-age=31536000, immutable',
-           },
-         ],
-       },
-     ];
-   },
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 });

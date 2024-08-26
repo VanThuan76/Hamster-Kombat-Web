@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import {
   setEarns,
   setHighestScore,
+  setImageUrls,
   setMembership,
   setUpdateProfitPerHour,
   setUpdateRevenue,
@@ -33,7 +34,9 @@ export const useEarnByUser: () => UseMutationResult<
   Error,
   { user_id: number }
 > = () => {
+  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
+
   return useMutation<IBaseResponse<IEarn[]>, Error, { user_id: number }>({
     mutationFn: (user_id: { user_id: number }) =>
       axiosInstance.post<IBaseResponse<IEarn[]>>(
@@ -42,8 +45,24 @@ export const useEarnByUser: () => UseMutationResult<
       ),
     onSuccess: async (data) => {
       if (!data.data) return;
-      queryClient.invalidateQueries({ queryKey: ["GET_EARN_USER", "EARN"] });
+
+      const earnImageUrls = data.data.flatMap((item) =>
+        item.earn
+          .filter((chil) => chil.image)
+          .map(
+            (chil) => `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${chil.image}`,
+          ),
+      );
+
+      const uniqueImageUrls = Array.from(
+        new Set([...imageUrls, ...earnImageUrls]),
+      );
+
       dispatch(setEarns(data.data));
+
+      dispatch(setImageUrls(uniqueImageUrls));
+
+      queryClient.invalidateQueries({ queryKey: ["GET_EARN_USER", "EARN"] });
     },
     onError(error, variables, context) {
       console.log(error);

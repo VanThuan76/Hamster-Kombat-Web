@@ -2,10 +2,11 @@ import { setCookie } from "cookies-next";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 
 import useLocalStorage from "@shared/hooks/useLocalStorage";
-import { useAppDispatch } from "@shared/redux/store/index";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import { axiosInstance } from "@shared/axios.http";
 import {
   setFriends,
+  setImageUrls,
   setInitUser,
   setRanks,
   setStateEnergy,
@@ -80,6 +81,7 @@ export const useRankUsers: () => UseMutationResult<
   Error,
   { user_id: number }
 > = () => {
+  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<IBaseResponse<IRankUsers[]>, Error, { user_id: number }>({
@@ -87,9 +89,17 @@ export const useRankUsers: () => UseMutationResult<
       axiosInstance.post<IBaseResponse<IRankUsers[]>>(USER_PATHS.RANK, user_id),
     onSuccess: async (data) => {
       if (!data.data) return;
-      queryClient.invalidateQueries({
-        queryKey: ["GET_LIST_RANK_USERS", "USERS"],
-      });
+
+      const rankImageUrls = data.data
+        .filter((item) => item.image)
+        .map(
+          (item) => process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + item.image,
+        );
+
+      const uniqueImageUrls = Array.from(
+        new Set([...imageUrls, ...rankImageUrls]),
+      );
+
       dispatch(
         setRanks(
           data.data.map((item) => ({
@@ -98,6 +108,12 @@ export const useRankUsers: () => UseMutationResult<
           })),
         ),
       );
+
+      dispatch(setImageUrls(uniqueImageUrls));
+
+      queryClient.invalidateQueries({
+        queryKey: ["GET_LIST_RANK_USERS", "USERS"],
+      });
     },
     onError(error, variables, context) {
       console.log(error);
