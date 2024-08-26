@@ -265,7 +265,7 @@ export default function Page(): JSX.Element {
                   <div className="flex flex-col items-start justify-start">
                     <TypographySmall
                       text={earn.name}
-                      className="text-[14px] text-white font-extralight text-start truncate"
+                      className="text-[14px] text-white font-extralight text-start fix-words-mine"
                     />
                     <div className="flex items-center justify-center gap-1">
                       <CoinIcon width={20} height={20} />

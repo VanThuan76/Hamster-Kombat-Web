@@ -260,27 +260,36 @@ export default function Page(): JSX.Element {
                       const currentCardProfit =
                         item.card_profits.find((child) => child.is_purchased) ||
                         item.card_profits.find((child) => child.id === 1);
+
                       const requiredCardProfit =
                         currentCardProfit &&
                         typeof currentCardProfit.required_card;
+
                       const isActiveCard =
                         !currentCardProfit ||
                         !currentCardProfit.next_level ||
-                        requiredCardProfit !== "number";
+                        (requiredCardProfit !== "number" &&
+                          currentCardProfit.required_card.is_bought === 0);
+
                       if (!currentCardProfit) return <></>;
 
                       return (
                         <div
                           key={i}
                           className="bg-[#272a2f] h-[120px] text-white rounded-2xl select-none p-1 sm:p-2"
-                          onClick={() =>
-                            requiredCardProfit === "number" &&
-                            onOpen("cardMine", {
-                              ...item,
-                              hasBuy:
-                                currentCardProfit.required_money < user.revenue,
-                            })
-                          }
+                          onClick={() => {
+                            if (
+                              requiredCardProfit === "number" ||
+                              currentCardProfit.required_card.is_bought === 1
+                            ) {
+                              onOpen("cardMine", {
+                                ...item,
+                                hasBuy:
+                                  currentCardProfit.required_money <
+                                  user.revenue,
+                              });
+                            }
+                          }}
                         >
                           <div className="flex items-start justify-start w-full gap-2 sm:gap-3">
                             <div className="relative w-[60px] h-[60px] flex flex-grow-0 flex-shrink-0 justify-center items-center">
@@ -367,7 +376,9 @@ export default function Page(): JSX.Element {
                             <div className="flex flex-wrap items-center justify-center gap-1 leading-3">
                               <TypographySmall
                                 text={
-                                  requiredCardProfit !== "number"
+                                  requiredCardProfit !== "number" &&
+                                  currentCardProfit.required_card.is_bought ===
+                                    0
                                     ? currentCardProfit.required_card?.card_name
                                     : currentCardProfit.next_level
                                       ? String(
@@ -380,11 +391,13 @@ export default function Page(): JSX.Element {
                                 }
                                 className="text-white text-[12px] fix-words-mine"
                               />
-                              {requiredCardProfit !== "number" && (
-                                <span className="text-white text-[12px] font-extralight !ml-0 block">
-                                  lv {currentCardProfit.required_card?.level}
-                                </span>
-                              )}
+                              {requiredCardProfit !== "number" &&
+                                currentCardProfit.required_card.is_bought ===
+                                  0 && (
+                                  <span className="text-white text-[12px] font-extralight !ml-0 block">
+                                    lv {currentCardProfit.required_card?.level}
+                                  </span>
+                                )}
                             </div>
                           </div>
                         </div>

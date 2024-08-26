@@ -67,7 +67,6 @@ const MineButton = ({
   const [plusSigns, setPlusSigns] = useState<
     { id: number; x: number; y: number }[]
   >([]);
-  const [profit, setProfit] = useLocalStorage<number>("profit_revenue", 0);
   const [revenue, setRevenue] = useState(user.revenue);
   const [prevRevenue, setPrevRevenue] = useState(user.revenue);
   const [clickCount, setClickCount] = useState(0);

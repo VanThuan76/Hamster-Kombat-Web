@@ -1,7 +1,14 @@
-import { getImageProps } from "next/image";
+"use client";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { cn } from "@ui/lib/utils";
+import useLocalStorage from "@shared/hooks/useLocalStorage";
 
-interface ImageProps extends Omit<any, "__typename"> {
+interface ImageProps {
+  url: string;
+  width: number;
+  height: number;
+  title?: string;
   nextImageProps?: {
     className?: string;
     priority?: boolean;
@@ -16,53 +23,69 @@ export const CtfPicture = ({
   title,
   nextImageProps,
 }: ImageProps) => {
-  if (!url || !width || !height) return null;
+  const [isCached, setIsCached] = useState(false);
+  const [imageCached, setImageCached] = useLocalStorage<string>(
+    `image_cached_${url}`,
+    "",
+  );
 
-  // Common options for different resolutions
-  const commonOptions = (w: number, h: number) => ({
+  useEffect(() => {
+    // Kiểm tra xem ảnh đã được cache chưa
+    if (imageCached) {
+      setIsCached(true);
+    }
+  }, [url]);
+
+  const handleImageLoad = () => {
+    // Sau khi ảnh đã tải thành công, lưu trạng thái vào localStorage
+    setImageCached(`image_cached_${url}`);
+    setIsCached(true);
+  };
+
+  if (isCached) {
+    // Dùng NextImage khi ảnh đã được tải và cache
+    return (
+      <Image
+        src={url}
+        alt={title || ""}
+        width={width}
+        height={height}
+        className={cn(nextImageProps?.className, "transition-all object-cover")}
+        priority={nextImageProps?.priority}
+        // Chỉ sử dụng `loading` khi `priority` không được đặt
+        loading={
+          !nextImageProps?.priority
+            ? nextImageProps?.loading || "lazy"
+            : undefined
+        }
+        quality={75}
+      />
+    );
+  }
+
+  // Dùng CtfPicture cho lần tải đầu
+  const commonProps = {
     alt: title || "",
-    width: w,
-    height: h,
-    priority: nextImageProps?.priority,
-    className: cn(nextImageProps?.className, "transition-all"),
-  });
-
-  const {
-    props: { srcSet: high },
-  } = getImageProps({
-    ...commonOptions(width, height),
-    src: url,
-    priority: nextImageProps?.priority,
-  });
-
-  const {
-    props: { srcSet: medium },
-  } = getImageProps({
-    ...commonOptions(800, 500),
-    src: url,
-    priority: nextImageProps?.priority,
-  });
-
-  const {
-    props: { srcSet: low, ...rest },
-  } = getImageProps({
-    ...commonOptions(300, 200),
-    src: url,
-    priority: nextImageProps?.priority,
-  });
+    loading: nextImageProps?.priority
+      ? undefined
+      : nextImageProps?.loading || "lazy",
+    fetchPriority: nextImageProps?.priority ? "high" : "auto", // Đảm bảo fetchPriority là 'high' hoặc 'auto'
+    className: cn(nextImageProps?.className, "transition-all object-cover"),
+    width: width,
+    height: height,
+    onLoad: handleImageLoad, // Gọi khi ảnh đã tải xong
+  };
 
   return (
     <picture>
-      <source media="(max-width: 740px)" srcSet={low} />
-      <source media="(max-width: 980px)" srcSet={medium} />
-      <source media="(min-width: 1280px)" srcSet={medium} />
-      <source media="(min-width: 1480px)" srcSet={high} />
-      <img
-        alt={title || ""}
-        {...rest}
-        loading={nextImageProps?.loading || "lazy"}
-        fetchPriority={nextImageProps?.priority ? "high" : "auto"}
+      <source media="(max-width: 740px)" srcSet={`${url}?w=300&h=200`} />
+      <source media="(max-width: 980px)" srcSet={`${url}?w=800&h=500`} />
+      <source media="(min-width: 1280px)" srcSet={`${url}?w=1024&h=768`} />
+      <source
+        media="(min-width: 1480px)"
+        srcSet={`${url}?w=${width}&h=${height}`}
       />
+      <img {...commonProps} src={`${url}?w=${width}&h=${height}`} />
     </picture>
   );
 };
