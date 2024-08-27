@@ -15,17 +15,19 @@ if (!(argEnv in RUN_ENV_MAP)) {
 module.exports = {
   apps: [
     {
-      name: 'lion_king_app',
-      exec_mode: 'cluster',
-      instances: 2,
-      script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 3001',
+      namespace: 'lion_king_app',
+      name: 'docs',
+      script: 'pnpm',
+      args: 'start --port 3001',
+      cwd: './apps/docs',
       watch: false,
-      max_memory_restart: '250M',
       env: {
-        APP_ENV: 'production',
         PORT: 3001,
+        NODE_ENV: argEnv,
       },
+      exec_mode: 'cluster',
+      instances: RUN_ENV_MAP[argEnv].instances,
+      max_memory_restart: RUN_ENV_MAP[argEnv].max_memory_restart,
     },
   ],
 };
