@@ -81,7 +81,7 @@ export const useRankUsers: () => UseMutationResult<
   Error,
   { user_id: number }
 > = () => {
-  const { imageUrls } = useAppSelector((state) => state.app);
+  // const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<IBaseResponse<IRankUsers[]>, Error, { user_id: number }>({
@@ -90,15 +90,17 @@ export const useRankUsers: () => UseMutationResult<
     onSuccess: async (data) => {
       if (!data.data) return;
 
-      const rankImageUrls = data.data
-        .filter((item) => item.image)
-        .map(
-          (item) => process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + item.image,
-        );
+      // const rankImageUrls = data.data
+      //   .filter((item) => item.image)
+      //   .map(
+      //     (item) => process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + item.image,
+      //   );
 
-      const uniqueImageUrls = Array.from(
-        new Set([...imageUrls, ...rankImageUrls]),
-      );
+      // const uniqueImageUrls = Array.from(
+      //   new Set([...imageUrls, ...rankImageUrls]),
+      // );
+
+      // dispatch(setImageUrls(uniqueImageUrls));
 
       dispatch(
         setRanks(
@@ -108,8 +110,6 @@ export const useRankUsers: () => UseMutationResult<
           })),
         ),
       );
-
-      dispatch(setImageUrls(uniqueImageUrls));
 
       queryClient.invalidateQueries({
         queryKey: ["GET_LIST_RANK_USERS", "USERS"],

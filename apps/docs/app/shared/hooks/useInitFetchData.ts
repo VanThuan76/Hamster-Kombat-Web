@@ -18,11 +18,9 @@ const useInitFetchData = (
   onComponentLoadComplete: () => void,
 ) => {
   const dispatch = useAppDispatch();
-
   const { initialized, initDataTelegram } = useAppSelector(
     (state) => state.app,
   );
-
   const [progress, setProgress] = useState(0);
 
   const actions = [
@@ -69,6 +67,7 @@ const useInitFetchData = (
 
       const totalTasks = actions.length;
       let completedTasks = 0;
+      let hasErrors = false;
 
       const tasks = actions
         .map((action, index) => {
@@ -77,6 +76,7 @@ const useInitFetchData = (
               variant: "error",
               title: `Action at index ${index} is not defined or does not have a mutateAsync method.`,
             });
+            hasErrors = true;
             return null;
           }
 
@@ -114,13 +114,17 @@ const useInitFetchData = (
                 variant: "error",
                 title: `Task ${index + 1} failed: ${error.message}`,
               });
+              hasErrors = true;
             });
         })
         .filter(Boolean);
 
       await Promise.allSettled(tasks);
 
-      dispatch(setInitialized(true));
+      if (!hasErrors) {
+        dispatch(setInitialized(true));
+      }
+
       onComponentLoadComplete();
     } catch (error) {
       console.error("Error initializing app:", error);
