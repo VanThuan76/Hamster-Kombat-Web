@@ -29,7 +29,6 @@ import useBackButton from "@shared/hooks/useBackButton";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 const CountdownTimer = dynamic(
   () => import("@shared/components/CountdownTimer").then((mod) => mod.default),
@@ -215,30 +214,26 @@ export default function Page(): JSX.Element {
                         >
                           <div className="flex items-start justify-start w-full gap-2 sm:gap-3">
                             <div className="relative w-[60px] h-[60px] flex flex-grow-0 flex-shrink-0 justify-center items-center">
-                              <CtfPicture
-                                url={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}`}
+                              <Image
+                                src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}`}
                                 width={isActiveCard ? 40 : 60}
                                 height={isActiveCard ? 40 : 60}
-                                title="@imageTask"
-                                nextImageProps={{
-                                  className: cn(
-                                    "object-cover",
-                                    isActiveCard && "w-[40px] h-[40px]",
-                                  ),
-                                  priority: true,
-                                }}
+                                alt="@imageTask"
+                                priority={true}
+                                className={cn(
+                                  "object-cover",
+                                  isActiveCard && "w-[40px] h-[40px]",
+                                )}
                               />
                               {isActiveCard && (
                                 <div className="absolute w-full h-full top-0 bottom-0 left-0 bg-[#34383fcc] rounded-full flex justify-center items-center">
-                                  <CtfPicture
-                                    url="/project/icon_key.svg"
+                                  <Image
+                                    src="/project/icon_key.svg"
                                     width={24}
                                     height={24}
-                                    title="@imageKey"
-                                    nextImageProps={{
-                                      priority: true,
-                                      className: "w-[24px] h-[24px]",
-                                    }}
+                                    alt="@imageKey"
+                                    priority={true}
+                                    className="w-[24px] h-[24px]"
                                   />
                                 </div>
                               )}

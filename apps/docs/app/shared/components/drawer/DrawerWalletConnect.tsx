@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useDraw } from "@shared/hooks/useDraw";
 
 import Drawer from "@ui/components/drawer";
@@ -7,7 +9,6 @@ import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
 
 import InfoWalletTON from "../InfoWalletTON";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 const DrawerWalletConnect = () => {
   const { isOpen, onClose, type } = useDraw();
@@ -23,14 +24,12 @@ const DrawerWalletConnect = () => {
       <div className="flex flex-col items-center justify-center w-full gap-8">
         <div className="relative visible">
           <div className="relative z-10 w-[115px] h-[115px]">
-            <CtfPicture
-              url="/project/airdrop_connect_ton_wallet.png"
+            <Image
+              src="/project/airdrop_connect_ton_wallet.png"
               width={115}
               height={115}
-              title="@airdrop_connect_ton_wallet"
-              nextImageProps={{
-                priority: true,
-              }}
+              alt="@airdrop_connect_ton_wallet"
+              priority={true}
             />
           </div>
         </div>

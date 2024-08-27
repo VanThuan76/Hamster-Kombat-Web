@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import { cn } from "@ui/lib/utils";
@@ -13,7 +14,6 @@ import { formatCoinStyleDot } from "@shared/utils/formatNumber";
 import { useAppSelector } from "@shared/redux/store";
 import { useDraw } from "@shared/hooks/useDraw";
 import useBackButton from "@shared/hooks/useBackButton";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 function CheckIcon({ is_completed }: { is_completed: number }) {
   if (is_completed === 1) {
@@ -148,15 +148,12 @@ export default function Page(): JSX.Element {
               >
                 <div className="flex items-center justify-start gap-2">
                   <MotionContainer type="scale" className="w-[56px] h-[56px]">
-                    <CtfPicture
-                      url={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${earn.image}`}
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${earn.image}`}
                       width={56}
                       height={56}
-                      title={earn.name}
-                      nextImageProps={{
-                        priority: true,
-                        loading: "eager",
-                      }}
+                      alt={earn.name}
+                      priority={true}
                     />
                   </MotionContainer>
                   <div className="flex flex-col items-start justify-start">
@@ -190,15 +187,12 @@ export default function Page(): JSX.Element {
         >
           <div className="flex items-center justify-start gap-2">
             <MotionContainer type="scale" className="w-[56px] h-[56px]">
-              <CtfPicture
-                url="/project/calendar.png"
+              <Image
+                src="/project/calendar.png"
                 width={56}
                 height={56}
-                title="@calendar"
-                nextImageProps={{
-                  priority: true,
-                  loading: "eager",
-                }}
+                alt="@calendar"
+                priority={true}
               />
             </MotionContainer>
             <div className="flex flex-col items-start justify-start">
@@ -251,15 +245,12 @@ export default function Page(): JSX.Element {
               >
                 <div className="flex items-center justify-start gap-2">
                   <MotionContainer type="scale" className="w-[56px] h-[56px]">
-                    <CtfPicture
-                      url={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${earn.image}`}
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${earn.image}`}
                       width={56}
                       height={56}
-                      title={earn.name}
-                      nextImageProps={{
-                        priority: true,
-                        loading: "eager",
-                      }}
+                      alt={earn.name}
+                      priority={true}
                     />
                   </MotionContainer>
                   <div className="flex flex-col items-start justify-start">

@@ -1,6 +1,6 @@
 "use client";
 
-import { CtfPicture } from "./CtfPicture";
+import Image from "next/image";
 
 const CoinIcon = ({
   width = 18,
@@ -15,16 +15,13 @@ const CoinIcon = ({
 }) => {
   return (
     <div className={`w-[${width}px] h-[${height}px]`}>
-      <CtfPicture
-        url="/project/icon_coin.png"
+      <Image
+        src="/project/icon_coin.png"
         width={width}
         height={height}
-        title="@coin"
-        nextImageProps={{
-          priority: priority,
-          loading: "eager",
-          className: className,
-        }}
+        alt="@coin"
+        priority={true}
+        className={className}
       />
     </div>
   );

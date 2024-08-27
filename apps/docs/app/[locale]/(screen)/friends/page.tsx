@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
@@ -15,7 +17,6 @@ import useBackButton from "@shared/hooks/useBackButton";
 import { useAppSelector } from "@shared/redux/store/index";
 
 import { formatCoinStyleDot } from "@shared/utils/formatNumber";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 const { initUtils } = require("@telegram-apps/sdk-react");
 
@@ -50,15 +51,12 @@ export default function Page(): JSX.Element {
             className="flex justify-start items-start gap-3 rounded-2xl p-3 py-6 bg-[#272a2f]"
           >
             <MotionContainer type="scale" className="w-[60px] h-[50px]">
-              <CtfPicture
-                url="/project/gift.png"
+              <Image
+                src="/project/gift.png"
                 width={60}
                 height={50}
-                title="@gift"
-                nextImageProps={{
-                  priority: true,
-                  loading: "eager",
-                }}
+                alt="@gift"
+                priority={true}
               />
             </MotionContainer>
             <div className="flex flex-col items-start justify-start gap-2">
@@ -121,16 +119,13 @@ export default function Page(): JSX.Element {
               >
                 <div className="flex items-center justify-start gap-2">
                   <div className="h-[40px] w-[40px]">
-                    <CtfPicture
-                      url={item.image}
+                    <Image
+                      src={item.image}
                       width={100}
                       height={100}
-                      title={item.name}
-                      nextImageProps={{
-                        className: "object-cover w-full h-full rounded-md",
-                        priority: true,
-                        loading: "eager",
-                      }}
+                      alt={item.name}
+                      priority={true}
+                      className="object-cover w-full h-full rounded-md"
                     />
                   </div>
                   <TypographySmall

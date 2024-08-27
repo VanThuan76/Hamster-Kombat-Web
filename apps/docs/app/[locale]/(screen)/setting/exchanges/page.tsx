@@ -12,7 +12,7 @@ import { setUserExchange } from "@shared/redux/store/appSlice";
 
 import { useUpdateExchange } from "@server/_action/exchanges-action";
 import { IExchangesOrigin } from "@server/_types/exchanges";
-import { CtfPicture } from "@shared/components/CtfPicture";
+import Image from "next/image";
 
 export default function Page(): JSX.Element {
   const { user, exchanges } = useAppSelector((state) => state.app);
@@ -50,16 +50,14 @@ export default function Page(): JSX.Element {
                   type="scale"
                   className="w-[40px] h-[40px] flex justify-center items-center"
                 >
-                  <CtfPicture
-                    url={
+                  <Image
+                    src={
                       process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + item.image
                     }
                     width={40}
                     height={40}
-                    nextImageProps={{
-                      priority: true,
-                      loading: "eager",
-                    }}
+                    alt="exchanges"
+                    priority={true}
                   />
                 </MotionContainer>
                 <TypographySmall text={item.name} className="text-[14px]" />

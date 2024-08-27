@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useTranslations } from "next-intl";
@@ -16,7 +18,6 @@ import CoinIcon from "@shared/components/CoinIcon";
 import useBackButton from "@shared/hooks/useBackButton";
 import { useAppSelector } from "@shared/redux/store";
 import { formatCoin, formatCoinStyleDot } from "@shared/utils/formatNumber";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 const ItemCardRank = ({
   item,
@@ -49,18 +50,13 @@ const ItemCardRank = ({
       </Avatar>
       <div className="flex flex-col items-start justify-start w-full gap-2 ml-3">
         <div className="flex items-center justify-center gap-1">
-          <div className="w-[18px] h-[18px]">
-            <CtfPicture
-              url={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}`}
-              width={18}
-              height={18}
-              title="@coin"
-              nextImageProps={{
-                priority: true,
-                loading: "eager",
-              }}
-            />
-          </div>
+          <Image
+            src={`${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${item.image}`}
+            width={18}
+            height={18}
+            alt="@coin"
+            priority={true}
+          />
           <TypographySmall
             text={`${item?.first_name} ${item?.last_name}`}
             className="text-[14px]"
@@ -111,6 +107,10 @@ export default function Page(): JSX.Element {
     }
   }, [inView, ranks]);
 
+  const currentBrandMembership = +ranks.find(
+    (item) => item.name.toLowerCase() === membership.name.toLowerCase(),
+  )!.short_money;
+
   return (
     <div className="relative w-screen h-screen space-y-2 overflow-hidden overflow-y-auto text-center">
       <DynamicNavigationSwiper
@@ -128,16 +128,13 @@ export default function Page(): JSX.Element {
           return (
             <div key={i} className="flex flex-col items-center justify-center">
               <div className="overflow-hidden w-[162px] h-[162px] rank-item-image">
-                <CtfPicture
-                  url={item.image}
+                <Image
+                  src={item.image}
                   width={162}
                   height={162}
-                  title={`avatar_${item.name}`}
-                  nextImageProps={{
-                    priority: true,
-                    loading: "eager",
-                    className: "z-30",
-                  }}
+                  alt={`avatar_${item.name}`}
+                  priority={true}
+                  className="z-30"
                 />
               </div>
               <div className="flex flex-col items-center justify-center w-full gap-3 px-4">
@@ -148,13 +145,19 @@ export default function Page(): JSX.Element {
                 {membership.name.toLowerCase() === item.name.toLowerCase() ? (
                   <>
                     <TypographySmall
-                      text={`${formatCoin(user.revenue)} / ${formatCoin(nextRequireLevelMoney)}`}
+                      text={`${Math.round(user.revenue).toLocaleString(
+                        "en-US",
+                        {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        },
+                      )} / ${formatCoin(nextRequireLevelMoney)}`}
                       className="text-[14px] font-bold text-[#fff9] -translate-y-2"
                     />
                     <Progress
-                      value={Math.ceil(
-                        (user.revenue / +item.short_money) * 100,
-                      )}
+                      value={
+                        (user.highest_score / currentBrandMembership) * 100
+                      }
                       className="w-full h-[12px] bg-[#ffffff26] border border-[hsla(0,0%,100%,.1)]"
                     />
                   </>

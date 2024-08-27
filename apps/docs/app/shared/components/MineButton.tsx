@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import dynamic from "next/dynamic";
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
@@ -17,11 +19,12 @@ import AnimatedCounter from "@ui/components/motion/AnimatedCounter";
 import { toast } from "@shared/hooks/useToast";
 import { setStateEnergy, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
-import CoinIcon from "@shared/components/CoinIcon";
-import useLocalStorage from "@shared/hooks/useLocalStorage";
 
 import { useUpdateRevenue } from "@server/_action/user-action";
-import { CtfPicture } from "./CtfPicture";
+
+import useLocalStorage from "@shared/hooks/useLocalStorage";
+
+import CoinIcon from "@shared/components/CoinIcon";
 
 const AnimatePresenceWrapper = dynamic(
   () =>
@@ -76,39 +79,9 @@ const MineButton = ({
 
   const updateRevenue = useUpdateRevenue();
 
-  function handleIncludedCoin() {
-    if (formattedEnergy < user.tap_value) {
-      toast({
-        variant: "destructive",
-        title: "Không đủ năng lượng",
-      });
-      return;
-    }
-    const newRevenue = clickCount + 1 + user.tap_value;
-    const newEnergy = energy - user.tap_value;
-
-    setPrevRevenue(revenue);
-    setEnergy(newEnergy);
-    setClickCount((prevCount) => prevCount + 1);
-
-    dispatch(setStateEnergy({ amount: newEnergy, isReset: false }));
-    dispatch(setUpdateRevenue(user.revenue + user.tap_value));
-
-    if (saveTimeoutRef.current) {
-      clearTimeout(saveTimeoutRef.current);
-    }
-
-    // Tạo mới timeout để gửi số liệu tích lũy lên server sau 1 giây
-    saveTimeoutRef.current = setTimeout(() => {
-      // Gửi cập nhật lên server
-      updateRevenue.mutate({
-        user_id: user.id,
-        amount: newRevenue,
-      });
-    }, 1000);
-  }
-
   const handleCardTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    e.preventDefault(); // Ngăn chặn sự kiện mặc định
+
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.touches[0]!.clientX - rect.left - rect.width / 2;
@@ -126,7 +99,7 @@ const MineButton = ({
 
       requestAnimationFrame(() => {
         card.style.transform = "";
-        handleIncludedCoin();
+        handleIncludedCoin(e.touches.length); // Gửi số lượng ngón tay vào hàm
 
         setTimeout(() => {
           setPlusSigns((current) =>
@@ -137,26 +110,53 @@ const MineButton = ({
     });
   };
 
+  const handleIncludedCoin = (numberOfFingers: number) => {
+    if (formattedEnergy < user.tap_value) {
+      toast({
+        variant: "destructive",
+        title: "Không đủ năng lượng",
+      });
+      return;
+    }
+
+    const newRevenue = clickCount + numberOfFingers * user.tap_value;
+    const newEnergy = energy - user.tap_value * numberOfFingers;
+
+    setPrevRevenue(revenue);
+    setEnergy(newEnergy);
+    setClickCount((prevCount) => prevCount + numberOfFingers);
+
+    dispatch(setStateEnergy({ amount: newEnergy, isReset: false }));
+    dispatch(setUpdateRevenue(user.revenue + numberOfFingers * user.tap_value));
+
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+
+    saveTimeoutRef.current = setTimeout(() => {
+      updateRevenue.mutate({
+        user_id: user.id,
+        amount: newRevenue,
+      });
+    }, 1000);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setEnergy((prevEnergy) => {
         const newEnergy = Math.min(prevEnergy + 3, maxEnergy);
-        dispatch(setStateEnergy({ amount: newEnergy, isReset: false }));
+        if (newEnergy !== prevEnergy) {
+          dispatch(setStateEnergy({ amount: newEnergy, isReset: false }));
+        }
         return newEnergy;
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [energy, maxEnergy]);
+  }, [dispatch, maxEnergy]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setRevenue(user.revenue);
-    });
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setRevenue(user.revenue);
   }, [user.revenue]);
 
   useEffect(() => {
@@ -229,17 +229,15 @@ const MineButton = ({
                 "user-tap-button-inner-disabled",
             )}
           >
-            <CtfPicture
-              url={
+            <Image
+              src={
                 process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + membership.image
               }
               width={320}
               height={320}
-              title="avatar"
-              nextImageProps={{
-                priority: true,
-                className: "relative object-cover w-full h-full z-10",
-              }}
+              alt="avatar"
+              priority={true}
+              className="relative z-10 object-cover w-full h-full"
             />
           </div>
           <AnimatePresenceWrapper>
@@ -258,14 +256,12 @@ const MineButton = ({
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center justify-start w-full gap-1">
             <div className="w-[32px] h-[26px]">
-              <CtfPicture
-                url="/project/icon_flash.png"
+              <Image
+                src="/project/icon_flash.png"
                 width={32}
                 height={26}
-                title="@flash"
-                nextImageProps={{
-                  priority: true,
-                }}
+                alt="@flash"
+                priority={true}
               />
             </div>
             <MemoTypographyLarge
@@ -281,14 +277,12 @@ const MineButton = ({
             }}
           >
             <div className="w-[32px] h-[26px]">
-              <CtfPicture
-                url="/project/icon_rocket.png"
+              <Image
+                src="/project/icon_rocket.png"
                 width={32}
                 height={26}
-                title="@rocket"
-                nextImageProps={{
-                  priority: true,
-                }}
+                alt="@rocket"
+                priority={true}
               />
             </div>
             <TypographyLarge

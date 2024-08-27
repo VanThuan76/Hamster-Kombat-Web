@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useTonWallet } from "@tonconnect/ui-react";
 import { useTranslations } from "next-intl";
 
@@ -9,7 +11,6 @@ import TypographySmall from "@ui/components/typography/small";
 
 import useBackButton from "@shared/hooks/useBackButton";
 import { useDraw } from "@shared/hooks/useDraw";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 export default function Page(): JSX.Element {
   const { onOpen } = useDraw();
@@ -77,16 +78,13 @@ export default function Page(): JSX.Element {
           </svg>
         </div>
         <div className="icon_earn_image w-[106px] h-[106px]">
-          <CtfPicture
-            url="/project/icon_lion_coin.png"
+          <Image
+            src="/project/icon_lion_coin.png"
             width={106}
             height={106}
-            title="@hamsterCoin"
-            nextImageProps={{
-              priority: true,
-              loading: "eager",
-              className: "w-full h-full",
-            }}
+            alt="@hamsterCoin"
+            priority={true}
+            className="w-full h-full"
           />
         </div>
       </MotionContainer>
@@ -120,15 +118,12 @@ export default function Page(): JSX.Element {
         >
           <div className="flex items-center justify-start gap-2">
             <MotionContainer type="scale" className="w-[56px] h-[56px]">
-              <CtfPicture
-                url="/project/airdrop_connect_ton_wallet.png"
+              <Image
+                src="/project/airdrop_connect_ton_wallet.png"
                 width={56}
                 height={56}
-                title="@airdrop_connect_ton_wallet"
-                nextImageProps={{
-                  priority: true,
-                  loading: "eager",
-                }}
+                alt="@airdrop_connect_ton_wallet"
+                priority={true}
               />
             </MotionContainer>
             <div className="flex flex-col items-start justify-start">

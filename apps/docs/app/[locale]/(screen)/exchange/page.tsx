@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Card, CardHeader } from "@ui/components/card";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 import { useAppSelector } from "@shared/redux/store/index";
 import useBackButton from "@shared/hooks/useBackButton";
@@ -44,19 +43,15 @@ function UserCardExist({
       >
         <div className="user-info-avatar">
           <div className="bg-[#1c1f24] rounded-lg w-full h-full">
-            <CtfPicture
-              url={
+            <Image
+              src={
                 process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + membership.image
               }
               width={32}
               height={32}
-              title="@user"
-              nextImageProps={{
-                priority: true,
-                loading: "eager",
-                className:
-                  "w-[32px] h-full rounded-md bg-contain bg-no-repeat bg-center",
-              }}
+              alt="@user"
+              className="w-[32px] h-full rounded-md bg-contain bg-no-repeat bg-center"
+              priority={true}
             />
           </div>
         </div>

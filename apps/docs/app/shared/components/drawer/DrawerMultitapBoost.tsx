@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useTranslations } from "next-intl";
 import { cn } from "@ui/lib/utils";
 
@@ -16,7 +18,6 @@ import { formatCoinStyleDot } from "@shared/utils/formatNumber";
 
 import { useUpdateBoost } from "@server/_action/boost-action";
 import { setUpdateRevenue } from "@shared/redux/store/appSlice";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 export default function DrawerMultitapBoost(): JSX.Element {
   const { user } = useAppSelector((state) => state.app);
@@ -60,14 +61,12 @@ export default function DrawerMultitapBoost(): JSX.Element {
     >
       <div className="flex flex-col items-center justify-center w-full gap-8">
         <div className="relative z-10 w-[115px] h-[115px]">
-          <CtfPicture
-            url="/project/icon_boost-multitap.png"
+          <Image
+            src="/project/icon_boost-multitap.png"
             width={115}
             height={115}
-            title="@multitap"
-            nextImageProps={{
-              priority: true,
-            }}
+            alt="@multitap"
+            priority={true}
           />
         </div>
         <div className="flex flex-col items-center justify-center gap-5">

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
 import { cn } from "@ui/lib/utils";
@@ -16,7 +18,6 @@ import { useAppSelector } from "@shared/redux/store";
 import { formatCoin } from "@shared/utils/formatNumber";
 
 import { useUpdateEarn } from "@server/_action/earn-action";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 export default function DrawerCalendarEarn(): JSX.Element {
   const { earns, user } = useAppSelector((state) => state.app);
@@ -70,15 +71,13 @@ export default function DrawerCalendarEarn(): JSX.Element {
         <div className="relative visible">
           <div className="absolute left-1/2 top-1/2 w-[100px] h-[100px] bg-[#9b37ffe6] rounded-full blur-[20px] transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
           <div className="relative z-10 w-[115px] h-[115px]">
-            <CtfPicture
-              url="/project/calendar.png"
+            <Image
+              src="/project/calendar.png"
               width={115}
               height={115}
-              title="@calendar"
-              nextImageProps={{
-                priority: true,
-                className: "transition-all",
-              }}
+              alt="@calendar"
+              priority={true}
+              className="transition-all"
             />
           </div>
         </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
 
@@ -10,7 +12,6 @@ import TypographyLarge from "@ui/components/typography/large";
 import { useAppSelector } from "@shared/redux/store/index";
 
 import { useDraw } from "@shared/hooks/useDraw";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
@@ -37,14 +38,12 @@ export default function DrawerEditExchange(): JSX.Element {
       <div className="flex flex-col items-center justify-center w-full gap-8 mt-10">
         <div className="relative w-full min-h-[150px] flex flex-col justify-center items-center gap-5 bg-[#272a2f] px-6 pt-8 -mb-2 rounded-3xl">
           <div className="absolute -top-10 z-10 w-[80px] h-[80px] p-5 bg-[#272a2f] border-4 border-[#1c1f24] rounded-full flex items-center justify-center">
-            <CtfPicture
-              url={user.exchange.icon}
+            <Image
+              src={user.exchange.icon}
               width={60}
               height={60}
-              title="@imageTask"
-              nextImageProps={{
-                priority: true,
-              }}
+              alt="@imageTask"
+              priority={true}
             />
           </div>
           <TypographyLarge

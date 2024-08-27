@@ -23,7 +23,7 @@ import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import { useBuySkin } from "@server/_action/skin-action";
 import { setMembership, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import { useUpdateSkin } from "@server/_action/user-action";
-import { CtfPicture } from "@shared/components/CtfPicture";
+import Image from "next/image";
 
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
@@ -195,17 +195,13 @@ export default function Page(): JSX.Element {
                 className="flex flex-col items-center justify-center gap-2 overflow-hidden"
               >
                 <div className="w-[250px] h-[250px]">
-                  <CtfPicture
-                    url={item.image_url}
+                  <Image
+                    src={item.image_url}
                     width={250}
                     height={250}
-                    title={`skin_${item.name}`}
-                    nextImageProps={{
-                      priority: true,
-                      loading: "eager",
-                      className:
-                        "z-30 object-contain object-center mb-2 rounded-sm",
-                    }}
+                    alt={`skin_${item.name}`}
+                    priority={true}
+                    className="z-30 object-contain object-center mb-2 rounded-sm"
                   />
                 </div>
                 <div className="w-full min-h-[200px] flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
@@ -293,16 +289,13 @@ export default function Page(): JSX.Element {
                   onClick={() => setCurrentTarget(i)}
                 >
                   <div className="w-[62px] h-[62px]">
-                    <CtfPicture
-                      url={item.image_url}
+                    <Image
+                      src={item.image_url}
                       width={62}
                       height={62}
-                      title={item.name}
-                      nextImageProps={{
-                        priority: true,
-                        loading: "eager",
-                        className: "object-center w-full h-full object-contain",
-                      }}
+                      alt={item.name}
+                      priority={true}
+                      className="object-center w-full h-full object-contain"
                     />
                   </div>
                   <TypographySmall

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useTranslations } from "next-intl";
 import { cn } from "@ui/lib/utils";
 
@@ -19,7 +21,6 @@ import {
   setUpdateProfitPerHour,
   setUpdateRevenue,
 } from "@shared/redux/store/appSlice";
-import { CtfPicture } from "@shared/components/CtfPicture";
 
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
@@ -79,16 +80,14 @@ export default function DrawerCardMine(): JSX.Element {
     >
       <div className="flex flex-col items-center justify-center w-full gap-2 mt-2">
         <div className="w-[115px] h-[115px]">
-          <CtfPicture
-            url={
+          <Image
+            src={
               `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data?.image}` || ""
             }
             width={115}
             height={115}
-            title="@imageTask"
-            nextImageProps={{
-              priority: true,
-            }}
+            alt="@imageTask"
+            priority={true}
           />
         </div>
         <TypographySmall

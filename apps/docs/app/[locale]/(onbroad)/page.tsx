@@ -61,7 +61,7 @@ const OnBroadingPage = () => {
       <div className="absolute top-0 w-full h-[3px]">
         <div
           className="h-full progress-bar"
-          style={{ width: initialized ? `${progress - 10}%` : `${progress}%` }}
+          style={{ width: `${progress}%` }}
         ></div>
       </div>
       <div className="w-full h-[100px] flex flex-col gap-2 items-center justify-center">
