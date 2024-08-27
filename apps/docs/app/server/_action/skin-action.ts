@@ -6,7 +6,7 @@ import {
 import { useTranslations } from "next-intl";
 import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store";
-import { setSkins } from "@shared/redux/store/appSlice";
+import { setImageUrls, setSkins } from "@shared/redux/store/appSlice";
 import { toast } from "@shared/hooks/useToast";
 
 import { queryClient } from "./config";
