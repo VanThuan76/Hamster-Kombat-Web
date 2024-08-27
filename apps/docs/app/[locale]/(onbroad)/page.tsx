@@ -110,7 +110,7 @@ const OnBroadingPage = () => {
         />
       </div>
       {/* Fetch Dynamic Image */}
-      {isPreloaded && (
+      {/* {isPreloaded && (
         <div className="invisible pointer-events-none touch-none w-0 h-0">
           {imageUrls.map((url, index) => (
             <ImageNext
@@ -127,6 +127,7 @@ const OnBroadingPage = () => {
           ))}
         </div>
       )}
+      */}
     </div>
   );
 };
