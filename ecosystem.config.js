@@ -26,6 +26,7 @@ module.exports = {
       env: {
         APP_ENV: argEnv,
         NODE_ENV: 'production',
+        PORT: 3001,
       },
     },
   ],
