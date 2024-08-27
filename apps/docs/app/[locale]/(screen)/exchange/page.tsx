@@ -65,11 +65,11 @@ function UserCardExist({
             text={textBuySkin}
             className="mr-[2px] text-center text-[9px] font-semibold leading-none"
           />
-          <div className="w-[50px] h-full">
+          <div className="w-[50px] h-full p-[2px]">
             <Image
               src="/project/icon_lion_coin.png"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
               alt="@skin"
               priority={true}
               className="w-full h-full bg-center bg-no-repeat bg-cover"
@@ -138,7 +138,7 @@ export default function Page(): JSX.Element {
 
   const locale = useLocale();
 
-  const { user, membership, ranks } = useAppSelector((state) => state.app);
+  const { user, membership } = useAppSelector((state) => state.app);
 
   const [isSecretFeature, setSecretFeature] = useState(false);
 

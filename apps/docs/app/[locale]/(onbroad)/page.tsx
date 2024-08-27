@@ -5,8 +5,7 @@ import React, { useEffect } from "react";
 
 import { useRouter } from "@shared/next-intl/navigation";
 import { userLoginAction } from "@server/_action/user-action";
-import { setInitialized } from "@shared/redux/store/appSlice";
-import { useAppDispatch, useAppSelector } from "@shared/redux/store";
+import { useAppSelector } from "@shared/redux/store";
 
 import useInitFetchData from "@shared/hooks/useInitFetchData";
 import useServiceWorker from "@shared/hooks/useServiceWorker";
@@ -17,7 +16,6 @@ import useLocalStorage from "@shared/hooks/useLocalStorage";
 
 const OnBroadingPage = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const userInitAction = userLoginAction();
 
   const [isPreloaded, setIsPreloaded] = useLocalStorage<boolean>(
@@ -27,9 +25,7 @@ const OnBroadingPage = () => {
 
   const { imageUrls } = useAppSelector((state) => state.app);
 
-  const { initialized, progress } = useInitFetchData(userInitAction, () => {
-    dispatch(setInitialized(true));
-  });
+  const { initialized, progress } = useInitFetchData(userInitAction, () => {});
 
   useEffect(() => {
     if (initialized) {
@@ -57,6 +53,8 @@ const OnBroadingPage = () => {
       ).then(() => setIsPreloaded(true));
     }
   }, [isPreloaded, imageUrls, setIsPreloaded]);
+
+  useServiceWorker();
 
   return (
     <div className="relative w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_onbroad.jpg')] bg-cover bg-no-repeat bg-center">

@@ -29,7 +29,7 @@ export const CtfPicture = ({
       width={width}
       height={height}
       className={cn(nextImageProps?.className, "transition-all object-cover")}
-      priority={nextImageProps?.priority || false}
+      priority={true}
       quality={75}
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
     />

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAppSelector } from "@shared/redux/store";
+import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 import { toast } from "@shared/hooks/useToast";
 
 import { useFriends, useRankUsers } from "@server/_action/user-action";
@@ -11,11 +11,14 @@ import {
 import { useCategoryOfCardByUser } from "@server/_action/card-action";
 import { useSkins } from "@server/_action/skin-action";
 import { useEarnByUser } from "@server/_action/earn-action";
+import { setInitialized } from "@shared/redux/store/appSlice";
 
 const useInitFetchData = (
   userInitAction: any,
   onComponentLoadComplete: () => void,
 ) => {
+  const dispatch = useAppDispatch();
+
   const { initialized, initDataTelegram } = useAppSelector(
     (state) => state.app,
   );
@@ -117,6 +120,7 @@ const useInitFetchData = (
 
       await Promise.allSettled(tasks);
 
+      dispatch(setInitialized(true));
       onComponentLoadComplete();
     } catch (error) {
       console.error("Error initializing app:", error);
