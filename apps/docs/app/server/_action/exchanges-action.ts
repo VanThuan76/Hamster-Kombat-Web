@@ -101,7 +101,6 @@ export const useExchanges: () => UseMutationResult<
   Error,
   any
 > = () => {
-  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<IBaseResponse<IExchangesOrigin[]>, Error>({
@@ -112,19 +111,19 @@ export const useExchanges: () => UseMutationResult<
     onSuccess: async (data) => {
       if (!data.data) return;
 
-      const exchangeImageUrls = data.data
-        .filter((item) => item.image)
-        .map(
-          (item) => process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + item.image,
-        );
+      // const exchangeImageUrls = data.data
+      //   .filter((item) => item.image)
+      //   .map(
+      //     (item) => process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + item.image,
+      //   );
 
-      const uniqueImageUrls = Array.from(
-        new Set([...imageUrls, ...exchangeImageUrls]),
-      );
+      // const uniqueImageUrls = Array.from(
+      //   new Set([...imageUrls, ...exchangeImageUrls]),
+      // );
 
       dispatch(setExchanges(data.data));
 
-      dispatch(setImageUrls(uniqueImageUrls));
+      // dispatch(setImageUrls(uniqueImageUrls));
 
       queryClient.invalidateQueries({
         queryKey: ["GET_LIST_EXCHANGES", "EXCHANGES"],

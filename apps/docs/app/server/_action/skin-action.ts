@@ -5,8 +5,8 @@ import {
 } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { axiosInstance } from "@shared/axios.http";
-import { useAppDispatch, useAppSelector } from "@shared/redux/store";
-import { setImageUrls, setSkins } from "@shared/redux/store/appSlice";
+import { useAppDispatch } from "@shared/redux/store";
+import { setSkins } from "@shared/redux/store/appSlice";
 import { toast } from "@shared/hooks/useToast";
 
 import { queryClient } from "./config";
@@ -22,7 +22,6 @@ export const useSkins: () => UseMutationResult<
   Error,
   any
 > = () => {
-  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<IBaseResponse<ISkin[]>, Error>({
@@ -31,17 +30,7 @@ export const useSkins: () => UseMutationResult<
     onSuccess: async (data) => {
       if (!data.data) return;
 
-      const skinImageUrls = data.data
-        .filter((item) => item.image)
-        .map((item) => item.image_url);
-
-      const uniqueImageUrls = Array.from(
-        new Set([...imageUrls, ...skinImageUrls]),
-      );
-
       dispatch(setSkins(data.data));
-
-      dispatch(setImageUrls(uniqueImageUrls));
 
       queryClient.invalidateQueries({ queryKey: ["GET_LIST_SKINS", "SKINS"] });
     },

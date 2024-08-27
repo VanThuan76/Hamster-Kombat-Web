@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
@@ -22,13 +23,13 @@ import MineButton from "@shared/components/MineButton";
 import CardProfit from "@shared/components/CardProfit";
 import CoinIcon from "@shared/components/CoinIcon";
 import MotionContainer from "@ui/components/motion/Container";
+import CardLevel from "@shared/components/CardLevel";
 
 import useBackButton from "@shared/hooks/useBackButton";
 import { useDraw } from "@shared/hooks/useDraw";
 import { useAppSelector } from "@shared/redux/store/index";
 import { formatCoin } from "@shared/utils/formatNumber";
 import { CtfPicture } from "@shared/components/CtfPicture";
-import CardLevel from "@shared/components/CardLevel";
 
 const CountdownTimer = dynamic(
   () => import("@shared/components/CountdownTimer").then((mod) => mod.default),
@@ -118,14 +119,12 @@ export default function Page(): JSX.Element {
                       <div className="daily-combo-card">
                         <div className="daily-combo-card-inner">
                           <div className="bg-[#ffffff0d] rounded-md m-2 md:m-4 h-[75%]">
-                            <CtfPicture
-                              url="/project/img_daily-combo.png"
+                            <Image
+                              src="/project/img_daily-combo.png"
                               width={91}
                               height={104}
-                              title="@dailyCombo"
-                              nextImageProps={{
-                                priority: true,
-                              }}
+                              alt="@dailyCombo"
+                              priority={true}
                             />
                           </div>
                         </div>

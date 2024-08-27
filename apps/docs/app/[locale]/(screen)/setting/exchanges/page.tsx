@@ -45,10 +45,15 @@ export default function Page(): JSX.Element {
               className="w-full flex justify-between items-center rounded-2xl min-h-[64px] px-3 bg-[#272a2f]"
               onClick={() => handleUpdateExchange(item)}
             >
-              <div className="flex justify-start items-center gap-2">
-                <MotionContainer type="scale" className="w-[40px] h-[40px]">
+              <div className="flex justify-center items-center gap-2">
+                <MotionContainer
+                  type="scale"
+                  className="w-[40px] h-[40px] flex justify-center items-center"
+                >
                   <CtfPicture
-                    url={item.image_url}
+                    url={
+                      process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + item.image
+                    }
                     width={40}
                     height={40}
                     nextImageProps={{

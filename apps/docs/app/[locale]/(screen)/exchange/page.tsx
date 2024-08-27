@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -65,16 +66,13 @@ function UserCardExist({
             className="mr-[2px] text-center text-[9px] font-semibold leading-none"
           />
           <div className="w-[50px] h-full">
-            <CtfPicture
-              url="/project/hero_skin.gif"
+            <Image
+              src="/project/icon_lion_coin.png"
               width={50}
               height={50}
-              title="@skin"
-              nextImageProps={{
-                priority: true,
-                loading: "eager",
-                className: "w-full h-full bg-center bg-no-repeat bg-cover",
-              }}
+              alt="@skin"
+              priority={true}
+              className="w-full h-full bg-center bg-no-repeat bg-cover"
             />
           </div>
         </div>
@@ -118,16 +116,13 @@ function UserCardDefault({ user }: { user: any }) {
   return (
     <div className="flex items-center justify-start gap-2">
       <div className="bg-[#1c1f24] rounded-lg w-[32px] h-[32px]">
-        <CtfPicture
-          url="/project/icon_ava_user.png"
+        <Image
+          src="/project/icon_ava_user.png"
           width={32}
           height={32}
-          title="@user"
-          nextImageProps={{
-            priority: true,
-            loading: "eager",
-            className: "w-[32px] h-[32px]",
-          }}
+          alt="@user"
+          priority={true}
+          className="w-[32px] h-[32px]"
         />
       </div>
       <TypographySmall
@@ -148,9 +143,6 @@ export default function Page(): JSX.Element {
   const [isSecretFeature, setSecretFeature] = useState(false);
 
   const haptic = initHapticFeedback();
-  const currentBrandMembership = +ranks.find(
-    (item) => item.name.toLowerCase() === membership.name.toLowerCase(),
-  )!.short_money;
 
   useBackButton();
 
@@ -184,15 +176,12 @@ export default function Page(): JSX.Element {
               className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer"
             >
               <div className="w-[56px] h-[56px]">
-                <CtfPicture
-                  url="/project/icon_daily_reward.png"
+                <Image
+                  src="/project/icon_daily_reward.png"
                   width={56}
                   height={56}
-                  title="@card"
-                  nextImageProps={{
-                    priority: true,
-                    loading: "eager",
-                  }}
+                  alt="@card"
+                  priority={true}
                 />
               </div>
               <TypographySmall
@@ -223,15 +212,12 @@ export default function Page(): JSX.Element {
               onClick={() => setSecretFeature(!isSecretFeature)}
             >
               <div className="w-[56px] h-[56px]">
-                <CtfPicture
-                  url="/project/icon_daily_cipher.png"
+                <Image
+                  src="/project/icon_daily_cipher.png"
                   width={56}
                   height={56}
-                  title="@card"
-                  nextImageProps={{
-                    priority: true,
-                    loading: "eager",
-                  }}
+                  alt="@card"
+                  priority={true}
                 />
               </div>
               <TypographySmall
@@ -251,15 +237,12 @@ export default function Page(): JSX.Element {
               className="relative w-full flex flex-col justify-center items-center bg-[#272a2f] rounded-xl cursor-pointer"
             >
               <div className="w-[56px] h-[56px]">
-                <CtfPicture
-                  url="/project/icon_daily_combo.png"
+                <Image
+                  src="/project/icon_daily_combo.png"
                   width={56}
                   height={56}
-                  title="@card"
-                  nextImageProps={{
-                    priority: true,
-                    loading: "eager",
-                  }}
+                  alt="@card"
+                  priority={true}
                 />
               </div>
               <TypographySmall

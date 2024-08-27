@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import ImageNext from "next/image";
 import React, { useEffect } from "react";
 
 import { useRouter } from "@shared/next-intl/navigation";
@@ -13,11 +13,17 @@ import useServiceWorker from "@shared/hooks/useServiceWorker";
 
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
+import useLocalStorage from "@shared/hooks/useLocalStorage";
 
 const OnBroadingPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const userInitAction = userLoginAction();
+
+  const [isPreloaded, setIsPreloaded] = useLocalStorage<boolean>(
+    "cachedImageUrls",
+    false,
+  );
 
   const { imageUrls } = useAppSelector((state) => state.app);
 
@@ -27,19 +33,30 @@ const OnBroadingPage = () => {
 
   useEffect(() => {
     if (initialized) {
-      router.push("/exchange", undefined);
+      router.push("/exchange");
     }
   }, [initialized, router]);
 
   useEffect(() => {
-    imageUrls.forEach((url) => {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = url;
-      document.head.appendChild(link);
-    });
-  }, [imageUrls]);
+    const preloadImage = (url: string, timeout: number = 300) => {
+      return Promise.race([
+        new Promise<void>((resolve) => {
+          const img = new Image();
+          img.src = url;
+          img.onload = () => resolve();
+        }),
+        new Promise<void>((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), timeout),
+        ),
+      ]);
+    };
+
+    if (!isPreloaded) {
+      Promise.all(
+        imageUrls.map((url) => preloadImage(url).catch(() => null)),
+      ).then(() => setIsPreloaded(true));
+    }
+  }, [isPreloaded, imageUrls, setIsPreloaded]);
 
   return (
     <div className="relative w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_onbroad.jpg')] bg-cover bg-no-repeat bg-center">
@@ -93,21 +110,23 @@ const OnBroadingPage = () => {
         />
       </div>
       {/* Fetch Dynamic Image */}
-      <div className="invisible pointer-events-none touch-none w-0 h-0">
-        {imageUrls.map((url, index) => (
-          <Image
-            key={index}
-            src={url}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            alt={`Image ${index}`}
-            width={500}
-            height={300}
-            layout="responsive"
-            loading="lazy"
-            decoding="async"
-          />
-        ))}
-      </div>
+      {isPreloaded && (
+        <div className="invisible pointer-events-none touch-none w-0 h-0">
+          {imageUrls.map((url, index) => (
+            <ImageNext
+              key={index}
+              src={url}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              alt={`Image ${index}`}
+              width={500}
+              height={300}
+              layout="responsive"
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
