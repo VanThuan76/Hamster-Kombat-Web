@@ -1,57 +1,57 @@
 {
   "menu": {
-    "exchange": "Intercambiar",
-    "mine": "Minar",
-    "friends": "Amigos",
-    "earn": "Ganar"
+    "exchange": "País",
+    "mine": "Construir",
+    "friends": "Alianza",
+    "earn": "Misión"
   },
   "screens": {
     "exchange": {
       "buy_skin": "Comprar skin",
-      "daily_reward": "Recompensa diaria",
+      "daily_reward": "Lista de tareas",
       "daily_cipher": "Cifra diaria",
-      "daily_combo": "Combo diario"
+      "daily_combo": "Tarjeta combo diaria"
     },
     "mine": {
-      "daily_combo": "Combo diario"
+      "daily_combo": "Tarjeta combo diaria"
     },
     "friends": {
-      "invite_friends": "¡Invita amigos!",
-      "des_invite_friends": "Tú y tu amigo recibirán bonificaciones",
-      "invite_friends_card": "Invita a un amigo",
+      "invite_friends": "¡Invita a amigos!",
+      "des_invite_friends": "Tú y tus amigos recibirán recompensas",
+      "invite_friends_card": "Invita a amigos",
       "des_invite_friends_card": "para ti y tu amigo",
       "more_bonuses": "Más bonificaciones",
       "more_bonuses_two": "Bonificación por subir de nivel",
       "level": "Nivel",
       "for_friend": "Para amigo",
-      "premium": "Premium",
-      "list_friend": "Lista de tus amigos",
-      "invite_friends_no": "No has invitado a nadie aún"
+      "premium": "Recompensa",
+      "list_friend": "Tu lista de amigos",
+      "invite_friends_no": "No has invitado a nadie"
     },
     "earn": {
-      "earn_coin": "Gana más monedas",
+      "earn_coin": "Ganar más dinero",
       "daily_tasks": "Tareas diarias",
       "task_list": "Lista de tareas",
-      "daily_reward": "Recompensa diaria",
+      "daily_reward": "Lista de tareas",
       "day_daily": "Día",
-      "des_daily_reward": "Acumula monedas al iniciar sesión en el juego diariamente sin saltar",
+      "des_daily_reward": "Acumula monedas al iniciar sesión en el juego diariamente sin saltarte días. El botón 'colectar' debe presionarse todos los días, de lo contrario, el contador de días se reiniciará",
       "join_telegram": "Únete a nuestro canal de TG",
       "join_x": "Sigue nuestra cuenta de X",
-      "choose_exchange": "Elige tu intercambio",
+      "choose_exchange": "Elige tu exchange",
       "invite_friends": "Invita a 3 amigos",
-      "btn_back": "Volver mañana",
-      "btn_require": "Solicitar compensación",
+      "btn_back": "Vuelve mañana",
+      "btn_require": "Reclamar",
       "btn_choose": "Elegir",
-      "btn_check": "Comprobar",
+      "btn_check": "Verificar",
       "btn_join": "Unirse"
     },
     "airdrop": {
-      "des_airdrop": "La lista está en camino. Las tareas aparecerán a continuación. Completa las tareas para participar en el AirDrop"
+      "des_airdrop": "El día de la lista se acerca. Las tareas aparecerán abajo. Complétalas para participar en el Airdrop"
     },
     "setting": {
       "title": "Configuración",
-      "language": "Seleccionar idioma",
-      "exchange": "Elegir intercambio",
+      "language": "Elegir idioma",
+      "exchange": "Elegir exchange",
       "delete_account": "Eliminar cuenta"
     },
     "skin": {
@@ -64,39 +64,44 @@
     },
     "boost": {
       "your_balance": "Tu saldo",
-      "how_boost_work": "Cómo funciona Boost",
+      "how_boost_work": "Cómo funciona el boost",
       "free_daily_boost": "Booster diario gratuito",
       "full_energy": "Energía completa",
-      "des_full_energy": "Recarga tu energía al límite y haz otra ronda de minería",
+      "des_full_energy": "Recarga tu energía al límite y realiza otra ronda de minería",
       "free": "Gratis",
       "available": "disponible",
       "coming_soon": "Próximamente",
       "boosters": "Boosters",
-      "multitap": "Multitap",
-      "des_multitap_1": "Aumenta la cantidad de monedas que puedes ganar por toque",
-      "des_multitap_2": "+1 moneda por toque para el nivel",
+      "multitap": "Multi-tap",
+      "des_multitap_1": "Aumenta la cantidad de monedas que puedes ganar por cada toque",
+      "des_multitap_2": "+1 moneda por toque por nivel",
       "energy_limit": "Límite de energía",
       "des_energy_limit_1": "Aumenta la capacidad de energía",
-      "des_energy_limit_2": "+500 energía para el nivel"
+      "des_energy_limit_2": "+500 energía por nivel"
     }
   },
   "components": {
     "mine_button": {
       "daily_cipher": "Cifra diaria",
-      "boost": "Impulsar"
+      "boost": "Boost"
     },
     "card_profit": {
-      "profit_by_hour": "Beneficio por hora"
+      "profit_by_hour": "Ganancia por hora"
     },
     "drawer_info_profit": {
-      "title": "Aumenta tu beneficio",
-      "description_1": "Toca el menú de minería para comprar mejoras para tu intercambio",
-      "description_2": "Gana incluso cuando estés offline hasta 3 horas",
-      "start_button": "Comenzar minería"
+      "title": "Aumenta tus ganancias",
+      "description_1": "Accede al menú de minería y compra mejoras para tu exchange para aumentar las ganancias",
+      "description_2": "gana incluso cuando estés desconectado por 3 horas",
+      "start_button": "Comienza a minar"
     },
     "drawer_change_exchange": {
       "title": "Has firmado un contrato con",
       "button": "¡Buena suerte!"
     }
+  },
+  "other": {
+    "not_enough_money": "No hay suficiente dinero",
+    "pending_action": "Procesando datos...",
+    "success_action": "¡Actualización exitosa!"
   }
 }

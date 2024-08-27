@@ -34,7 +34,7 @@ export const useEarnByUser: () => UseMutationResult<
   Error,
   { user_id: number }
 > = () => {
-  // const { imageUrls } = useAppSelector((state) => state.app);
+  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<IBaseResponse<IEarn[]>, Error, { user_id: number }>({
@@ -46,19 +46,19 @@ export const useEarnByUser: () => UseMutationResult<
     onSuccess: async (data) => {
       if (!data.data) return;
 
-      // const earnImageUrls = data.data.flatMap((item) =>
-      //   item.earn
-      //     .filter((chil) => chil.image)
-      //     .map(
-      //       (chil) => `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${chil.image}`,
-      //     ),
-      // );
+      const earnImageUrls = data.data.flatMap((item) =>
+        item.earn
+          .filter((chil) => chil.image)
+          .map(
+            (chil) => `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${chil.image}`,
+          ),
+      );
 
-      // const uniqueImageUrls = Array.from(
-      //   new Set([...imageUrls, ...earnImageUrls]),
-      // );
+      const uniqueImageUrls = Array.from(
+        new Set([...imageUrls, ...earnImageUrls]),
+      );
 
-      // dispatch(setImageUrls(uniqueImageUrls));
+      dispatch(setImageUrls(uniqueImageUrls));
 
       dispatch(setEarns(data.data));
 

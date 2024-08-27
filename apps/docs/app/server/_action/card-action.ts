@@ -86,7 +86,7 @@ export const useCategoryOfCardByUser: () => UseMutationResult<
   Error,
   { user_id: number; exchange_id: number }
 > = () => {
-  // const { imageUrls } = useAppSelector((state) => state.app);
+  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<
@@ -102,22 +102,22 @@ export const useCategoryOfCardByUser: () => UseMutationResult<
     onSuccess: async (data) => {
       if (!data.data) return;
 
-      // const cardImageUrls = data.data
-      //   .filter((item) => item.order === 1)
-      //   .flatMap((item) =>
-      //     item.cardList
-      //       .filter((chil) => chil.image)
-      //       .map(
-      //         (chil) =>
-      //           `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${chil.image}`,
-      //       ),
-      //   );
+      const cardImageUrls = data.data
+        .filter((item) => item.order === 1)
+        .flatMap((item) =>
+          item.cardList
+            .filter((chil) => chil.image)
+            .map(
+              (chil) =>
+                `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${chil.image}`,
+            ),
+        );
 
-      // const uniqueImageUrls = Array.from(
-      //   new Set([...imageUrls, ...cardImageUrls]),
-      // );
+      const uniqueImageUrls = Array.from(
+        new Set([...imageUrls, ...cardImageUrls]),
+      );
 
-      // dispatch(setImageUrls(uniqueImageUrls));
+      dispatch(setImageUrls(uniqueImageUrls));
 
       dispatch(setCategoryOfCards(data.data));
 

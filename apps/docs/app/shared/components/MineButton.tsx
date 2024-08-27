@@ -37,12 +37,10 @@ const AnimatePresenceWrapper = dynamic(
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
 const MineButton = ({
-  ref,
   isScreenMine,
   tabScreenMine,
   isSecretFeature,
 }: {
-  ref?: any;
   isScreenMine?: boolean;
   tabScreenMine?: any;
   isSecretFeature?: boolean;
@@ -105,7 +103,7 @@ const MineButton = ({
           setPlusSigns((current) =>
             current.filter((pos) => pos.id !== newPlusSign.id),
           );
-        }, 500);
+        }, 300);
       });
     });
   };
@@ -138,7 +136,7 @@ const MineButton = ({
         user_id: user.id,
         amount: newRevenue,
       });
-    }, 1000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -165,7 +163,7 @@ const MineButton = ({
   }, [stateEnergy, isResetStateEnergy]);
 
   return (
-    <div ref={ref}>
+    <React.Fragment>
       <MotionContainer
         className={cn(
           "w-full flex justify-center items-center gap-2",
@@ -210,10 +208,13 @@ const MineButton = ({
         </div>
       )}
       {isScreenMine && tabScreenMine}
-      <div className="flex flex-col items-center justify-center w-full p-4">
+      <MotionContainer
+        type="scale"
+        className="flex flex-col items-center justify-center w-full p-4"
+      >
         <MotionContainer
           className={cn(
-            "relative user-tap-button-inner select-none cursor-pointer",
+            "relative user-tap-button-inner select-none cursor-pointer ",
             isSecretFeature && "user-tap-button-inner-secret",
           )}
           type="scale"
@@ -241,7 +242,7 @@ const MineButton = ({
             />
           </div>
           <AnimatePresenceWrapper>
-            {plusSigns.map((pos) => (
+            {plusSigns.slice(-10).map((pos) => (
               <PlusSign
                 isActive={formattedEnergy < user.tap_value ? false : true}
                 numberPlus={user.tap_value}
@@ -291,8 +292,8 @@ const MineButton = ({
             />
           </div>
         </div>
-      </div>
-    </div>
+      </MotionContainer>
+    </React.Fragment>
   );
 };
 

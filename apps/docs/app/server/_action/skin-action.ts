@@ -22,7 +22,7 @@ export const useSkins: () => UseMutationResult<
   Error,
   any
 > = () => {
-  // const { imageUrls } = useAppSelector((state) => state.app);
+  const { imageUrls } = useAppSelector((state) => state.app);
 
   const dispatch = useAppDispatch();
 
@@ -32,15 +32,15 @@ export const useSkins: () => UseMutationResult<
     onSuccess: async (data) => {
       if (!data.data) return;
 
-      // const skinImageUrls = data.data
-      //   .filter((item) => item.image)
-      //   .map((item) => item.image_url);
+      const skinImageUrls = data.data
+        .filter((item) => item.image)
+        .map((item) => item.image_url);
 
-      // const uniqueImageUrls = Array.from(
-      //   new Set([...imageUrls, ...skinImageUrls]),
-      // );
+      const uniqueImageUrls = Array.from(
+        new Set([...imageUrls, ...skinImageUrls]),
+      );
 
-      // dispatch(setImageUrls(uniqueImageUrls));
+      dispatch(setImageUrls(uniqueImageUrls));
 
       dispatch(setSkins(data.data));
 

@@ -20,7 +20,7 @@ export const useMembershipByUser: () => UseMutationResult<
   Error,
   { user_id: number }
 > = () => {
-  // const { imageUrls } = useAppSelector((state) => state.app);
+  const { imageUrls } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
 
   return useMutation<
@@ -47,15 +47,15 @@ export const useMembershipByUser: () => UseMutationResult<
           : data.data.membership.image,
       };
 
-      // const membershipImageUrl = data.data.skin
-      //   ? `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data.data.skin.image}`
-      //   : `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data.data.membership.image}`;
+      const membershipImageUrl = data.data.skin
+        ? `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data.data.skin.image}`
+        : `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${data.data.membership.image}`;
 
-      // const uniqueImageUrls = Array.from(
-      //   new Set([...imageUrls, membershipImageUrl]),
-      // );
+      const uniqueImageUrls = Array.from(
+        new Set([...imageUrls, membershipImageUrl]),
+      );
 
-      // dispatch(setImageUrls(uniqueImageUrls));
+      dispatch(setImageUrls(uniqueImageUrls));
 
       dispatch(setMembership(membershipData));
 

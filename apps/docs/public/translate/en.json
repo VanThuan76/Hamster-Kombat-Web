@@ -2,55 +2,55 @@
   "menu": {
     "exchange": "Country",
     "mine": "Build",
-    "friends": "Allies",
-    "earn": "Earn"
+    "friends": "Alliance",
+    "earn": "Mission"
   },
   "screens": {
     "exchange": {
       "buy_skin": "Buy skin",
-      "daily_reward": "Daily reward",
+      "daily_reward": "Task list",
       "daily_cipher": "Daily cipher",
-      "daily_combo": "Daily Combo"
+      "daily_combo": "Daily combo card"
     },
     "mine": {
-      "daily_combo": "Daily Combo"
+      "daily_combo": "Daily combo card"
     },
     "friends": {
       "invite_friends": "Invite friends!",
-      "des_invite_friends": "You and your friend will receive bonuses",
-      "invite_friends_card": "Invite a friend",
+      "des_invite_friends": "You and your friends will receive rewards",
+      "invite_friends_card": "Invite friends",
       "des_invite_friends_card": "for you and your friend",
-      "more_bonuses": "More Bonuses",
+      "more_bonuses": "More bonuses",
       "more_bonuses_two": "Bonus for leveling up",
       "level": "Level",
-      "for_friend": "For Friend",
-      "premium": "Premium",
-      "list_friend": "List of your friends",
-      "invite_friends_no": "You haven't invited anyone yet"
+      "for_friend": "For friend",
+      "premium": "Reward",
+      "list_friend": "Your friends list",
+      "invite_friends_no": "You haven't invited anyone"
     },
     "earn": {
-      "earn_coin": "Earn more coins",
+      "earn_coin": "Earn more money",
       "daily_tasks": "Daily tasks",
-      "task_list": "Tasks list",
-      "daily_reward": "Daily reward",
+      "task_list": "Task list",
+      "daily_reward": "Task list",
       "day_daily": "Day",
-      "des_daily_reward": "Accrue coins for logging into the game daily without skipping",
+      "des_daily_reward": "Accumulate coins when logging into the game daily without skipping. The 'collect' button must be pressed daily, otherwise the day count will reset",
       "join_telegram": "Join our TG channel",
       "join_x": "Follow our X account",
       "choose_exchange": "Choose your exchange",
       "invite_friends": "Invite 3 friends",
-      "btn_back": "Go back tomorrow",
-      "btn_require": "Request compensation",
+      "btn_back": "Come back tomorrow",
+      "btn_require": "Claim",
       "btn_choose": "Choose",
       "btn_check": "Check",
       "btn_join": "Join"
     },
     "airdrop": {
-      "des_airdrop": "Listing is on its way. Tasks will appear below. Complete them to participate in the AirDrop"
+      "des_airdrop": "Listing day is coming. Tasks will appear below. Complete them to participate in Airdrop"
     },
     "setting": {
       "title": "Settings",
-      "language": "Select language",
+      "language": "Choose language",
       "exchange": "Choose exchange",
       "delete_account": "Delete account"
     },
@@ -64,20 +64,20 @@
     },
     "boost": {
       "your_balance": "Your balance",
-      "how_boost_work": "How Boost works",
+      "how_boost_work": "How boost works",
       "free_daily_boost": "Free daily booster",
       "full_energy": "Full energy",
-      "des_full_energy": "Refill your energy to the limit and take another mining round",
+      "des_full_energy": "Recharge your energy to the limit and do another mining round",
       "free": "Free",
       "available": "available",
       "coming_soon": "Coming soon",
       "boosters": "Boosters",
-      "multitap": "Multitap",
-      "des_multitap_1": "Increase the number of coins you can earn per tap",
-      "des_multitap_2": "+1 coin per tap for level",
+      "multitap": "Multi-tap",
+      "des_multitap_1": "Increase the amount of coins you can earn per tap",
+      "des_multitap_2": "+1 coin per tap per level",
       "energy_limit": "Energy limit",
-      "des_energy_limit_1": "Increase the energy capacity",
-      "des_energy_limit_2": "+500 energy for level"
+      "des_energy_limit_1": "Increase energy capacity",
+      "des_energy_limit_2": "+500 energy per level"
     }
   },
   "components": {
@@ -90,13 +90,18 @@
     },
     "drawer_info_profit": {
       "title": "Boost your profit",
-      "description_1": "Tap the Mining menu to buy upgrades for your exchange",
-      "description_2": "Earn even when offline up to 3 hours",
+      "description_1": "Access the mining menu and buy upgrades for your exchange to boost",
+      "description_2": "earn even when offline for 3 hours",
       "start_button": "Start mining"
     },
     "drawer_change_exchange": {
-      "title": "You've signed a contract with",
+      "title": "You signed a contract with",
       "button": "Good luck!"
     }
+  },
+  "other": {
+    "not_enough_money": "Not enough money",
+    "pending_action": "Processing data...",
+    "success_action": "Upgrade successful!"
   }
 }

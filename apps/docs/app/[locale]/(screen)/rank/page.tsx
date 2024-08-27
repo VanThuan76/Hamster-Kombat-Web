@@ -145,7 +145,7 @@ export default function Page(): JSX.Element {
                 {membership.name.toLowerCase() === item.name.toLowerCase() ? (
                   <>
                     <TypographySmall
-                      text={`${Math.round(user.revenue).toLocaleString(
+                      text={`${Math.round(user.highest_score).toLocaleString(
                         "en-US",
                         {
                           minimumFractionDigits: 0,

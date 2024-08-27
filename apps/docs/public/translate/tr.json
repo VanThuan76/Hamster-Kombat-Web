@@ -1,43 +1,43 @@
 {
   "menu": {
-    "exchange": "Takas",
-    "mine": "Madencilik",
-    "friends": "Arkadaşlar",
-    "earn": "Kazan"
+    "exchange": "Ülke",
+    "mine": "İnşaat",
+    "friends": "İttifak",
+    "earn": "Görevler"
   },
   "screens": {
     "exchange": {
       "buy_skin": "Skin Satın Al",
-      "daily_reward": "Günlük Ödül",
+      "daily_reward": "Görev Listesi",
       "daily_cipher": "Günlük Şifre",
-      "daily_combo": "Günlük Kombinasyon"
+      "daily_combo": "Günlük Kombinasyon Kartı"
     },
     "mine": {
-      "daily_combo": "Günlük Kombinasyon"
+      "daily_combo": "Günlük Kombinasyon Kartı"
     },
     "friends": {
       "invite_friends": "Arkadaşlarını Davet Et!",
-      "des_invite_friends": "Sen ve arkadaşın bonus alacaksınız",
-      "invite_friends_card": "Bir arkadaşını davet et",
-      "des_invite_friends_card": "senin ve arkadaşının",
+      "des_invite_friends": "Sen ve arkadaşların ödül kazanacak",
+      "invite_friends_card": "Arkadaş Davet Et",
+      "des_invite_friends_card": "senin ve arkadaşın için",
       "more_bonuses": "Daha Fazla Bonus",
-      "more_bonuses_two": "Seviye atlama bonusu",
+      "more_bonuses_two": "Seviye Atlama Bonusu",
       "level": "Seviye",
       "for_friend": "Arkadaş İçin",
-      "premium": "Premium",
-      "list_friend": "Arkadaşlarının Listesi",
+      "premium": "Ödüller",
+      "list_friend": "Arkadaş Listesi",
       "invite_friends_no": "Henüz kimseyi davet etmedin"
     },
     "earn": {
       "earn_coin": "Daha Fazla Para Kazan",
       "daily_tasks": "Günlük Görevler",
       "task_list": "Görev Listesi",
-      "daily_reward": "Günlük Ödül",
+      "daily_reward": "Görev Listesi",
       "day_daily": "Gün",
-      "des_daily_reward": "Güne her gün oyuna giriş yaparak para kazan",
+      "des_daily_reward": "Her gün oyuna giriş yaparak madeni para biriktir. 'Topla' butonuna her gün basılmalıdır, aksi takdirde gün sayımı sıfırlanır.",
       "join_telegram": "TG kanalımıza katıl",
       "join_x": "X hesabımızı takip et",
-      "choose_exchange": "Takasınızı seçin",
+      "choose_exchange": "Borsanızı seçin",
       "invite_friends": "3 arkadaşını davet et",
       "btn_back": "Yarın geri dön",
       "btn_require": "Tazminat talep et",
@@ -46,21 +46,21 @@
       "btn_join": "Katıl"
     },
     "airdrop": {
-      "des_airdrop": "Listeleme yolda. Görevler aşağıda görünecek. Katılmak için tamamlayın"
+      "des_airdrop": "Listeleme yaklaşıyor. Görevler aşağıda görünecek. Airdrop’a katılmak için görevleri tamamlayın."
     },
     "setting": {
       "title": "Ayarlar",
       "language": "Dil seçin",
-      "exchange": "Takas seçin",
+      "exchange": "Borsa seçin",
       "delete_account": "Hesabı Sil"
     },
     "skin": {
       "profile": "Profil",
-      "skin": "Skin",
+      "skin": "Kostüm",
       "purchased": "Satın Alındı"
     },
     "rank": {
-      "from": "den"
+      "from": "dan"
     },
     "boost": {
       "your_balance": "Bakiyeniz",
@@ -74,30 +74,34 @@
       "boosters": "Güçlendiriciler",
       "multitap": "Çoklu dokunuş",
       "des_multitap_1": "Her dokunuşta kazanabileceğiniz madeni para sayısını artırın",
-      "des_multitap_2": "Çin dokunuş başına +1 madeni para, Seviye",
+      "des_multitap_2": "Her dokunuşta +1 madeni para, Seviye",
       "energy_limit": "Enerji sınırı",
       "des_energy_limit_1": "Enerji kapasitesini artırın",
-      "des_energy_limit_2": "Çin +500 enerji, Seviye"
+      "des_energy_limit_2": "Seviye başına +500 enerji"
     }
-    
   },
   "components": {
     "mine_button": {
       "daily_cipher": "Günlük Şifre",
-      "boost": "Hızlandır"
+      "boost": "Güçlendir"
     },
     "card_profit": {
       "profit_by_hour": "Saatlik Kar"
     },
     "drawer_info_profit": {
       "title": "Karınızı Artırın",
-      "description_1": "Madencilik menüsüne tıklayarak takasınız için yükseltmeler satın alın",
-      "description_2": "Çevrimdışı olduğunuzda bile 3 saate kadar para kazanın",
+      "description_1": "Madencilik menüsüne gidin ve borsanız için yükseltmeler satın alın",
+      "description_2": "3 saate kadar çevrimdışı bile olsanız para kazanın",
       "start_button": "Madenciliğe Başla"
     },
     "drawer_change_exchange": {
-      "title": "Şu şirketle sözleşme imzaladınız",
+      "title": "Bu şirketle sözleşme imzaladınız",
       "button": "Bol Şans!"
     }
+  },
+  "other": {
+    "not_enough_money": "Yeterli para yok",
+    "pending_action": "Veri işleniyor...",
+    "success_action": "Başarıyla yükseltildi!"
   }
 }

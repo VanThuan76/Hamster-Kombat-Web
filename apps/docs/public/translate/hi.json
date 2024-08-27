@@ -1,103 +1,107 @@
 {
   "menu": {
-    "exchange": "विनिमय",
-    "mine": "माइन",
-    "friends": "मित्र",
-    "earn": "कमाना"
+    "exchange": "देश",
+    "mine": "निर्माण",
+    "friends": "सहयोग",
+    "earn": "मिशन"
   },
   "screens": {
     "exchange": {
       "buy_skin": "स्किन खरीदें",
-      "daily_reward": "दैनिक इनाम",
-      "daily_cipher": "दैनिक कोड",
-      "daily_combo": "दैनिक संयोजन"
+      "daily_reward": "कार्य सूची",
+      "daily_cipher": "दैनिक सिफर",
+      "daily_combo": "दैनिक कॉम्बो कार्ड"
     },
     "mine": {
-      "daily_combo": "दैनिक संयोजन"
+      "daily_combo": "दैनिक कॉम्बो कार्ड"
     },
     "friends": {
       "invite_friends": "मित्रों को आमंत्रित करें!",
-      "des_invite_friends": "आप और आपके मित्र बोनस प्राप्त करेंगे",
-      "invite_friends_card": "मित्र को आमंत्रित करें",
-      "des_invite_friends_card": "आप और आपके मित्र के लिए",
+      "des_invite_friends": "आप और आपके मित्र पुरस्कार प्राप्त करेंगे",
+      "invite_friends_card": "मित्रों को आमंत्रित करें",
+      "des_invite_friends_card": "आप और आपके मित्र को पुरस्कार मिलेंगे",
       "more_bonuses": "अधिक बोनस",
-      "more_bonuses_two": "लेवल अप के लिए बोनस",
+      "more_bonuses_two": "लेवल बोनस",
       "level": "लेवल",
       "for_friend": "मित्र के लिए",
-      "premium": "प्रीमियम",
-      "list_friend": "आपके मित्रों की सूची",
-      "invite_friends_no": "आपने अभी तक किसी को आमंत्रित नहीं किया है"
+      "premium": "प्रिमियम पुरस्कार",
+      "list_friend": "आपकी मित्र सूची",
+      "invite_friends_no": "आपने किसी को आमंत्रित नहीं किया"
     },
     "earn": {
-      "earn_coin": "अधिक सिक्के कमाएं",
+      "earn_coin": "और अधिक पैसे कमाएं",
       "daily_tasks": "दैनिक कार्य",
       "task_list": "कार्य सूची",
-      "daily_reward": "दैनिक इनाम",
+      "daily_reward": "कार्य सूची",
       "day_daily": "दिन",
-      "des_daily_reward": "हर दिन बिना छूट के खेल में लॉगिन करके सिक्के जमा करें",
-      "join_telegram": "हमारे TG चैनल से जुड़ें",
-      "join_x": "हमारे X अकाउंट का अनुसरण करें",
-      "choose_exchange": "अपना विनिमय चुनें",
+      "des_daily_reward": "हर दिन खेल में लॉग इन करके सिक्के जमा करें। यदि आप किसी भी दिन 'इकट्ठा करें' बटन नहीं दबाते हैं, तो दिन काउंटर रीसेट हो जाएगा",
+      "join_telegram": "हमारे TG चैनल में शामिल हों",
+      "join_x": "हमारा X अकाउंट फॉलो करें",
+      "choose_exchange": "अपना एक्सचेंज चुनें",
       "invite_friends": "3 मित्रों को आमंत्रित करें",
-      "btn_back": "कल वापस जाएं",
-      "btn_require": "मुआवजा मांगें",
+      "btn_back": "कल वापस आएं",
+      "btn_require": "माँगें",
       "btn_choose": "चुनें",
-      "btn_check": "जांचें",
-      "btn_join": "जुड़ें"
+      "btn_check": "चेक करें",
+      "btn_join": "शामिल हों"
     },
     "airdrop": {
-      "des_airdrop": "सूचीकरण हो रहा है। कार्य नीचे दिखाई देंगे। एअरड्रॉप में भाग लेने के लिए उन्हें पूरा करें"
+      "des_airdrop": "लिस्टिंग का दिन आ रहा है। नीचे दिए गए कार्य पूरे करें और एयरड्रॉप में भाग लें"
     },
     "setting": {
       "title": "सेटिंग्स",
       "language": "भाषा चुनें",
-      "exchange": "विनिमय चुनें",
-      "delete_account": "खाता हटाएं"
+      "exchange": "एक्सचेंज चुनें",
+      "delete_account": "अकाउंट डिलीट करें"
     },
     "skin": {
       "profile": "प्रोफ़ाइल",
       "skin": "स्किन",
-      "purchased": "खरीदी गई"
+      "purchased": "खरीदा गया"
     },
     "rank": {
       "from": "से"
     },
     "boost": {
-      "your_balance": "आपका शेष",
+      "your_balance": "आपका बैलेंस",
       "how_boost_work": "बूस्ट कैसे काम करता है",
-      "free_daily_boost": "नि:शुल्क दैनिक बूस्टर",
+      "free_daily_boost": "मुफ़्त दैनिक बूस्ट",
       "full_energy": "पूर्ण ऊर्जा",
-      "des_full_energy": "अपनी ऊर्जा को सीमा तक भरें और एक और खनन राउंड करें",
-      "free": "नि:शुल्क",
+      "des_full_energy": "अपनी ऊर्जा को पूर्ण रूप से रिचार्ज करें और एक अतिरिक्त माइनिंग राउंड खेलें",
+      "free": "मुफ़्त",
       "available": "उपलब्ध",
-      "coming_soon": "जल्द ही आ रहा है",
-      "boosters": "बूस्टर",
-      "multitap": "मल्टीटैप",
-      "des_multitap_1": "प्रत्येक टैप पर आप कितने सिक्के कमा सकते हैं उसे बढ़ाएँ",
-      "des_multitap_2": "प्रति टैप +1 सिक्का, स्तर",
+      "coming_soon": "जल्द आ रहा है",
+      "boosters": "बूस्टर्स",
+      "multitap": "मल्टी-टैप",
+      "des_multitap_1": "टैप करने पर आप अधिक सिक्के कमा सकते हैं",
+      "des_multitap_2": "हर स्तर पर +1 सिक्का प्रति टैप",
       "energy_limit": "ऊर्जा सीमा",
-      "des_energy_limit_1": "ऊर्जा क्षमता बढ़ाएँ",
-      "des_energy_limit_2": "+500 ऊर्जा, स्तर"
+      "des_energy_limit_1": "ऊर्जा क्षमता बढ़ाएं",
+      "des_energy_limit_2": "प्रति स्तर +500 ऊर्जा"
     }
-    
   },
   "components": {
     "mine_button": {
-      "daily_cipher": "दैनिक कोड",
+      "daily_cipher": "दैनिक सिफर",
       "boost": "बूस्ट"
     },
     "card_profit": {
-      "profit_by_hour": "प्रति घंटे लाभ"
+      "profit_by_hour": "प्रति घंटा लाभ"
     },
     "drawer_info_profit": {
       "title": "अपने लाभ को बढ़ाएं",
-      "description_1": "अपनी विनिमय के लिए अपग्रेड खरीदने के लिए माइनिंग मेनू पर टैप करें",
-      "description_2": "ऑफ़लाइन रहते हुए भी 3 घंटे तक कमाएं",
+      "description_1": "माइनिंग मेनू में जाएं और अपने एक्सचेंज को अपग्रेड करें जिससे आपके लाभ बढ़ेंगे",
+      "description_2": "3 घंटे तक ऑफलाइन रहते हुए भी कमा सकते हैं",
       "start_button": "माइनिंग शुरू करें"
     },
     "drawer_change_exchange": {
       "title": "आपने अनुबंध पर हस्ताक्षर किए हैं",
-      "button": "शुभकामनाएँ!"
+      "button": "शुभकामनाएं!"
     }
+  },
+  "other": {
+    "not_enough_money": "पर्याप्त पैसे नहीं हैं",
+    "pending_action": "डेटा संसाधित किया जा रहा है...",
+    "success_action": "सफलतापूर्वक अपडेट किया गया!"
   }
 }
