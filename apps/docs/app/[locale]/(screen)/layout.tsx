@@ -1,24 +1,25 @@
 "use client";
 
+import Image from "next/image";
+
 import LazyWrapper from "@ui/components/motion/LazyWrapper";
 
 import DrawerProvider from "@shared/drawer";
 import useProfitByHour from "@shared/hooks/useProfitByHour";
 
-import { BottomNav } from "../../@navigator/BottomNav";
-
 import { useAppSelector } from "@shared/redux/store";
-import Image from "next/image";
 import useImagePreloader from "@shared/hooks/useImagePreloader";
+
+import { BottomNav } from "../../@navigator/BottomNav";
 
 export default function ScreenLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { imageUrls } = useAppSelector((state) => state.app);
+//   const { imageUrls } = useAppSelector((state) => state.app);
 
-  const isPreloaded = useImagePreloader(imageUrls);
+//   const isPreloaded = useImagePreloader(imageUrls);
 
   useProfitByHour();
 
@@ -27,8 +28,8 @@ export default function ScreenLayout({
       <LazyWrapper>{children}</LazyWrapper>
       <BottomNav />
       <DrawerProvider />
-      {isPreloaded && (
-        <div className="invisible pointer-events-none touch-none w-0 h-0">
+      {/* {isPreloaded && (
+        <div className="invisible w-0 h-0 pointer-events-none touch-none">
           {imageUrls.map((url, index) => (
             <Image
               key={index}
@@ -43,7 +44,7 @@ export default function ScreenLayout({
             />
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 }

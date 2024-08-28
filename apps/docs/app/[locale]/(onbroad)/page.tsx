@@ -1,29 +1,19 @@
 "use client";
 
-import ImageNext from "next/image";
 import React, { useEffect } from "react";
 
 import { useRouter } from "@shared/next-intl/navigation";
 import { userLoginAction } from "@server/_action/user-action";
-import { useAppSelector } from "@shared/redux/store";
 
 import useInitFetchData from "@shared/hooks/useInitFetchData";
 import useServiceWorker from "@shared/hooks/useServiceWorker";
 
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
-import useLocalStorage from "@shared/hooks/useLocalStorage";
 
 const OnBroadingPage = () => {
   const router = useRouter();
   const userInitAction = userLoginAction();
-
-  const [isPreloaded, setIsPreloaded] = useLocalStorage<boolean>(
-    "cachedImageUrls",
-    false,
-  );
-
-  const { imageUrls } = useAppSelector((state) => state.app);
 
   const { initialized, progress } = useInitFetchData(userInitAction, () => {});
 
@@ -33,28 +23,7 @@ const OnBroadingPage = () => {
     }
   }, [initialized, router]);
 
-  useEffect(() => {
-    const preloadImage = (url: string, timeout: number = 300) => {
-      return Promise.race([
-        new Promise<void>((resolve) => {
-          const img = new Image();
-          img.src = url;
-          img.onload = () => resolve();
-        }),
-        new Promise<void>((_, reject) =>
-          setTimeout(() => reject(new Error("Timeout")), timeout),
-        ),
-      ]);
-    };
-
-    if (!isPreloaded) {
-      Promise.all(
-        imageUrls.map((url) => preloadImage(url).catch(() => null)),
-      ).then(() => setIsPreloaded(true));
-    }
-  }, [isPreloaded, imageUrls, setIsPreloaded]);
-
-  useServiceWorker();
+//   useServiceWorker();
 
   return (
     <div className="relative w-full flex flex-col items-end justify-end h-screen bg-[url('/project/bg_onbroad.jpg')] bg-cover bg-no-repeat bg-center">
@@ -107,25 +76,6 @@ const OnBroadingPage = () => {
           className="mt-2 text-5xl font-black text-white"
         />
       </div>
-      {/* Fetch Dynamic Image */}
-      {/* {isPreloaded && (
-        <div className="invisible pointer-events-none touch-none w-0 h-0">
-          {imageUrls.map((url, index) => (
-            <ImageNext
-              key={index}
-              src={url}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              alt={`Image ${index}`}
-              width={500}
-              height={300}
-              layout="responsive"
-              loading="lazy"
-              decoding="async"
-            />
-          ))}
-        </div>
-      )}
-      */}
     </div>
   );
 };

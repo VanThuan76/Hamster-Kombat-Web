@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@shared/redux/store";
+import { useAppSelector } from "@shared/redux/store";
 import { toast } from "@shared/hooks/useToast";
 
 import { useFriends, useRankUsers } from "@server/_action/user-action";
@@ -11,17 +11,17 @@ import {
 import { useCategoryOfCardByUser } from "@server/_action/card-action";
 import { useSkins } from "@server/_action/skin-action";
 import { useEarnByUser } from "@server/_action/earn-action";
-import { setInitialized } from "@shared/redux/store/appSlice";
 
 const useInitFetchData = (
   userInitAction: any,
   onComponentLoadComplete: () => void,
 ) => {
-  const dispatch = useAppDispatch();
-  const { initialized, initDataTelegram } = useAppSelector(
+  const { initDataTelegram } = useAppSelector(
     (state) => state.app,
   );
+
   const [progress, setProgress] = useState(0);
+  const [initialized, setInitialized] = useState(false);
 
   const actions = [
     useExchanges(),
@@ -67,7 +67,6 @@ const useInitFetchData = (
 
       const totalTasks = actions.length;
       let completedTasks = 0;
-      let hasErrors = false;
 
       const tasks = actions
         .map((action, index) => {
@@ -76,7 +75,6 @@ const useInitFetchData = (
               variant: "error",
               title: `Action at index ${index} is not defined or does not have a mutateAsync method.`,
             });
-            hasErrors = true;
             return null;
           }
 
@@ -114,18 +112,15 @@ const useInitFetchData = (
                 variant: "error",
                 title: `Task ${index + 1} failed: ${error.message}`,
               });
-              hasErrors = true;
             });
         })
         .filter(Boolean);
 
       await Promise.allSettled(tasks);
 
-      if (!hasErrors) {
-        dispatch(setInitialized(true));
-      }
-
+      setInitialized(true)
       onComponentLoadComplete();
+
     } catch (error) {
       console.error("Error initializing app:", error);
     }

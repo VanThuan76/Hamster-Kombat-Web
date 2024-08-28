@@ -10,7 +10,6 @@ import { IFriend, IRankUsers } from "@server/_types/user";
 
 import { DrawerProps } from "@shared/hooks/useDraw";
 export interface IDefaultState {
-  initialized: boolean;
   initDataTelegram: any;
   imageUrls: string[] | [];
   user: {
@@ -70,7 +69,6 @@ export interface IDefaultState {
 }
 
 const initialState: IDefaultState = {
-  initialized: false,
   initDataTelegram: undefined,
   imageUrls: [],
   user: {
@@ -137,9 +135,6 @@ export const appSlice: any = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setInitialized: (state, action: PayloadAction<boolean>) => {
-      state.initialized = action.payload;
-    },
     setInitDataTelegram: (state, action: PayloadAction<any>) => {
       state.initDataTelegram = action.payload;
     },
@@ -232,7 +227,6 @@ export const appSlice: any = createSlice({
 });
 
 export const {
-  setInitialized,
   setInitDataTelegram,
   setImageUrls,
   setIsAnimatedCouterCoin,
