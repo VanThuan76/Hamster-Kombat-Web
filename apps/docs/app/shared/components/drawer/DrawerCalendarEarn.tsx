@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
@@ -26,8 +27,8 @@ export default function DrawerCalendarEarn(): JSX.Element {
   const [lastDateChecked, setLastDateChecked] = useLocalStorage<
     string | undefined
   >("last_date_checked", "");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
-  const isDrawerOpen = isOpen && type === "calendarEarn";
   const now = new Date();
   const today = now.toISOString().split("T")[0];
   const dayLastCompleted = earns
@@ -60,6 +61,14 @@ export default function DrawerCalendarEarn(): JSX.Element {
 
     onClose();
   }
+
+  useEffect(() => {
+    if (isOpen && type === "calendarEarn") {
+      setIsDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(false)
+    }
+  }, [isOpen, type]);
 
   return (
     <Drawer

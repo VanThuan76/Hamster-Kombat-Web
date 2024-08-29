@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
 
@@ -15,9 +15,19 @@ import { useDraw } from "@shared/hooks/useDraw";
 
 export default function DrawerInfoProfit(): JSX.Element {
   const { isOpen, onClose, type } = useDraw();
-  const isDrawerOpen = isOpen && type === "infoProfit";
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const t = useTranslations("components.drawer_info_profit");
+
+
+  useEffect(() => {
+    if (isOpen && type === "infoProfit") {
+      setIsDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(false)
+    }
+  }, [isOpen, type]);
 
   return (
     <Drawer

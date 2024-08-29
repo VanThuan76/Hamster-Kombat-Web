@@ -1,4 +1,3 @@
-"use client";
 import { m } from "framer-motion";
 
 const MotionPlusSign = ({
@@ -18,7 +17,13 @@ const MotionPlusSign = ({
 }) => {
   return (
     <m.div
-      style={{ position: "absolute", left: x, top: y, zIndex: 99 }}
+      style={{
+        position: "absolute",
+        left: x,
+        top: y,
+        zIndex: 99,
+        willChange: "transform, opacity"
+      }}
       layoutId={layoutId}
       initial={{ scale: 0.5, opacity: 1 }}
       animate={{ scale: 1, y: -100, opacity: 0 }}

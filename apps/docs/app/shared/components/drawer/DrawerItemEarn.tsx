@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
 
@@ -25,10 +25,11 @@ const { initUtils } = require("@telegram-apps/sdk-react");
 
 export default function DrawerItemEarn(): JSX.Element {
   const [timeYt, setTimeYt] = useLocalStorage<any>("current_time_yt", "");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const { earns, user } = useAppSelector((state) => state.app);
   const { isOpen, data, onClose, type } = useDraw();
-  const isDrawerOpen = isOpen && type === "itemEarn";
+
 
   const dispatch = useAppDispatch();
   const t = useTranslations("screens.earn");
@@ -85,7 +86,7 @@ export default function DrawerItemEarn(): JSX.Element {
           title: "Bạn chưa chọn sàn giao dịch",
         });
       } else {
-        await dispatch(setUpdateRevenue(user.revenue + earn.reward)); // Cộng phần thưởng
+        dispatch(setUpdateRevenue(user.revenue + earn.reward)); // Cộng phần thưởng
         onClose(); // Đóng cửa sổ nếu có
 
         await updateEarn.mutateAsync({
@@ -111,6 +112,14 @@ export default function DrawerItemEarn(): JSX.Element {
     }
     onClose();
   }
+
+  useEffect(() => {
+    if (isOpen && type === "itemEarn") {
+      setIsDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(false)
+    }
+  }, [isOpen, type]);
 
   if (!data) return <></>;
 

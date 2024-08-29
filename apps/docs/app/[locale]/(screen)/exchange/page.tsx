@@ -142,7 +142,7 @@ export default function Page(): JSX.Element {
   useBackButton();
 
   return (
-    <div className="relative w-full h-full overflow-hidden overflow-y-auto">
+    <div className="relative w-full h-full pb-6 overflow-hidden overflow-y-auto">
       <div className="p-4">
         {user !== undefined ? (
           <UserCardExist

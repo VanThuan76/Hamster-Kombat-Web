@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@shared/next-intl/navigation";
@@ -78,7 +77,6 @@ const MineButton = ({
   const updateRevenue = useUpdateRevenue();
 
   const handleCardTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    e.preventDefault(); // Ngăn chặn sự kiện mặc định
 
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import { useEffect, useState } from "react";
 import { useDraw } from "@shared/hooks/useDraw";
 
 import Drawer from "@ui/components/drawer";
@@ -13,7 +13,15 @@ import InfoWalletTON from "../InfoWalletTON";
 const DrawerWalletConnect = () => {
   const { isOpen, onClose, type } = useDraw();
 
-  const isDrawerOpen = isOpen && type === "walletConnect";
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  useEffect(() => {
+    if (isOpen && type === "walletConnect") {
+      setIsDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(false)
+    }
+  }, [isOpen, type]);
 
   return (
     <Drawer

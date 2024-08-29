@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
 
@@ -22,7 +23,8 @@ import { useUpdateBoost } from "@server/_action/boost-action";
 export default function DrawerEnergyBoost(): JSX.Element {
   const { user, stateBoostEnergy } = useAppSelector((state) => state.app);
   const { isOpen, data, onClose, type } = useDraw();
-  const isDrawerOpen = isOpen && type === "energyBoost";
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const t = useTranslations("screens.boost");
 
@@ -54,6 +56,14 @@ export default function DrawerEnergyBoost(): JSX.Element {
       console.error("Error in handleSuccess:", error);
     }
   }
+
+  useEffect(() => {
+    if (isOpen && type === "energyBoost") {
+      setIsDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(false)
+    }
+  }, [isOpen, type]);
 
   return (
     <Drawer

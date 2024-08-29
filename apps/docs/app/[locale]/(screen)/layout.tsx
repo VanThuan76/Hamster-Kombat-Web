@@ -24,7 +24,7 @@ export default function ScreenLayout({
   useProfitByHour();
 
   return (
-    <div className="relative w-full h-full bg-black !text-white border-none m-0 p-0">
+    <div className="relative w-full h-full bg-black !text-white border-none m-0 p-0 overflow-hidden">
       <LazyWrapper>{children}</LazyWrapper>
       <BottomNav />
       <DrawerProvider />

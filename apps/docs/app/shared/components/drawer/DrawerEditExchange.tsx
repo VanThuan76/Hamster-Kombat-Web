@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
@@ -19,8 +20,9 @@ export default function DrawerEditExchange(): JSX.Element {
   const { user } = useAppSelector((state) => state.app);
   const { isOpen, onClose, type } = useDraw();
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
   const haptic = initHapticFeedback();
-  const isDrawerOpen = isOpen && type === "editExchange";
 
   const t = useTranslations("components.drawer_change_exchange");
 
@@ -28,6 +30,15 @@ export default function DrawerEditExchange(): JSX.Element {
     haptic.impactOccurred("soft");
     onClose();
   }
+
+
+  useEffect(() => {
+    if (isOpen && type === "editExchange") {
+      setIsDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(false)
+    }
+  }, [isOpen, type]);
 
   return (
     <Drawer
