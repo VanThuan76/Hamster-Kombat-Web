@@ -205,9 +205,7 @@ export default function Page(): JSX.Element {
                             ) {
                               onOpen("cardMine", {
                                 ...item,
-                                hasBuy:
-                                  currentCardProfit.required_money <
-                                  user.revenue,
+                                hasBuy: currentCardProfit && currentCardProfit.next_level && currentCardProfit.next_level.required_money < user.revenue
                               });
                             }
                           }}
@@ -256,9 +254,7 @@ export default function Page(): JSX.Element {
                                       className={cn(
                                         "w-full h-full",
                                         (isActiveCard && "coin-is-grayscale") ||
-                                          (currentCardProfit.required_money >
-                                            user.revenue &&
-                                            "coin-is-grayscale"),
+                                        (currentCardProfit && currentCardProfit.next_level && currentCardProfit.next_level.required_money > user.revenue  && "coin-is-grayscale"),
                                       )}
                                     />
                                   </div>
@@ -285,9 +281,7 @@ export default function Page(): JSX.Element {
                               height={18}
                               className={cn(
                                 (isActiveCard && "coin-is-grayscale") ||
-                                  (currentCardProfit.required_money >
-                                    user.revenue &&
-                                    "coin-is-grayscale"),
+                                (currentCardProfit && currentCardProfit.next_level && currentCardProfit.next_level.required_money > user.revenue  && "coin-is-grayscale"),
                               )}
                             />
                             <div className="flex flex-wrap items-center justify-center gap-1 leading-3">

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
+
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@shared/next-intl/navigation";
-import { useInView } from "react-intersection-observer";
 
 import { cn } from "@ui/lib/utils";
 import { Button } from "@ui/components/button";
@@ -23,7 +24,6 @@ import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import { useBuySkin } from "@server/_action/skin-action";
 import { setMembership, setUpdateRevenue } from "@shared/redux/store/appSlice";
 import { useUpdateSkin } from "@server/_action/user-action";
-import Image from "next/image";
 
 const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 
@@ -74,11 +74,6 @@ export default function Page(): JSX.Element {
   const router = useRouter();
   const haptic = initHapticFeedback();
 
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.15,
-  });
-
   const { user, skins, membership, ranks } = useAppSelector(
     (state) => state.app,
   );
@@ -86,8 +81,6 @@ export default function Page(): JSX.Element {
   const [currentTarget, setCurrentTarget] = useState(
     skins.findIndex((skin) => skin.id === user.skin_id),
   );
-
-  const [visibleItems, setVisibleItems] = useState(20);
 
   const avatarImage =
     process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + membership.image;
@@ -144,14 +137,9 @@ export default function Page(): JSX.Element {
     }
   }
 
-  useEffect(() => {
-    if (inView) {
-      setVisibleItems(skins.length);
-    }
-  }, [inView, skins.length]);
-
   useBackButton();
 
+  console.log(skins)
   return (
     <div className="relative w-full h-screen space-y-2 overflow-y-auto text-center bg-black">
       <div className="flex items-center justify-center w-full px-5 py-2">
@@ -274,11 +262,9 @@ export default function Page(): JSX.Element {
           onSlideChange={setCurrentTarget}
         />
         <CardContent
-          ref={ref}
           className="grid items-center justify-center w-full grid-cols-4 gap-2 p-0 mt-5"
         >
-          {inView &&
-            skins.slice(0, visibleItems).map((item, i) => {
+          {skins.map((item, i) => {
               return (
                 <div
                   key={i}
@@ -295,7 +281,7 @@ export default function Page(): JSX.Element {
                       height={62}
                       alt={item.name}
                       priority={true}
-                      className="object-center w-full h-full object-contain"
+                      className="object-contain object-center w-full h-full"
                     />
                   </div>
                   <TypographySmall

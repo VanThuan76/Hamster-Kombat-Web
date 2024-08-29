@@ -37,7 +37,7 @@ const CardProfit = React.memo(() => {
         shallow
         passHref
         onClick={() => haptic.impactOccurred("soft")}
-        className="transition-all duration-300 ease-in-out flex items-start justify-start pr-4"
+        className="flex items-start justify-start pr-4 transition-all duration-300 ease-in-out"
       >
         <Image
           src={user.exchange.icon}
@@ -45,7 +45,7 @@ const CardProfit = React.memo(() => {
           height={20}
           alt="@userPlus"
           priority={true}
-          className="w-[20px] h-[20px]"
+          className="object-cover object-center w-full h-full"
         />
       </Link>
       <Separator orientation="vertical" className="bg-[#ffffff1a] w-[1px]" />

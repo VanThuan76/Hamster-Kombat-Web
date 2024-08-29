@@ -24,8 +24,6 @@ module.exports = withPlugins([withImages, withNextIntl, withBundleAnalyzer], {
   },
   webpack(config, options) {
     if (options.isServer) {
-      // Remove the image preloading section if not needed
-      // Add any additional webpack configuration if necessary
     }
     return config;
   }
