@@ -15,9 +15,10 @@ type DynamicNavigationSwiperProps = {
     className?: string;
     activeSlideChange?: number;
     onSlideChange?: (index: number) => void;
+    isNavigation?: boolean
 };
 
-const DynamicNavigationSwiper: React.FC<DynamicNavigationSwiperProps> = ({ items, isRank = true, className, activeSlideChange, onSlideChange }) => {
+const DynamicNavigationSwiper: React.FC<DynamicNavigationSwiperProps> = ({ items, isRank = true, className, activeSlideChange, onSlideChange, isNavigation = true }) => {
     const swiperRef = useRef<any>(null);
     const [activeSlide, setActiveSlide] = useState<number>(activeSlideChange || 0);
 
@@ -30,7 +31,7 @@ const DynamicNavigationSwiper: React.FC<DynamicNavigationSwiperProps> = ({ items
 
     return (
         <Swiper
-            navigation={true}
+            navigation={isNavigation}
             modules={[Navigation]}
             className={cn(isRank && "swiper", className)}
             onSlideChange={(swiper: any) => {
