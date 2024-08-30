@@ -72,7 +72,7 @@ export default function DrawerItemEarn(): JSX.Element {
           } else {
             toast({
               variant: "error",
-              title: "Xin vui lòng chờ 30p sau khi xem video",
+              title: t("wait")
             });
           }
         } else {
@@ -82,7 +82,7 @@ export default function DrawerItemEarn(): JSX.Element {
       } else if (!containsHttps(earn.link)) {
         toast({
           variant: "error",
-          title: "Bạn chưa chọn sàn giao dịch",
+          title: t("choose_exchange_no")
         });
       } else {
         await dispatch(setUpdateRevenue(user.revenue + earn.reward)); // Cộng phần thưởng
@@ -144,7 +144,7 @@ export default function DrawerItemEarn(): JSX.Element {
               onClick={() => handleChoosen(data)}
             >
               <TypographyLarge
-                text={containsYoutube(data.link) ? "Xem video" : "Tham gia"}
+                text={containsYoutube(data.link) ? t("watch_video") : t("btn_join")}
                 className="text-[18px] font-bold text-white"
               />
             </Button>
@@ -169,7 +169,7 @@ export default function DrawerItemEarn(): JSX.Element {
                 earns.find((item) => item.type === 3)?.earn[0]?.is_completed ===
                 0
                   ? t("btn_require")
-                  : "Kiểm tra"
+                  : t("btn_check")
               }
               className="text-xl font-bold text-white"
             />

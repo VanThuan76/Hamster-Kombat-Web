@@ -106,7 +106,7 @@ export default function Page(): JSX.Element {
         onClick={() => onOpen("walletConnect")}
       >
         <TypographySmall
-          text="Danh sách công việc"
+          text={t("list")}
           className="mt-5 text-base text-white"
         />
         <div
@@ -128,7 +128,7 @@ export default function Page(): JSX.Element {
             </MotionContainer>
             <div className="flex flex-col items-start justify-start">
               <TypographySmall
-                text="Kết nối ví TON của bạn"
+                text={t("connect")}
                 className="text-[14px] text-white font-extralight"
               />
             </div>

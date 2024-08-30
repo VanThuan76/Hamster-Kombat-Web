@@ -9,8 +9,10 @@ import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
 
 import InfoWalletTON from "../InfoWalletTON";
+import { useTranslations } from "next-intl";
 
 const DrawerWalletConnect = () => {
+  const t = useTranslations("screens.airdrop")
   const { isOpen, onClose, type } = useDraw();
 
   const isDrawerOpen = isOpen && type === "walletConnect";
@@ -35,11 +37,11 @@ const DrawerWalletConnect = () => {
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-5">
           <TypographyLarge
-            text="Kết nối ví TON của bạn"
+            text={t("connect")}
             className="text-white text-[32px] font-bold"
           />
           <TypographySmall
-            text="Kết nối ví tiền điện tử của bạn.  Nếu bạn chưa có, hãy tạo một cái trong tài khoản Telegram của bạn"
+            text={t("connect2")}
             className="text-white text-[14px] max-w-[280px] font-normal"
           />
         </div>

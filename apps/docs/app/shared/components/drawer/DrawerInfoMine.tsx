@@ -39,7 +39,7 @@ export default function DrawerInfoMine(): JSX.Element {
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-5">
           <TypographySmall
-            text="Tìm 3 thẻ kết hợp và nâng cấp chúng để nhận giải thưởng!"
+            text={t("find_card")}
             className="text-white text-[16px] font-normal mt-3 text-center"
           />
         </div>
@@ -48,7 +48,7 @@ export default function DrawerInfoMine(): JSX.Element {
           onClick={onClose}
         >
           <TypographyLarge
-            text="Chúc bạn may mắn!"
+            text={t("good_luck")}
             className="text-xl font-bold text-white"
           />
           <CoinIcon width={28} height={28} />

@@ -134,7 +134,7 @@ export default function Page(): JSX.Element {
                       align="start"
                     >
                       <TypographySmall
-                        text="Tìm thẻ kết hợp bên dưới và nâng cấp nó lên"
+                        text={t("matching_card")}
                         className="text-white text-[11px] text-center leading-3"
                       />
                     </PopoverContent>
@@ -245,7 +245,7 @@ export default function Page(): JSX.Element {
                               />
                               <div className="flex flex-col items-start justify-start">
                                 <TypographySmall
-                                  text="Lợi nhuận mỗi giờ"
+                                  text={t("profit")}
                                   className="text-[#8b8e93] text-[10px] font-extralight"
                                 />
                                 <div className="flex items-center justify-center gap-1">

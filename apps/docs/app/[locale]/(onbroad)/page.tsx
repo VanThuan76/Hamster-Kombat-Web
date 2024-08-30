@@ -10,8 +10,10 @@ import useServiceWorker from "@shared/hooks/useServiceWorker";
 
 import TypographyLarge from "@ui/components/typography/large";
 import TypographySmall from "@ui/components/typography/small";
+import { useTranslations } from "next-intl";
 
 const OnBroadingPage = () => {
+  const t = useTranslations("other")
   const router = useRouter();
   const userInitAction = userLoginAction();
 
@@ -60,19 +62,19 @@ const OnBroadingPage = () => {
             </linearGradient>
           </defs>
         </svg>
-        <TypographyLarge text="Đang tải" className="text-2xl text-white" />
+        <TypographyLarge text={t("loading")} className="text-2xl text-white" />
       </div>
       <div className="loading-launch-bottom">
         <TypographyLarge
-          text="Lion King Token"
+          text={t("name")}
           className="text-2xl text-[#ffc147] font-black"
         />
         <TypographySmall
-          text="will be launched"
+          text={t("will_be_launched")}
           className="text-[14px] text-[#fff8] font-bold"
         />
         <TypographySmall
-          text="on TON"
+          text={t("on_TON")}
           className="mt-2 text-5xl font-black text-white"
         />
       </div>

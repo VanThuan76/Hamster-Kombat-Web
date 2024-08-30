@@ -129,7 +129,7 @@ export default function Page(): JSX.Element {
       </MotionContainer>
       <div className="flex flex-col items-start justify-start gap-2">
         <TypographySmall
-          text="Lion Youtube"
+          text={t("lion_youtube")}
           className="mt-5 text-base text-white"
         />
         {earns

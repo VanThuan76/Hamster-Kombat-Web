@@ -13,7 +13,9 @@
       "daily_combo": "Tägliche Kombi-Karte"
     },
     "mine": {
-      "daily_combo": "Tägliche Kombi-Karte"
+      "daily_combo": "Tägliche Kombi-Karte",
+      "matching_card": "Finde die passende Karte unten und verbessere sie",
+      "profit": "Gewinn pro Stunde"
     },
     "friends": {
       "invite_friends": "Freunde einladen!",
@@ -26,7 +28,8 @@
       "for_friend": "Für Freund",
       "premium": "Belohnung",
       "list_friend": "Deine Freundesliste",
-      "invite_friends_no": "Du hast niemanden eingeladen"
+      "invite_friends_no": "Du hast niemanden eingeladen",
+      "share": "Spiel mit mir, werde CEO einer Kryptowährungsbörse und erhalte Airdrop-Token! 💸 +2k Münzen als erstes Geschenk 🔥 +25k Münzen, wenn du Telegram Premium hast"
     },
     "earn": {
       "earn_coin": "Mehr Geld verdienen",
@@ -43,10 +46,17 @@
       "btn_require": "Anfordern",
       "btn_choose": "Wählen",
       "btn_check": "Überprüfen",
-      "btn_join": "Beitreten"
+      "btn_join": "Beitreten",
+      "wait": "Bitte warten Sie 30 Minuten nach dem Ansehen des Videos.",
+      "choose_exchange_no": "Sie haben noch keine Börse ausgewählt.",
+      "watch_video": "Video ansehen.",
+      "lion_youtube": "Lion Youtube"
     },
     "airdrop": {
-      "des_airdrop": "Der Listungstag steht bevor. Aufgaben erscheinen unten. Schließe sie ab, um am Airdrop teilzunehmen"
+      "des_airdrop": "Der Listungstag steht bevor. Aufgaben erscheinen unten. Schließe sie ab, um am Airdrop teilzunehmen",
+      "list": "Aufgabenliste",
+      "connect": "Verbinden Sie Ihre TON-Brieftasche",
+      "connect2": "Verbinden Sie Ihre Krypto-Wallet. Wenn Sie noch keine haben, erstellen Sie eine in Ihrem Telegram-Konto."
     },
     "setting": {
       "title": "Einstellungen",
@@ -77,7 +87,12 @@
       "des_multitap_2": "+1 Münze pro Tipp pro Stufe",
       "energy_limit": "Energielimit",
       "des_energy_limit_1": "Erhöhe die Energiegrenze",
-      "des_energy_limit_2": "+500 Energie pro Stufe"
+      "des_energy_limit_2": "+500 Energie pro Stufe",
+      "remain": "Verbleibende Minuten",
+      "limit": "Maximalgrenze erreicht",
+      "not_enough_money": "Nicht genug Geld",
+      "earn": "Erhalten",
+      "turbo": "Turbo"
     }
   },
   "components": {
@@ -92,16 +107,27 @@
       "title": "Steigere deinen Gewinn",
       "description_1": "Greife auf das Minen-Menü zu und kaufe Upgrades für deine Börse, um den Gewinn zu steigern",
       "description_2": "Verdiene auch im Offline-Modus für 3 Stunden",
-      "start_button": "Beginne mit dem Minen"
+      "start_button": "Beginne mit dem Minen",
+      "profit_by_hour":"Gewinn pro Stunde",
+      "good_luck": "Viel Glück!",
+      "not_enough_money": "Nicht genug Geld",
+      "find_card": "Finde 3 passende Karten und verbessere sie, um eine Belohnung zu erhalten!"
     },
     "drawer_change_exchange": {
       "title": "Du hast einen Vertrag mit",
-      "button": "Viel Glück!"
+      "button": "Viel Glück!",
+      "exchange": "Die Börse hat begonnen, für Sie zu arbeiten",
+      "thanks": "Vielen Dank"
     }
   },
   "other": {
     "not_enough_money": "Nicht genug Geld",
     "pending_action": "Daten werden verarbeitet...",
-    "success_action": "Upgrade erfolgreich!"
+    "success_action": "Upgrade erfolgreich!",
+    "qr": "Öffnen Sie es auf Ihrem Mobiltelefon.",
+    "loading": "Wird geladen",
+    "name": "Lion King Token",
+    "will_be_launched": "will be launched",
+    "on_TON": "on TON"
   }
 }

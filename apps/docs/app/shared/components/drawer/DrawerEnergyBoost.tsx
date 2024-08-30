@@ -94,7 +94,7 @@ export default function DrawerEnergyBoost(): JSX.Element {
           onClick={handleSuccess}
         >
           <TypographyLarge
-            text="Nhận"
+            text={t("earn")}
             className="text-xl font-bold text-white"
           />
           <CoinIcon width={28} height={28} />

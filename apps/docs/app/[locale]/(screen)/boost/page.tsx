@@ -147,7 +147,7 @@ export default function Page(): JSX.Element {
                 />
                 {countdown.minutes && countdown.minutes > 0 ? (
                   <TypographySmall
-                    text={`${countdown.minutes} phút còn lại`}
+                    text={`${countdown.minutes} ${t("remain")}`}
                     className="text-[12px] text-[#8b8e93] font-light"
                   />
                 ) : (
@@ -171,7 +171,7 @@ export default function Page(): JSX.Element {
             </MotionContainer>
             <div className="flex flex-col items-start justify-start">
               <TypographySmall
-                text="Turbo"
+                text={t("turbo")}
                 className="text-[14px] text-white font-light"
               />
               <TypographySmall
@@ -236,7 +236,7 @@ export default function Page(): JSX.Element {
                 </div>
               ) : (
                 <TypographySmall
-                  text="Đạt max giới hạn"
+                  text={t("limit")}
                   className="text-[14px] text-[#8b8e93] font-light"
                 />
               )}
@@ -306,7 +306,7 @@ export default function Page(): JSX.Element {
                 </div>
               ) : (
                 <TypographySmall
-                  text="Đạt max giới hạn"
+                  text={t("limit")}
                   className="text-[14px] text-[#8b8e93] font-light"
                 />
               )}

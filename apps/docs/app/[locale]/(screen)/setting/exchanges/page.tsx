@@ -13,8 +13,10 @@ import { setUserExchange } from "@shared/redux/store/appSlice";
 import { useUpdateExchange } from "@server/_action/exchanges-action";
 import { IExchangesOrigin } from "@server/_types/exchanges";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function Page(): JSX.Element {
+  const t = useTranslations("screens.setting")
   const { user, exchanges } = useAppSelector((state) => state.app);
 
   const dispatch = useAppDispatch();
@@ -37,7 +39,7 @@ export default function Page(): JSX.Element {
   return (
     <div className="w-full h-screen relative overflow-y-auto bg-black pb-14">
       <div className="p-5 space-y-4 text-center text-white overflow-y-auto h-full">
-        <TypographyLarge text="Chọn sàn giao dịch" className="text-4xl" />
+        <TypographyLarge text={t("exchange")}  className="text-4xl" />
         {exchanges.map((item, i) => {
           return (
             <div
