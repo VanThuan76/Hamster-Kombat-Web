@@ -114,7 +114,7 @@ export default function DrawerEnergyLimitBoost(): JSX.Element {
                 {data?.next?.required_money > user.revenue ? (
                     <Button className="w-full h-[80px] bg-[#4e4f50cc] hover:bg-[#4e4f50cc] text-white flex justify-center items-center gap-2 rounded-2xl pointer-events-none">
                         <TypographyLarge
-                            text="Không đủ tiền"
+                            text={t("not_enough_money")}
                             className="text-xl font-bold text-white"
                         />
                     </Button>
@@ -124,7 +124,7 @@ export default function DrawerEnergyLimitBoost(): JSX.Element {
                         onClick={handleSuccess}
                     >
                         <TypographyLarge
-                            text="Nhận"
+                            text={t("earn")}
                             className="text-xl font-bold text-white"
                         />
                         <CoinIcon width={28} height={28} />

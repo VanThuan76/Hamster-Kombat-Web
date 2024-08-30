@@ -92,7 +92,7 @@ export default function DrawerGetProfit(): JSX.Element {
                         />
                     </div>
                     <TypographyLarge
-                        text={`Sàn giao dịch đã bắt đầu làm việc cho bạn`}
+                        text={t("exchange")}
                         className="text-white text-[20px] text-center font-bold"
                     />
                 </div>
@@ -101,7 +101,7 @@ export default function DrawerGetProfit(): JSX.Element {
                     onClick={handleGetProfit}
                 >
                     <TypographyLarge
-                        text={`Cảm ơn bạn, ${user.exchange.name}`}
+                        text={`${t("thanks")} ${user.exchange.name}`}
                         className="text-xl font-bold text-white"
                     />
                     <svg

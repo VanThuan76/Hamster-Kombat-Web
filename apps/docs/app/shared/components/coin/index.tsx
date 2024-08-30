@@ -85,7 +85,7 @@ const MineCoinButton = ({
         if (formattedEnergy < user.tap_value) {
           toast({
             variant: "destructive",
-            title: "Không đủ năng lượng",
+            title: t("not_enough_energy"),
           });
           return;
         }

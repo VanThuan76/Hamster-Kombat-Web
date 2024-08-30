@@ -110,7 +110,7 @@ export default function DrawerCardMine(): JSX.Element {
                 />
                 <div className="flex flex-col items-center justify-center gap-1">
                     <TypographySmall
-                        text="Lợi nhuận mỗi giờ"
+                        text={t("profit_by_hour")}
                         className="text-white text-[10px] font-extralight"
                     />
                     <div className="flex items-center justify-center gap-1">
@@ -157,7 +157,7 @@ export default function DrawerCardMine(): JSX.Element {
                         onClick={() => handleSuccess()}
                     >
                         <TypographyLarge
-                            text="Chúc bạn may mắn!"
+                            text={t("good_luck")}
                             className="text-xl font-bold text-white"
                         />
                         <CoinIcon width={28} height={28} />
@@ -165,7 +165,7 @@ export default function DrawerCardMine(): JSX.Element {
                 ) : (
                     <Button className="w-full h-[80px] bg-[#4e4f50cc] hover:bg-[#4e4f50cc] text-white flex justify-center items-center gap-2 rounded-2xl pointer-events-none">
                         <TypographyLarge
-                            text="Không đủ tiền"
+                            text={t("not_enough_money")}
                             className="text-xl font-bold text-white"
                         />
                     </Button>

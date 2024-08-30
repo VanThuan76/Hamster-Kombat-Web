@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useDraw } from "@shared/hooks/useDraw";
 
 import Drawer from "@ui/components/drawer";
@@ -12,6 +13,7 @@ import InfoWalletTON from "../InfoWalletTON";
 
 const DrawerWalletConnect = () => {
   const { isOpen, onClose, type } = useDraw();
+  const t = useTranslations("screens.airdrop")
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
@@ -43,7 +45,7 @@ const DrawerWalletConnect = () => {
         </div>
         <div className="flex flex-col items-center justify-center w-full gap-5">
           <TypographyLarge
-            text="Kết nối ví TON của bạn"
+            text={t("connect")}
             className="text-white text-[32px] font-bold"
           />
           <TypographySmall

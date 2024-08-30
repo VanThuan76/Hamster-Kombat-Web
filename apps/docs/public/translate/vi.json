@@ -13,7 +13,9 @@
       "daily_combo": "Thẻ kết hợp hàng ngày"
     },
     "mine": {
-      "daily_combo": "Thẻ kết hợp hàng ngày"
+      "daily_combo": "Thẻ kết hợp hàng ngày",
+      "matching_card": "Tìm thẻ kết hợp bên dưới và nâng cấp nó lên",
+      "profit": "Lợi nhuận mỗi giờ"
     },
     "friends": {
       "invite_friends": "Mời bạn bè!",
@@ -26,7 +28,8 @@
       "for_friend": "Cho bạn",
       "premium": "Phần thưởng",
       "list_friend": "Danh sách bạn bè của bạn",
-      "invite_friends_no": "Bạn chưa mời ai"
+      "invite_friends_no": "Bạn chưa mời ai",
+      "share": "Chơi với tôi, trở thành CEO của sàn giao dịch tiền mã hóa và nhận airdrop token! 💸 +2k Xu như một món quà lần đầu 🔥 +25k Xu nếu bạn có Telegram Premium"
     },
     "earn": {
       "earn_coin": "Kiếm thêm tiền",
@@ -43,10 +46,17 @@
       "btn_require": "Yêu cầu bồi thường",
       "btn_choose": "Chọn",
       "btn_check": "Kiểm tra",
-      "btn_join": "Tham gia"
+      "btn_join": "Tham gia",
+      "wait": "Xin vui lòng chờ 30p sau khi xem video",
+      "choose_exchange_no": "Bạn chưa chọn sàn giao dịch",
+      "watch_video": "Xem video",
+      "lion_youtube": "Lion Youtube"
     },
     "airdrop": {
-      "des_airdrop": "Ngày listing đang đến. Nhiệm vụ sẽ xuất hiện bên dưới. Hoàn thành chúng để tham gia Airdrop"
+      "des_airdrop": "Ngày listing đang đến. Nhiệm vụ sẽ xuất hiện bên dưới. Hoàn thành chúng để tham gia Airdrop",
+      "list": "Danh sách công việc",
+      "connect": "Kết nối ví TON của bạn",
+      "connect2": "Kết nối ví tiền điện tử của bạn.  Nếu bạn chưa có, hãy tạo một cái trong tài khoản Telegram của bạn"
     },
     "setting": {
       "title": "Cài đặt",
@@ -77,13 +87,19 @@
       "des_multitap_2": "+1 tiền xu cho mỗi lần chạm cho cấp độ",
       "energy_limit": "Giới hạn năng lượng",
       "des_energy_limit_1": "Tăng lượng năng lượng",
-      "des_energy_limit_2": "+500 năng lượng cho cấp độ"
+      "des_energy_limit_2": "+500 năng lượng cho cấp độ",
+      "remain": "phút còn lại",
+      "limit": "đạt max giới hạn",
+      "not_enough_money": "Không đủ tiền",
+      "earn": "Nhận",
+      "turbo": "Turbo"
     }
   },
   "components": {
     "mine_button": {
       "daily_cipher": "Mật mã hàng ngày",
-      "boost": "Tăng cường"
+      "boost": "Tăng cường",
+      "not_enough_energy": "không đủ năng lượng"
     },
     "card_profit": {
       "profit_by_hour": "Lợi nhuận mỗi giờ"
@@ -92,16 +108,27 @@
       "title": "Tăng lợi nhuận của bạn",
       "description_1": "Truy cập menu khai thác và mua nâng cấp cho sàn giao dịch của bạn để tăng cường",
       "description_2": "kiếm tiền ngay cả khi ngoại tuyến trong 3 giờ",
-      "start_button": "Bắt đầu khai thác"
+      "start_button": "Bắt đầu khai thác",
+      "profit_by_hour": "Lợi nhuận mỗi giờ",
+      "good_luck": "Chúc bạn may mắn!",
+      "not_enough_money": "Không đủ tiền",
+      "find_card": "Tìm 3 thẻ kết hợp và nâng cấp chúng để nhận giải thưởng!"
     },
     "drawer_change_exchange": {
       "title": "Bạn đã ký hợp đồng với",
-      "button": "Chúc may mắn!"
+      "button": "Chúc may mắn!",
+      "exchange": "Sàn giao dịch đã bắt đầu làm việc cho bạn",
+      "thanks": "Cảm ơn bạn,"
     }
   },
   "other": {
     "not_enough_money": "Không đủ tiền",
     "pending_action": "Đang xử lý dữ liệu...",
-    "success_action": "Nâng cấp thành công!"
+    "success_action": "Nâng cấp thành công!",
+    "qr": "Mở trên điện thoại di động của bạn",
+    "loading": "Đang tải",
+    "name": "Lion King Token",
+    "will_be_launched": "will be launched",
+    "on_TON": "on TON"
   }
 }

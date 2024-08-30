@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@shared/next-intl/navigation";
 
@@ -83,66 +83,129 @@ export default function Page(): JSX.Element {
         skins.findIndex((skin) => skin.id === user.skin_id),
     );
 
-    const avatarImage =
-        process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + membership.image;
+    const avatarImage = process.env.NEXT_PUBLIC_DOMAIN_BACKEND + "/" + membership.image;
 
     const buySkin = useBuySkin();
     const updateSkin = useUpdateSkin();
 
-    async function handleBuySkin(skin_id: number, price: number, image: string) {
+    const handleSkinAction = async (skin_id: number, price: number, image: string, action: 'buy' | 'choose') => {
         try {
-            const membershipData = {
-                ...membership,
-                image: image,
-            };
+            if (action === 'buy' && user.revenue < price) {
+                console.error("Not enough money to buy skin");
+                return;
+            }
 
-            await dispatch(setUpdateRevenue(user.revenue - price)); // Fix
-            await dispatch(setMembership(membershipData)); //Fix
+            const membershipData = { ...membership, image };
+
+            if (action === 'buy') {
+                await dispatch(setUpdateRevenue(user.revenue - price));
+            }
+            await dispatch(setMembership(membershipData));
 
             haptic.impactOccurred("soft");
 
-            router.push("/exchange");
-
-            await buySkin.mutateAsync({
-                user_id: user.id,
-                skin_id: skin_id,
-            });
-
-            console.log("Successfully");
-        } catch (error) {
-            console.error("Error in handleSuccess:", error);
-        }
-    }
-
-    async function handleChooseSkin(skin_id: number, image: string) {
-        try {
-            const membershipData = {
-                ...membership,
-                image: image,
-            };
-
-            await dispatch(setMembership(membershipData)); //Fix
-
-            haptic.impactOccurred("soft");
-
-            router.push("/exchange");
-
-            await updateSkin.mutateAsync({
-                user_id: user.id,
-                skin_id: skin_id,
-            });
+            if (action === 'buy') {
+                await buySkin.mutateAsync({ user_id: user.id, skin_id });
+            } else {
+                await updateSkin.mutateAsync({ user_id: user.id, skin_id });
+            }
 
             console.log("Successfully");
+            router.push("/exchange");
         } catch (error) {
-            console.error("Error in handleSuccess:", error);
+            console.error(`Error in handle${action === 'buy' ? 'Buy' : 'Choose'}Skin:`, error);
         }
-    }
+    };
+
+    const skinItems = useMemo(() => skins.map((item, i) => {
+        const hasBuySkin =
+            item.required_level === 0 ||
+            membership.current_level > item.required_level;
+
+        const hasMoneyBuySkin = user.revenue < item.price;
+
+        return (
+            <div
+                key={i}
+                className="flex flex-col items-center justify-center gap-2 overflow-hidden rounded-xl"
+            >
+                <div className="w-[250px] h-[250px] rounded-xl overflow-hidden">
+                    <Image
+                        src={item.image_url}
+                        width={250}
+                        height={250}
+                        alt={`skin_${item.name}`}
+                        priority={true}
+                        className="z-30 object-contain object-center mb-2"
+                    />
+                </div>
+                <div className="w-full min-h-[200px] flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
+                    <TypographySmall
+                        text={item.name}
+                        className="text-base font-bold text-white"
+                    />
+                    <TypographySmall
+                        text={item.description}
+                        className="text-[12px] font-normal text-white"
+                    />
+                    {user.userSkins.includes(item.id) ? (
+                        <TypographySmall
+                            text={t("purchased")}
+                            className="text-[14px] font-normal text-[#82f88e]"
+                        />
+                    ) : (
+                        <div className="flex items-center justify-center gap-2">
+                            <CoinIcon
+                                width={28}
+                                height={28}
+                                className={cn(
+                                    hasMoneyBuySkin
+                                        ? "coin-is-grayscale"
+                                        : hasBuySkin
+                                            ? ""
+                                            : "coin-is-grayscale",
+                                )}
+                            />
+                            <TypographySmall
+                                text={`${formatCoinStyleDot(item.price)}`}
+                                className={cn(
+                                    "text-[20px] font-bold ",
+                                    hasMoneyBuySkin
+                                        ? "text-[#fff6]"
+                                        : hasBuySkin
+                                            ? "text-white"
+                                            : "text-[#fff6]",
+                                )}
+                            />
+                        </div>
+                    )}
+                    <Button
+                        className={cn(
+                            "bg-[#34383fcc] hover:bg-[#34383fcc] focus:bg-[#34383fcc] w-full min-h-[60px] rounded-2xl",
+                            hasBuySkin &&
+                            "bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d]",
+                        )}
+                        onClick={() =>
+                            user.userSkins.includes(item.id)
+                                ? handleSkinAction(item.id, item.price, item.image, 'choose')
+                                : hasBuySkin && handleSkinAction(item.id, item.price, item.image, 'buy')
+                        }
+                    >
+                        {user.userSkins.includes(item.id)
+                            ? "Chọn"
+                            : hasMoneyBuySkin
+                                ? "Không đủ tiền"
+                                : hasBuySkin
+                                    ? "Mua"
+                                    : `Đạt đến lv ${ranks.find((child) => child.level === item.required_level)?.level} để mở khóa skin`}
+                    </Button>
+                </div>
+            </div>
+        );
+    }), [skins, membership, user, ranks]);
 
     useBackButton();
-    //     <TypographySmall
-    //     text={t("skin")}
-    //     className="text-base text-center text-white"
-    // />
+
     return (
         <div className="relative w-full h-screen space-y-2 overflow-y-auto text-center bg-black">
             <div className="flex items-center justify-center w-full px-5 py-2">
@@ -174,124 +237,38 @@ export default function Page(): JSX.Element {
                 </CardHeader>
                 <CardContent className="w-full h-full grid grid-cols-5 p-4 !pb-24 gap-2 bg-[#1c1f24] rounded-t-3xl">
                     <DynamicNavigationSwiper
-                        items={skins.map((item, i) => {
-                            const hasBuySkin =
-                                item.required_level === 0 ||
-                                membership.current_level > item.required_level;
-
-                            const hasMoneyBuySkin = user.revenue < item.price;
-
-                            return (
-                                <div
-                                    key={i}
-                                    className="flex flex-col items-center justify-center gap-2 overflow-hidden rounded-xl"
-                                >
-                                    <div className="w-[250px] h-[250px] rounded-xl overflow-hidden">
-                                        <Image
-                                            src={item.image_url}
-                                            width={250}
-                                            height={250}
-                                            alt={`skin_${item.name}`}
-                                            priority={true}
-                                            className="z-30 object-contain object-center mb-2"
-                                        />
-                                    </div>
-                                    <div className="w-full min-h-[200px] flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
-                                        <TypographySmall
-                                            text={item.name}
-                                            className="text-base font-bold text-white"
-                                        />
-                                        <TypographySmall
-                                            text={item.description}
-                                            className="text-[12px] font-normal text-white"
-                                        />
-                                        {user.userSkins.includes(item.id) ? (
-                                            <TypographySmall
-                                                text={t("purchased")}
-                                                className="text-[14px] font-normal text-[#82f88e]"
-                                            />
-                                        ) : (
-                                            <div className="flex items-center justify-center gap-2">
-                                                <CoinIcon
-                                                    width={28}
-                                                    height={28}
-                                                    className={cn(
-                                                        hasMoneyBuySkin
-                                                            ? "coin-is-grayscale"
-                                                            : hasBuySkin
-                                                                ? ""
-                                                                : "coin-is-grayscale",
-                                                    )}
-                                                />
-                                                <TypographySmall
-                                                    text={`${formatCoinStyleDot(item.price)}`}
-                                                    className={cn(
-                                                        "text-[20px] font-bold ",
-                                                        hasMoneyBuySkin
-                                                            ? "text-[#fff6]"
-                                                            : hasBuySkin
-                                                                ? "text-white"
-                                                                : "text-[#fff6]",
-                                                    )}
-                                                />
-                                            </div>
-                                        )}
-                                        <Button
-                                            className={cn(
-                                                "bg-[#34383fcc] hover:bg-[#34383fcc] focus:bg-[#34383fcc] w-full min-h-[60px] rounded-2xl",
-                                                hasBuySkin &&
-                                                "bg-[#5a60ff4d] hover:bg-[#5a60ff4d] focus:bg-[#5a60ff4d]",
-                                            )}
-                                            onClick={() =>
-                                                user.userSkins.includes(item.id)
-                                                    ? handleChooseSkin(item.id, item.image)
-                                                    : hasBuySkin &&
-                                                    handleBuySkin(item.id, item.price, item.image)
-                                            }
-                                        >
-                                            {user.userSkins.includes(item.id) //Check user_purchased
-                                                ? "Chọn"
-                                                : hasMoneyBuySkin
-                                                    ? "Không đủ tiền"
-                                                    : hasBuySkin
-                                                        ? "Mua"
-                                                        : `Đạt đến lv ${ranks.find((child) => child.level === item.required_level)?.level} để mở khóa skin`}
-                                        </Button>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                        items={skinItems}
                         className="flex items-center justify-center w-full col-span-3"
                         activeSlideChange={currentTarget}
                         onSlideChange={setCurrentTarget}
                         isNavigation={false}
                     />
                     <div
-                        className="grid items-center justify-center w-full h-full grid-cols-2 col-span-2 gap-2 p-0 overflow-y-auto"
+                        className="grid items-center justify-center w-full h-full grid-cols-2 col-span-2 gap-4 p-0 overflow-y-auto"
                     >
                         {skins.map((item, i) => {
                             return (
                                 <div
                                     key={i}
                                     className={cn(
-                                        "relative min-h-[100px] bg-[#272a2f] flex flex-col justify-center items-center rounded-xl py-2",
+                                        "relative min-h-[100px] bg-[#272a2f] flex flex-col justify-start items-center rounded-xl pb-2 px-0 gap-1 overflow-hidden",
                                         i === currentTarget && "border border-[#5a60ff]",
                                     )}
                                     onClick={() => setCurrentTarget(i)}
                                 >
-                                    <div className="w-[62px] h-[62px]">
+                                    <div className="w-full h-[62px]">
                                         <Image
                                             src={item.image_url}
                                             width={62}
                                             height={62}
                                             alt={item.name}
                                             priority={true}
-                                            className="object-contain object-center w-full h-full"
+                                            className="object-cover object-center w-full h-full"
                                         />
                                     </div>
                                     <TypographySmall
                                         text={item.name}
-                                        className="text-[9px] font-extralight text-white"
+                                        className="text-[9px] font-extralight text-white fix-words-mine"
                                     />
                                     {user.userSkins.includes(item.id) ? (
                                         <CheckIcon is_purchased={true} />

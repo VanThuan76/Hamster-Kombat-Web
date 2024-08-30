@@ -1,20 +1,23 @@
 'use client';
 
 import React from 'react';
-import { Button } from '@ui/components/button';
+import { useTranslations } from 'next-intl';
 import { useAppSelector } from "@shared/redux/store"
+
+import { Button } from '@ui/components/button';
 
 const { initUtils } = require('@telegram-apps/sdk-react');
 
 const InviteFriends = () => {
     const { user } = useAppSelector(state => state.app)
+    const t = useTranslations("screens.friends")
 
     const utils = initUtils();
 
     const handleInviteFriends = () => {
         utils.shareURL(
             `${process.env.NEXT_PUBLIC_URL_TELEGRAM_BOT}/?startapp=teleId${user.id}`,
-            "Chơi với tôi, trở thành CEO của sàn giao dịch tiền mã hóa và nhận airdrop token! 💸 +2k Xu như một món quà lần đầu 🔥 +25k Xu nếu bạn có Telegram Premium");
+            t("share"));
     };
 
     return (
@@ -22,7 +25,7 @@ const InviteFriends = () => {
             className="w-full h-[60px] bg-[#5a60ff]/85 hover:bg-[#5a60ff] text-white rounded-2xl scale-animated"
             onClick={handleInviteFriends}
         >
-            Mời bạn bè
+            {t("invite_friends_card")}
             <div className="icon ml-2 w-[24px] h-[24px]">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -40,4 +43,3 @@ const InviteFriends = () => {
 };
 
 export default InviteFriends;
-
