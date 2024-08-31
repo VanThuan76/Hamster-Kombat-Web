@@ -51,12 +51,8 @@ export default function DrawerCardMine(): JSX.Element {
     async function handleSuccess() {
         try {
             setIsLoading(true);
-            await dispatch(
-                setUpdateRevenue(user.revenue - nextCardProfit.required_money),
-            ); // Fix
-            await dispatch(
-                setUpdateProfitPerHour(user.profit_per_hour + nextCardProfit.profit),
-            ); // Fix
+            dispatch(setUpdateRevenue(user.revenue - nextCardProfit.required_money));
+            dispatch(setUpdateProfitPerHour(user.profit_per_hour + nextCardProfit.profit));
 
             haptic.impactOccurred("heavy");
 
@@ -69,9 +65,7 @@ export default function DrawerCardMine(): JSX.Element {
             });
 
             onClose();
-
-            await dispatch(setIsCoinAnimating(true))
-
+            await dispatch(setIsCoinAnimating(true));
             setTimeout(() => {
                 dispatch(setIsCoinAnimating(false))
             }, 1000)
@@ -165,14 +159,14 @@ export default function DrawerCardMine(): JSX.Element {
                 </div>
                 {data.hasBuy ? (
                     <Button
-                        className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl"
+                        className={cn("w-full h-[80px] text-white flex justify-center items-center gap-2 rounded-2xl", isLoading ? "bg-[#4e4f50cc] hover:bg-[#4e4f50cc]" : "bg-[#5a60ff] hover:bg-[#5a60ff]/90")}
                         onClick={() => handleSuccess()}
                     >
                         {isLoading ? (
                             <div className='flex items-center justify-center w-full gap-2'>
-                                <div className='h-4 w-4 bg-white rounded-full animate-bounce [animation-delay:-0.5s]'></div>
-                                <div className='h-4 w-4 bg-white rounded-full animate-bounce [animation-delay:-0.20s]'></div>
-                                <div className='w-4 h-4 bg-white rounded-full animate-bounce'></div>
+                                <div className='h-4 w-4 bg-white rounded-full animate-fade-bounce [animation-delay:-0.3s]'></div>
+                                <div className='h-4 w-4 bg-white rounded-full animate-fade-bounce [animation-delay:-0.15s]'></div>
+                                <div className='w-4 h-4 bg-white rounded-full animate-fade-bounce'></div>
                             </div>
                         ) : (
                             <>

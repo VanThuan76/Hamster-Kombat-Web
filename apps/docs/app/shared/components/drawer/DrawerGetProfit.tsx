@@ -45,20 +45,18 @@ export default function DrawerGetProfit(): JSX.Element {
             await dispatch(setUpdateRevenue(user.revenue + Math.round(profit))); // Fix
             await dispatch(setIsProfitRevenueActive(false));
 
-            onClose();
-
             await updateRevenue.mutateAsync({
                 user_id: user.id,
                 amount: Math.round(profit),
             });
 
-            setProfit(0);
-
-            await dispatch(setIsCoinAnimating(true))
-
+            onClose();
+            await dispatch(setIsCoinAnimating(true));
             setTimeout(() => {
                 dispatch(setIsCoinAnimating(false))
-            }, 700)
+            }, 1000)
+
+            setProfit(0);
 
             console.log("Successfully");
         } catch (error) {

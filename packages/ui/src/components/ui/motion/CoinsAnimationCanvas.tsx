@@ -16,6 +16,34 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [coins, setCoins] = useState<Coin[]>([]);
     const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+    const fadeIntervalRef = useRef<number | null>(null);
+
+    const fadeOutAudio = (duration: number = 1000) => {
+        if (!audio) return;
+
+        const initialVolume = audio.volume;
+        const steps = 20;
+        const volumeStep = initialVolume / steps;
+        const intervalTime = duration / steps;
+
+        if (fadeIntervalRef.current) {
+            clearInterval(fadeIntervalRef.current);
+        }
+
+        fadeIntervalRef.current = window.setInterval(() => {
+            if (audio.volume > volumeStep) {
+                audio.volume -= volumeStep;
+            } else {
+                audio.pause();
+                audio.currentTime = 0;
+                audio.volume = initialVolume;
+                if (fadeIntervalRef.current) {
+                    clearInterval(fadeIntervalRef.current);
+                }
+            }
+        }, intervalTime);
+    };
 
     useEffect(() => {
         const loadImagesAndCreateCoins = () => {
@@ -28,7 +56,7 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
             const height = canvas.height;
 
             const newCoins: Coin[] = [];
-            const totalImages = 20;
+            const totalImages = 40;
 
             for (let i = 0; i < totalImages; i++) {
                 const coinImage = new Image();
@@ -40,8 +68,8 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
                     }
                 };
 
-                const size = Math.random() * 20 + 10;
-                const speed = (Math.random() * 5 + 2) * 5;
+                const size = Math.random() * 25 + 10;
+                const speed = (Math.random() * 5 + 2) * 15;
 
                 newCoins.push({
                     x: Math.random() * width,
@@ -55,42 +83,65 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
             setCoins(newCoins);
         };
 
-        // Load images and create coins on component mount
+        const initializeAudio = () => {
+            const audioElement = new Audio('/project/coin_animation_music.mp3');
+            audioElement.loop = true;
+            audioElement.volume = 1;
+            setAudio(audioElement);
+        };
+
         loadImagesAndCreateCoins();
-    }, []); // Only run on mount
+        initializeAudio();
+
+        return () => {
+            if (fadeIntervalRef.current) {
+                clearInterval(fadeIntervalRef.current);
+            }
+        };
+    }, []);
 
     useEffect(() => {
-        const context = canvasRef.current?.getContext('2d');
-        const canvas = canvasRef.current;
+        if (isAnimating && audio) {
+            audio.play();
+        } else if (audio) {
+            fadeOutAudio()
+        }
+    }, [isAnimating, audio]);
 
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const context = canvas?.getContext('2d');
         if (!canvas || !context || !imagesLoaded) return;
 
-        const width = canvas.width;
-        const height = canvas.height;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+        context.scale(dpr, dpr);
 
         const render = () => {
-            context.clearRect(0, 0, width, height);
+            context.clearRect(0, 0, canvas.width, canvas.height);
 
             coins.forEach((coin) => {
-                const radius = coin.size / 2;
+                const diameter = coin.size;
+                const radius = diameter / 2;
 
                 context.save();
                 context.beginPath();
-                context.arc(coin.x + radius, coin.y + radius, radius, 0, 2 * Math.PI);
+                context.arc(coin.x + radius, coin.y + radius, radius, 0, Math.PI * 2);
+                context.closePath();
                 context.clip();
 
-                context.drawImage(
-                    coin.image,
-                    coin.x,
-                    coin.y,
-                    coin.size,
-                    coin.size
-                );
+                context.drawImage(coin.image, coin.x, coin.y, diameter, diameter);
+
                 context.restore();
 
                 coin.y -= coin.speed;
-                if (coin.y < -coin.size) {
-                    coin.y = height;
+                if (coin.y < -diameter) {
+                    coin.y = canvas.height / dpr;
                 }
             });
 
@@ -100,19 +151,18 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
         };
 
         if (isAnimating) {
-            render(); // Start rendering when animating is true
+            render();
         } else {
-            context?.clearRect(0, 0, width, height); // Clear canvas when not animating
+            context.clearRect(0, 0, canvas.width, canvas.height);
         }
-
     }, [coins, imagesLoaded, isAnimating]);
 
     return (
-        <div className={`absolute top-0 left-0 w-screen h-screen ${isAnimating ? 'opacity-100 z-[99999999]' : 'opacity-0 -z-[99999999]'}`}>
+        <div className={`absolute top-0 left-1 w-screen h-screen ${isAnimating ? 'opacity-100 z-[99999999]' : 'opacity-0 -z-[99999999]'}`}>
             <canvas
                 ref={canvasRef}
-                width={450}
-                height={500}
+                width={500}
+                height={400}
                 className="w-full h-full transition-opacity duration-500"
             />
         </div>

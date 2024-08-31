@@ -88,9 +88,7 @@ export default function DrawerItemEarn(): JSX.Element {
                     });
 
                     onClose();
-
                     await dispatch(setIsCoinAnimating(true))
-
                     setTimeout(() => {
                         dispatch(setIsCoinAnimating(false))
                     }, 1000)
@@ -111,9 +109,7 @@ export default function DrawerItemEarn(): JSX.Element {
                 });
 
                 onClose();
-
                 await dispatch(setIsCoinAnimating(true))
-
                 setTimeout(() => {
                     dispatch(setIsCoinAnimating(false))
                 }, 1000)

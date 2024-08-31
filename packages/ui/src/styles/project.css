@@ -482,3 +482,11 @@
     width: 300px;
   }
 }
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .animate-fade-bounce {
+    animation: fadeInOut 1.5s infinite, bounce 1s infinite;
+  }
