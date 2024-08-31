@@ -13,6 +13,7 @@ import useLocalStorage from "@shared/hooks/useLocalStorage";
 import { useDraw } from "@shared/hooks/useDraw";
 import { formatCoin } from "@shared/utils/formatNumber";
 import {
+    setIsCoinAnimating,
     setIsProfitRevenueActive,
     setUpdateRevenue,
 } from "@shared/redux/store/appSlice";
@@ -52,6 +53,12 @@ export default function DrawerGetProfit(): JSX.Element {
             });
 
             setProfit(0);
+
+            await dispatch(setIsCoinAnimating(true))
+
+            setTimeout(() => {
+                dispatch(setIsCoinAnimating(false))
+            }, 700)
 
             console.log("Successfully");
         } catch (error) {

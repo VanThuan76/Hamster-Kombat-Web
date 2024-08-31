@@ -19,6 +19,7 @@ import { formatCoinStyleDot } from "@shared/utils/formatNumber";
 
 import { useBuyCard } from "@server/_action/card-action";
 import {
+    setIsCoinAnimating,
     setUpdateProfitPerHour,
     setUpdateRevenue,
 } from "@shared/redux/store/appSlice";
@@ -30,6 +31,7 @@ export default function DrawerCardMine(): JSX.Element {
     const { isOpen, onClose, data, type } = useDraw();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const haptic = initHapticFeedback();
     const dispatch = useAppDispatch();
@@ -48,6 +50,7 @@ export default function DrawerCardMine(): JSX.Element {
 
     async function handleSuccess() {
         try {
+            setIsLoading(true);
             await dispatch(
                 setUpdateRevenue(user.revenue - nextCardProfit.required_money),
             ); // Fix
@@ -55,8 +58,7 @@ export default function DrawerCardMine(): JSX.Element {
                 setUpdateProfitPerHour(user.profit_per_hour + nextCardProfit.profit),
             ); // Fix
 
-            haptic.impactOccurred("soft");
-            onClose();
+            haptic.impactOccurred("heavy");
 
             await buyCard.mutateAsync({
                 card_id: nextCardProfit.card_id,
@@ -66,9 +68,19 @@ export default function DrawerCardMine(): JSX.Element {
                 user_id: user.id,
             });
 
+            onClose();
+
+            await dispatch(setIsCoinAnimating(true))
+
+            setTimeout(() => {
+                dispatch(setIsCoinAnimating(false))
+            }, 1000)
+
             console.log("Card purchased successfully");
         } catch (error) {
             console.error("Error in handleSuccess:", error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -156,11 +168,21 @@ export default function DrawerCardMine(): JSX.Element {
                         className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl"
                         onClick={() => handleSuccess()}
                     >
-                        <TypographyLarge
-                            text={t("good_luck")}
-                            className="text-xl font-bold text-white"
-                        />
-                        <CoinIcon width={28} height={28} />
+                        {isLoading ? (
+                            <div className='flex items-center justify-center w-full gap-2'>
+                                <div className='h-4 w-4 bg-white rounded-full animate-bounce [animation-delay:-0.5s]'></div>
+                                <div className='h-4 w-4 bg-white rounded-full animate-bounce [animation-delay:-0.20s]'></div>
+                                <div className='w-4 h-4 bg-white rounded-full animate-bounce'></div>
+                            </div>
+                        ) : (
+                            <>
+                                <TypographyLarge
+                                    text={t("good_luck")}
+                                    className="text-xl font-bold text-white"
+                                />
+                                <CoinIcon width={28} height={28} />
+                            </>
+                        )}
                     </Button>
                 ) : (
                     <Button className="w-full h-[80px] bg-[#4e4f50cc] hover:bg-[#4e4f50cc] text-white flex justify-center items-center gap-2 rounded-2xl pointer-events-none">

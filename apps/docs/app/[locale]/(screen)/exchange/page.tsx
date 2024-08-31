@@ -128,6 +128,8 @@ const UserCardDefault = React.memo(({ user }: { user: any }) => {
     );
 })
 
+const MemoMineButton = React.memo(MineButton)
+
 export default function Page(): JSX.Element {
     const t = useTranslations("screens.exchange");
 
@@ -139,7 +141,7 @@ export default function Page(): JSX.Element {
 
     const handleClick = useCallback(() => {
         setSecretFeature(prevState => !prevState);
-      }, []);
+    }, []);
 
     const haptic = initHapticFeedback();
 
@@ -253,7 +255,7 @@ export default function Page(): JSX.Element {
                         </Link>
                     </MotionContainer>
                 </CardHeader>
-                <MineButton isSecretFeature={isSecretFeature} />
+                <MemoMineButton isSecretFeature={isSecretFeature} />
             </Card>
         </div>
     );

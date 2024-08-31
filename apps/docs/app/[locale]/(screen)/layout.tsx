@@ -8,27 +8,30 @@ import DrawerProvider from "@shared/drawer";
 import useProfitByHour from "@shared/hooks/useProfitByHour";
 
 import { useAppSelector } from "@shared/redux/store";
+import CoinsAnimationCanvas from "@ui/components/motion/CoinsAnimationCanvas";
 import useImagePreloader from "@shared/hooks/useImagePreloader";
 
 import { BottomNav } from "../../@navigator/BottomNav";
 
 export default function ScreenLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-//   const { imageUrls } = useAppSelector((state) => state.app);
+    const { isCoinAnimating } = useAppSelector(state => state.app)
 
-//   const isPreloaded = useImagePreloader(imageUrls);
+    useProfitByHour();
 
-  useProfitByHour();
+    //   const { imageUrls } = useAppSelector((state) => state.app);
+    //   const isPreloaded = useImagePreloader(imageUrls);
 
-  return (
-    <div className="relative w-full h-full bg-black !text-white border-none m-0 p-0 overflow-hidden">
-      <LazyWrapper>{children}</LazyWrapper>
-      <BottomNav />
-      <DrawerProvider />
-      {/* {isPreloaded && (
+    return (
+        <div className="relative w-full h-full bg-black !text-white border-none m-0 p-0 overflow-hidden">
+            <LazyWrapper>{children}</LazyWrapper>
+            <BottomNav />
+            <DrawerProvider />
+            <CoinsAnimationCanvas isAnimating={isCoinAnimating} />
+            {/* {isPreloaded && (
         <div className="invisible w-0 h-0 pointer-events-none touch-none">
           {imageUrls.map((url, index) => (
             <Image
@@ -45,6 +48,6 @@ export default function ScreenLayout({
           ))}
         </div>
       )} */}
-    </div>
-  );
+        </div>
+    );
 }

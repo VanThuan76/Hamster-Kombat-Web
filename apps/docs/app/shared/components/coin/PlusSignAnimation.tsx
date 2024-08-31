@@ -11,11 +11,12 @@ interface PlusSignAnimationProps {
         tap_value: number;
     };
 }
+const MemoizedPlusSign = React.memo(PlusSign);
 
 const PlusSignAnimation: React.FC<PlusSignAnimationProps> = ({ plusSigns, formattedEnergy, user, isSecretFeature }) => {
     const renderedPlusSigns = useMemo(() => (
         plusSigns.slice(-10).map((pos) => (
-            <PlusSign
+            <MemoizedPlusSign
                 isActive={formattedEnergy >= user.tap_value}
                 numberPlus={user.tap_value}
                 type={isSecretFeature ? "dot" : "plus"}
