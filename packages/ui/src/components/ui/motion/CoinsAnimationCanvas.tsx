@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Coin {
     x: number;
@@ -19,7 +19,7 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
     const fadeIntervalRef = useRef<number | null>(null);
 
-    const fadeOutAudio = (duration: number = 1000) => {
+    const fadeOutAudio = useCallback((duration: number = 1000) => {
         if (!audio) return;
 
         const initialVolume = audio.volume;
@@ -43,7 +43,7 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
                 }
             }
         }, intervalTime);
-    };
+    }, [audio]);
 
     useEffect(() => {
         const loadImagesAndCreateCoins = () => {
@@ -100,13 +100,24 @@ const CoinsAnimationCanvas: React.FC<CoinsAnimationCanvasProps> = ({ isAnimating
         };
     }, []);
 
+
     useEffect(() => {
         if (isAnimating && audio) {
             audio.play();
         } else if (audio) {
-            fadeOutAudio()
+            fadeOutAudio();
         }
-    }, [isAnimating, audio]);
+
+        return () => {
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            if (fadeIntervalRef.current) {
+                clearInterval(fadeIntervalRef.current);
+            }
+        };
+    }, [isAnimating, audio, fadeOutAudio]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
