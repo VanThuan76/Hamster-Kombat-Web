@@ -192,12 +192,12 @@ export default function Page(): JSX.Element {
                         }
                     >
                         {user.userSkins.includes(item.id)
-                            ? "Chọn"
+                            ? t("choose")
                             : hasMoneyBuySkin
-                                ? "Không đủ tiền"
+                                ? t("not_enough_money")
                                 : hasBuySkin
-                                    ? "Mua"
-                                    : `Đạt đến lv ${ranks.find((child) => child.level === item.required_level)?.level} để mở khóa skin`}
+                                    ? t("buy")
+                                    : `${t("reach_lv")} ${ranks.find((child) => child.level === item.required_level)?.level} ${t("to_unlock")}`}
                     </Button>
                 </div>
             </div>
@@ -232,8 +232,8 @@ export default function Page(): JSX.Element {
                 style={{ borderRadius: "40px 40px 0 0" }}
             >
                 <CardHeader className="sticky flex flex-row items-center justify-center py-2">
-                    <TypographyLarge text="Skin" className="w-full text-base text-center text-white" />
-                    <TypographyLarge text="All" className="text-base text-white bg-[#1c1f24] w-full h-[50px] flex justify-center items-center px-1 rounded-xl border-4 border-gray-700" />
+                    <TypographyLarge text={t("skin")} className="w-full text-base text-center text-white" />
+                    <TypographyLarge text={t("all")} className="text-base text-white bg-[#1c1f24] w-full h-[50px] flex justify-center items-center px-1 rounded-xl border-4 border-gray-700" />
                 </CardHeader>
                 <CardContent className="w-full h-full grid grid-cols-5 p-4 !pb-24 gap-2 bg-[#1c1f24] rounded-t-3xl">
                     <DynamicNavigationSwiper

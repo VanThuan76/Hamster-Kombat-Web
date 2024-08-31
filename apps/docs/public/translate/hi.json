@@ -3,7 +3,9 @@
     "exchange": "देश",
     "mine": "निर्माण",
     "friends": "सहयोग",
-    "earn": "मिशन"
+    "earn": "मिशन",
+    "airdrop": "एयरड्रॉप",
+    "playground": "Playground"
   },
   "screens": {
     "exchange": {
@@ -67,7 +69,13 @@
     "skin": {
       "profile": "प्रोफ़ाइल",
       "skin": "स्किन",
-      "purchased": "खरीदा गया"
+      "purchased": "खरीदा गया",
+      "choose": "चुनें",
+      "not_enough_money":"पर्याप्त पैसे नहीं हैं",
+      "buy": "खरीदें",
+      "reach_lv": "स्किन को अनलॉक करने के लिए स्तर",
+      "to_unlock": "तक पहुँचें",
+      "all": "सभी"
     },
     "rank": {
       "from": "से"
@@ -111,7 +119,8 @@
       "profit_by_hour": "प्रति घंटा लाभ",
       "good_luck": "शुभकामनाएं!",
       "not_enough_money": "पर्याप्त पैसे नहीं हैं",
-      "find_card": "3 मेल खाने वाले कार्ड खोजें और इनाम प्राप्त करने के लिए उन्हें अपग्रेड करें!"
+      "find_card": "3 मेल खाने वाले कार्ड खोजें और इनाम प्राप्त करने के लिए उन्हें अपग्रेड करें!",
+      "earn": "प्राप्त करें"
     },
     "drawer_change_exchange": {
       "title": "आपने अनुबंध पर हस्ताक्षर किए हैं",
@@ -128,6 +137,7 @@
     "loading": "लोड हो रहा है",
     "name": "Lion King Token",
     "will_be_launched": "will be launched",
-    "on_TON": "on TON"
+    "on_TON": "on TON",
+    "king": "King"
   }
 }

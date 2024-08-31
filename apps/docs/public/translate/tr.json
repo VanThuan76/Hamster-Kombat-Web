@@ -3,7 +3,9 @@
     "exchange": "Ülke",
     "mine": "İnşaat",
     "friends": "İttifak",
-    "earn": "Görevler"
+    "earn": "Görevler",
+    "airdrop": "AirDrop",
+    "playground": "Playground"
   },
   "screens": {
     "exchange": {
@@ -67,7 +69,13 @@
     "skin": {
       "profile": "Profil",
       "skin": "Kostüm",
-      "purchased": "Satın Alındı"
+      "purchased": "Satın Alındı",
+      "choose": "Seç",
+      "not_enough_money":"Yeterli para yok",
+      "buy": "Satın al",
+      "reach_lv": "Skini açmak için seviye",
+      "to_unlock": "'e ulaş",
+      "all": "Tümü"
     },
     "rank": {
       "from": "dan"
@@ -111,7 +119,8 @@
       "profit_by_hour": "Saat başı kâr",
       "good_luck": "İyi şanslar!",
       "not_enough_money": "Yeterli para yok",
-      "find_card": "3 eşleşen kart bulun ve ödül almak için onları yükseltin!"
+      "find_card": "3 eşleşen kart bulun ve ödül almak için onları yükseltin!",
+      "earn": "Almak"
     },
     "drawer_change_exchange": {
       "title": "Bu şirketle sözleşme imzaladınız",
@@ -128,6 +137,7 @@
     "loading": "Yükleniyor",
     "name": "Lion King Token",
     "will_be_launched": "will be launched",
-    "on_TON": "on TON"
+    "on_TON": "on TON",
+    "king": "King"
   }
 }

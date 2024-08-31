@@ -3,7 +3,9 @@
     "exchange": "País",
     "mine": "Construir",
     "friends": "Aliança",
-    "earn": "Missão"
+    "earn": "Missão",
+    "airdrop": "AirDrop",
+    "playground": "Playground"
   },
   "screens": {
     "exchange": {
@@ -67,7 +69,13 @@
     "skin": {
       "profile": "Perfil",
       "skin": "Skin",
-      "purchased": "Comprado"
+      "purchased": "Comprado",
+      "choose": "Selecionar",
+      "not_enough_money":"Dinheiro insuficiente",
+      "buy": "Comprar",
+      "reach_lv": "Alcançar o nível",
+      "to_unlock": "para desbloquear o skin",
+      "all": "Todos"
     },
     "rank": {
       "from": "de"
@@ -111,7 +119,8 @@
       "profit_by_hour": "Lucro por hora",
       "good_luck": "Boa sorte!",
       "not_enough_money": "Dinheiro insuficiente",
-      "find_card": "Encontre 3 cartas correspondentes e melhore-as para receber uma recompensa!"
+      "find_card": "Encontre 3 cartas correspondentes e melhore-as para receber uma recompensa!",
+      "earn": "Receber"
     },
     "drawer_change_exchange": {
       "title": "Você assinou o contrato",
@@ -128,6 +137,7 @@
     "loading": "Carregando",
     "name": "Lion King Token",
     "will_be_launched": "will be launched",
-    "on_TON": "on TON"
+    "on_TON": "on TON",
+    "king": "King"
   }
 }

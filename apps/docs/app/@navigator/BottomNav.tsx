@@ -30,7 +30,7 @@ export const BottomNav = () => {
             icon: '/project/icon_mine.svg'
         },
         // {
-        //     name: 'Playground',
+        //     name: t('playground'),
         //     link: "/playground",
         //     icon: '/project/icon_playground.svg'
         // },
@@ -45,7 +45,7 @@ export const BottomNav = () => {
             icon: '/project/icon_earn.svg'
         },
         {
-            name: "Airdrop",
+            name: t('airdrop'),
             link: "/airdrop",
             icon: '/project/icon_lion_coin.png'
         },

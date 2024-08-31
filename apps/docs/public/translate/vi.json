@@ -3,7 +3,9 @@
     "exchange": "Quốc gia",
     "mine": "Xây dựng",
     "friends": "Liên minh",
-    "earn": "Nhiệm vụ"
+    "earn": "Nhiệm vụ",
+    "airdrop": "AirDrop",
+    "playground": "Playground"
   },
   "screens": {
     "exchange": {
@@ -67,7 +69,13 @@
     "skin": {
       "profile": "Hồ sơ",
       "skin": "Trang phục",
-      "purchased": "Đã mua"
+      "purchased": "Đã mua",
+      "choose": "Chọn",
+      "not_enough_money":"Không đủ tiền",
+      "buy": "Mua",
+      "reach_lv": "Đạt đến lv",
+      "to_unlock": "để mở khóa skin",
+      "all": "Tất cả"
     },
     "rank": {
       "from": "từ"
@@ -112,7 +120,8 @@
       "profit_by_hour": "Lợi nhuận mỗi giờ",
       "good_luck": "Chúc bạn may mắn!",
       "not_enough_money": "Không đủ tiền",
-      "find_card": "Tìm 3 thẻ kết hợp và nâng cấp chúng để nhận giải thưởng!"
+      "find_card": "Tìm 3 thẻ kết hợp và nâng cấp chúng để nhận giải thưởng!",
+      "earn": "Nhận"
     },
     "drawer_change_exchange": {
       "title": "Bạn đã ký hợp đồng với",
@@ -129,6 +138,7 @@
     "loading": "Đang tải",
     "name": "Lion King Token",
     "will_be_launched": "will be launched",
-    "on_TON": "on TON"
+    "on_TON": "on TON",
+    "king": "King"
   }
 }

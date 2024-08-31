@@ -177,7 +177,7 @@ export default function DrawerCardMine(): JSX.Element {
                         ) : (
                             <>
                                 <TypographyLarge
-                                    text={t("good_luck")}
+                                    text={t("earn")}
                                     className="text-xl font-bold text-white"
                                 />
                                 <CoinIcon width={28} height={28} />

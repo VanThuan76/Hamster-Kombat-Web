@@ -3,7 +3,9 @@
     "exchange": "Страна",
     "mine": "Строительство",
     "friends": "Альянс",
-    "earn": "Задание"
+    "earn": "Задание",
+    "airdrop": "AirDrop",
+    "playground": "Playground"
   },
   "screens": {
     "exchange": {
@@ -67,7 +69,13 @@
     "skin": {
       "profile": "Профиль",
       "skin": "Скин",
-      "purchased": "Куплено"
+      "purchased": "Куплено",
+      "choose": "Выбрать",
+      "not_enough_money":"Недостаточно средств",
+      "buy": "Купить",
+      "reach_lv": "Достигните уровня",
+      "to_unlock": "чтобы разблокировать скин",
+      "all": "Все"
     },
     "rank": {
       "from": "от"
@@ -111,7 +119,8 @@
       "profit_by_hour": "Прибыль в час",
       "good_luck": "Удачи!",
       "not_enough_money": "Недостаточно средств",
-      "find_card": "Найдите 3 совпадающие карты и улучшите их, чтобы получить награду!"
+      "find_card": "Найдите 3 совпадающие карты и улучшите их, чтобы получить награду!",
+      "earn": "Получить"
     },
     "drawer_change_exchange": {
       "title": "Вы подписали контракт",
@@ -128,6 +137,7 @@
     "loading": "Загрузка",
     "name": "Lion King Token",
     "will_be_launched": "will be launched",
-    "on_TON": "on TON"
+    "on_TON": "on TON",
+    "king": "King"
   }
 }

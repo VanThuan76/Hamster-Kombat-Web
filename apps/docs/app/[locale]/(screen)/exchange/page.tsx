@@ -27,6 +27,7 @@ const UserCardExist = React.memo(({
     user: any;
     membership: any;
 }) => {
+    const t = useTranslations("other");
     const locale = useLocale();
     const haptic = initHapticFeedback();
 
@@ -72,7 +73,7 @@ const UserCardExist = React.memo(({
                     </div>
                 </div>
                 <TypographySmall
-                    text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name} (King)`}
+                    text={`${user?.first_name} ${user?.last_name === null ? "" : user?.last_name} (${t("king")})`}
                     className="text-xs"
                 />
             </Link>
