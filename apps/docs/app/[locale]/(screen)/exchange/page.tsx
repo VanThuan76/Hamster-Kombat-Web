@@ -148,7 +148,7 @@ export default function Page(): JSX.Element {
     useBackButton();
 
     return (
-        <div className="relative w-full h-screen pb-6 overflow-y-auto">
+        <div className="relative w-full h-[650px] overflow-x-hidden overflow-y-auto">
             <div className="p-4">
                 {user !== undefined ? (
                     <UserCardExist
@@ -164,7 +164,7 @@ export default function Page(): JSX.Element {
                     <CardProfit />
                 </div>
             </div>
-            <Card className="w-full h-full pb-16 border-none card-has-glow">
+            <Card className="w-full h-full pb-16 overflow-y-auto border-none card-has-glow">
                 <CardHeader>
                     <MotionContainer className="flex flex-row items-center justify-between w-full gap-2">
                         <Link
