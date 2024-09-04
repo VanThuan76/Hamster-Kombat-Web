@@ -59,7 +59,7 @@ export default function Page(): JSX.Element {
   useBackButton();
 
   return (
-    <div className="relative w-full h-screen p-5 pb-24 space-y-2 overflow-hidden overflow-y-auto text-center">
+    <div className="relative w-full h-screen px-5 pb-20 space-y-2 overflow-hidden overflow-y-auto text-center">
       <MotionContainer className="relative w-full" direction="top">
         <div className="icon_earn">
           <svg

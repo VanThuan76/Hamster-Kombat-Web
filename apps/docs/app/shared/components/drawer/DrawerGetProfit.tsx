@@ -76,7 +76,7 @@ export default function DrawerGetProfit(): JSX.Element {
         <Drawer
             isOpen={isDrawerOpen}
             onClose={handleGetProfit}
-            className="w-full card-has-glow min-h-[60%] border-none"
+            className="w-full card-has-glow min-h-[55%] border-none"
         >
             <div className="flex flex-col items-center justify-center w-full gap-8 mt-10">
                 <div className="relative w-full min-h-[200px] flex flex-col justify-center items-center gap-5 bg-[#272a2f] px-6 pt-8 -mb-2 rounded-3xl">

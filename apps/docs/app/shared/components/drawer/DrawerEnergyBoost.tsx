@@ -94,7 +94,7 @@ export default function DrawerEnergyBoost(): JSX.Element {
           <div className="flex items-center justify-center gap-2">
             <CoinIcon width={28} height={28} />
             <TypographyLarge
-              text={String(data?.next?.required_money)}
+              text={String(data?.current?.required_money)}
               className="text-xl font-bold text-white"
             />
           </div>
