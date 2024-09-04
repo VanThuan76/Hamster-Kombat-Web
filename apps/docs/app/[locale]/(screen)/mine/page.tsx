@@ -55,7 +55,7 @@ export default function Page(): JSX.Element {
     useBackButton();
 
     return (
-        <div className="relative w-full h-screen overflow-hidden overflow-y-auto">
+        <div className="relative w-full h-screen pb-12 overflow-x-hidden overflow-y-auto">
             <div className="p-4">
                 <div className="flex items-center justify-between w-full">
                     <CardLevel />
