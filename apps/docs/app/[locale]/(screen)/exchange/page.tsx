@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useCallback, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { Card, CardHeader } from "@ui/components/card";
+import { Card, CardFooter, CardHeader } from "@ui/components/card";
 
 import { useAppSelector } from "@shared/redux/store/index";
 import useBackButton from "@shared/hooks/useBackButton";
@@ -148,7 +148,7 @@ export default function Page(): JSX.Element {
     useBackButton();
 
     return (
-        <div className="relative w-full h-screen pb-4 overflow-x-hidden overflow-y-auto">
+        <div className="relative w-screen h-screen overflow-x-hidden overflow-y-auto">
             <div className="p-4">
                 {user !== undefined ? (
                     <UserCardExist
@@ -164,7 +164,7 @@ export default function Page(): JSX.Element {
                     <CardProfit />
                 </div>
             </div>
-            <Card className="w-full h-full overflow-y-auto border-none card-has-glow">
+            <Card className="w-full min-h-[650px] overflow-y-auto border-none card-has-glow">
                 <CardHeader>
                     <MotionContainer className="flex flex-row items-center justify-between w-full gap-2">
                         <Link

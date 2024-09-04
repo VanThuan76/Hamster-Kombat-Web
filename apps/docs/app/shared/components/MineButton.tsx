@@ -161,7 +161,7 @@ const MineButton = ({
     }, [stateEnergy, isResetStateEnergy]);
 
     return (
-        <React.Fragment>
+        <div className="w-full h-full">
             <MotionContainer
                 className={cn(
                     "w-full flex justify-center items-center gap-2",
@@ -208,7 +208,7 @@ const MineButton = ({
             {isScreenMine && tabScreenMine}
             <MotionContainer
                 type="scale"
-                className="flex flex-col items-center justify-center w-full p-4"
+                className="flex flex-col items-center justify-center w-full px-4"
             >
                 <MotionContainer
                     className={cn(
@@ -291,7 +291,7 @@ const MineButton = ({
                     </div>
                 </div>
             </MotionContainer>
-        </React.Fragment>
+        </div>
     );
 };
 
