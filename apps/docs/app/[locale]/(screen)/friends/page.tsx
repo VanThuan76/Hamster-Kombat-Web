@@ -31,7 +31,7 @@ export default function Page(): JSX.Element {
   useBackButton();
 
   return (
-    <div className="relative w-full h-screen p-5 pb-40 space-y-2 overflow-y-auto text-center bg-black">
+    <div className="relative w-full h-screen p-5 pb-40 space-y-2 overflow-x-hidden overflow-y-auto text-center bg-black">
       <MotionContainer direction="right">
         <TypographyLarge
           text={t("invite_friends")}

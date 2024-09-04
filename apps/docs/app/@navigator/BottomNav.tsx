@@ -69,9 +69,7 @@ export const BottomNav = () => {
 
     return (
         <div
-            className={cn(
-                "fixed flex w-full bottom-0 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pt-1 pb-[10px] items-center justify-center space-x-2",
-            )}
+            className={cn("fixed flex w-full bottom-0 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] dark:bg-black bg-[#272a2f] shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pt-1 pb-[10px] items-center justify-center space-x-2")}
         >
             {navItems.map((navItem: any, index: number) => (
                 <Link

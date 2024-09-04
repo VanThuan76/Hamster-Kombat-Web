@@ -42,7 +42,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={translate}>
           <Providers>
             <RootContainer>
-              <div className="w-screen h-full bg-black !text-white border-none m-0 p-0">
+              <div className="w-screen h-full bg-black !text-white border-none m-0 p-0 overflow-hidden">
                 {children}
               </div>
             </RootContainer>
