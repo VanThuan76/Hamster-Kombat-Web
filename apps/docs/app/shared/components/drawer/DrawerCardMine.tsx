@@ -39,7 +39,8 @@ export default function DrawerCardMine(): JSX.Element {
 
     const currentCardProfit =
         data?.card_profits?.find((child: any) => child.is_purchased) ||
-        data?.card_profits?.find((child: any) => child.id === 1);
+        data?.card_profits?.find((child: any) => child.level === 0);
+
     const nextCardProfit =
         currentCardProfit &&
         data?.card_profits?.find(
@@ -131,7 +132,7 @@ export default function DrawerCardMine(): JSX.Element {
                             />
                         </div>
                         <TypographySmall
-                            text={`+${String(formatCoinStyleDot(data.card_profits?.find((child: any) => child.is_purchased)?.next_level.profit as number))}`}
+                            text={`+${String(formatCoinStyleDot(nextCardProfit?.next_level.profit as number))}`}
                             className="text-white text-[12px]"
                         />
                     </div>
@@ -150,8 +151,7 @@ export default function DrawerCardMine(): JSX.Element {
                     <TypographySmall
                         text={String(
                             formatCoinStyleDot(
-                                data.card_profits?.find((child: any) => child.is_purchased)
-                                    ?.next_level.required_money as number,
+                                nextCardProfit?.next_level.required_money as number,
                             ),
                         )}
                         className="text-white text-[12px] !m-1"

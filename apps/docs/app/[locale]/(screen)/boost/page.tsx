@@ -118,6 +118,7 @@ export default function Page(): JSX.Element {
                     )}
                     onClick={() =>
                         !countdown.minutes &&
+                        stateBoostEnergy.step > 0 &&
                         onOpen("energyBoost", { current: currentEnergy, next: nextEnergy })
                     }
                 >
@@ -139,7 +140,7 @@ export default function Page(): JSX.Element {
                             />
                             <div className="flex items-center justify-between w-full">
                                 <TypographySmall
-                                    text={`${stateBoostEnergy.step}/6 ${t("available")}`}
+                                    text={`${stateBoostEnergy.step === 0 ? t("limit") : `${stateBoostEnergy.step}/6 ${t("available")}`}`}
                                     className={cn(
                                         "text-[14px] text-[#8b8e93] font-light",
                                         countdown.minutes && "opacity-30",

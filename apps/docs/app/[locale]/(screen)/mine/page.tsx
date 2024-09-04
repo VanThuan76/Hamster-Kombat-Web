@@ -179,7 +179,7 @@ export default function Page(): JSX.Element {
                                         ?.cardList.map((item, i) => {
                                             const currentCardProfit =
                                                 item.card_profits.find((child) => child.is_purchased) ||
-                                                item.card_profits.find((child) => child.id === 1);
+                                                item.card_profits.find((child) => child.level === 0);
 
                                             const requiredCardProfit =
                                                 currentCardProfit &&
@@ -191,13 +191,11 @@ export default function Page(): JSX.Element {
                                                 (requiredCardProfit !== "number" &&
                                                     currentCardProfit.required_card.is_bought === 0);
 
-                                            if (!currentCardProfit) return <></>;
-
                                             return (
                                                 <MineCard
                                                     key={i}
                                                     item={item}
-                                                    currentCardProfit={currentCardProfit}
+                                                    currentCardProfit={currentCardProfit!}
                                                     isActiveCard={isActiveCard}
                                                     requiredCardProfit={requiredCardProfit}
                                                     onOpen={(type: DrawerType, data?: DrawerData) => onOpen(type, data)}

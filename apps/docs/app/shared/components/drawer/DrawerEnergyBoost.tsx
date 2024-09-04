@@ -19,6 +19,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@shared/redux/store";
 
 import { useUpdateBoost } from "@server/_action/boost-action";
+import { useRouter } from "@shared/next-intl/navigation";
 
 export default function DrawerEnergyBoost(): JSX.Element {
   const { user, stateBoostEnergy } = useAppSelector((state) => state.app);
@@ -28,6 +29,7 @@ export default function DrawerEnergyBoost(): JSX.Element {
 
   const t = useTranslations("screens.boost");
 
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const updateBoost = useUpdateBoost();
 
@@ -41,16 +43,17 @@ export default function DrawerEnergyBoost(): JSX.Element {
       );
 
       onClose();
+      router.push('/exchange')
 
-      await updateBoost.mutateAsync({
-        user_id: user.id,
-        current_user_boots_id: data?.current?.user_boots_id,
-        current_boots_level: data?.current?.level,
-        next_user_boots_id: data?.next?.user_boots_id,
-        next_boots_level: data?.next?.level,
-        type: 0,
-        sub_type: 0,
-      });
+    //   await updateBoost.mutateAsync({
+    //     user_id: user.id,
+    //     current_user_boots_id: data?.current?.user_boots_id,
+    //     current_boots_level: data?.current?.level,
+    //     next_user_boots_id: data?.next?.user_boots_id,
+    //     next_boots_level: data?.next?.level,
+    //     type: 0,
+    //     sub_type: 0,
+    //   });
       console.log("Successfully");
     } catch (error) {
       console.error("Error in handleSuccess:", error);
