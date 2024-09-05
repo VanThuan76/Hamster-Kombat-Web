@@ -51,7 +51,7 @@ const MineCard = ({ item, currentCardProfit, isActiveCard, requiredCardProfit, o
                         alt="@imageTask"
                         priority={true}
                         className={cn(
-                            "object-cover",
+                            "object-cover rounded-md",
                             isActiveCard && "w-[40px] h-[40px]",
                         )}
                     />

@@ -164,7 +164,7 @@ export default function Page(): JSX.Element {
                     <CardProfit />
                 </div>
             </div>
-            <Card className="w-full min-h-[650px] overflow-y-auto border-none card-has-glow">
+            <Card className="w-full min-h-[650px] overflow-x-hidden overflow-y-auto border-none card-has-glow">
                 <CardHeader>
                     <MotionContainer className="flex flex-row items-center justify-between w-full gap-2">
                         <Link

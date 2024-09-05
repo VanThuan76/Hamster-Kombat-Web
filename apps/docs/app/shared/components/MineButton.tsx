@@ -39,10 +39,12 @@ const MineButton = ({
     isScreenMine,
     tabScreenMine,
     isSecretFeature,
+    className
 }: {
     isScreenMine?: boolean;
     tabScreenMine?: any;
     isSecretFeature?: boolean;
+    className?: string
 }) => {
     const {
         user,
@@ -161,7 +163,7 @@ const MineButton = ({
     }, [stateEnergy, isResetStateEnergy]);
 
     return (
-        <div className={cn("w-full h-full", isScreenMine && "pb-24")}>
+        <div className={cn("w-full h-full", className)}>
             <MotionContainer
                 className={cn(
                     "w-full flex justify-center items-center gap-2",
@@ -189,7 +191,7 @@ const MineButton = ({
                 )}
             </MotionContainer>
             {isSecretFeature && (
-                <div className="w-full px-6">
+                <div className="w-full px-6 my-4">
                     <div className="w-full bg-[#272a2f] flex justify-between items-center rounded-lg px-2 py-1">
                         <TypographyLarge
                             text={t("daily_cipher")}
@@ -208,7 +210,7 @@ const MineButton = ({
             {isScreenMine && tabScreenMine}
             <MotionContainer
                 type="scale"
-                className="flex flex-col items-center justify-center w-full px-4"
+                className={cn("flex flex-col items-center justify-center w-full px-4", isScreenMine && "pb-24")}
             >
                 <MotionContainer
                     className={cn(
