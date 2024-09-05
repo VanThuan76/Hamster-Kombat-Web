@@ -61,14 +61,14 @@ export default function Page(): JSX.Element {
     }
 
     return (
-        <div className="relative w-screen h-screen overflow-x-hidden" onTouchMove={handleTouchMove}>
+        <div className="relative w-screen overflow-x-hidden">
             <div className="p-4">
                 <div className="flex items-center justify-between w-full">
                     <CardLevel />
                     <CardProfit />
                 </div>
             </div>
-            <Card className="w-full min-h-screen overflow-y-auto border-none card-has-glow">
+            <Card className="w-full h-screen overflow-y-auto border-none card-has-glow">
                 <CardHeader className="px-4">
                     <MotionContainer className="flex items-center justify-end w-full gap-2">
                         <CountdownTimer targetTime={targetDate} />
@@ -149,10 +149,10 @@ export default function Page(): JSX.Element {
                         </div>
                     </MotionContainer>
                 </CardHeader>
-                <MineButton
-                    isScreenMine={true}
-                    tabScreenMine={
-                        <CardContent className="w-full h-full p-4 mt-5">
+                <CardContent className="w-full h-full p-4 mt-5">
+                    <MineButton
+                        isScreenMine={true}
+                        tabScreenMine={
                             <Tabs
                                 value={currentTab}
                                 onValueChange={handleTabChange}
@@ -211,9 +211,9 @@ export default function Page(): JSX.Element {
                                         })}
                                 </TabsContent>
                             </Tabs>
-                        </CardContent>
-                    }
-                />
+                        }
+                    />
+                </CardContent>
             </Card>
         </div>
     );

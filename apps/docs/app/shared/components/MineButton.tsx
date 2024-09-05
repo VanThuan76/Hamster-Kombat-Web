@@ -38,13 +38,11 @@ const { initHapticFeedback } = require("@telegram-apps/sdk-react");
 const MineButton = ({
     isScreenMine,
     tabScreenMine,
-    isSecretFeature,
-    className
+    isSecretFeature
 }: {
     isScreenMine?: boolean;
     tabScreenMine?: any;
     isSecretFeature?: boolean;
-    className?: string
 }) => {
     const {
         user,
@@ -163,11 +161,11 @@ const MineButton = ({
     }, [stateEnergy, isResetStateEnergy]);
 
     return (
-        <div className={cn("w-full h-full", className)}>
+        <>
             <MotionContainer
                 className={cn(
                     "w-full flex justify-center items-center gap-2",
-                    !isScreenMine && "mb-3",
+                    !isScreenMine ? "mb-3" : "mb-4",
                 )}
                 type="scale"
             >
@@ -210,7 +208,7 @@ const MineButton = ({
             {isScreenMine && tabScreenMine}
             <MotionContainer
                 type="scale"
-                className={cn("flex flex-col items-center justify-center w-full h-full px-4", isScreenMine && "pb-24")}
+                className={cn("flex flex-col items-center justify-start w-full px-4", isScreenMine && "py-5 min-h-[500px]")}
             >
                 <MotionContainer
                     className={cn(
@@ -293,7 +291,7 @@ const MineButton = ({
                     </div>
                 </div>
             </MotionContainer>
-        </div>
+        </>
     );
 };
 
