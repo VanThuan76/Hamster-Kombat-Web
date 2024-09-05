@@ -58,7 +58,7 @@ const ItemCardRank = ({
             priority={true}
           />
           <TypographySmall
-            text={`${item?.first_name} ${item?.last_name}`}
+            text={`${item?.first_name ?? ""} ${item?.last_name ?? ""}`}
             className="text-[14px]"
           />
         </div>

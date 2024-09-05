@@ -62,7 +62,7 @@ export default function Page(): JSX.Element {
                     <CardProfit />
                 </div>
             </div>
-            <Card className="w-full min-h-[800px] pb-24 overflow-y-auto border-none card-has-glow">
+            <Card className="w-full min-h-screen pb-24 overflow-y-auto border-none card-has-glow">
                 <CardHeader className="px-4">
                     <MotionContainer className="flex items-center justify-end w-full gap-2">
                         <CountdownTimer targetTime={targetDate} />
@@ -85,7 +85,7 @@ export default function Page(): JSX.Element {
                             </svg>
                         </div>
                     </MotionContainer>
-                    <MotionContainer className="flex flex-col items-center justify-end w-full gap-3">
+                    <MotionContainer className="flex flex-col items-center justify-end w-full h-full gap-3">
                         <div className="w-full flex justify-between items-center bg-[#272a2f] rounded-lg p-2">
                             <TypographyLarge
                                 text={t("daily_combo")}
@@ -146,7 +146,7 @@ export default function Page(): JSX.Element {
                 <MineButton
                     isScreenMine={true}
                     tabScreenMine={
-                        <CardContent className="w-full p-4 mt-5">
+                        <CardContent className="w-full h-full p-4 mt-5">
                             <Tabs
                                 value={currentTab}
                                 onValueChange={handleTabChange}
@@ -172,7 +172,7 @@ export default function Page(): JSX.Element {
                                 </MotionContainer>
                                 <TabsContent
                                     value={currentTab}
-                                    className="relative grid items-start justify-start w-full grid-cols-2 gap-2"
+                                    className="relative grid items-start justify-start w-full h-full grid-cols-2 gap-2"
                                 >
                                     {categoryOfCards
                                         ?.find((item) => item.name.toLowerCase() === currentTab)

@@ -207,7 +207,7 @@ export default function Page(): JSX.Element {
     useBackButton();
 
     return (
-        <div className="relative w-full h-screen space-y-2 overflow-y-auto text-center bg-black">
+        <div className="relative w-full h-screen overflow-y-auto text-center bg-black">
             <div className="flex items-center justify-center w-full px-5 py-2">
                 <TypographyLarge text={t("profile")} className="text-base text-white" />
             </div>
@@ -235,7 +235,7 @@ export default function Page(): JSX.Element {
                     <TypographyLarge text="Skin" className="w-full text-base text-center text-white" />
                     <TypographyLarge text="All" className="text-base text-white bg-[#1c1f24] w-full h-[50px] flex justify-center items-center px-1 rounded-xl border-4 border-gray-700" />
                 </CardHeader>
-                <CardContent className="w-full h-full grid grid-cols-5 p-4 !pb-24 gap-2 bg-[#1c1f24] rounded-t-3xl">
+                <CardContent className="w-full h-full grid grid-cols-5 p-4 pb-12 gap-2 bg-[#1c1f24] rounded-t-3xl">
                     <DynamicNavigationSwiper
                         items={skinItems}
                         className="flex items-center justify-center w-full col-span-3"
