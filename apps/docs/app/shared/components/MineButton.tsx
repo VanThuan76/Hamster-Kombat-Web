@@ -161,7 +161,7 @@ const MineButton = ({
     }, [stateEnergy, isResetStateEnergy]);
 
     return (
-        <div className="w-full h-full">
+        <div className={cn("w-full h-full", isScreenMine && "pb-24")}>
             <MotionContainer
                 className={cn(
                     "w-full flex justify-center items-center gap-2",

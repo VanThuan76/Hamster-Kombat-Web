@@ -55,14 +55,14 @@ export default function Page(): JSX.Element {
     useBackButton();
 
     return (
-        <div className="relative w-screen h-screen overflow-x-hidden overflow-y-auto">
+        <div className="relative w-screen h-screen space-y-2 overflow-hidden overflow-y-auto">
             <div className="p-4">
                 <div className="flex items-center justify-between w-full">
                     <CardLevel />
                     <CardProfit />
                 </div>
             </div>
-            <Card className="w-full min-h-screen pb-24 overflow-y-auto border-none card-has-glow">
+            <Card className="w-full min-h-[650px] border-none card-has-glow">
                 <CardHeader className="px-4">
                     <MotionContainer className="flex items-center justify-end w-full gap-2">
                         <CountdownTimer targetTime={targetDate} />
