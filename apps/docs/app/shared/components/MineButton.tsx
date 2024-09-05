@@ -210,7 +210,7 @@ const MineButton = ({
             {isScreenMine && tabScreenMine}
             <MotionContainer
                 type="scale"
-                className={cn("flex flex-col items-center justify-center w-full px-4", isScreenMine && "pb-24")}
+                className={cn("flex flex-col items-center justify-center w-full h-full px-4", isScreenMine && "pb-24")}
             >
                 <MotionContainer
                     className={cn(
