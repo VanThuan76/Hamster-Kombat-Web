@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { useRouter } from "@shared/next-intl/navigation";
 
 import { cn } from "@ui/lib/utils";
@@ -74,6 +75,9 @@ export default function Page(): JSX.Element {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const haptic = initHapticFeedback();
+    const pathName = usePathname()
+
+    const currentLanguage = pathName.split("/")[1]
 
     const { user, skins, membership, ranks } = useAppSelector(
         (state) => state.app,
@@ -141,11 +145,11 @@ export default function Page(): JSX.Element {
                 </div>
                 <div className="w-full min-h-[200px] flex flex-col justify-center items-center gap-3 bg-[#272a2f] rounded-xl p-4">
                     <TypographySmall
-                        text={item.name}
+                        text={currentLanguage === "vi" ? item.name : item.en_name}
                         className="text-base font-bold text-white"
                     />
                     <TypographySmall
-                        text={item.description}
+                        text={currentLanguage === "vi" ? item.description : item.en_description}
                         className="text-[12px] font-normal text-white"
                     />
                     {user.userSkins.includes(item.id) ? (
@@ -192,12 +196,12 @@ export default function Page(): JSX.Element {
                         }
                     >
                         {user.userSkins.includes(item.id)
-                            ? "Chọn"
+                            ? t("choose")
                             : hasMoneyBuySkin
-                                ? "Không đủ tiền"
+                                ? t("not_enough_money")
                                 : hasBuySkin
-                                    ? "Mua"
-                                    : `Đạt đến lv ${ranks.find((child) => child.level === item.required_level)?.level} để mở khóa skin`}
+                                    ? t("buy")
+                                    : `${t("front_description")} ${ranks.find((child) => child.level === item.required_level)?.level} ${t("end_description")}`}
                     </Button>
                 </div>
             </div>
@@ -267,7 +271,7 @@ export default function Page(): JSX.Element {
                                         />
                                     </div>
                                     <TypographySmall
-                                        text={item.name}
+                                        text={currentLanguage === "vi" ? item.name : item.en_name}
                                         className="text-[9px] font-extralight text-white fix-words-mine"
                                     />
                                     {user.userSkins.includes(item.id) ? (

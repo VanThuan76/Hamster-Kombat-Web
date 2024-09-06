@@ -67,7 +67,12 @@
     "skin": {
       "profile": "Profile",
       "skin": "Skin",
-      "purchased": "Purchased"
+      "purchased": "Purchased",
+      "choose": "Choose",
+      "not_enough_money": "Not enough money",
+      "buy": "Buy",
+      "front_description": "Reach lv",
+      "end_description": "to unlock skins"
     },
     "rank": {
       "from": "from"

@@ -17,6 +17,7 @@ export interface ICardProfit {
   id: number;
   card_id: number;
   card_name: string;
+  card_name_en: string;
   level: number;
   profit: number;
   required_card: number;
@@ -42,7 +43,9 @@ export interface IBuyCard {
 export interface ICategoryOfCard {
   id: number;
   name: string;
+  en_name: string
   description: string;
+  en_description: string
   order: number;
   status?: null;
   created_at: string;
@@ -54,7 +57,9 @@ export interface ICategoryOfCard {
 export interface CardList {
   id: number;
   name: string;
+  en_name: string;
   description: string;
+  en_description: string
   image?: null | string;
   category_id: number;
   order: number;

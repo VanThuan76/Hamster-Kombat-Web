@@ -14,34 +14,34 @@ export const LANGUAGES = [
         name: 'English',
         code: 'en'
     },
-    {
-        name: 'हिन्दी (Hindi)',
-        code: 'hi'
-    },
-    {
-        name: 'Português',
-        code: 'pt'
-    },
-    {
-        name: 'Español',
-        code: 'es'
-    },
-    {
-        name: 'Deutsch',
-        code: 'de'
-    },
-    {
-        name: 'Français',
-        code: 'fr'
-    },
-    {
-        name: 'Русский',
-        code: 'ru'
-    },
-    {
-        name: 'Türkçe',
-        code: 'tr'
-    }
+    // {
+    //     name: 'हिन्दी (Hindi)',
+    //     code: 'hi'
+    // },
+    // {
+    //     name: 'Português',
+    //     code: 'pt'
+    // },
+    // {
+    //     name: 'Español',
+    //     code: 'es'
+    // },
+    // {
+    //     name: 'Deutsch',
+    //     code: 'de'
+    // },
+    // {
+    //     name: 'Français',
+    //     code: 'fr'
+    // },
+    // {
+    //     name: 'Русский',
+    //     code: 'ru'
+    // },
+    // {
+    //     name: 'Türkçe',
+    //     code: 'tr'
+    // }
 ]
 
 export const RANKS = [

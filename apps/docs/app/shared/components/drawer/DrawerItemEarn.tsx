@@ -161,10 +161,10 @@ export default function DrawerItemEarn(): JSX.Element {
                 <div className="flex flex-col items-center justify-center w-full gap-5">
                     <div className="flex flex-col items-center justify-center gap-3 text-center text-white">
                         <TypographyLarge
-                            text={data?.name}
+                            text={data.language === "vi" ? data?.name : data?.en_name}
                             className="text-[32px] font-bold leading-8"
                         />
-                        <TypographySmall text={data?.description} className="text-[14px]" />
+                        <TypographySmall text={data.language === "vi" ? data?.description : data?.en_description} className="text-[14px]" />
                     </div>
                     {data.user_earn_id !== 353 ? ( //Fixed
                         <Button

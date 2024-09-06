@@ -27,7 +27,7 @@ export default function DrawerCalendarEarn(): JSX.Element {
 
     const [lastDateChecked, setLastDateChecked] = useLocalStorage<
         string | undefined
-    >("last_date_checked", "");
+    >("lion_last_date_checked", "");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
     const now = new Date();
@@ -44,13 +44,9 @@ export default function DrawerCalendarEarn(): JSX.Element {
     const updateEarn = useUpdateEarn();
 
     async function handleSuccess() {
-        const dayNext = earns
-            .find((item) => item.type === 3)
-            ?.earn.find((item) => item.order === (currentDay?.order === 1 ? 1 : currentDay!.order + 1));
-
         await updateEarn.mutateAsync({
             user_id: user.id,
-            user_earn_id: dayNext!.user_earn_id,
+            user_earn_id: currentDay!.user_earn_id,
             is_completed: 1,
         });
 

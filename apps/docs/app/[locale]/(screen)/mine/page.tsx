@@ -3,6 +3,7 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { Card, CardContent, CardHeader } from "@ui/components/card";
@@ -36,6 +37,8 @@ const CountdownTimer = dynamic(
 
 export default function Page(): JSX.Element {
     const t = useTranslations("screens.mine");
+    const pathName = usePathname()
+    const currentLanguage = pathName.split("/")[1]
 
     const { onOpen } = useDraw();
 
@@ -170,7 +173,7 @@ export default function Page(): JSX.Element {
                                                     value={item.name.toLowerCase()}
                                                     className="w-full text-white text-[12px] px-1"
                                                 >
-                                                    {item.name}
+                                                    {currentLanguage === "vi" ? item.name : item.en_name}
                                                 </TabsTrigger>
                                             );
                                         })}
@@ -181,7 +184,7 @@ export default function Page(): JSX.Element {
                                     className="relative grid items-start justify-start w-full h-full grid-cols-2 gap-2"
                                 >
                                     {categoryOfCards
-                                        ?.find((item) => item.name.toLowerCase() === currentTab)
+                                        ?.find((item) => currentLanguage === "vi" ? item.name.toLowerCase() === currentTab :  item.en_name.toLowerCase() === currentTab)
                                         ?.cardList.map((item, i) => {
                                             const currentCardProfit =
                                                 item.card_profits.find((child) => child.is_purchased) ||
@@ -202,6 +205,7 @@ export default function Page(): JSX.Element {
                                                     key={i}
                                                     item={item}
                                                     currentCardProfit={currentCardProfit!}
+                                                    language={currentLanguage as 'vi' || 'en'}
                                                     isActiveCard={isActiveCard}
                                                     requiredCardProfit={requiredCardProfit}
                                                     onOpen={(type: DrawerType, data?: DrawerData) => onOpen(type, data)}

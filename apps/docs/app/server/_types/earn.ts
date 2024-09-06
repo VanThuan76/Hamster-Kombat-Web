@@ -10,7 +10,9 @@ export interface EarnDetail {
     user_earn_id: number;
     is_completed: number;
     name: string;
+    en_name: string
     description: string;
+    en_description: string;
     link: null | string;
     image: null | string;
     reward: number;

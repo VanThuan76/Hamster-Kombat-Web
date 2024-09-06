@@ -20,11 +20,12 @@ interface MineCardProps {
     currentCardProfit: CardProfit;
     isActiveCard: boolean;
     onOpen: (type: DrawerType, data?: DrawerData) => void;
+    language: 'vi' | 'en',
     requiredCardProfit: any
     user: any;
 }
 
-const MineCard = ({ item, currentCardProfit, isActiveCard, requiredCardProfit, onOpen, user }: MineCardProps) => {
+const MineCard = ({ item, currentCardProfit, isActiveCard, requiredCardProfit, onOpen, language, user }: MineCardProps) => {
     const t = useTranslations("screens.mine");
 
     return (
@@ -37,6 +38,7 @@ const MineCard = ({ item, currentCardProfit, isActiveCard, requiredCardProfit, o
                 ) {
                     onOpen("cardMine", {
                         ...item,
+                        language: language,
                         hasBuy: currentCardProfit && currentCardProfit.next_level && currentCardProfit.next_level.required_money < user.revenue
                     });
                 }
@@ -70,7 +72,7 @@ const MineCard = ({ item, currentCardProfit, isActiveCard, requiredCardProfit, o
                 </div>
                 <div className="flex flex-col items-start justify-between">
                     <TypographyLarge
-                        text={item.name}
+                        text={language === "vi" ? item.name : item.en_name}
                         className="text-xs leading-3 text-white fix-words-mine font-extralight"
                     />
                     <div className="flex flex-col items-start justify-start">
@@ -122,7 +124,7 @@ const MineCard = ({ item, currentCardProfit, isActiveCard, requiredCardProfit, o
                             requiredCardProfit !== "number" &&
                                 currentCardProfit.required_card.is_bought ===
                                 0
-                                ? currentCardProfit.required_card?.card_name
+                                ? language === "vi" ? currentCardProfit.required_card?.card_name : currentCardProfit.required_card?.card_name_en
                                 : currentCardProfit.next_level
                                     ? String(
                                         formatCoin(

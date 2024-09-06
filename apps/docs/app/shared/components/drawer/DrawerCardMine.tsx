@@ -108,11 +108,11 @@ export default function DrawerCardMine(): JSX.Element {
                     />
                 </div>
                 <TypographySmall
-                    text={data?.name}
+                    text={data.language === "vi" ? data?.name : data?.en_name}
                     className="text-white text-[28px] font-semibold"
                 />
                 <TypographySmall
-                    text={data?.description}
+                    text={data.language === "vi" ? data?.description : data?.en_description}
                     className="text-white text-[14px] text-center"
                 />
                 <div className="flex flex-col items-center justify-center gap-1">

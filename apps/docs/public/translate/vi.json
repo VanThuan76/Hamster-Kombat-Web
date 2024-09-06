@@ -67,7 +67,12 @@
     "skin": {
       "profile": "Hồ sơ",
       "skin": "Trang phục",
-      "purchased": "Đã mua"
+      "purchased": "Đã mua",
+      "choose": "Chọn",
+      "not_enough_money": "Không đủ tiền",
+      "buy": "Mua",
+      "front_description": "Đạt đến lv",
+      "end_description": "để mở khóa skin"
     },
     "rank": {
       "from": "từ"
