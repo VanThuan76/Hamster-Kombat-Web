@@ -257,7 +257,7 @@ export default function Page(): JSX.Element {
                                 <div
                                     key={i}
                                     className={cn(
-                                        "relative min-h-[100px] bg-[#272a2f] flex flex-col justify-start items-center rounded-xl pb-2 px-0 gap-1 overflow-hidden",
+                                        "relative min-h-[100px] bg-[#272a2f] flex flex-col justify-start items-center rounded-sm pb-2 px-0 gap-1 overflow-hidden",
                                         i === currentTarget && "border border-[#5a60ff]",
                                     )}
                                     onClick={() => setCurrentTarget(i)}

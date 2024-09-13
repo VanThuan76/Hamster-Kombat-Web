@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@ui/components/button";
+import { cn } from "@ui/lib/utils";
 
 import Drawer from "@ui/components/drawer";
 import TypographyLarge from "@ui/components/typography/large";
@@ -26,6 +27,7 @@ const { initUtils } = require("@telegram-apps/sdk-react");
 export default function DrawerItemEarn(): JSX.Element {
     const [timeYt, setTimeYt] = useLocalStorage<any>("current_time_yt", "");
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     const { earns, user } = useAppSelector((state) => state.app);
     const { isOpen, data, onClose, type } = useDraw();
@@ -56,6 +58,7 @@ export default function DrawerItemEarn(): JSX.Element {
             if (earn.is_completed !== 0) return;
 
             const currentTime = new Date().getTime();
+            setIsLoading(true);
 
             if (earn.link?.toLowerCase().includes("youtube")) {
                 if (timeYt) {
@@ -116,8 +119,11 @@ export default function DrawerItemEarn(): JSX.Element {
 
                 console.log("Successfully");
             }
+
         } catch (error) {
             console.error("Error in handleSuccess:", error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -189,19 +195,29 @@ export default function DrawerItemEarn(): JSX.Element {
                 </div>
                 {data.is_completed === 0 && (
                     <Button
-                        className="w-full h-[80px] bg-[#5a60ff] hover:bg-[#5a60ff]/90 text-white flex justify-center items-center gap-2 rounded-2xl"
+                        className={cn("w-full h-[80px] text-white flex justify-center items-center gap-2 rounded-2xl", isLoading ? "bg-[#4e4f50cc] hover:bg-[#4e4f50cc]" : "bg-[#5a60ff] hover:bg-[#5a60ff]/90")}
                         onClick={() => handleSuccess(data)}
                     >
-                        <TypographyLarge
-                            text={
-                                earns.find((item) => item.type === 3)?.earn[0]?.is_completed ===
-                                    0
-                                    ? t("btn_require")
-                                    : t("btn_check")
-                            }
-                            className="text-xl font-bold text-white"
-                        />
-                        <CoinIcon width={28} height={28} />
+                        {isLoading ? (
+                            <div className='flex items-center justify-center w-full gap-2'>
+                                <div className='h-4 w-4 bg-white rounded-full animate-fade-bounce [animation-delay:-0.3s]'></div>
+                                <div className='h-4 w-4 bg-white rounded-full animate-fade-bounce [animation-delay:-0.15s]'></div>
+                                <div className='w-4 h-4 bg-white rounded-full animate-fade-bounce'></div>
+                            </div>
+                        ) : (
+                            <>
+                                <TypographyLarge
+                                    text={
+                                        earns.find((item) => item.type === 3)?.earn[0]?.is_completed ===
+                                            0
+                                            ? t("btn_require")
+                                            : t("btn_check")
+                                    }
+                                    className="text-xl font-bold text-white"
+                                />
+                                <CoinIcon width={28} height={28} />
+                            </>
+                        )}
                     </Button>
                 )}
             </div>

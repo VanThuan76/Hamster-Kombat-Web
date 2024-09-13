@@ -162,7 +162,7 @@ export default function Page(): JSX.Element {
                                     <div className="flex flex-col items-start justify-start">
                                         <TypographySmall
                                             text={currentLanguage === "vi" ? earn.description : earn.en_description}
-                                            className="text-[14px] text-white font-extralight"
+                                            className="text-[14px] text-white font-extralight text-left fix-words-mine"
                                         />
                                         <div className="flex items-center justify-center gap-1">
                                             <CoinIcon width={20} height={20} />
@@ -201,7 +201,7 @@ export default function Page(): JSX.Element {
                         <div className="flex flex-col items-start justify-start">
                             <TypographySmall
                                 text={t("daily_reward")}
-                                className="text-[14px] text-white font-extralight"
+                                className="text-[14px] text-white font-extralight text-left fix-words-mine"
                             />
                             <div className="flex items-center justify-center gap-1">
                                 <CoinIcon width={20} height={20} />
@@ -262,7 +262,7 @@ export default function Page(): JSX.Element {
                                     <div className="flex flex-col items-start justify-start">
                                         <TypographySmall
                                             text={currentLanguage === "vi" ? earn.name : earn.en_name}
-                                            className="text-[14px] text-white font-extralight text-start fix-words-mine"
+                                            className="text-[14px] text-white font-extralight text-left fix-words-mine"
                                         />
                                         <div className="flex items-center justify-center gap-1">
                                             <CoinIcon width={20} height={20} />

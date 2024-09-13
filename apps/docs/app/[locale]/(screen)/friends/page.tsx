@@ -73,7 +73,7 @@ export default function Page(): JSX.Element {
                     className="text-[14px] text-[#ffd337] ml-1 truncate"
                   />
                 </div>
-                <span className="text-[14px] font-extralight">
+                <span className="text-[14px] font-extralight text-left">
                   {t("des_invite_friends_card")}
                 </span>
               </div>
