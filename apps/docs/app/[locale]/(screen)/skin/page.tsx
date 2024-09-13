@@ -99,7 +99,10 @@ export default function Page(): JSX.Element {
                 return;
             }
 
-            const membershipData = { ...membership, image };
+            const membershipData = {
+                ...membership,
+                image: `${process.env.NEXT_PUBLIC_DOMAIN_BACKEND}/${image}`
+            };
 
             if (action === 'buy') {
                 await dispatch(setUpdateRevenue(user.revenue - price));
@@ -114,7 +117,6 @@ export default function Page(): JSX.Element {
                 await updateSkin.mutateAsync({ user_id: user.id, skin_id });
             }
 
-            console.log("Successfully");
             router.push("/exchange");
         } catch (error) {
             console.error(`Error in handle${action === 'buy' ? 'Buy' : 'Choose'}Skin:`, error);
