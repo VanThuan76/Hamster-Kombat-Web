@@ -204,7 +204,7 @@ export default function Page(): JSX.Element {
           className="w-[20%] h-[60px] bg-[#5a60ff]/85 hover:bg-[#5a60ff] rounded-2xl"
           onClick={() => {
             navigator.clipboard.writeText(
-              `${process.env.NEXT_PUBLIC_URL_TELEGRAM_BOT}/?startapp=teleId${user.id}`,
+              `t.me/lion_king_ton_bot/LionKing/?startapp=teleId${user.id}`,
             );
             utils
               .readTextFromClipboard()

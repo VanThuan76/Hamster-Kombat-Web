@@ -1,16 +1,16 @@
 import {
-  useMutation,
-  UseMutationResult,
-  UseQueryResult,
+    useMutation,
+    UseMutationResult,
+    UseQueryResult,
 } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "@shared/hooks/useToast";
 import { axiosInstance } from "@shared/axios.http";
 import { useAppDispatch, useAppSelector } from "@shared/redux/store/index";
 import {
-  setMembership,
-  setUpdateBoost,
-  setEnergyLimit,
+    setMembership,
+    setUpdateBoost,
+    setEnergyLimit,
 } from "@shared/redux/store/appSlice";
 
 import { queryClient } from "./config";
@@ -24,59 +24,61 @@ import BOOST_PATHS from "../_path/boost-path";
 const { useHapticFeedback } = require("@telegram-apps/sdk-react");
 
 export const useUpdateBoost: () => UseMutationResult<
-  IBaseResponse<IResponseUpdateBoost>,
-  Error,
-  IUpdateBoost
+    IBaseResponse<IResponseUpdateBoost>,
+    Error,
+    IUpdateBoost
 > = () => {
-  const { membership } = useAppSelector((state) => state.app);
+    const { membership } = useAppSelector((state) => state.app);
 
-  const t = useTranslations("other");
+    const t = useTranslations("other");
 
-  const dispatch = useAppDispatch();
-  const haptics = useHapticFeedback();
+    const dispatch = useAppDispatch();
+    const haptics = useHapticFeedback();
 
-  return useMutation<IBaseResponse<IResponseUpdateBoost>, Error, IUpdateBoost>({
-    mutationFn: (body: IUpdateBoost) =>
-      axiosInstance.post<IBaseResponse<IResponseUpdateBoost>>(
-        BOOST_PATHS.UPDATE_BY_USER,
-        body,
-      ),
-    onMutate: () => {
-      toast({
-        variant: "default",
-        title: t("pending_action"),
-      });
-    },
-    onSuccess: async (data) => {
-      if (!data.data) return;
-      queryClient.invalidateQueries({ queryKey: ["UPDATE_BOOST", "BOOST"] });
-      dispatch(
-        setUpdateBoost({
-          boots: data.data.boots,
-          tap_value: data.data.user.tap_value,
-        }),
-      );
-      dispatch(setEnergyLimit(data.data.max_energy));
+    return useMutation<IBaseResponse<IResponseUpdateBoost>, Error, IUpdateBoost>({
+        mutationFn: (body: IUpdateBoost) =>
+            axiosInstance.post<IBaseResponse<IResponseUpdateBoost>>(
+                BOOST_PATHS.UPDATE_BY_USER,
+                body,
+            ),
+        onMutate: () => {
+            toast({
+                variant: "default",
+                title: t("pending_action"),
+            });
+        },
+        onSuccess: async (data) => {
+            if (!data.data) return;
 
-      const membershipData = {
-        ...membership,
-        name: data.data.membership.membership?.name,
-        money: data.data.membership.membership?.money,
-        level: data.data.membership.membership?.level,
-        short_money: data.data.membership.membership?.short_money,
-      };
+            queryClient.invalidateQueries({ queryKey: ["UPDATE_BOOST", "BOOST"] });
 
-      dispatch(setMembership(membershipData)); //Fix
+            dispatch(
+                setUpdateBoost({
+                    boots: data.data.boots,
+                    tap_value: data.data.user.tap_value,
+                }),
+            );
+            dispatch(setEnergyLimit(data.data.max_energy));
 
-      toast({
-        variant: "success",
-        title: t("success_action"),
-      });
-      haptics.notificationOccurred("success");
-    },
-    onError(error, variables, context) {
-      console.log(error);
-      return haptics.notificationOccurred("error");
-    },
-  });
+            const membershipData = {
+                ...membership,
+                name: data.data.membership.membership?.name,
+                money: data.data.membership.membership?.money,
+                level: data.data.membership.membership?.level,
+                short_money: data.data.membership.membership?.short_money,
+            };
+
+            dispatch(setMembership(membershipData)); //Fix
+
+            toast({
+                variant: "success",
+                title: t("success_action"),
+            });
+            haptics.notificationOccurred("success");
+        },
+        onError(error, variables, context) {
+            console.log(error);
+            return haptics.notificationOccurred("error");
+        },
+    });
 };
