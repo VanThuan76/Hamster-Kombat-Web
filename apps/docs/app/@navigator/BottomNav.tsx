@@ -84,12 +84,12 @@ export const BottomNav = () => {
                         checkPath?.includes(navItem.link.split("/")[1]) ? 'bg-[#1c1f24] rounded-xl' : 'bg-transparent'
                     )}
                 >
-                    <div className="w-[28px] h-[28px] flex justify-center items-center">
+                    <div className="w-[40px] h-[40px] flex justify-center items-center">
                         <Image
                             src={navItem.icon}
                             alt={navItem.name}
-                            width={28}
-                            height={28}
+                            width={40}
+                            height={40}
                             className={cn(isSvg(navItem.icon) && index !== 0 && "w-full h-full hover:filter hover:brightness-0 hover:invert", checkPath?.includes(navItem.link.split("/")[1]) && index !== 0 && isSvg(navItem.icon) && 'filter brightness-0 invert')}
                             priority={true} quality={75}
                         />
