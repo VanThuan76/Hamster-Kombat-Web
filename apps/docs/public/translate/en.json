@@ -1,6 +1,6 @@
 {
   "menu": {
-    "exchange": "Country",
+    "exchange": "Empire",
     "mine": "Build",
     "friends": "Alliance",
     "earn": "Mission"
@@ -29,7 +29,7 @@
       "premium": "Reward",
       "list_friend": "Your friends list",
       "invite_friends_no": "You haven't invited anyone",
-      "share": "Play with me, become the CEO of a cryptocurrency exchange and receive airdrop tokens! 💸 +2k coins as a first-time gift 🔥 +25k coins if you have Telegram Premium"
+      "share": "Play with me, become the King of empire and receive airdrop tokens! 💸 +2k coins as a first-time gift 🔥 +25k coins if you have Telegram Premium"
     },
     "earn": {
       "earn_coin": "Earn more money",
@@ -40,7 +40,7 @@
       "des_daily_reward": "Accumulate coins when logging into the game daily without skipping. The 'collect' button must be pressed daily, otherwise the day count will reset",
       "join_telegram": "Join our TG channel",
       "join_x": "Follow our X account",
-      "choose_exchange": "Choose your exchange",
+      "choose_exchange": "Choose your empire",
       "invite_friends": "Invite 3 friends",
       "btn_back": "Come back tomorrow",
       "btn_require": "Claim",
@@ -61,7 +61,7 @@
     "setting": {
       "title": "Settings",
       "language": "Choose language",
-      "exchange": "Choose country",
+      "exchange": "Choose empire",
       "delete_account": "Delete account"
     },
     "skin": {
@@ -110,7 +110,7 @@
     },
     "drawer_info_profit": {
       "title": "Boost your profit",
-      "description_1": "Access the mining menu and buy upgrades for your exchange to boost",
+      "description_1": "Access the mining menu and buy upgrades for your empire to boost",
       "description_2": "earn even when offline for 3 hours",
       "start_button": "Start mining",
       "profit_by_hour": "Profit per hour",
@@ -121,7 +121,7 @@
     "drawer_change_exchange": {
       "title": "You signed a contract with",
       "button": "Good luck!",
-      "exchange": "The exchange has started working for you",
+      "exchange": "The empire has started working for you",
       "thanks": "Thank you,"
     }
   },

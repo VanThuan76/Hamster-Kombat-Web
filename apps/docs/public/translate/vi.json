@@ -1,6 +1,6 @@
 {
   "menu": {
-    "exchange": "Quốc gia",
+    "exchange": "Đế quốc",
     "mine": "Xây dựng",
     "friends": "Liên minh",
     "earn": "Nhiệm vụ"
@@ -40,7 +40,7 @@
       "des_daily_reward": "Tích lũy xu khi đăng nhập vào trò chơi hàng ngày mà không cần bỏ qua. Nút 'thu thập' phải được nhấn hàng ngày, nếu không việc đếm ngày sẽ bắt đầu lại",
       "join_telegram": "Tham gia kênh TG của chúng tôi",
       "join_x": "Theo dõi tài khoản X của chúng tôi",
-      "choose_exchange": "Chọn sàn giao dịch của bạn",
+      "choose_exchange": "Chọn đế chế của bạn",
       "invite_friends": "Mời 3 người bạn",
       "btn_back": "Quay lại ngày mai",
       "btn_require": "Yêu cầu bồi thường",
@@ -48,7 +48,7 @@
       "btn_check": "Kiểm tra",
       "btn_join": "Tham gia",
       "wait": "Xin vui lòng chờ 30p sau khi xem video",
-      "choose_exchange_no": "Bạn chưa chọn quốc gia xây dựng",
+      "choose_exchange_no": "Bạn chưa chọn đế quốc xây dựng",
       "watch_video": "Xem video",
       "lion_youtube": "Lion Youtube"
     },
@@ -61,7 +61,7 @@
     "setting": {
       "title": "Cài đặt",
       "language": "Chọn ngôn ngữ",
-      "exchange": "Chọn quốc gia",
+      "exchange": "Chọn đế quốc",
       "delete_account": "Xoá tài khoản"
     },
     "skin": {
@@ -111,7 +111,7 @@
     },
     "drawer_info_profit": {
       "title": "Tăng lợi nhuận của bạn",
-      "description_1": "Truy cập menu khai thác và mua nâng cấp cho sàn giao dịch của bạn để tăng cường",
+      "description_1": "Truy cập menu khai thác và mua nâng cấp cho đế chế của bạn để tăng cường",
       "description_2": "kiếm tiền ngay cả khi ngoại tuyến trong 3 giờ",
       "start_button": "Bắt đầu khai thác",
       "profit_by_hour": "Lợi nhuận mỗi giờ",
@@ -122,7 +122,7 @@
     "drawer_change_exchange": {
       "title": "Bạn đã ký hợp đồng với",
       "button": "Chúc may mắn!",
-      "exchange": "Sàn giao dịch đã bắt đầu làm việc cho bạn",
+      "exchange": "Đế chế đã bắt đầu làm việc cho bạn",
       "thanks": "Cảm ơn bạn,"
     }
   },
